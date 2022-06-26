@@ -5,7 +5,7 @@
     min-width: 100px;
     padding: 9px 16px;
     border-radius: 4px;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
     cursor: pointer;
     background-color: var(--white);
@@ -20,6 +20,12 @@
         pointer-events: none;
         opacity: 0.5;
     }
+}
+
+.icon {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
 }
 
 .icon + .title,
@@ -75,8 +81,6 @@
         background-color: rgba(22, 24, 35, 0.03);
     }
 }
-
-// Disabled
 
 // Button sizes
 .small {
