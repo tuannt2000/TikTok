@@ -101,69 +101,77 @@ function Header() {
                 <div className={cx('logo')}>
                     <Link to={'/'}><img src={images.logo} alt="TikTok" /></Link>
                 </div>
-                <HeadlessTippy
-                    interactive
-                    visible={searchResult.length > 0}
-                    render={(attrs) => (
-                        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>Accounts</h4>
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cx('search')}>
-                        <input placeholder="Tìm kiếm tài khoản và video" spellCheck={false} className={cx('search-input')} />
-                        <button className={cx('clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner} /> */}
-                        <span className={cx('span-spliter')}></span>
+                <div>
+                    <HeadlessTippy
+                        interactive
+                        visible={searchResult.length > 0}
+                        render={(attrs) => (
+                            <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                                <PopperWrapper>
+                                    <h4 className={cx('search-title')}>Accounts</h4>
+                                    <AccountItem />
+                                    <AccountItem />
+                                    <AccountItem />
+                                    <AccountItem />
+                                </PopperWrapper>
+                            </div>
+                        )}
+                    >
+                        <div className={cx('search')}>
+                            <input placeholder="Tìm kiếm tài khoản và video" spellCheck={false} className={cx('search-input')} />
+                            <button className={cx('clear')}>
+                                <FontAwesomeIcon icon={faCircleXmark} />
+                            </button>
+                            {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner} /> */}
+                            <span className={cx('span-spliter')}></span>
 
-                        <button className={cx('search-btn')} >
-                            <SearchIcon />
-                        </button>
-                        <div className={cx('border-search')}></div>
-                    </div>
-                </HeadlessTippy>
+                            <button className={cx('search-btn')} >
+                                <SearchIcon />
+                            </button>
+                            <div className={cx('border-search')}></div>
+                        </div>
+                    </HeadlessTippy>
+                </div>
                 <div className={cx('actions')}>
                     <Button to='/upload' upload leftIcon={<FontAwesomeIcon icon={faPlus} />}>Tải lên</Button>
                     {currentUser ? (
                         <>
-                            <Tippy content="Tin nhắn">
-                                <button className={cx('action-btn')}>
-                                    <MessageIcon />
-                                </button>
-                            </Tippy>
-                            <Tippy content="Hộp thư">
-                                <button className={cx('action-btn')}>
-                                    <InboxIcon />
-                                    <span className={cx('badge')}>12</span>
-                                </button>           
-                            </Tippy>              
+                            <div>
+                                <Tippy content="Tin nhắn">
+                                    <button className={cx('action-btn')}>
+                                        <MessageIcon />
+                                    </button>
+                                </Tippy>
+                            </div>
+                            <div>
+                                <Tippy content="Hộp thư">
+                                    <button className={cx('action-btn')}>
+                                        <InboxIcon />
+                                        <span className={cx('badge')}>12</span>
+                                    </button>
+                                </Tippy>
+                            </div>
                         </>
                     ) : (
                         <>
                             <Button primary>Đăng nhập</Button>
                         </>
                     )}
-                    <PopperMenu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
-                        {currentUser ? (
-                            <Image
-                                src="https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tiktok-obj/1653276361117698.jpeg?x-expires=1656856800&x-signature=ulhdfzsqO9rXMR3oW6nKPyasuNQ%3D" 
-                                alt="Nguyễn Hữu Tuấn" 
-                                className={cx('user-avatar')}
-                            />
-                        ) : (
-                            <button className={cx('more-btn')} >
-                                <FontAwesomeIcon icon={faEllipsisV} />
-                            </button>
-                        )}
-                    </PopperMenu>
+                    <div>
+                        <PopperMenu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                            {currentUser ? (
+                                <Image
+                                    src="https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tiktok-obj/1653276361117698.jpeg?x-expires=1656856800&x-signature=ulhdfzsqO9rXMR3oW6nKPyasuNQ%3D"
+                                    alt="Nguyễn Hữu Tuấn"
+                                    className={cx('user-avatar')}
+                                />
+                            ) : (
+                                <button className={cx('more-btn')} >
+                                    <FontAwesomeIcon icon={faEllipsisV} />
+                                </button>
+                            )}
+                        </PopperMenu>
+                    </div>
                 </div>
             </div>
         </header >
