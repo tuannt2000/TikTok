@@ -68,7 +68,7 @@
 }
 
 .search-btn {
-    padding: 13px 16px 13px 12px;
+    padding: 9px 16px 9px 12px;
     margin: -12px -16px;
     font-size: 1.8rem;
     color: rgba(22, 24, 35, 0.34);
@@ -113,12 +113,29 @@
 }
 
 .action-btn {
+    position: relative;
+    display: flex;
     font-size: 2.2rem;
     color: #161823;
     background-color: transparent;
     padding: 4px 7px;
     cursor: pointer;
     margin-left: 10px;
+}
+
+.badge {
+    position: absolute;
+    top: -3px;
+    right: 0px;
+    padding: 0px 6px;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    font-family: 'ProximaNova', sans-serif;
+    background-color: var(--primary);
 }
 
 .user-avatar {

@@ -2,9 +2,9 @@ import styles from './Header.module.scss';
 import 'tippy.js/dist/tippy.css'; // optional
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faCircleXmark, faMagnifyingGlass, faSpinner, faPlus,
+    faCircleXmark, faSpinner, faPlus,
     faEllipsisV, faGlobeAsia, faQuestionCircle, faKeyboard,
-    faMessage, faArchive, faUser, faCoins, faGear,
+    faUser, faCoins, faGear,
     faSignOut
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
@@ -18,6 +18,8 @@ import classNames from 'classnames/bind';
 import images from '~/assets/images';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
+import { InboxIcon, MessageIcon, SearchIcon } from '~/components/Icons';
+import Image from '~/components/Images';
 
 const cx = classNames.bind(styles);
 
@@ -123,7 +125,7 @@ function Header() {
                         <span className={cx('span-spliter')}></span>
 
                         <button className={cx('search-btn')} >
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            <SearchIcon />
                         </button>
                         <div className={cx('border-search')}></div>
                     </div>
@@ -134,12 +136,13 @@ function Header() {
                         <>
                             <Tippy content="Tin nhắn">
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faMessage} />
+                                    <MessageIcon />
                                 </button>
                             </Tippy>
                             <Tippy content="Hộp thư">
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faArchive} />
+                                    <InboxIcon />
+                                    <span className={cx('badge')}>12</span>
                                 </button>           
                             </Tippy>              
                         </>
@@ -150,8 +153,10 @@ function Header() {
                     )}
                     <PopperMenu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img src="https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tiktok-obj/1653276361117698.jpeg?x-expires=1656856800&x-signature=ulhdfzsqO9rXMR3oW6nKPyasuNQ%3D" 
-                                 alt="/" className={cx('user-avatar')}
+                            <Image
+                                src="https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tiktok-obj/1653276361117698.jpeg?x-expires=1656856800&x-signature=ulhdfzsqO9rXMR3oW6nKPyasuNQ%3D" 
+                                alt="Nguyễn Hữu Tuấn" 
+                                className={cx('user-avatar')}
                             />
                         ) : (
                             <button className={cx('more-btn')} >
