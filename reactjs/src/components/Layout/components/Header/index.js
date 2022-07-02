@@ -17,6 +17,7 @@ import Button from '~/components/Button';
 import { InboxIcon, MessageIcon } from '~/components/Icons';
 import Image from '~/components/Images';
 import Search from '../Search';
+import routesConfig from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +36,7 @@ const MENU_ITEMS = [
                 {
                     code: 'vi',
                     title: 'Tiếng Việt'
-                }
+                },
             ]
         }
     },
@@ -88,11 +89,11 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
-                    <Link to={'/'}><img src={images.logo} alt="TikTok" /></Link>
+                    <Link to={routesConfig.home} className={cx('logo')}><img src={images.logo} alt="TikTok" /></Link>
                 </div>  
                 <Search />           
                 <div className={cx('actions')}>
-                    <Button to='/upload' upload leftIcon={<FontAwesomeIcon icon={faPlus} />}>Tải lên</Button>
+                    <Button to={routesConfig.upload} upload leftIcon={<FontAwesomeIcon icon={faPlus} />}>Tải lên</Button>
                     {currentUser ? (
                         <>
                             <div>

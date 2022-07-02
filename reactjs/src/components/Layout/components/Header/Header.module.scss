@@ -1,11 +1,16 @@
 .wrapper {
+    --search-border-radius: 92px;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: var(--white);
     width: 100%;
     height: var(--default-layout-header-height);
     box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
     display: flex;
     justify-content: center;
-
-    --search-border-radius: 92px;
 }
 
 .inner {
@@ -16,6 +21,10 @@
     padding-right: 24px;
     padding-left: 20px;
     justify-content: space-between;
+}
+
+.logo {
+    display: flex;
 }
 
 // Actions

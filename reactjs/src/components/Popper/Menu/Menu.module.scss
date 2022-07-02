@@ -23,11 +23,16 @@
     }
 }
 
+.menu-body {
+    overflow-y: overlay;
+}
+
 // Header
 .header {
     position: relative;
     height: 50px;
     margin-top: -8px;
+    flex-shrink: 0;
 }
 
 .back-btn {

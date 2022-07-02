@@ -45,6 +45,14 @@ function Search() {
         inputTextRef.current.focus();
     }
 
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+
+        if (!searchValue.startsWith(' ')){
+            setSearchValue(searchValue);                                                                             
+        }
+    }
+
     const handleHideResult = () => {
         setShowResult(false);
     }
@@ -74,9 +82,7 @@ function Search() {
                         placeholder="Tìm kiếm tài khoản và video" 
                         spellCheck={false} 
                         className={cx('search-input')} 
-                        onChange={e => {
-                            setSearchValue(e.target.value);                                                                             
-                        }}
+                        onChange={handleChange}
                         value={searchValue}
                         ref={inputTextRef}
                         onFocus={() => setShowResult(true)}
