@@ -18,6 +18,8 @@ import { InboxIcon, MessageIcon } from '~/components/Icons';
 import Image from '~/components/Images';
 import Search from '../Search';
 import config from '~/config';
+import { useEffect } from 'react';
+import * as languageService from '~/services/languageService';
 
 const cx = classNames.bind(styles);
 
@@ -26,8 +28,9 @@ const MENU_ITEMS = [
         id: 1,
         icon: <FontAwesomeIcon icon={faGlobeAsia} />,
         title: 'Tiếng Việt',
+        type: 'languages',
         children: {
-            title: 'Language',
+            title: 'Ngôn ngữ',
             data: [
                 {
                     code: 'en',
@@ -80,6 +83,22 @@ function Header() {
             separate: true,
         },
     ];
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await languageService.languages();
+
+            MENU_ITEMS.forEach(item => {
+                if (item.type === 'languages') {
+                    item.children.data = result;
+                }
+
+                return item;
+            });
+        }
+
+        fetchApi();
+    }, []);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);

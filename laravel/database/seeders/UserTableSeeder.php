@@ -14,15 +14,15 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
-         \DB::table('users')->insert([
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
+        \DB::table('users')->insert([
             [
-               'email' => 'tuan.nh201612@gmail.com',
-               'name' => 'Nguyễn Hữu Tuấn',
-               'password' => Hash::make('123456'),
-               'phone' => '0337344408',
-               'created_at' => $now,
-               'updated_at' =>  $now,
+                'email' => 'tuan.nh201612@gmail.com',
+                'name' => 'Nguyễn Hữu Tuấn',
+                'password' => Hash::make('123456'),
+                'phone' => '0337344408',
+                'created_at' => $now,
+                'updated_at' =>  $now,
             ],
         ]);
     }
