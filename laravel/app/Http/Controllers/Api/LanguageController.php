@@ -4,15 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Language;
+use App\Contracts\Services\Api\LanguageServiceInterface;
+// use App\Contracts\Repositories\LanguageRepositoryInterface;
 
 class LanguageController extends Controller
 {
-    public function listLanguage () {
-        $response = [
-            'data' => Language::all(),
-        ];
+    protected $languageService;
 
-        return response()->json($response, 200);
+    public function __construct(LanguageServiceInterface $languageService)
+    {
+        $this->languageService = $languageService;
+    }
+
+    public function index () {
+        $result = $this->languageService->index();
+
+        return response()->json($result, 200);
     }
 }
