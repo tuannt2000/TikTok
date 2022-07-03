@@ -5,6 +5,7 @@ import styles from './Menu.module.scss';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
 import Header from './Header';
+import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles)
 
@@ -62,6 +63,13 @@ function Menu({ children, items = [], hideOnClick = 'false', onChange = defaultF
             {children}
         </Tippy>
     );
+}
+
+Menu.propTypes = {
+    children: PropTypes.node.isRequired,
+    items: PropTypes.array,
+    hideOnClick: PropTypes.bool,
+    onChange: PropTypes.func 
 }
 
 export default Menu;
