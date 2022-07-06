@@ -140,7 +140,7 @@ function Header() {
                         <PopperMenu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                             {currentUser ? (
                                 <Image
-                                    src="https://p16-sign-sg.tiktokcdn.com/aweme/720x720/tiktok-obj/1653276361117698.jpeg?x-expires=1656856800&x-signature=ulhdfzsqO9rXMR3oW6nKPyasuNQ%3D"
+                                    src="https://i-vnexpress.vnecdn.net/2019/07/30/anh-thien-nhien-dep-thang-7-1564483719_680x0.jpg"
                                     alt="Nguyễn Hữu Tuấn"
                                     className={cx('user-avatar')}
                                 />

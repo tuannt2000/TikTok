@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './AccountItem.module.scss';
 import { Link } from 'react-router-dom';
 import PropsTypes from 'prop-types';
+import images from '~/assets/images';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +13,7 @@ function AccountItem({ data }) {
         <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
             <img
                 className={cx('avatar')}
-                src={data.avatar}
+                src={data.avatar || images.noImage}
                 alt={data.nickname}
             />
             <div className={cx('info')}>
