@@ -35,9 +35,20 @@ class UserService extends AbstractService implements UserServiceInterface
     public function findUserByKey($params)
     {
         try {
+            $data = $this->userRepository->findUserByKey($params['q'], $params['type']);
+
+            if ($data->count() > 0) {
+                return [
+                    'code' => 200,
+                    'data' => $data
+                ];
+            }
+
             return [
-                'code' => 200,
-                'data' => $this->userRepository->findUserByKey($params['q'], $params['type'])
+                'code' => 404,
+                'data' => [
+                    ['message' => 'Không có kết quả nào được tìm thấy']
+                ],                
             ];
         } catch (\Throwable $th) {
             return [

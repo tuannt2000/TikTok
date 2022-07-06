@@ -6,8 +6,12 @@ export const searchUser = async (q, type = 'less') => {
             params: {q, type}
         });
 
+        if (![200, 404].includes(res.code)) {
+            throw res.message
+        }
+
         return res.data;
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 }
