@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
 class LanguageTableSeeder extends Seeder
@@ -15,7 +15,7 @@ class LanguageTableSeeder extends Seeder
     public function run()
     {
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
-        \DB::table('languages')->insert([
+        DB::table('languages')->insert([
             [
                 'code' => 'vi-VN',
                 'title' => 'Tiếng Việt (Việt Nam)',

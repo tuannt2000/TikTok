@@ -3,6 +3,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class UserTableSeeder extends Seeder
@@ -15,7 +16,7 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
-        \DB::table('users')->insert([
+        DB::table('users')->insert([
             [
                 'email' => 'tuan.nh201612@gmail.com',
                 'name' => 'Nguyễn Hữu Tuấn',
