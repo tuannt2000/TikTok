@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Contracts\Repositories\LanguageRepositoryInterface;
+use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Repositories\LanguageRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -12,6 +14,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'language' => [
             LanguageRepositoryInterface::class,
             LanguageRepository::class,
+        ],
+        'user' => [
+            UserRepositoryInterface::class,
+            UserRepository::class,
         ]
     ];
 

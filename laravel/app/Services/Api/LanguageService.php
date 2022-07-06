@@ -15,7 +15,7 @@ class LanguageService extends AbstractService implements LanguageServiceInterfac
 
     /**
      * CategoryService constructor.
-     * @param LanguageRepositoryInterface $categoryRepository
+     * @param LanguageRepositoryInterface $languageRepository
      */
     public function __construct(LanguageRepositoryInterface $languageRepository)
     {

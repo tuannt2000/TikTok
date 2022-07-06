@@ -86,7 +86,7 @@ function Header() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await languageService.languages();
+            const result = await languageService.getAllLanguages();
 
             MENU_ITEMS.forEach(item => {
                 if (item.type === 'languages') {

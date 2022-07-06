@@ -1,8 +1,8 @@
 import * as request from '~/utils/request';
 
-export const languages = async () => {
+export const getAllLanguages = async () => {
     try {
-        const res = await request.getLanguages('languages');
+        const res = await request.getAllLanguages('languages');
 
         return res.data;
     } catch (error) {

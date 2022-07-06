@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\Services\Api\UserServiceInterface;
 use App\Contracts\Services\Api\LanguageServiceInterface;
 use App\Services\Api\LanguageService;
+use App\Services\Api\UserService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,7 +21,11 @@ class AppServiceProvider extends ServiceProvider
             [
                 LanguageServiceInterface::class,
                 LanguageService::class
-            ], 
+            ],
+            [
+                UserServiceInterface::class,
+                UserService::class
+            ],
         ];
         
         foreach ($services as $service) {

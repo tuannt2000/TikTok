@@ -4,13 +4,12 @@ namespace App\Repositories;
 
 use App\Contracts\Repositories\LanguageRepositoryInterface;
 use App\Models\Language;
-use Illuminate\Support\Facades\DB;
 
 class LanguageRepository extends BaseRepository implements LanguageRepositoryInterface
 {
     /**
-     * CategoryRepository constructor.
-     * @param Category $category
+     * LanguageRepository constructor.
+     * @param Language $language
      */
     public function __construct(Language $language)
     {
