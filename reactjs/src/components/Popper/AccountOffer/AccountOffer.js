@@ -7,6 +7,7 @@ import Image from '~/components/Images';
 import Button from '~/components/Button';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { formatNumber } from '~/utils/utility';
 
 const cx = classNames.bind(styles)
 
@@ -28,9 +29,9 @@ function AccountOffer({ children, data }) {
                     <span>{data.full_name}</span>
                 </a>
                 <p className={cx('info')}>
-                    <span className={cx('follow-count')}>{data.followers_count}</span>
+                    <span className={cx('follow-count')}>{formatNumber(data.followers_count)}</span>
                     <span className={cx('follow')}>Follower</span>
-                    <span className={cx('like-count')}>{data.likes_count}</span>
+                    <span className={cx('like-count')}>{formatNumber(data.likes_count)}</span>
                     <span className={cx('like')}>Thích</span>
                 </p>
             </PopperWrapper>
@@ -38,15 +39,17 @@ function AccountOffer({ children, data }) {
     )
 
     return (
-        <Tippy
-            interactive
-            delay={[700, 700]}
-            offset={[12, 8]}
-            placement='bottom-start'
-            render={renderResult}
-        >
-            {children}
-        </Tippy>
+        <div>
+            <Tippy
+                interactive
+                delay={[700, 700]}
+                offset={[12, 8]}
+                placement='bottom-start'
+                render={renderResult}
+            >
+                {children}
+            </Tippy>
+        </div>
     );
 }
 
