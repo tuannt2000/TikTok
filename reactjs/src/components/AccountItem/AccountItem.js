@@ -5,12 +5,17 @@ import styles from './AccountItem.module.scss';
 import { Link } from 'react-router-dom';
 import PropsTypes from 'prop-types';
 import images from '~/assets/images';
+import { forwardRef } from 'react';
 
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
+const AccountItem = forwardRef(({ data, className = null }, ref) => {
+    const classes = cx('wrapper', {
+        [className]: className
+    })
+
     return (
-        <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
+        <Link ref={ref} to={`/@${data.nickname}`} className={classes}>
             <img
                 className={cx('avatar')}
                 src={data.avatar || images.noImage}
@@ -25,10 +30,11 @@ function AccountItem({ data }) {
             </div>
         </Link>
     );
-}
+});
 
 AccountItem.propsTypes = {
-    data: PropsTypes.object.isRequired
+    data: PropsTypes.object.isRequired,
+    className: PropsTypes.string
 }
 
 export default AccountItem;

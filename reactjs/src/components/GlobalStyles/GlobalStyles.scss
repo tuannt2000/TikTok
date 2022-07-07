@@ -5,6 +5,7 @@
     --black: #000;
     --text-color: #161823;
     --white: #fff;
+    --text-footer: rgba(22, 24, 35, 0.5);
 
     // Default layout
     --default-layout-header-height: 60px;
@@ -22,7 +23,7 @@ html {
 }
 
 body {
-    font-family: 'ProximaNova', sans-serif;
+    font-family: 'IBM Plex Sans', 'ProximaNova', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizespeed;
@@ -47,6 +48,35 @@ body {
 
     .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
         top: -8px;
+    }
+
+    .footer-tippy[data-placement^=top] {
+        background-color: rgb(255, 255, 255);
+        left: -2px;
+        box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+        color: rgba(22, 24, 35, 1.0);
+        font-weight: 600;
+        font-size: 1.6rem;
+        line-height: 22px;
+
+        .tippy-content {
+            padding: 15px 16px 20px;
+
+            > div {
+                &:hover {
+                    text-decoration: none;
+                    color: rgb(254, 44, 85);
+                    cursor: default;
+                }
+            }
+        }
+
+        .tippy-arrow {
+
+            &::before {
+                border-top-color: rgb(255, 255, 255);
+            }
+        }
     }
 }
 
@@ -78,6 +108,12 @@ a[href] {
 @font-face {
     font-family: SofiaPro;
     src: url('/assets/fonts/sofiapro-semibold.otf');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: IBM Plex Sans;
+    src: url('/assets/fonts/zYXgKVElMYYaJe8bpLHnCwDKhd7eFb5N.woff2');
     font-weight: 700;
 }
 

@@ -7,7 +7,6 @@ import {
     faSignOut
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom'
 
 import { Menu as PopperMenu } from '~/components/Popper';

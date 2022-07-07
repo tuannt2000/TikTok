@@ -16,6 +16,7 @@ function Button({
     disabled = false,
     small = false,
     large = false,
+    discover = false,
     children,
     className,
     leftIcon,
@@ -56,6 +57,7 @@ function Button({
         rounded,
         small,
         large,
+        discover
     });
 
     return (

@@ -1,0 +1,91 @@
+.menu-popper {
+    width: 320px;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.avatar {
+    display: block;
+    width: 44px;
+    flex: 0 0 44px;
+
+    img {
+        width: 44px;
+        height: 44px;
+        display: inline-block;
+        overflow: hidden;
+        color: rgb(255, 255, 255);
+        white-space: nowrap;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 32px;
+        border-radius: 50%;
+        background-color: rgba(136, 136, 136, 0.5);
+    }
+}
+
+.nickname {
+    color: rgb(22, 24, 35);
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 22px;
+}
+
+.check {
+    margin-left: 4px;
+    color: #20D5EC
+}
+
+.fullname {
+    color: rgb(22, 24, 35);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 22px;
+}
+
+.info {
+    margin-top: 8px;
+}
+
+.follow-count {
+    color: var(--text-color);
+    font-weight: 700;
+    margin-right: 6px;
+    font-size: 1.7rem;
+    line-height: 20px;
+    display: inline-block;
+}
+
+.follow {
+    margin-right: 12px;
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 1.7rem;
+    line-height: 20px;
+    display: inline-block;
+    font-weight: 100;
+}
+
+.like-count {
+    color: var(--text-color);
+    font-weight: 700;
+    margin-right: 6px;
+    font-size: 1.7rem;
+    line-height: 20px;
+    display: inline-block;
+}
+
+.like {
+    margin-right: 12px;
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 1.7rem;
+    line-height: 20px;
+    display: inline-block;
+    font-weight: 100;
+}
