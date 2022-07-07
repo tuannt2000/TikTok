@@ -29,6 +29,27 @@ class UserService extends AbstractService implements UserServiceInterface
     }
 
     /**
+     * @return array
+     */
+    public function index()
+    {
+        try {
+            $data = $this->userRepository->getAll();
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+            
+        } catch (\Throwable $th) {
+            return [
+                'code' => 400,
+                'message' => trans('messages.user.getAllError'),
+            ];
+        }
+    }
+
+    /**
      * @param $params
      * @return array
      */

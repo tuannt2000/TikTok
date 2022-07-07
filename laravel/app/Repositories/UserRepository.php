@@ -16,12 +16,27 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         parent::__construct($user);
     }
 
+    public function getAll(){
+        return $this->model
+                    ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
+                    ->get();
+    }
+
     public function findUserByKey($q, $type)
     {
         if ($type == 'less') {
-            return $this->model->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))->where('nickname', 'like', '%'.$q.'%')->take(5)->get();
+            return $this->model
+                        ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
+                        ->where('nickname', 'like', '%'.$q.'%')
+                        ->orderBy('followers_count', 'DESC')
+                        ->take(5)
+                        ->get();
         }
 
-        return $this->model->where('nickname LIKE', '%'.$q.'%')->get();
+        return $this->model
+                    ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
+                    ->where('nickname', 'like', '%'.$q.'%')
+                    ->orderBy('followers_count', 'DESC')
+                    ->get();
     }
 }

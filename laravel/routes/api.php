@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/languages', [LanguageController::class, 'index']);
 
+Route::get('users', [UserController::class, 'index']);
 Route::get('users/search', [UserController::class, 'findUser']);

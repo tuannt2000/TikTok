@@ -1,0 +1,72 @@
+.user-container {
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding: 16px 0;
+    color: rgba(22, 24, 35, 0.75);
+    line-height: 20px;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        top: 0;
+        height: 1px;
+        background: rgba(22, 24, 35, 0.12);
+        transform: scaleY(0.5);
+    }
+
+    a {
+        padding: 8px;
+    }
+
+    img {
+        width: 32px;
+        height: 32px;
+    }
+
+    h4 {
+        font-weight: 700;
+        font-size: 1.6rem;
+        line-height: 22px;
+        margin-top: -2px;
+        max-width: 260px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    h5 {
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 15px;
+        max-width: 260px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+
+.title {
+    padding: 0 8px;
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+    line-height: 20px;
+}
+
+.show-more {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 8px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.show-more-text {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 20px;
+}

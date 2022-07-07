@@ -15,6 +15,12 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    public function index () {
+        $result = $this->userService->index();
+
+        return response()->json($result, 200);
+    }
+
     public function findUser (Request $request) {
         $params = $request->all();
 
