@@ -27,4 +27,4 @@ Route::get('users/search', [UserController::class, 'findUser']);
 Route::get('/languages', [LanguageController::class, 'index']);
 
 Route::get('/discoves', [DiscoveController::class, 'index']);
-
+Route::post('/discove', [DiscoveController::class, 'augmentAccessCount']);

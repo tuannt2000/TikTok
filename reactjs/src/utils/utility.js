@@ -1,4 +1,4 @@
-import { DiscoverStyleNumberIcon, DiscoverStyleMusicIcon } from '~/components/Icons';
+import { DiscoverStyleTagIcon, DiscoverStyleMusicIcon } from '~/components/Icons';
 
 export const formatNumber = ($number) => {
     if ($number > 1000000) {
@@ -15,8 +15,8 @@ export const formatNumber = ($number) => {
 export const getIconDiscove = ($type) => {
     let Icon = null;
     switch ($type) {
-        case 'number':
-            Icon =  <DiscoverStyleNumberIcon />;
+        case 'tag':
+            Icon =  <DiscoverStyleTagIcon />;
             break;
         case 'music':
             Icon = <DiscoverStyleMusicIcon />;

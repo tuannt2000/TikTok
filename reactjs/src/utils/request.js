@@ -28,4 +28,10 @@ export const getAllDiscoves = async (path) => {
     return response.data;
 }
 
+export const postDiscove = async (path, params = {}) => {
+    const response = await request.post(path, params);
+
+    return response.data;
+}
+
 export default request;

@@ -20,4 +20,12 @@ class DiscoveController extends Controller
 
         return response()->json($result, 200);
     }
+
+    public function augmentAccessCount (Request $request) {
+        $data = $request->all();
+
+        $result = $this->discoveService->augmentAccessCount($data['id']);
+
+        return response()->json($result, 200);
+    }
 }

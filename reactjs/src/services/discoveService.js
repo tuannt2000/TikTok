@@ -5,10 +5,24 @@ export const getAllDiscoves = async () => {
         const res = await request.getAllDiscoves('discoves');
 
         if (res.code !== 200) {
-            throw res.message
+            throw res.message;
         }
 
         return res.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const postDiscove = async (id) => {
+    try {
+        const res = await request.postDiscove('discove', {id});
+
+        if (res.code !== 200) {
+            throw res.message;
+        }
+
+        console.log(res.message);
     } catch (error) {
         console.error(error)
     }

@@ -178,7 +178,7 @@ export const LiveSidebarActiveIcon = ({ width = '3.2rem', height = '3.2rem', cla
     </svg>
 );
 
-export const DiscoverStyleNumberIcon = ({ width = '1.6rem', height = '1.6rem', className }) => (
+export const DiscoverStyleTagIcon = ({ width = '1.6rem', height = '1.6rem', className }) => (
     <svg 
         className={className}
         width={width}

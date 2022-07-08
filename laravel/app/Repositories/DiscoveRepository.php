@@ -8,7 +8,6 @@
 
 namespace App\Repositories;
 
-
 use App\Contracts\Repositories\DiscoveRepositoryInterface;
 use App\Models\Discove;
 
@@ -21,5 +20,10 @@ class DiscoveRepository extends BaseRepository implements DiscoveRepositoryInter
     public function __construct(Discove $discove)
     {
         parent::__construct($discove);
+    }
+
+    public function getAll()
+    {
+        return $this->model->orderBy('accesses_count', 'DESC')->take(15)->get();
     }
 }

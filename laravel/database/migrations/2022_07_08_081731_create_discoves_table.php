@@ -18,6 +18,7 @@ class CreateDiscovesTable extends Migration
             $table->string('title');
             $table->string('type');
             $table->string('link');
+            $table->integer('accesses_count');
             $table->timestamps();
         });
     }

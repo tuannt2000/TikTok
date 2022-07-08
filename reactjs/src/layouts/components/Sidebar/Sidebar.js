@@ -44,6 +44,14 @@ function Sidebar() {
         fetchApiDiscoves();
     },[]);
 
+    const handleChooseDiscove = (id) => {
+        const postDiscove = async () => {
+            await discoveService.postDiscove(id);
+        }
+
+        postDiscove();
+    }
+
     return (
         <aside className={cx('wrapper')}>
             <Menu>
@@ -65,7 +73,14 @@ function Sidebar() {
             </Account>
             <Discover>
                 {discoves.map((result, index) => (
-                    <Button key={index} discover leftIcon={getIconDiscove(result.type)} >{result.title}</Button>
+                    <Button
+                        to={`${result.type}/${result.link}`}
+                        key={index}
+                        discover leftIcon={getIconDiscove(result.type)}
+                        onClick={() => handleChooseDiscove(result.id)}
+                    >
+                        {result.title}
+                    </Button>
                 ))}
             </Discover>
             <Footer />

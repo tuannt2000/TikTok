@@ -45,4 +45,23 @@ class DiscoveService extends AbstractService implements DiscoveServiceInterface
             ];
         }
     }
+
+    public function augmentAccessCount($id = null)
+    {
+        try {
+            $discove = $this->discoveRepository->find($id);
+            $discove->accesses_count += 1;
+            $discove->save();
+
+            return [
+                'code' => 200,
+                'message' => 'augment discove success'
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'code' => 400,
+                'message' => trans('messages.discove.augmentError'),
+            ];
+        }
+    }
 }
