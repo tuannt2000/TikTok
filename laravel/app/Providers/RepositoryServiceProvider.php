@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\Repositories\DiscoveRepositoryInterface;
 use App\Contracts\Repositories\LanguageRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
+use App\Repositories\DiscoveRepository;
 use App\Repositories\LanguageRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -18,6 +20,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'user' => [
             UserRepositoryInterface::class,
             UserRepository::class,
+        ],
+        'discove' => [
+            DiscoveRepositoryInterface::class,
+            DiscoveRepository::class,
         ]
     ];
 

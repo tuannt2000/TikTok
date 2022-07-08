@@ -14,22 +14,35 @@ import
     HomeSidebarActiveIcon, FollowSidebarActiveIcon, LiveSidebarActiveIcon 
 } from '~/components/Icons';
 import * as userService from '~/services/userService';
+import * as discoveService from '~/services/discoveService';
 import { useEffect, useState } from 'react';
-import { DiscoverStyleNumberIcon, DiscoverStyleMusicIcon } from '~/components/Icons';
+import { getIconDiscove } from '~/utils/utility';
 
 const cx = classNames.bind(styles)
 
 function Sidebar() {
     const [accountOffer, setAccountOffer] = useState([]);
+    const [discoves, setDiscoves] = useState([]);
+
     useEffect(() => {
-        const fetchApi = async () => {
+        const fetchApiAccountOffer = async () => {
             const result = await userService.getAllUsers();
 
             setAccountOffer(result);
         }
 
-        fetchApi();
-    },[])
+        fetchApiAccountOffer();
+    },[]);
+
+    useEffect(() => {
+        const fetchApiDiscoves = async () => {
+            const result = await discoveService.getAllDiscoves();
+
+            setDiscoves(result);
+        }
+
+        fetchApiDiscoves();
+    },[]);
 
     return (
         <aside className={cx('wrapper')}>
@@ -51,8 +64,9 @@ function Sidebar() {
                 ))}
             </Account>
             <Discover>
-                <Button discover leftIcon={<DiscoverStyleNumberIcon />} >suthatla</Button>
-                <Button discover leftIcon={<DiscoverStyleMusicIcon />} >Yêu Đơn Phương Là Gì (MEE Remix) - Mee Media & h0n</Button>
+                {discoves.map((result, index) => (
+                    <Button key={index} discover leftIcon={getIconDiscove(result.type)} >{result.title}</Button>
+                ))}
             </Discover>
             <Footer />
         </aside>

@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\Services\Api\UserServiceInterface;
+use App\Contracts\Services\Api\DiscoveServiceInterface;
 use App\Contracts\Services\Api\LanguageServiceInterface;
+use App\Contracts\Services\Api\UserServiceInterface;
+use App\Services\Api\DiscoveService;
 use App\Services\Api\LanguageService;
 use App\Services\Api\UserService;
 
@@ -25,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
             [
                 UserServiceInterface::class,
                 UserService::class
+            ],
+            [
+                DiscoveServiceInterface::class,
+                DiscoveService::class
             ],
         ];
         

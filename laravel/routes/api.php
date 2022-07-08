@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\DiscoveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/languages', [LanguageController::class, 'index']);
-
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/search', [UserController::class, 'findUser']);
+
+Route::get('/languages', [LanguageController::class, 'index']);
+
+Route::get('/discoves', [DiscoveController::class, 'index']);
+

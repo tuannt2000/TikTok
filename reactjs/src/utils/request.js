@@ -22,4 +22,10 @@ export const getAllLanguages = async (path) => {
     return response.data;
 }
 
+export const getAllDiscoves = async (path) => {
+    const response = await request.get(path);
+
+    return response.data;
+}
+
 export default request;
