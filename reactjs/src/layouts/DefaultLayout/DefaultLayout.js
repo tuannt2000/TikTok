@@ -1,5 +1,6 @@
 import Header from "~/layouts/components/Header";
 import Sidebar from "../components/Sidebar";
+import DownloadApp from '~/components/DownloadApp';
 import styles from './DefaultLayout.module.scss'
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
@@ -14,6 +15,7 @@ function DefaultLayout({ children }) {
                 <Sidebar />
                 <div className={cx('content')}>
                     {children}
+                    <DownloadApp />
                 </div>
             </div>
         </div>

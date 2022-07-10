@@ -1,14 +1,16 @@
 .aside {
     width: 356px;
-    top: 60px;
-    bottom: 0;
     background: rgba(255, 255, 255, 1.0);
-    position: fixed;
     z-index: 99;
+    position: relative;
+    flex: 0 0 356px;
 }
 
 .container {
-    padding-right: 8px;
+    position: fixed;
+    top: 60px;
+    width: 356px;
+    bottom: 0;
 }
 
 .wrapper {
@@ -19,6 +21,7 @@
     align-items: stretch;
     min-height: 100%;
     padding-left: 8px;
+    padding-right: 8px;
 }
 
 // scrollbar

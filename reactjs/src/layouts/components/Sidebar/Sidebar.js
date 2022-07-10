@@ -54,59 +54,58 @@ function Sidebar() {
     }
 
     return (
-        <div 
-            className={cx('aside')} 
+        <div
+            className={cx('aside')}
             onMouseOver={() => setShowScroll(true)}
             onMouseOut={() => setShowScroll(false)}
         >
-            <Scrollbars
-                autoHide={!showScroll}
-                renderTrackHorizontal={props => <div {...props} className={cx('track-horizontal')}/>}
-                renderThumbHorizontal={props => <div {...props} className={cx('thumb-horizontal')}/>}
-                renderThumbVertical={props => <div {...props} className={cx('thumb-vertical')}/>}
-                renderTrackVertical={props => <div {...props} className={cx('track-vertical')}/>}
+            <aside
+                className={cx('container')}
             >
-                <aside
-                    className={cx('container')}
+                <Scrollbars
+                    autoHide={!showScroll}
+                    renderTrackHorizontal={props => <div {...props} className={cx('track-horizontal')} />}
+                    renderThumbHorizontal={props => <div {...props} className={cx('thumb-horizontal')} />}
+                    renderThumbVertical={props => <div {...props} className={cx('thumb-vertical')} />}
+                    renderTrackVertical={props => <div {...props} className={cx('track-vertical')} />}
                 >
-
-                    <div
-                        className={cx('wrapper')}
-                    >
-                        <Menu>
-                            <MenuItem title="Dành cho bạn" to={config.routes.home} icon={<HomeSidebarIcon />} iconActive={<HomeSidebarActiveIcon />} />
-                            <MenuItem title="Đang Follow" to={config.routes.following} icon={<FollowSidebarIcon />} iconActive={<FollowSidebarActiveIcon />} />
-                            <MenuItem title="LIVE" to={config.routes.live} icon={<LiveSidebarIcon />} iconActive={<LiveSidebarActiveIcon />} />
-                        </Menu>
-                        <Account title="Tài khoản được đề xuất" showMore="Xem tất cả" >
-                            {accountOffer.map(result => (
-                                <AccountOffer key={result.id} data={result}>
-                                    <AccountItem className="sidebar" data={result} />
-                                </AccountOffer>
-                            ))}
-                        </Account>
-                        <Account title="Các tài khoản đang follow" showMore="Xem thêm" >
-                            {accountOffer.map(result => (
-                                <AccountItem className="sidebar" key={result.id} data={result} />
-                            ))}
-                        </Account>
-                        <Discover>
-                            {discoves.map((result, index) => (
-                                <Button
-                                    to={`${result.type}/${result.link}`}
-                                    key={index}
-                                    discover leftIcon={getIconDiscove(result.type)}
-                                    onClick={() => handleChooseDiscove(result.id)}
-                                >
-                                    {result.title}
-                                </Button>
-                            ))}
-                        </Discover>
-                        <Footer />
-                    </div>
-                </aside>
+                <div
+                    className={cx('wrapper')}
+                >
+                    <Menu>
+                        <MenuItem title="Dành cho bạn" to={config.routes.home} icon={<HomeSidebarIcon />} iconActive={<HomeSidebarActiveIcon />} />
+                        <MenuItem title="Đang Follow" to={config.routes.following} icon={<FollowSidebarIcon />} iconActive={<FollowSidebarActiveIcon />} />
+                        <MenuItem title="LIVE" to={config.routes.live} icon={<LiveSidebarIcon />} iconActive={<LiveSidebarActiveIcon />} />
+                    </Menu>
+                    <Account title="Tài khoản được đề xuất" showMore="Xem tất cả" >
+                        {accountOffer.map(result => (
+                            <AccountOffer key={result.id} data={result}>
+                                <AccountItem className="sidebar" data={result} />
+                            </AccountOffer>
+                        ))}
+                    </Account>
+                    <Account title="Các tài khoản đang follow" showMore="Xem thêm" >
+                        {accountOffer.map(result => (
+                            <AccountItem className="sidebar" key={result.id} data={result} />
+                        ))}
+                    </Account>
+                    <Discover>
+                        {discoves.map((result, index) => (
+                            <Button
+                                to={`${result.type}/${result.link}`}
+                                key={index}
+                                discover leftIcon={getIconDiscove(result.type)}
+                                onClick={() => handleChooseDiscove(result.id)}
+                            >
+                                {result.title}
+                            </Button>
+                        ))}
+                    </Discover>
+                    <Footer />
+                </div>
             </Scrollbars>
-        </div>
+        </aside>
+        </div >
     );
 }
 
