@@ -1,0 +1,28 @@
+.share-group {
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 22px;
+    width: 280px;
+    padding-bottom: 8px;
+    max-height: 448px;
+    overflow: auto;
+    border-radius: 8px;
+}
+
+.share-button {
+    display: flex;
+    justify-content: left;
+    padding: 11px 16px;
+
+    +.share-button {
+        margin-left: 0;
+    }
+}
+
+.arrow-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 16px;
+    position: relative;
+}

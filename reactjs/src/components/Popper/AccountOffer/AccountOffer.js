@@ -11,7 +11,7 @@ import { formatNumber } from '~/utils/utility';
 
 const cx = classNames.bind(styles)
 
-function AccountOffer({ children, data }) {
+function AccountOffer({ children, data, home =  false }) {
     const renderResult = (attrs) => (
         <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
             <PopperWrapper className={cx('menu-popper')}>
@@ -19,7 +19,11 @@ function AccountOffer({ children, data }) {
                     <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank"  className={cx('avatar')}>
                         <Image src={data.avatar} alt={data.avatar} />
                     </a>
-                    <Button primary>Follow</Button>
+                    {home ? (
+                        <Button outline>Follow</Button>
+                    ) : (
+                        <Button primary>Follow</Button>
+                    )}
                 </div>
                 <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank" className={cx('nickname')}>
                     <span>{data.nickname}</span>
@@ -34,6 +38,7 @@ function AccountOffer({ children, data }) {
                     <span className={cx('like-count')}>{formatNumber(data.likes_count)}</span>
                     <span className={cx('like')}>Thích</span>
                 </p>
+                {home && data.bio && <p className={cx('bio')}>{data.bio}</p>}
             </PopperWrapper>
         </div>
     )
@@ -43,7 +48,7 @@ function AccountOffer({ children, data }) {
             <Tippy
                 interactive
                 delay={[700, 700]}
-                offset={[12, 8]}
+                offset={[home ? -10 : -50, 8]}
                 placement='bottom-start'
                 render={renderResult}
             >
@@ -55,7 +60,8 @@ function AccountOffer({ children, data }) {
 
 AccountOffer.propTypes = {
     children: PropTypes.node.isRequired,
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    home: PropTypes.bool
 }
 
 export default AccountOffer;

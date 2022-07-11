@@ -95,6 +95,11 @@ a[href] {
     text-decoration: none;
 }
 
+img, picture {
+    max-width: 100%;
+    display: block;
+}
+
 // Fonts emmbeded
 @font-face {
     font-family: ProximaNova;

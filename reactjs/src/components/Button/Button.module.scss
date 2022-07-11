@@ -5,13 +5,18 @@
     min-width: 100px;
     padding: 9px 16px;
     border-radius: 4px;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
     cursor: pointer;
     background-color: var(--white);
     border: 1px solid transparent;
     user-select: none;
     font-family: 'ProximaNova', sans-serif;
+
+    > div {
+        display: flex;
+        align-items: center;
+    }
 
     + .wrapper {
         margin-left: 16px;
@@ -24,8 +29,8 @@
 }
 
 .icon {
-    display: inline-block;
-    width: 24px;
+    display: flex;
+    align-items: center;
     text-align: center;
 }
 
@@ -122,6 +127,14 @@
         line-height: 18px;
         padding-left: 6px;
         margin: 0;
+    }
+}
+
+.video-music-btn {
+    padding: 0;
+    
+    &:hover {
+        text-decoration: underline;
     }
 }
 
