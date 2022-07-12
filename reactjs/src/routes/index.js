@@ -16,10 +16,10 @@ const publicRoutes = [
     { path: config.routes.live, component: Live },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.feedback, component: Feedback, layout: HeaderOnly },
-]
+];
 
 const privateRoutes = [
 
-]
+];
 
 export { publicRoutes, privateRoutes } 

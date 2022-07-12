@@ -1,1 +1,1 @@
-export { default } from './AccountOffer.js';
+export { default } from './AccountOffer';

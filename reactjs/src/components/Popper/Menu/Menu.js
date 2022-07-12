@@ -7,9 +7,9 @@ import MenuItem from './MenuItem';
 import Header from './Header';
 import PropTypes from 'prop-types';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
-const defaultFn = () => {}
+const defaultFn = () => {};
 
 function Menu({ children, items = [], hideOnClick = 'false', onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
@@ -50,7 +50,7 @@ function Menu({ children, items = [], hideOnClick = 'false', onChange = defaultF
                 </div>
             </PopperWrapper>
         </div>
-    )
+    );
 
     return (
         <Tippy
@@ -72,6 +72,6 @@ Menu.propTypes = {
     items: PropTypes.array,
     hideOnClick: PropTypes.bool,
     onChange: PropTypes.func 
-}
+};
 
 export default Menu;

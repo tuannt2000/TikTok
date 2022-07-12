@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 const AccountItem = forwardRef(({ data, className = null }, ref) => {
     const classes = cx('wrapper', {
         [className]: className
-    })
+    });
 
     return (
         <Link ref={ref} to={`/@${data.nickname}`} className={classes}>
@@ -35,6 +35,6 @@ const AccountItem = forwardRef(({ data, className = null }, ref) => {
 AccountItem.propsTypes = {
     data: PropsTypes.object.isRequired,
     className: PropsTypes.string
-}
+};
 
 export default AccountItem;

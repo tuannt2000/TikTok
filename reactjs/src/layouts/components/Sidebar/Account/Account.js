@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Account.module.scss';
 import PropTypes from 'prop-types';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 function AccountOffer({ title, showMore, children }) {
     return (  
@@ -20,6 +20,6 @@ AccountOffer.propTypes = {
     title: PropTypes.string.isRequired,
     showMore: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired
-}
+};
 
 export default AccountOffer;

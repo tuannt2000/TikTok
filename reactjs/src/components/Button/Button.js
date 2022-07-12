@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import PropsTypes from 'prop-types';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 function Button({
     to,
@@ -87,6 +87,6 @@ Button.propsTypes = {
     leftIcon: PropsTypes.node,
     rightIcon: PropsTypes.node,
     onClick: PropsTypes.func,
-}
+};
 
 export default Button;

@@ -12,25 +12,32 @@ import {
     HomeSidebarIcon, FollowSidebarIcon, LiveSidebarIcon,
     HomeSidebarActiveIcon, FollowSidebarActiveIcon, LiveSidebarActiveIcon
 } from '~/components/Icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faSpinner
+} from '@fortawesome/free-solid-svg-icons';
 import * as userService from '~/services/userService';
 import * as discoveService from '~/services/discoveService';
 import { useEffect, useState } from 'react';
 import { getIconDiscove } from '~/utils/utility';
 import { Scrollbars } from 'rc-scrollbars';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 function Sidebar() {
     const [accountOffer, setAccountOffer] = useState([]);
     const [discoves, setDiscoves] = useState([]);
     const [showScroll, setShowScroll] = useState(false);
+    const [loadAccountOffer, setLoadAccountOffer] = useState(true);
+    const [loadDiscove, setLoadDiscove] = useState(true);
 
     useEffect(() => {
         const fetchApiAccountOffer = async () => {
             const result = await userService.getAllUsers();
 
             setAccountOffer(result);
-        }
+            setLoadAccountOffer(false);
+        };
 
         fetchApiAccountOffer();
     }, []);
@@ -40,7 +47,8 @@ function Sidebar() {
             const result = await discoveService.getAllDiscoves();
 
             setDiscoves(result);
-        }
+            setLoadDiscove(false);
+        };
 
         fetchApiDiscoves();
     }, []);
@@ -48,10 +56,10 @@ function Sidebar() {
     const handleChooseDiscove = (id) => {
         const postDiscove = async () => {
             await discoveService.postDiscove(id);
-        }
+        };
 
         postDiscove();
-    }
+    };
 
     return (
         <div
@@ -78,6 +86,7 @@ function Sidebar() {
                         <MenuItem title="LIVE" to={config.routes.live} icon={<LiveSidebarIcon />} iconActive={<LiveSidebarActiveIcon />} />
                     </Menu>
                     <Account title="Tài khoản được đề xuất" showMore="Xem tất cả" >
+                        {loadAccountOffer && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
                         {accountOffer.map(result => (
                             <AccountOffer key={result.id} data={result}>
                                 <AccountItem className="sidebar" data={result} />
@@ -85,11 +94,13 @@ function Sidebar() {
                         ))}
                     </Account>
                     <Account title="Các tài khoản đang follow" showMore="Xem thêm" >
+                        {loadAccountOffer && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
                         {accountOffer.map(result => (
                             <AccountItem className="sidebar" key={result.id} data={result} />
                         ))}
                     </Account>
                     <Discover>
+                        {loadDiscove && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
                         {discoves.map((result, index) => (
                             <Button
                                 to={`${result.type}/${result.link}`}

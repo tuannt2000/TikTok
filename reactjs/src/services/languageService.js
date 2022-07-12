@@ -12,4 +12,4 @@ export const getAllLanguages = async () => {
     } catch (error) {
         console.error(error)
     }
-}
+};

@@ -37,6 +37,6 @@ const Avatar = forwardRef(({ data, size}, ref) => {
 Avatar.propTypes = {
     data: PropTypes.object.isRequired,
     size: PropTypes.number.isRequired
-}
+};
 
 export default Avatar;

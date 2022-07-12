@@ -14,4 +14,4 @@ export const searchUser = async (q, type = 'less') => {
     } catch (error) {
         console.error(error)
     }
-}
+};

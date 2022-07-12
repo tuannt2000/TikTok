@@ -35,7 +35,7 @@ function Search() {
             const result = await searchService.searchUser(debounced);
             setSearchResult(result);
             setLoading(false);
-        }
+        };
 
         fetchApi();
     }, [debounced]);
@@ -43,7 +43,7 @@ function Search() {
     const handleClear = () => {
         setSearchValue('');
         inputTextRef.current.focus();
-    }
+    };
 
     const handleChange = (e) => {
         const searchValue = e.target.value;
@@ -51,11 +51,11 @@ function Search() {
         if (!searchValue.startsWith(' ')){
             setSearchValue(searchValue);                                                                             
         }
-    }
+    };
 
     const handleHideResult = () => {
         setShowResult(false);
-    }
+    };
 
     return (
         <div>

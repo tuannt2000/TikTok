@@ -17,7 +17,7 @@ function Home() {
             const result = await userService.getAllUsers();
 
             setAccountOffer(result);
-        }
+        };
 
         fetchApiAccountOffer();
     }, []);

@@ -10,7 +10,7 @@ export const formatNumber = ($number) => {
     }
 
     return $number;
-}
+};
 
 export const getIconDiscove = ($type) => {
     let Icon = null;
@@ -26,4 +26,4 @@ export const getIconDiscove = ($type) => {
     }
 
     return Icon;
-}
+};

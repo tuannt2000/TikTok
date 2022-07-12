@@ -9,7 +9,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatNumber } from '~/utils/utility';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 function AccountOffer({ children, data, home =  false }) {
     const renderResult = (attrs) => (
@@ -41,7 +41,7 @@ function AccountOffer({ children, data, home =  false }) {
                 {home && data.bio && <p className={cx('bio')}>{data.bio}</p>}
             </PopperWrapper>
         </div>
-    )
+    );
 
     return (
         <div>
@@ -62,6 +62,6 @@ AccountOffer.propTypes = {
     children: PropTypes.node.isRequired,
     data: PropTypes.object.isRequired,
     home: PropTypes.bool
-}
+};
 
 export default AccountOffer;

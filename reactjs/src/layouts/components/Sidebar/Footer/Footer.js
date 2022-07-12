@@ -80,7 +80,7 @@ const MENU_FOOTERS = [
             link: 'https://www.tiktok.com/community-guidelines?lang=vi-VN'
         },
     ]
-]
+];
 
 function Footer() {
     return (  

@@ -28,6 +28,6 @@ Image.propTypes = {
     alt: PropTypes.string,
     className: PropTypes.string,
     fallback: PropTypes.string
-}
+};
 
 export default Image;

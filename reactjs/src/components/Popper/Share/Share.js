@@ -35,7 +35,7 @@ const MENU_SHARES = [
         icon: <ShareCopyLinkIcon />,
         title: 'Sao chép liên kết'
     }
-]
+];
 
 const MENU_SHARES_MORE = [
     {
@@ -66,7 +66,7 @@ const MENU_SHARES_MORE = [
         icon: <SharePinterestIcon />,
         title: 'Chia sẻ với Pinterest'
     }
-]
+];
 
 function Share({ children }) {
     const [menu, setMenu] = useState(MENU_SHARES);
@@ -75,12 +75,8 @@ function Share({ children }) {
     const handleMore = (e) => {
         e.preventDefault();
         setMore(true);
-        setMenu(prev => {
-            const newState = [...prev, ...MENU_SHARES_MORE];
-            console.log(newState);
-            return newState;
-        });
-    }
+        setMenu(prev => [...prev, ...MENU_SHARES_MORE]);
+    };
 
     const renderResult = (attrs) => (
         <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
@@ -101,16 +97,20 @@ function Share({ children }) {
                 </div>
             </PopperWrapper>
         </div>
-    )
+    );
                        
     return (
         <div>
             <Tippy
-                trigger="mouseenter"
+                trigger="click mouseenter"
                 interactive
                 placement='top-start'
                 offset={[-30, 0]}
                 render={renderResult}
+                onHide={() => {
+                    setMenu(MENU_SHARES);
+                    setMore(false);
+                }}
             >
                 {children}
             </Tippy>
@@ -120,6 +120,6 @@ function Share({ children }) {
 
 Share.propTypes = {
     children: PropTypes.node.isRequired
-}
+};
 
 export default Share;

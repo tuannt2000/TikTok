@@ -19,6 +19,6 @@ const ActionItem = forwardRef(({ children, text }, ref) => {
 ActionItem.propTypes = {
     children: PropTypes.node.isRequired,
     text: PropTypes.string.isRequired,
-}
+};
 
 export default ActionItem;

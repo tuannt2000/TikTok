@@ -12,7 +12,7 @@ export const getAllDiscoves = async () => {
     } catch (error) {
         console.error(error);
     }
-}
+};
 
 export const postDiscove = async (id) => {
     try {
@@ -26,4 +26,4 @@ export const postDiscove = async (id) => {
     } catch (error) {
         console.error(error)
     }
-}
+};

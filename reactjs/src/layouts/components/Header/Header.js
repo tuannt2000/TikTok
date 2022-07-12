@@ -53,7 +53,7 @@ const MENU_ITEMS = [
         icon: <FontAwesomeIcon icon={faKeyboard} />,
         title: 'Phím tắt trên bàn phím'
     }
-]
+];
 
 function Header() {
     const currentUser = true;
@@ -94,14 +94,14 @@ function Header() {
 
                 return item;
             });
-        }
+        };
 
         fetchApi();
     }, []);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);
-    }
+    };
 
     return (
         <header className={cx('wrapper')}>

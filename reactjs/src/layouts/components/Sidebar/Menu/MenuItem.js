@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 function MenuItem ({ title, to, icon, iconActive }) {
     return (  
@@ -20,7 +20,7 @@ MenuItem.propTypes = {
     to: PropTypes.string.isRequired,
     icon: PropTypes.node.isRequired,
     iconActive: PropTypes.node.isRequired,
-}
+};
 
 
 export default MenuItem;

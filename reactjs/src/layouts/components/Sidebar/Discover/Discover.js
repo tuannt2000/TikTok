@@ -17,6 +17,6 @@ function Discover ({ children }) {
 
 Discover.propTypes = {
     children: PropTypes.node.isRequired
-}
+};
 
 export default Discover;
