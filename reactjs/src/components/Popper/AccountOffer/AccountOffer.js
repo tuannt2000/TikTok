@@ -38,7 +38,7 @@ function AccountOffer({ children, data, home =  false }) {
                     <span className={cx('like-count')}>{formatNumber(data.likes_count)}</span>
                     <span className={cx('like')}>Thích</span>
                 </p>
-                {home && data.bio && <p className={cx('bio')}>{data.bio}</p>}
+                {home && data.bio && <p className={cx('bio')} dangerouslySetInnerHTML={{__html: data.bio}} />}
             </PopperWrapper>
         </div>
     );

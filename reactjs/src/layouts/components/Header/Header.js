@@ -24,7 +24,6 @@ const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
     {
-        id: 1,
         icon: <FontAwesomeIcon icon={faGlobeAsia} />,
         title: 'Tiếng Việt',
         type: 'languages',
@@ -43,45 +42,44 @@ const MENU_ITEMS = [
         }
     },
     {
-        id: 2,
         icon: <FontAwesomeIcon icon={faQuestionCircle} />,
         title: 'Phản hồi và trợ giúp',
         to: '/feedback'
     },
     {
-        id: 3,
         icon: <FontAwesomeIcon icon={faKeyboard} />,
         title: 'Phím tắt trên bàn phím'
     }
 ];
 
-function Header() {
-    const currentUser = true;
+const userMenu = [
+    {
+        icon: <FontAwesomeIcon icon={faUser} />,
+        title: 'Xem hồ sơ',
+        to: '/@userdqgdn9mg4p',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCoins} />,
+        title: 'Nhận xu',
+        to: '/coin',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faGear} />,
+        title: 'Cài đặt',
+        to: '/settings',
+    },
+    ...MENU_ITEMS,
+    {
+        icon: <FontAwesomeIcon icon={faSignOut} />,
+        title: 'Đăng xuất',
+        to: '/logout',
+        separate: true,
+    },
+];
 
-    const userMenu = [
-        {
-            icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'Xem hồ sơ',
-            to: '/@userdqgdn9mg4p',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faCoins} />,
-            title: 'Nhận xu',
-            to: '/coin',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faGear} />,
-            title: 'Cài đặt',
-            to: '/settings',
-        },
-        ...MENU_ITEMS,
-        {
-            icon: <FontAwesomeIcon icon={faSignOut} />,
-            title: 'Đăng xuất',
-            to: '/logout',
-            separate: true,
-        },
-    ];
+
+function Header() {
+    const currentUser = false;
 
     useEffect(() => {
         const fetchApi = async () => {

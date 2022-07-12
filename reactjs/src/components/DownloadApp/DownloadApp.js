@@ -27,7 +27,7 @@ function DownloadApp() {
                         </div>
                         <div className={cx('download')}>
                             <Button className={cx('icon')} leftIcon={<DownloadAppComputerIcon />} >Tải Tiktok dành cho máy tính để bàn</Button>
-                            <div className={cx('split')}></div>
+                            <div className={cx('split')} />
                             <Button className={cx('icon')} leftIcon={<DownloadAppPhoneIcon />} >Tải ứng dụng Tiktok</Button>
                         </div>
                     </div>

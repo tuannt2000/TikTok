@@ -19,7 +19,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function getAll(){
         return $this->model
                     ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
-                    ->where()
                     ->get();
     }
 

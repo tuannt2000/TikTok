@@ -93,12 +93,12 @@ function Search() {
                     </button>
                     )}                  
                     {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-                    <span className={cx('span-spliter')}></span>
+                    <span className={cx('span-spliter')} />
 
                     <button className={cx('search-btn')} >
                         <SearchIcon />
                     </button>
-                    <div className={cx('border-search')}></div>
+                    <div className={cx('border-search')} />
                 </div>
             </HeadlessTippy>
         </div>
