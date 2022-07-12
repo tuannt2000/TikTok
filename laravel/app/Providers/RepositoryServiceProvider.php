@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
-use App\Contracts\Repositories\DiscoveRepositoryInterface;
 use App\Contracts\Repositories\LanguageRepositoryInterface;
+use App\Contracts\Repositories\MusicRepositoryInterface;
+use App\Contracts\Repositories\TagRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
-use App\Repositories\DiscoveRepository;
 use App\Repositories\LanguageRepository;
+use App\Repositories\MusicRepository;
+use App\Repositories\TagRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,9 +23,13 @@ class RepositoryServiceProvider extends ServiceProvider
             UserRepositoryInterface::class,
             UserRepository::class,
         ],
-        'discove' => [
-            DiscoveRepositoryInterface::class,
-            DiscoveRepository::class,
+        'music' => [
+            MusicRepositoryInterface::class,
+            MusicRepository::class,
+        ],
+        'tag' => [
+            TagRepositoryInterface::class,
+            TagRepository::class,
         ]
     ];
 

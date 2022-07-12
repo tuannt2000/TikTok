@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiscovesTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateDiscovesTable extends Migration
      */
     public function up()
     {
-        Schema::create('discoves', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('type');
             $table->string('link');
-            $table->integer('accesses_count');
+            $table->integer('uses_count');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateDiscovesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discoves');
+        Schema::dropIfExists('tags');
     }
 }

@@ -2,29 +2,32 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Contracts\Services\Api\DiscoveServiceInterface;
+use App\Contracts\Services\Api\MusicServiceInterface;
+use App\Contracts\Services\Api\TagServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DiscoveController extends Controller
 {
-    protected $discoveService;
+    protected $musicService;
+    protected $tagService;
 
-    public function __construct(DiscoveServiceInterface $discoveService)
+    public function __construct(MusicServiceInterface $musicService, TagServiceInterface $tagService)
     {
-        $this->discoveService = $discoveService;
+        $this->musicService = $musicService;
+        $this->tagService = $tagService;
     }
 
     public function index () {
-        $result = $this->discoveService->index();
+        $music = $this->musicService->index()['data'];
+        $tag = $this->tagService->index()['data'];
 
-        return response()->json($result, 200);
-    }
+        $discove = $music->unionAll($tag)->orderBy('uses_count', 'DESC')->take(10)->get();
 
-    public function augmentAccessCount (Request $request) {
-        $data = $request->all();
-
-        $result = $this->discoveService->augmentAccessCount($data['id']);
+        $result = [
+            'code' => 200,
+            'data' => $discove
+        ];
 
         return response()->json($result, 200);
     }

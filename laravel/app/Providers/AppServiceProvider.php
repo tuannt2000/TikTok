@@ -2,13 +2,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use App\Contracts\Services\Api\DiscoveServiceInterface;
 use App\Contracts\Services\Api\LanguageServiceInterface;
+use App\Contracts\Services\Api\MusicServiceInterface;
+use App\Contracts\Services\Api\TagServiceInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
-use App\Services\Api\DiscoveService;
 use App\Services\Api\LanguageService;
+use App\Services\Api\MusicService;
+use App\Services\Api\TagService;
 use App\Services\Api\UserService;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,8 +31,12 @@ class AppServiceProvider extends ServiceProvider
                 UserService::class
             ],
             [
-                DiscoveServiceInterface::class,
-                DiscoveService::class
+                TagServiceInterface::class,
+                TagService::class
+            ],
+            [
+                MusicServiceInterface::class,
+                MusicService::class
             ],
         ];
         
