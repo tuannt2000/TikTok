@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the follow associated with the user.
+     */
+    public function follows()
+    {
+        return $this->hasMany(Follow::class);
+    }
 }

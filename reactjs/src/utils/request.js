@@ -16,6 +16,18 @@ export const searchUser = async (path, params = {}) => {
     return response.data;
 };
 
+export const getListFollowing = async (path) => {
+    const response = await request.get(path);
+
+    return response.data;
+};
+
+export const getListAccountOffer = async (path) => {
+    const response = await request.get(path);
+
+    return response.data;
+};
+
 export const getAllLanguages = async (path) => {
     const response = await request.get(path);
     

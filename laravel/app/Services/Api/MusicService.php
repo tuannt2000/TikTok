@@ -38,10 +38,10 @@ class MusicService extends AbstractService implements MusicServiceInterface
                 'code' => 200,
                 'data' => $this->musicRepository->getAll()
             ];
-        } catch (\Throwable $th) {
+        } catch (\Throwable $err) {
             return [
                 'code' => 400,
-                'message' => trans('messages.music.listError'),
+                'message' => $err,
             ];
         }
     }

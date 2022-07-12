@@ -33,10 +33,10 @@ class LanguageService extends AbstractService implements LanguageServiceInterfac
                 'code' => 200,
                 'data' => $this->languageRepository->getAll()
             ];
-        } catch (\Throwable $th) {
+        } catch (\Throwable $err) {
             return [
                 'code' => 400,
-                'message' => trans('messages.language.listError'),
+                'message' => $err,
             ];
         }
     }

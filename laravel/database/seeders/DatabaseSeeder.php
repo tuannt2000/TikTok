@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguageTableSeeder::class);
         $this->call(MusicTableSeeder::class);
         $this->call(TagTableSeeder::class);
+        $this->call(FollowTableSeeder::class);
     }
 }

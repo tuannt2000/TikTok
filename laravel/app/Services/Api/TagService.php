@@ -21,7 +21,7 @@ class TagService extends AbstractService implements TagServiceInterface
 
     /**
      * CategoryService constructor.
-     * @param TagServiceInterface $tagRepository
+     * @param TagRepositoryInterface $tagRepository
      */
     public function __construct(TagRepositoryInterface $tagRepository)
     {
@@ -38,10 +38,10 @@ class TagService extends AbstractService implements TagServiceInterface
                 'code' => 200,
                 'data' => $this->tagRepository->getAll()
             ];
-        } catch (\Throwable $th) {
+        } catch (\Throwable $err) {
             return [
                 'code' => 400,
-                'message' => trans('messages.tag.listError'),
+                'message' => $err,
             ];
         }
     }

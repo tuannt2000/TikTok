@@ -41,10 +41,10 @@ class UserService extends AbstractService implements UserServiceInterface
                 'data' => $data
             ];
             
-        } catch (\Throwable $th) {
+        } catch (\Throwable $err) {
             return [
                 'code' => 400,
-                'message' => trans('messages.user.getAllError'),
+                'message' => $err,
             ];
         }
     }
@@ -71,10 +71,49 @@ class UserService extends AbstractService implements UserServiceInterface
                     ['message' => 'Không có kết quả nào được tìm thấy']
                 ],                
             ];
-        } catch (\Throwable $th) {
+        } catch (\Throwable $err) {
             return [
                 'code' => 400,
-                'message' => trans('messages.user.searchError'),
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function listAccountOffer ($id)
+    {
+        try {
+            $data = $this->userRepository->getListAccountOffer($id);
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function listFollowing ($id)
+    {
+        try {
+            $datas = $this->userRepository->find($id)->follows;
+            $result = [];
+
+            foreach ($datas as $data) {
+                $result[] = $data->userFollowing;
+            }
+
+            return [
+                'code' => 200,
+                'data' => $result
+            ];
+        } catch (\Throwable $err) {
+            return [
+                'code' => 400,
+                'message' => $err,
             ];
         }
     }

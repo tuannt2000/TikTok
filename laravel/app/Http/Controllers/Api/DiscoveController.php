@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Contracts\Services\Api\MusicServiceInterface;
 use App\Contracts\Services\Api\TagServiceInterface;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class DiscoveController extends Controller
 {

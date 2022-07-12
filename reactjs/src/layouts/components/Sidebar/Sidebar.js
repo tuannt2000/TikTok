@@ -26,14 +26,16 @@ const cx = classNames.bind(styles);
 
 function Sidebar() {
     const [accountOffer, setAccountOffer] = useState([]);
+    const [following, setFollowing] = useState([]);
     const [discoves, setDiscoves] = useState([]);
     const [showScroll, setShowScroll] = useState(false);
     const [loadAccountOffer, setLoadAccountOffer] = useState(true);
+    const [loadFollowing, setLoadFollowing] = useState(true);
     const [loadDiscove, setLoadDiscove] = useState(true);
 
     useEffect(() => {
         const fetchApiAccountOffer = async () => {
-            const result = await userService.getAllUsers();
+            const result = await userService.getListAccountOffer(1);
 
             setAccountOffer(result);
             setLoadAccountOffer(false);
@@ -41,6 +43,17 @@ function Sidebar() {
 
         fetchApiAccountOffer();
     }, []);
+
+    useEffect(() => {
+       const fetchApiListFollowing = async () => {
+           const result = await userService.getListFollowing(1);
+
+           setFollowing(result);
+           setLoadFollowing(false);
+       };
+
+        fetchApiListFollowing();
+    });
 
     useEffect(() => {
         const fetchApiDiscoves = async () => {
@@ -86,8 +99,8 @@ function Sidebar() {
                         ))}
                     </Account>
                     <Account title="Các tài khoản đang follow" showMore="Xem thêm" >
-                        {loadAccountOffer && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
-                        {accountOffer.map(result => (
+                        {loadFollowing && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
+                        {following.map(result => (
                             <AccountItem className="sidebar" key={result.id} data={result} />
                         ))}
                     </Account>
