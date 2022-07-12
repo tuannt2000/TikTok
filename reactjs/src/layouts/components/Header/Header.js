@@ -1,14 +1,9 @@
 import styles from './Header.module.scss';
-import 'tippy.js/dist/tippy.css'; // optional
+import 'tippy.js/dist/tippy.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faEllipsisV, faGlobeAsia, faQuestionCircle, 
-    faKeyboard, faUser, faCoins, faGear,
-    faSignOut
-} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
 import { Link } from 'react-router-dom'
-
 import { Menu as PopperMenu } from '~/components/Popper';
 import classNames from 'classnames/bind';
 import images from '~/assets/images';
@@ -19,64 +14,13 @@ import Search from '../Search';
 import config from '~/config';
 import { useEffect } from 'react';
 import * as languageService from '~/services/languageService';
+import { Login as LoginModal } from '~/components/Modal';
+import {
+    MENU_ITEMS, userMenu, UPLOAD,
+    MESSAGE, INBOX
+} from '~/constants/Header';
 
 const cx = classNames.bind(styles);
-
-const MENU_ITEMS = [
-    {
-        icon: <FontAwesomeIcon icon={faGlobeAsia} />,
-        title: 'Tiếng Việt',
-        type: 'languages',
-        children: {
-            title: 'Ngôn ngữ',
-            data: [
-                {
-                    code: 'en',
-                    title: 'English'
-                },
-                {
-                    code: 'vi',
-                    title: 'Tiếng Việt'
-                },
-            ]
-        }
-    },
-    {
-        icon: <FontAwesomeIcon icon={faQuestionCircle} />,
-        title: 'Phản hồi và trợ giúp',
-        to: '/feedback'
-    },
-    {
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
-        title: 'Phím tắt trên bàn phím'
-    }
-];
-
-const userMenu = [
-    {
-        icon: <FontAwesomeIcon icon={faUser} />,
-        title: 'Xem hồ sơ',
-        to: '/@userdqgdn9mg4p',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faCoins} />,
-        title: 'Nhận xu',
-        to: '/coin',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faGear} />,
-        title: 'Cài đặt',
-        to: '/settings',
-    },
-    ...MENU_ITEMS,
-    {
-        icon: <FontAwesomeIcon icon={faSignOut} />,
-        title: 'Đăng xuất',
-        to: '/logout',
-        separate: true,
-    },
-];
-
 
 function Header() {
     const currentUser = false;
@@ -109,18 +53,18 @@ function Header() {
                 </div>  
                 <Search />           
                 <div className={cx('actions')}>
-                    <Button to={config.routes.upload} upload leftIcon={<PlusIcon />}>Tải lên</Button>
+                    <Button to={config.routes.upload} upload leftIcon={<PlusIcon />}>{UPLOAD}</Button>
                     {currentUser ? (
                         <>
                             <div>
-                                <Tippy content="Tin nhắn">
+                                <Tippy content={MESSAGE}>
                                     <button className={cx('action-btn')}>
                                         <MessageIcon />
                                     </button>
                                 </Tippy>
                             </div>
                             <div>
-                                <Tippy content="Hộp thư">
+                                <Tippy content={INBOX}>
                                     <button className={cx('action-btn')}>
                                         <InboxIcon />
                                         <span className={cx('badge')}>12</span>
@@ -130,7 +74,7 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button primary>Đăng nhập</Button>
+                            <LoginModal />
                         </>
                     )}
                     <div>
