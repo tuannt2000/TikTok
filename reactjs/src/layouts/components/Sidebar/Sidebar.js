@@ -53,7 +53,7 @@ function Sidebar() {
        };
 
         fetchApiListFollowing();
-    });
+    }, []);
 
     useEffect(() => {
         const fetchApiDiscoves = async () => {
