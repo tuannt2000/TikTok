@@ -1,18 +1,9 @@
-import PropTypes from 'prop-types';
-import {Dialog} from "@mui/material";
-
-function Modal ({ children, handleClose, show }) {
+function Modal() {
     return (
-        <Dialog onClose={handleClose} open={show}>
-            {children}
-        </Dialog>
+        <div>
+
+        </div>
     );
 }
-
-Modal.propTypes = {
-    children: PropTypes.node.isRequired,
-    handleClose: PropTypes.func.isRequired,
-    show: PropTypes.bool.isRequired
-};
 
 export default Modal;

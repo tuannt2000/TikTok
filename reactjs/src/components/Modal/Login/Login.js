@@ -3,24 +3,25 @@ import styles from './Login.module.scss';
 import { CloseIcon } from '~/components/Icons';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import Button from '~/components/Button';
-import { LOGIN } from '~/constants/Header';
 import LoginItem from './LoginItem';
 import {
     QrIcon, UserIcon, ShareFaceBookIcon,
     ShareTwitterIcon, GoogleIcon, ShareLineIcon,
     KakaoTalkIcon, AppleIcon, InstagramIcon
 } from '~/components/Icons';
-import { DialogTitle, Alert } from '@mui/material';
-import { GoogleLogin } from 'react-google-login';
+import { Dialog, DialogTitle, Alert } from '@mui/material';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { CLIENT_ID } from '~/constants/Login';
-import { Modal } from '~/components/Modal';
+import { setModalLogin } from '~/redux/slices/modalSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkLogin } from '~/redux/slices/loginSlice';
 
 const cx = classNames.bind(styles);
 
 function Login() {
-    const [show, setShow] = useState(false);
+    const modalSlice = useSelector(state => state.modal);
     const [loginFail, setLoginFail] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const time = setTimeout(() => {
@@ -32,12 +33,10 @@ function Login() {
         };
     });
 
-    const handleClose = () => setShow(false);
-
-    const handleShow = () => setShow(true);
-
     const hanleSussess = (response) => {
         console.log(response);
+        dispatch(checkLogin());
+        dispatch(setModalLogin());
     };
 
     const hanleFailure = () => {
@@ -46,8 +45,12 @@ function Login() {
 
     return (
         <>
-            <Button onClick={handleShow} primary>{LOGIN}</Button>
-            <Modal handleClose={handleClose} show={show}>
+            <GoogleLogout
+                clientId={CLIENT_ID}
+                buttonText="Logout"
+                onLogoutSuccess={() => console.log('Logout oke')}
+            />
+            <Dialog onClose={() => dispatch(setModalLogin())} open={modalSlice.modalLogin}>
                 {loginFail && (
                     <Alert variant="filled" severity="error">
                         Login Fail
@@ -85,9 +88,10 @@ function Login() {
                         </Link>
                     </div>
                 </div>
-                <div onClick={handleClose} className={cx('close-btn')}><CloseIcon /></div>
-            </Modal>
+                <div onClick={() => dispatch(setModalLogin())} className={cx('close-btn')}><CloseIcon /></div>
+            </Dialog>
         </>
     );
 }
+
 export default Login;

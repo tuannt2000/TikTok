@@ -12,17 +12,24 @@ import { InboxIcon, MessageIcon, PlusIcon } from '~/components/Icons';
 import Image from '~/components/Images';
 import Search from '../Search';
 import config from '~/config';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import * as languageService from '~/services/languageService';
 import { Login as LoginModal } from '~/components/Modal';
 import {
     MENU_ITEMS, userMenu, UPLOAD,
-    MESSAGE, INBOX
+    MESSAGE, INBOX, LOGIN
 } from '~/constants/Header';
+import { useSelector, useDispatch } from "react-redux";
+import {
+    setModalLogin, setModalSignup
+} from '~/redux/slices/modalSlice';
+import { Signup } from "~/components/Modal";
 
 const cx = classNames.bind(styles);
 
 function Header() {
+    const loginSlice = useSelector(state => state.login);
+    const dispatch = useDispatch();
     const currentUser = false;
 
     useEffect(() => {
@@ -40,6 +47,12 @@ function Header() {
 
         fetchApi();
     }, []);
+
+    useEffect(() => {
+        if (loginSlice.login) {
+            dispatch(setModalSignup());
+        }
+    }, [loginSlice.login, dispatch]);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);
@@ -74,7 +87,9 @@ function Header() {
                         </>
                     ) : (
                         <>
+                            <Button onClick={() => dispatch(setModalLogin())} primary>{LOGIN}</Button>
                             <LoginModal />
+                            <Signup />
                         </>
                     )}
                     <div>
