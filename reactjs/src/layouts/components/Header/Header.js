@@ -21,7 +21,7 @@ import {
 } from '~/constants/Header';
 import { useSelector, useDispatch } from "react-redux";
 import {
-    setModalLogin, setModalSignup
+    showModalLogin, showModalSignup
 } from '~/redux/slices/modalSlice';
 import { Signup } from "~/components/Modal";
 
@@ -50,7 +50,7 @@ function Header() {
 
     useEffect(() => {
         if (loginSlice.login) {
-            dispatch(setModalSignup());
+            dispatch(showModalSignup());
         }
     }, [loginSlice.login, dispatch]);
 
@@ -87,7 +87,7 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button onClick={() => dispatch(setModalLogin())} primary>{LOGIN}</Button>
+                            <Button onClick={() => dispatch(showModalLogin())} primary>{LOGIN}</Button>
                             <LoginModal />
                             <Signup />
                         </>

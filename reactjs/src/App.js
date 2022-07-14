@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts';
 import { gapi } from 'gapi-script';
-import { CLIENT_ID } from '~/constants/Login';
+import { CLIENT_ID, SCOPE } from '~/constants/Login';
 
 function App() {
     useEffect(() => {
         const start = () => {
             gapi.client.init({
                 clientId: CLIENT_ID,
-                scope: ''
+                scope: SCOPE
             })
         };
 

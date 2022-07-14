@@ -1,0 +1,82 @@
+.container > div > div {
+    height: 80%;
+    max-height: 693px;
+}
+
+.modal-main {
+    width: 483px;
+    padding: 48px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.modal-container {
+    flex: 1 1 0%;
+    overflow: auto;
+}
+
+.div-back {
+    left: 16px;
+    position: absolute;
+    top: 16px;
+    cursor: pointer;
+    transform: unset;
+}
+
+.div-modal-container {
+    width: 375px;
+    margin: auto;
+    padding: unset;
+
+    .title {
+        color: rgb(22, 24, 35);
+        font-size: 3.2rem;
+        padding: 0;
+        margin: 16px auto;
+        font-weight: bold;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+    }
+}
+
+.footer {
+    color: rgb(22, 24, 35);
+    height: 64px;
+    border-top: 1px solid rgba(22, 24, 35, 0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    line-height: 18px;
+  
+    .signup {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.2rem;
+  
+        > span {
+            margin-left: 5px;
+            font-weight: 600;
+            font-size: 1.5rem;
+            line-height: 18px;
+            color: var(--primary);
+        }
+    }
+}
+  
+.close-btn {
+    transform: scale(1.7);
+    position: absolute;
+    top: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    right: 24px;
+    width: 24px;
+    height: 24px;
+    background: rgba(22, 24, 35, 0.03);
+}

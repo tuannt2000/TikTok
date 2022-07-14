@@ -1,9 +1,8 @@
 import classNames from 'classnames/bind';
 import styles from './Signup.module.scss';
-import { Dialog } from "@mui/material";
-import { CloseIcon } from '~/components/Icons';
 import { useDispatch, useSelector } from "react-redux";
-import { setModalSignup } from '~/redux/slices/modalSlice';
+import { hideModalSignup } from '~/redux/slices/modalSlice';
+import { Modal } from '~/components/Modal';
 
 const cx = classNames.bind(styles);
 
@@ -12,14 +11,16 @@ function Signup() {
     const dispatch = useDispatch();
 
     return (
-        <Dialog open={modalSlice.modalSignup} onClose={() => dispatch(setModalSignup())}>
-            <div className={cx('')}>
-                <div className={cx('')}>
-
-                </div>
-            </div>
-            <div onClick={() => dispatch(setModalSignup())} className={cx('close-btn')}><CloseIcon /></div>
-        </Dialog>
+        <Modal
+            onClose={() => dispatch(hideModalSignup())}
+            open={modalSlice.modalSignup}
+            title='Đăng ký'
+            signup
+        >
+            <div className={cx('title')}>Ngày sinh của bạn là ngày nào?</div>
+            <div className={cx('description')}>Ngày sinh của bạn sẽ không được hiển thị công khai.</div>
+            <button className={cx('btn')} disabled>Tiếp</button>
+        </Modal>
     );
 }
 
