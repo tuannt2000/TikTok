@@ -1,11 +1,13 @@
 import {Fragment, useEffect} from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts';
 import { gapi } from 'gapi-script';
 import { CLIENT_ID, SCOPE } from '~/constants/Login';
 
 function App() {
+    const pathname = window.location.pathname;
+
     useEffect(() => {
         const start = () => {
             gapi.client.init({
@@ -29,12 +31,13 @@ function App() {
             }
 
             const Page = route.component;
-            return <Route key={index} path={route.path} element={
+            return <Route exact={true} key={index} path={route.path} element={
               <Layout>
                 <Page />
               </Layout>}
             />
           })}
+          <Route path='*' exact={true} element={<Navigate to={"/404?fromUrl=" + pathname} />}/>
         </Routes>
       </div>
     </Router>

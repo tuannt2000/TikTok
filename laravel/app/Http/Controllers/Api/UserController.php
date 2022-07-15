@@ -29,14 +29,14 @@ class UserController extends Controller
         return response()->json($result, 200);
     }
 
-    public function listAccountOffer ($id = null) {
-        $result = $this->userService->listAccountOffer($id);
+    public function listAccountOffer (Request $request) {
+        $result = $this->userService->listAccountOffer($request->id);
 
         return response()->json($result, 200);
     }
 
-    public function listFollowing ($id = null) {
-        $result = $this->userService->listFollowing($id);
+    public function listFollowing (Request $request) {
+        $result = $this->userService->listFollowing($request->id);
 
         return response()->json($result, 200);
     }

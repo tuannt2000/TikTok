@@ -1,43 +1,16 @@
-import * as request from '~/utils/request';
+import { apiWithoutHeader } from './api';
 
 export const getAllUsers = async () => {
-    try {
-        const res = await request.getAllUsers('users');
-
-        if (res.code !== 200) {
-            throw res.message
-        }
-
-        return res.data;
-    } catch (error) {
-        console.error(error)
-    }
+    const url = '/users';
+    return apiWithoutHeader.get(url);
 };
 
-export const getListFollowing = async (id) => {
-    try {
-        const res = await request.getListFollowing(`users/${id}/following`);
-
-        if (res.code !== 200) {
-            throw res.message
-        }
-
-        return res.data;
-    } catch (error) {
-        console.error(error)
-    }
+export const getListFollowing = async ( id ) => {
+    const url = 'users/following';
+    return apiWithoutHeader.post(url, { id });
 };
 
-export const getListAccountOffer = async (id) => {
-    try {
-        const res = await request.getListAccountOffer(`users/${id}/account-offer`);
-
-        if (res.code !== 200) {
-            throw res.message
-        }
-
-        return res.data;
-    } catch (error) {
-        console.error(error)
-    }
+export const getListAccountOffer = async ( id ) => {
+    const url = 'users/account-offer';
+    return apiWithoutHeader.post(url, { id });
 };

@@ -2,6 +2,7 @@ import * as types from '../constants/search';
 
 const initState = {
     data: [],
+    isLoading: false
 };
 
 export const searchReducer = (state = initState, action) => {
@@ -9,7 +10,8 @@ export const searchReducer = (state = initState, action) => {
         case types.SET_RESULT_SEARCH:
             return {
                 ...state,
-                data: [...action.payload]
+                data: [...action.payload.data],
+                isLoading: action.payload.isLoading
             };
         default:
             return state;

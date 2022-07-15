@@ -3,28 +3,24 @@ import styles from './Home.module.scss';
 import Avatar from '~/components/Avatar';
 import Header from "./Header";
 import Video from "./Video";
-import { useEffect, useState } from 'react';
-import * as userService from '~/services/userService';
+import { useEffect } from 'react';
 import { AccountOffer } from '~/components/Popper';
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUser } from '~/redux/actions/user';
 
 const cx = classNames.bind(styles);
 
 function Home() {
-    const [accountOffer, setAccountOffer] = useState([]);
+    const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchApiAccountOffer = async () => {
-            const result = await userService.getAllUsers();
-
-            setAccountOffer(result);
-        };
-
-        fetchApiAccountOffer();
-    }, []);
+        dispatch(getAllUser());
+    }, [dispatch]);
 
     return (
         <div>
-            {accountOffer.map((result, index) => (
+            {user.user.map((result, index) => (
                 <div key={index} className={cx('list-item')}>
                     <AccountOffer home data={result}>
                         <Avatar

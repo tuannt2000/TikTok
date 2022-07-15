@@ -24,8 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/search', [UserController::class, 'findUser']);
-    Route::get('/{id}/account-offer', [UserController::class, 'listAccountOffer']);
-    Route::get('/{id}/following', [UserController::class, 'listFollowing']);
+    Route::post('/account-offer', [UserController::class, 'listAccountOffer']);
+    Route::post('/following', [UserController::class, 'listFollowing']);
 });
 
 Route::get('/languages', [LanguageController::class, 'index']);

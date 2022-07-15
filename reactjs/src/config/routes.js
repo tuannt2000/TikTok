@@ -6,6 +6,7 @@ const routes = {
     feedback: '/feedback',
     search: '/search',
     live: '/live',
+    pageNotFound: '/404'
 };
 
 export default routes;

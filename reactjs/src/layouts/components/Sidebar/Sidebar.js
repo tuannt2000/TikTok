@@ -16,47 +16,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSpinner
 } from '@fortawesome/free-solid-svg-icons';
-import * as userService from '~/services/userService';
 import { useEffect, useState } from 'react';
 import { getIconDiscove } from '~/utils/utility';
 import { Scrollbars } from 'rc-scrollbars';
-import { useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getAllDiscoves } from '~/redux/actions/discove';
+import { getUserOffer, getUserFollowing } from '~/redux/actions/user';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
-    const [accountOffer, setAccountOffer] = useState([]);
-    const [following, setFollowing] = useState([]);
     const [showScroll, setShowScroll] = useState(false);
-    const [loadAccountOffer, setLoadAccountOffer] = useState(true);
-    const [loadFollowing, setLoadFollowing] = useState(true);
+    const user = useSelector(state => state.user);
     const discove = useSelector(state => state.discove);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        const fetchApiAccountOffer = async () => {
-            const result = await userService.getListAccountOffer(1);
-
-            setAccountOffer(result);
-            setLoadAccountOffer(false);
-        };
-
-        fetchApiAccountOffer();
-    }, []);
-
-    useEffect(() => {
-       const fetchApiListFollowing = async () => {
-           const result = await userService.getListFollowing(1);
-
-           setFollowing(result);
-           setLoadFollowing(false);
-       };
-
-        fetchApiListFollowing();
-    }, []);
-
     useEffect( () => {
+        dispatch(getUserOffer(1));
+        dispatch(getUserFollowing(1));
         dispatch(getAllDiscoves());
     }, [dispatch]);
 
@@ -85,16 +62,16 @@ function Sidebar() {
                         <MenuItem title="LIVE" to={config.routes.live} icon={<LiveSidebarIcon />} iconActive={<LiveSidebarActiveIcon />} />
                     </Menu>
                     <Account title="Tài khoản được đề xuất" showMore="Xem tất cả" >
-                        {loadAccountOffer && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
-                        {accountOffer.map(result => (
+                        {user.userOffer.length === 0 && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
+                        {user.userOffer.map(result => (
                             <AccountOffer key={result.id} data={result}>
                                 <AccountItem className="sidebar" data={result} />
                             </AccountOffer>
                         ))}
                     </Account>
                     <Account title="Các tài khoản đang follow" showMore="Xem thêm" >
-                        {loadFollowing && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
-                        {following.map(result => (
+                        {user.userFollowing.length === 0 && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
+                        {user.userFollowing.map(result => (
                             <AccountItem className="sidebar" key={result.id} data={result} />
                         ))}
                     </Account>

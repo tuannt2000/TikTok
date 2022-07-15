@@ -5,7 +5,7 @@ export const getResultSearch = ( data ) => ({
     payload: data
 });
 
-export const setResultSearch = ( data ) => ({
+export const setResultSearch = ( data = {data: [], isLoading: false} ) => ({
     type: types.SET_RESULT_SEARCH,
     payload: data
 });

@@ -1,0 +1,6 @@
+export const GET_ALL_USER = 'GET_ALL_USER';
+export const SET_ALL_USER = 'SET_ALL_USER';
+export const GET_USER_FOLLOWING = 'GET_USER_FOLLOWING';
+export const SET_USER_FOLLOWING = 'SET_USER_FOLLOWING';
+export const GET_USER_OFFER = 'GET_USER_OFFER';
+export const SET_USER_OFFER = 'SET_USER_OFFER';

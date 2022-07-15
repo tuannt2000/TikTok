@@ -10,17 +10,14 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { SearchIcon, ClearSearchIcon } from '~/components/Icons';
 import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '~/hooks';
-import * as searchService from '~/services/searchService';
 import { useSelector, useDispatch } from "react-redux";
-import { getResultSearch } from '~/redux/actions/search';
+import { getResultSearch, setResultSearch } from '~/redux/actions/search';
 
 const cx = classNames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
-    const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
-    const [loading, setLoading] = useState(false);
     const search = useSelector(state => state.search);
     const dispatch = useDispatch();
 
@@ -30,7 +27,7 @@ function Search() {
 
     useEffect(() => {
         if(!debounced.trim()){
-            setSearchResult([]);
+            dispatch(setResultSearch());
             return;
         }
 
@@ -58,12 +55,12 @@ function Search() {
         <div>
             <HeadlessTippy
                 interactive
-                visible={showResult  && searchResult.length > 0}
+                visible={showResult  && search.data.length > 0}
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWrapper>
                             <h4 className={cx('search-title')}>Accounts</h4>
-                            {searchResult.map(result => (
+                            {search.data.map(result => (
                                 !result.message ? <AccountItem key={result.id} data={result}/> : (result.message)
                             ))}
                         </PopperWrapper>
@@ -81,7 +78,7 @@ function Search() {
                         ref={inputTextRef}
                         onFocus={() => setShowResult(true)}
                     />
-                    {!!searchValue && !loading && (
+                    {!!searchValue && !search.isLoading && (
                         <button 
                         className={cx('clear')} 
                         onClick={handleClear}
@@ -89,7 +86,7 @@ function Search() {
                         <ClearSearchIcon />
                     </button>
                     )}                  
-                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+                    {search.isLoading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
                     <span className={cx('span-spliter')} />
 
                     <button className={cx('search-btn')} >

@@ -6,6 +6,7 @@ import Profile from '~/pages/Profile';
 import Upload from '~/pages/Upload';
 import Feedback from '~/pages/Feedback';
 import Live from '~/pages/Live';
+import pageNoteFound from '~/pages/404';
 
 import { HeaderOnly } from '~/layouts';
 
@@ -16,6 +17,7 @@ const publicRoutes = [
     { path: config.routes.live, component: Live },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.feedback, component: Feedback, layout: HeaderOnly },
+    { path: config.routes.pageNotFound, component: pageNoteFound, layout: HeaderOnly }
 ];
 
 const privateRoutes = [

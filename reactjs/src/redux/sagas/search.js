@@ -5,9 +5,10 @@ import { setResultSearch } from "../actions/search";
 
 function* sagaSearch(action) {
     try {
+        yield put(setResultSearch({data: [], isLoading: true}));
         const res = yield call(searchUser, action.payload);
         const { data } = res;
-        yield put(setResultSearch(data.data));
+        yield put(setResultSearch({data: data.data, isLoading: false}));
     } catch (error) {
         console.log(error)
     }

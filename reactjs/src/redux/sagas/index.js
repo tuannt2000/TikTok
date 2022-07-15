@@ -3,12 +3,14 @@ import followLogin from "./login";
 import followLanguage from "./language";
 import followDiscove from './discove';
 import followSearch from "./search";
+import followUser from "./user"
 
 export default function* rootSaga() {
     yield all([
         call(followLogin),
         call(followLanguage),
         call(followDiscove),
-        call(followSearch)
+        call(followSearch),
+        call(followUser)
     ]);
 }
