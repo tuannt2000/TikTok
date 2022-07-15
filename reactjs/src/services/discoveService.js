@@ -1,15 +1,6 @@
-import * as request from '~/utils/request';
+import { apiWithoutHeader } from './api';
 
 export const getAllDiscoves = async () => {
-    try {
-        const res = await request.getAllDiscoves('discoves');
-
-        if (res.code !== 200) {
-            throw res.message;
-        }
-
-        return res.data;
-    } catch (error) {
-        console.error(error);
-    }
+    const url ='/discoves';
+    return apiWithoutHeader.get(url);
 };

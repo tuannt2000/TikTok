@@ -1,15 +1,6 @@
-import * as request from '~/utils/request';
+import { apiWithoutHeader } from './api';
 
-export const getAllLanguages = async () => {
-    try {
-        const res = await request.getAllLanguages('languages');
-
-        if (res.code !== 200) {
-            throw res.message
-        }
-
-        return res.data;
-    } catch (error) {
-        console.error(error)
-    }
+export const getLanguages = () => {
+    const url ='/languages';
+    return apiWithoutHeader.get(url);
 };

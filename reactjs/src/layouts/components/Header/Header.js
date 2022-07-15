@@ -13,8 +13,8 @@ import Image from '~/components/Images';
 import Search from '../Search';
 import config from '~/config';
 import {useEffect} from 'react';
-import * as languageService from '~/services/languageService';
-import { Login as LoginModal } from '~/components/Modal';
+import { getAllLanguages } from '~/redux/actions/language';
+// import { Login as LoginModal } from '~/components/Modal';
 import {
     MENU_ITEMS, userMenu, UPLOAD,
     MESSAGE, INBOX, LOGIN
@@ -23,36 +23,35 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     showModalLogin, showModalSignup
 } from '~/redux/slices/modalSlice';
-import { Signup } from "~/components/Modal";
+// import { Signup } from "~/components/Modal";
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    const loginSlice = useSelector(state => state.login);
+    const login = useSelector(state => state.login);
+    const language = useSelector(state => state.language);
     const dispatch = useDispatch();
     const currentUser = false;
 
     useEffect(() => {
-        const fetchApi = async () => {
-            const result = await languageService.getAllLanguages();
-
-            MENU_ITEMS.forEach(item => {
-                if (item.type === 'languages') {
-                    item.children.data = result;
-                }
-
-                return item;
-            });
-        };
-
-        fetchApi();
-    }, []);
+        dispatch(getAllLanguages());
+    }, [dispatch]);
 
     useEffect(() => {
-        if (loginSlice.login) {
+        MENU_ITEMS.forEach(item => {
+            if (item.type === 'languages') {
+                item.children.data = language.data;
+            }
+
+            return item;
+        });
+    }, [language.data]);
+
+    useEffect(() => {
+        if (login.login) {
             dispatch(showModalSignup());
         }
-    }, [loginSlice.login, dispatch]);
+    }, [login.login, dispatch]);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);
@@ -88,8 +87,8 @@ function Header() {
                     ) : (
                         <>
                             <Button onClick={() => dispatch(showModalLogin())} primary>{LOGIN}</Button>
-                            <LoginModal />
-                            <Signup />
+                            {/*<LoginModal />*/}
+                            {/*<Signup />*/}
                         </>
                     )}
                     <div>

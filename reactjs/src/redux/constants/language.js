@@ -1,0 +1,2 @@
+export const GET_ALL_LANGUAGE = 'GET_ALL_LANGUAGE';
+export const SET_ALL_LANGUAGE = 'SET_ALL_LANGUAGE';

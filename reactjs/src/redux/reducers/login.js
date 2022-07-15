@@ -1,18 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import * as types from '../constants/login';
 
-const initialState = {
-    login: false
+const initState = {
+    data: {},
 };
 
-const loginSlice = createSlice({
-    name: 'login',
-    initialState: initialState,
-    reducers: {
-        checkLogin: state => {
-            state.login = true;
-        },
-    }
-});
+export const loginReducer = (state = initState, action) => {
+    switch (action.type) {
 
-export const { checkLogin } = loginSlice.actions;
-export default loginSlice.reducer;
+        default:
+            return state;
+    }
+};

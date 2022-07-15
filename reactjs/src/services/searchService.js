@@ -1,17 +1,8 @@
-import * as request from '~/utils/request';
+import { apiWithoutHeader } from './api';
 
-export const searchUser = async (q, type = 'less') => {
-    try {
-        const res = await request.searchUser('users/search', {
-            params: {q, type}
-        });
-
-        if (![200, 404].includes(res.code)) {
-            throw res.message
-        }
-
-        return res.data;
-    } catch (error) {
-        console.error(error)
-    }
+export const searchUser = (q, type = 'less') => {
+    const url ='/users/search';
+    return apiWithoutHeader.get(url, {
+        params: {q, type}
+    });
 };

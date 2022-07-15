@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import loginReducer from "./loginSlice";
+import loginReducer from "../reducers/login";
 import modalReducer from "./modalSlice";
 
 const rootReducer = combineReducers({

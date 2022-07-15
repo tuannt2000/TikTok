@@ -11,6 +11,8 @@ import { SearchIcon, ClearSearchIcon } from '~/components/Icons';
 import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '~/hooks';
 import * as searchService from '~/services/searchService';
+import { useSelector, useDispatch } from "react-redux";
+import { getResultSearch } from '~/redux/actions/search';
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +21,8 @@ function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
+    const search = useSelector(state => state.search);
+    const dispatch = useDispatch();
 
     const debounced = useDebounce(searchValue, 500);
 
@@ -29,16 +33,9 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        
-        const fetchApi = async () => {
-            setLoading(true);
-            const result = await searchService.searchUser(debounced);
-            setSearchResult(result);
-            setLoading(false);
-        };
 
-        fetchApi();
-    }, [debounced]);
+        dispatch(getResultSearch(debounced));
+    }, [debounced, dispatch]);
 
     const handleClear = () => {
         setSearchValue('');

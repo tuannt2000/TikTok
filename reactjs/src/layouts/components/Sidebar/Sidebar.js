@@ -17,21 +17,22 @@ import {
     faSpinner
 } from '@fortawesome/free-solid-svg-icons';
 import * as userService from '~/services/userService';
-import * as discoveService from '~/services/discoveService';
 import { useEffect, useState } from 'react';
 import { getIconDiscove } from '~/utils/utility';
 import { Scrollbars } from 'rc-scrollbars';
+import { useSelector, useDispatch} from "react-redux";
+import { getAllDiscoves } from '~/redux/actions/discove';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
     const [accountOffer, setAccountOffer] = useState([]);
     const [following, setFollowing] = useState([]);
-    const [discoves, setDiscoves] = useState([]);
     const [showScroll, setShowScroll] = useState(false);
     const [loadAccountOffer, setLoadAccountOffer] = useState(true);
     const [loadFollowing, setLoadFollowing] = useState(true);
-    const [loadDiscove, setLoadDiscove] = useState(true);
+    const discove = useSelector(state => state.discove);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchApiAccountOffer = async () => {
@@ -55,16 +56,9 @@ function Sidebar() {
         fetchApiListFollowing();
     }, []);
 
-    useEffect(() => {
-        const fetchApiDiscoves = async () => {
-            const result = await discoveService.getAllDiscoves();
-
-            setDiscoves(result);
-            setLoadDiscove(false);
-        };
-
-        fetchApiDiscoves();
-    }, []);
+    useEffect( () => {
+        dispatch(getAllDiscoves());
+    }, [dispatch]);
 
     return (
         <div
@@ -105,8 +99,8 @@ function Sidebar() {
                         ))}
                     </Account>
                     <Discover>
-                        {loadDiscove && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
-                        {discoves.map((result, index) => (
+                        {!discove.data.length && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
+                        {discove.data.map((result, index) => (
                             <Button
                                 to={`${result.type}/${result.link}`}
                                 key={index}

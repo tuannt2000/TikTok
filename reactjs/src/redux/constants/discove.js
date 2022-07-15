@@ -1,0 +1,2 @@
+export const GET_ALL_DISCOVE = 'GET_ALL_DISCOVE';
+export const SET_ALL_DISCOVE = 'SET_ALL_DISCOVE';
