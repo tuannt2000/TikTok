@@ -13,15 +13,14 @@ import {
     HomeSidebarActiveIcon, FollowSidebarActiveIcon, LiveSidebarActiveIcon
 } from '~/components/Icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faSpinner
-} from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { getIconDiscove } from '~/utils/utility';
 import { Scrollbars } from 'rc-scrollbars';
 import { useSelector, useDispatch } from "react-redux";
 import { getAllDiscoves } from '~/redux/actions/discove';
 import { getUserOffer, getUserFollowing } from '~/redux/actions/user';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -30,12 +29,13 @@ function Sidebar() {
     const user = useSelector(state => state.user);
     const discove = useSelector(state => state.discove);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     useEffect( () => {
-        dispatch(getUserOffer(1));
-        dispatch(getUserFollowing(1));
-        dispatch(getAllDiscoves());
-    }, [dispatch]);
+        dispatch(getUserOffer({id: 1, navigate}));
+        dispatch(getUserFollowing({id: 1, navigate}));
+        dispatch(getAllDiscoves({navigate}));
+    }, [dispatch, navigate]);
 
     return (
         <div

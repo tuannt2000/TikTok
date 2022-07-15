@@ -28,7 +28,7 @@ function Signup({ hanleHide }) {
                     </Link>
                 </div>
             </div>
-            <div onClick={hanleHide} className={cx('close-btn')}><CloseIcon /></div>
+            <div onClick={() => hanleHide(false)} className={cx('close-btn')}><CloseIcon /></div>
         </>
     );
 }

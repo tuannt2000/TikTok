@@ -1,3 +1,5 @@
+import classNames from 'classnames/bind';
+import styles from './Modal.module.scss';
 import { Dialog } from '@mui/material';
 import { LOGIN } from '~/constants/Header';
 import Button from '~/components/Button';
@@ -7,33 +9,34 @@ import { useState } from 'react';
 import Signup from "./Signup";
 import Login from "./Login";
 import { useGoogleLogout } from 'react-google-login';
-import { CLIENT_ID } from '~/constants/Login';
+
+const cx = classNames.bind(styles);
 
 function Modal() {
-    const onLogoutSuccess = () => {
-        console.log('logout');
-    };
-    const onFailure = () => {
-        console.log('logout fail');
-    };
-    const { signOut } = useGoogleLogout({
-        clientId: CLIENT_ID,
-        onLogoutSuccess: onLogoutSuccess,
-        onFailure: onFailure,
-    });
-    console.log(signOut)
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
     const login = useSelector(state => state.login);
 
-    const hanleHide = (back = false, signup = false) => {
-        if (signup) {
-            dispatch(loginSuccess());
-        }
+    const onLogoutSuccess = () => {
+        console.log('logout success');
+        dispatch(loginSuccess());
+    };
+
+    const onFailure = () => {
+        console.log('logout fail');
+    };
+
+    const { signOut } = useGoogleLogout({
+        onLogoutSuccess: onLogoutSuccess,
+        onFailure: onFailure,
+    });
+
+    const hanleHide = async (back = false) => {
+        signOut();
 
         if (!back){
             setShow(false);
-        }
+        }      
     };
 
     const hanleShow = () => {
@@ -43,7 +46,7 @@ function Modal() {
     return (
         <>
             <Button onClick={hanleShow} primary>{LOGIN}</Button>
-            <Dialog open={show} onClose={hanleHide}>
+            <Dialog className={cx('container')} open={show} onClose={() => hanleHide(false)}>
                 {!login.loginSuccess ? <Login hanleHide={hanleHide} /> : <Signup hanleHide={hanleHide} />}
             </Dialog>
         </>

@@ -1,9 +1,7 @@
 import styles from './Search.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faSpinner
-} from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
 import AccountItem from '~/components/AccountItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -12,6 +10,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '~/hooks';
 import { useSelector, useDispatch } from "react-redux";
 import { getResultSearch, setResultSearch } from '~/redux/actions/search';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +19,7 @@ function Search() {
     const [showResult, setShowResult] = useState(false);
     const search = useSelector(state => state.search);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const debounced = useDebounce(searchValue, 500);
 
@@ -31,8 +31,8 @@ function Search() {
             return;
         }
 
-        dispatch(getResultSearch(debounced));
-    }, [debounced, dispatch]);
+        dispatch(getResultSearch({q: debounced, navigate}));
+    }, [debounced, dispatch, navigate]);
 
     const handleClear = () => {
         setSearchValue('');

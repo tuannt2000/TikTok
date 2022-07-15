@@ -7,16 +7,18 @@ import { useEffect } from 'react';
 import { AccountOffer } from '~/components/Popper';
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUser } from '~/redux/actions/user';
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 function Home() {
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getAllUser());
-    }, [dispatch]);
+        dispatch(getAllUser({ navigate }));
+    }, [dispatch, navigate]);
 
     return (
         <div>

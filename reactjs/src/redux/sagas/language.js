@@ -3,13 +3,14 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { GET_ALL_LANGUAGE } from "../constants/language";
 import { setAllLanguages } from "../actions/language";
 
-function* sagaAllLanguages() {
+function* sagaAllLanguages(action) {
     try {
         const res = yield call(getLanguages);
         const { data } = res;
         yield put(setAllLanguages(data.data));
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        action.payload.navigate('/500');
     }
 }
 

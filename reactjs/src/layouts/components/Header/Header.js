@@ -3,7 +3,7 @@ import 'tippy.js/dist/tippy.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Menu as PopperMenu } from '~/components/Popper';
 import classNames from 'classnames/bind';
 import images from '~/assets/images';
@@ -26,11 +26,12 @@ const cx = classNames.bind(styles);
 function Header() {
     const language = useSelector(state => state.language);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const currentUser = false;
 
     useEffect(() => {
-        dispatch(getAllLanguages());
-    }, [dispatch]);
+        dispatch(getAllLanguages({navigate}));
+    }, [dispatch, navigate]);
 
     useEffect(() => {
         MENU_ITEMS.forEach(item => {

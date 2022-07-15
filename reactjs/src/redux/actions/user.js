@@ -1,7 +1,8 @@
 import * as types from '../constants/user';
 
-export const getAllUser = () => ({
-    type: types.GET_ALL_USER
+export const getAllUser = ( data ) => ({
+    type: types.GET_ALL_USER,
+    payload: data
 });
 
 export const setAllUser = ( data ) => ({
@@ -9,9 +10,9 @@ export const setAllUser = ( data ) => ({
     payload: data
 });
 
-export const getUserFollowing = ( id ) => ({
+export const getUserFollowing = ( data ) => ({
     type: types.GET_USER_FOLLOWING,
-    payload: id
+    payload: data
 });
 
 export const setUserFollowing = ( data ) => ({
@@ -19,9 +20,9 @@ export const setUserFollowing = ( data ) => ({
     payload: data
 });
 
-export const getUserOffer = ( id ) => ({
+export const getUserOffer = ( data ) => ({
     type: types.GET_USER_OFFER,
-    payload: id
+    payload: data
 });
 
 export const setUserOffer = ( data ) => ({
