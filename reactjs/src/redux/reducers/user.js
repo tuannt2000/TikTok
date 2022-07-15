@@ -3,7 +3,8 @@ import * as types from '../constants/user';
 const initState = {
     user: [],
     userFollowing: [],
-    userOffer: []
+    userOffer: [],
+    auth: {}
 };
 
 export const userReducer = (state = initState, action) => {

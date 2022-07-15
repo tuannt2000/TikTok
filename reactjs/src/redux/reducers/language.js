@@ -1,4 +1,4 @@
-import * as types from '../constants/discove';
+import * as types from '../constants/language';
 
 const initState = {
     data: [],
@@ -6,7 +6,7 @@ const initState = {
 
 export const languageReducer = (state = initState, action) => {
     switch (action.type) {
-        case types.SET_ALL_DISCOVE:
+        case types.SET_ALL_LANGUAGE:
             return {
                 ...state,
                 data: [...action.payload]

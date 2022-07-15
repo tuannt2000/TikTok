@@ -14,16 +14,13 @@ import Search from '../Search';
 import config from '~/config';
 import {useEffect} from 'react';
 import { getAllLanguages } from '~/redux/actions/language';
-// import { Login as LoginModal } from '~/components/Modal';
+import { Login as LoginModal } from '~/components/Modal';
+import { Signup } from '~/components/Modal';
 import {
     MENU_ITEMS, userMenu, UPLOAD,
-    MESSAGE, INBOX, LOGIN
+    MESSAGE, INBOX
 } from '~/constants/Header';
 import { useSelector, useDispatch } from "react-redux";
-import {
-    showModalLogin, showModalSignup
-} from '~/redux/slices/modalSlice';
-// import { Signup } from "~/components/Modal";
 
 const cx = classNames.bind(styles);
 
@@ -46,12 +43,6 @@ function Header() {
             return item;
         });
     }, [language.data]);
-
-    useEffect(() => {
-        if (login.login) {
-            dispatch(showModalSignup());
-        }
-    }, [login.login, dispatch]);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);
@@ -85,11 +76,7 @@ function Header() {
                             </div>
                         </>
                     ) : (
-                        <>
-                            <Button onClick={() => dispatch(showModalLogin())} primary>{LOGIN}</Button>
-                            {/*<LoginModal />*/}
-                            {/*<Signup />*/}
-                        </>
+                        !login.loginSuccess ? <LoginModal /> : <Signup />
                     )}
                     <div>
                         <PopperMenu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
