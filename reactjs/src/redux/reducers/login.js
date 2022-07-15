@@ -2,8 +2,7 @@ import * as types from '../constants/login';
 
 const initState = {
     data: {},
-    loginSuccess: false,
-    showModalLogin: false
+    loginSuccess: false
 };
 
 export const loginReducer = (state = initState, action) => {
@@ -12,11 +11,6 @@ export const loginReducer = (state = initState, action) => {
             return {
                 ...state,
                 loginSuccess: action.payload
-            };
-        case  types.SET_SHOW_MODAL_LOGIN:
-            return {
-                ...state,
-                showModalLogin: action.payload
             };
         default:
             return state;

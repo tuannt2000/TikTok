@@ -14,8 +14,7 @@ import Search from '../Search';
 import config from '~/config';
 import {useEffect} from 'react';
 import { getAllLanguages } from '~/redux/actions/language';
-import { Login as LoginModal } from '~/components/Modal';
-import { Signup } from '~/components/Modal';
+import { Modal } from '~/components/Modal';
 import {
     MENU_ITEMS, userMenu, UPLOAD,
     MESSAGE, INBOX
@@ -25,7 +24,6 @@ import { useSelector, useDispatch } from "react-redux";
 const cx = classNames.bind(styles);
 
 function Header() {
-    const login = useSelector(state => state.login);
     const language = useSelector(state => state.language);
     const dispatch = useDispatch();
     const currentUser = false;
@@ -76,7 +74,7 @@ function Header() {
                             </div>
                         </>
                     ) : (
-                        !login.loginSuccess ? <LoginModal /> : <Signup />
+                        <Modal />
                     )}
                     <div>
                         <PopperMenu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
