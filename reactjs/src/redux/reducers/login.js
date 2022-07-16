@@ -7,11 +7,7 @@ const initState = {
 
 export const loginReducer = (state = initState, action) => {
     switch (action.type) {
-        case types.LOGIN_SUCCESS:
-            return {
-                ...state,
-                loginSuccess: action.payload
-            };
+
         default:
             return state;
     }
