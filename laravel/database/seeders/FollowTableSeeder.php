@@ -15,6 +15,7 @@ class FollowTableSeeder extends Seeder
      */
     public function run()
     {
+        
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
         DB::table('follows')->insert([
             [

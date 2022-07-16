@@ -17,7 +17,7 @@ class LanguageTableSeeder extends Seeder
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
         DB::table('languages')->insert([
             [
-                'code' => 'vi-VN',
+                'code' => 'vi',
                 'title' => 'Tiếng Việt (Việt Nam)',
                 'created_at' => $now,
                 'updated_at' =>  $now,

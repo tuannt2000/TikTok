@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LanguageController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\Api\LanguageController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    dd(Auth::user());
 });
 
 Route::post('/', [LanguageController::class, 'test']);

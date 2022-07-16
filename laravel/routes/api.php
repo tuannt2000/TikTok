@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DiscoveController;
 
+use App\Http\Controllers\Auth\GoogleController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,3 +33,5 @@ Route::prefix('users')->group(function () {
 Route::get('/languages', [LanguageController::class, 'index']);
 
 Route::get('/discoves', [DiscoveController::class, 'index']);
+
+Route::post('/redirectGoogle', [GoogleController::class, 'loginCallback']);

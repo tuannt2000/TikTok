@@ -9,8 +9,8 @@ import {
 import { GoogleLogin } from 'react-google-login';
 import { CLIENT_ID } from '~/constants/Login';
 import { useDispatch } from "react-redux";
-import { loginSuccess } from '~/redux/actions/login';
-import { DialogTitle} from "@mui/material";
+import { postEmailGoogle, loginSuccess } from '~/redux/actions/login';
+import { DialogTitle } from "@mui/material";
 import { Link } from "react-router-dom";
 import { CloseIcon } from '~/components/Icons';
 
@@ -21,7 +21,20 @@ function Login({ hanleHide }) {
 
     const hanleSussess = (response) => {
         console.log(response);
+        dispatch(postEmailGoogle(
+            { access_token: response.accessToken },
+            (message) => onSuccess(message),
+            (message) => onError(message)
+        ))
         dispatch(loginSuccess(true));
+    };
+
+    const onSuccess = (message) => {
+        console.log(message);
+    };
+
+    const onError = (message) => {
+        console.log(message);
     };
 
     const hanleFailure = (response) => {
