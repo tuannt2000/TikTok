@@ -45,8 +45,8 @@ function Modal() {
         onFailure: onFailure,
     });
 
-    const hanleHide = () => {
-        if (history.length > 1) {
+    const hanleHide = (success) => {
+        if (history.length > 1 && !success) {
             signOut();
         }
 
@@ -69,6 +69,7 @@ function Modal() {
                     key={index}
                     handleSetMenu={handleSetMenu}
                     data={item}
+                    hanleHide={hanleHide}
                 />
             )
         });
@@ -77,7 +78,7 @@ function Modal() {
     return (
         <>
             <Button onClick={() => setShow(true)} primary>{LOGIN}</Button>
-            <Dialog className={cx('container')} open={show} onClose={hanleHide}>
+            <Dialog className={cx('container')} open={show} onClose={() => hanleHide(false)}>
                 {show && (
                     <>
                         {history.length > 1 && (
@@ -112,7 +113,7 @@ function Modal() {
                                 )}
                             </div>
                         </div>
-                        <div onClick={hanleHide} className={cx('close-btn')}><CloseIcon /></div>
+                        <div onClick={() => hanleHide(false)} className={cx('close-btn')}><CloseIcon /></div>
                     </>
                 )}
             </Dialog>

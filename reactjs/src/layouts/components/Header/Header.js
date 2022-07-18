@@ -12,7 +12,7 @@ import { InboxIcon, MessageIcon, PlusIcon } from '~/components/Icons';
 import Image from '~/components/Images';
 import Search from '../Search';
 import config from '~/config';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import { getAllLanguages } from '~/redux/actions/language';
 import { Modal } from '~/components/Modal';
 import {
@@ -20,6 +20,7 @@ import {
     MESSAGE, INBOX
 } from '~/constants/Header';
 import { useSelector, useDispatch } from "react-redux";
+import { getInfoUser } from '~/redux/actions/user';
 
 const cx = classNames.bind(styles);
 
@@ -27,9 +28,15 @@ function Header() {
     const language = useSelector(state => state.language);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const currentUser = false;
+    const currentUser = useSelector(state => state.user.currentUser);
 
     useEffect(() => {
+        console.log(2)
+        if (localStorage.getItem("token")) {
+            dispatch(getInfoUser());
+        }
+
+        dispatch(getAllLanguages({navigate}));
         dispatch(getAllLanguages({navigate}));
     }, [dispatch, navigate]);
 
@@ -49,6 +56,7 @@ function Header() {
 
     return (
         <header className={cx('wrapper')}>
+            {console.log(1)}
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
                     <Link to={config.routes.home} className={cx('logo')}><img src={images.logo} alt="TikTok" /></Link>
@@ -56,7 +64,7 @@ function Header() {
                 <Search />           
                 <div className={cx('actions')}>
                     <Button to={config.routes.upload} upload leftIcon={<PlusIcon />}>{UPLOAD}</Button>
-                    {currentUser ? (
+                    {Object.keys(currentUser).length > 0 ? (
                         <>
                             <div>
                                 <Tippy content={MESSAGE}>
@@ -78,11 +86,11 @@ function Header() {
                         <Modal />
                     )}
                     <div>
-                        <PopperMenu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
-                            {currentUser ? (
+                        <PopperMenu items={Object.keys(currentUser).length ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                            {Object.keys(currentUser).length > 0 ? (
                                 <Image
-                                    src="https://i-vnexpress.vnecdn.net/2019/07/30/anh-thien-nhien-dep-thang-7-1564483719_680x0.jpg"
-                                    alt="Nguyễn Hữu Tuấn"
+                                    src={currentUser.avatar}
+                                    alt={currentUser.nickname}
                                     className={cx('user-avatar')}
                                 />
                             ) : (

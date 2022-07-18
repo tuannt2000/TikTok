@@ -9,29 +9,32 @@ import {
 import { GoogleLogin } from 'react-google-login';
 import { CLIENT_ID } from '~/constants/Login';
 import { useDispatch } from "react-redux";
-import { postEmailGoogle } from '~/redux/actions/login';
+import { postEmailGoogle, setAccessToken } from '~/redux/actions/login';
 
 const cx = classNames.bind(styles);
 
-function Login({ handleSetMenu, data }) {
+function Login({ handleSetMenu, data, hanleHide }) {
     const dispatch = useDispatch();
 
     const hanleSussess = (response) => {
         console.log(response);
+        dispatch(setAccessToken(response.accessToken));
         dispatch(postEmailGoogle(
-            { access_token: response.accessToken },
+            {access_token: response.accessToken},
             (message) => onSuccess(message),
             (message) => onError(message)
-        ))
-        handleSetMenu(data);
+        ));
     };
 
     const onSuccess = (message) => {
         console.log(message);
+        window.location.reload()
+        // hanleHide(true);
     };
 
     const onError = (message) => {
         console.log(message);
+        handleSetMenu(data);
     };
 
     const hanleFailure = (response) => {

@@ -29,3 +29,12 @@ export const setUserOffer = ( data ) => ({
     type: types.SET_USER_OFFER,
     payload: data
 });
+
+export const getInfoUser = () => ({
+    type: types.GET_INFO_USER,
+});
+
+export const setInfoUser = ( data ) => ({
+    type: types.SET_INFO_USER,
+    payload: data
+});

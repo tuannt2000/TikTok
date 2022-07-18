@@ -4,3 +4,5 @@ export const GET_USER_FOLLOWING = 'GET_USER_FOLLOWING';
 export const SET_USER_FOLLOWING = 'SET_USER_FOLLOWING';
 export const GET_USER_OFFER = 'GET_USER_OFFER';
 export const SET_USER_OFFER = 'SET_USER_OFFER';
+export const GET_INFO_USER = 'GET_INFO_USER';
+export const SET_INFO_USER = 'SET_INFO_USER';

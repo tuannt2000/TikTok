@@ -4,7 +4,7 @@ const initState = {
     user: [],
     userFollowing: [],
     userOffer: [],
-    auth: {}
+    currentUser: {}
 };
 
 export const userReducer = (state = initState, action) => {
@@ -23,6 +23,11 @@ export const userReducer = (state = initState, action) => {
             return {
                 ...state,
                 userOffer: [...action.payload]
+            };
+        case types.SET_INFO_USER:
+            return {
+                ...state,
+                currentUser: {...action.payload}
             };
         default:
             return state;

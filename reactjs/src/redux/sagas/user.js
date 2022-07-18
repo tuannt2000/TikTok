@@ -1,7 +1,7 @@
-import { getAllUsers, getListFollowing, getListAccountOffer } from "~/services/userService";
+import { getAllUsers, getListFollowing, getListAccountOffer, getInfoUser } from "~/services/userService";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { GET_ALL_USER, GET_USER_FOLLOWING, GET_USER_OFFER } from "../constants/user";
-import { setAllUser, setUserFollowing, setUserOffer } from "../actions/user";
+import { GET_ALL_USER, GET_USER_FOLLOWING, GET_USER_OFFER, GET_INFO_USER } from "../constants/user";
+import { setAllUser, setUserFollowing, setUserOffer, setInfoUser } from "../actions/user";
 
 function* sagaAllUser(action) {
     try {
@@ -36,10 +36,21 @@ function* sagaUserAccountOffer(action) {
     }
 }
 
+function* sagaUserInfo() {
+    try {
+        const res = yield call(getInfoUser);
+        const { data } = res;
+        yield put(setInfoUser(data.data));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function* followUser() {
     yield takeLatest(GET_ALL_USER, sagaAllUser);
     yield takeLatest(GET_USER_FOLLOWING, sagaUserFollowing);
     yield takeLatest(GET_USER_OFFER, sagaUserAccountOffer);
+    yield takeLatest(GET_INFO_USER, sagaUserInfo);
 }
 
 export default followUser;

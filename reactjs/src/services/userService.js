@@ -1,4 +1,4 @@
-import { apiWithoutHeader } from './api';
+import { api, apiWithoutHeader } from './api';
 
 export const getAllUsers = async () => {
     const url = '/users';
@@ -13,4 +13,9 @@ export const getListFollowing = async ( id ) => {
 export const getListAccountOffer = async ( id ) => {
     const url = 'users/account-offer';
     return apiWithoutHeader.post(url, { id });
+};
+
+export const getInfoUser = async () => {
+    const url = 'users/info';
+    return api.get(url);
 };

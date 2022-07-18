@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DiscoveController;
-
 use App\Http\Controllers\Auth\GoogleController;
 
 /*
@@ -25,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']);
+    Route::get('/info', [UserController::class, 'getInfoUser'])->middleware('auth:api');
     Route::get('/search', [UserController::class, 'findUser']);
     Route::post('/account-offer', [UserController::class, 'listAccountOffer']);
     Route::post('/following', [UserController::class, 'listFollowing']);

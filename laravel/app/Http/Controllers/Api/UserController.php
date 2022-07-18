@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Contracts\Services\Api\UserServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -37,6 +38,14 @@ class UserController extends Controller
 
     public function listFollowing (Request $request) {
         $result = $this->userService->listFollowing($request->id);
+
+        return response()->json($result, 200);
+    }
+
+    public function getInfoUser () {
+        $result = [
+            'data' => Auth::user()
+        ];
 
         return response()->json($result, 200);
     }

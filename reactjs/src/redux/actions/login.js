@@ -6,3 +6,8 @@ export const postEmailGoogle = (data, onSuccess, onError) => ({
     onSuccess,
     onError
 });
+
+export const setAccessToken = ( data ) => ({
+    type: types.SET_ACCESS_TOKEN,
+    payload: data
+})
