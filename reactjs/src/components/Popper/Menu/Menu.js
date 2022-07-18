@@ -20,7 +20,6 @@ function Menu({ children, items = [], hideOnClick = 'false', onChange = defaultF
     }, [items]);
 
     const currentMenu = history[history.length - 1];
-    console.log(history, items)
 
     const renderItems = () => {
         return currentMenu.data.map((item, index) => {

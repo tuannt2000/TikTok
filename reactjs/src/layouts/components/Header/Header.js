@@ -12,7 +12,7 @@ import { InboxIcon, MessageIcon, PlusIcon } from '~/components/Icons';
 import Image from '~/components/Images';
 import Search from '../Search';
 import config from '~/config';
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import { getAllLanguages } from '~/redux/actions/language';
 import { Modal } from '~/components/Modal';
 import {
@@ -31,12 +31,10 @@ function Header() {
     const currentUser = useSelector(state => state.user.currentUser);
 
     useEffect(() => {
-        console.log(2)
         if (localStorage.getItem("token")) {
             dispatch(getInfoUser());
         }
 
-        dispatch(getAllLanguages({navigate}));
         dispatch(getAllLanguages({navigate}));
     }, [dispatch, navigate]);
 
@@ -56,7 +54,6 @@ function Header() {
 
     return (
         <header className={cx('wrapper')}>
-            {console.log(1)}
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
                     <Link to={config.routes.home} className={cx('logo')}><img src={images.logo} alt="TikTok" /></Link>
@@ -106,4 +103,4 @@ function Header() {
     );
 }
 
-export default Header;
+export default memo(Header);
