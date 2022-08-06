@@ -36,7 +36,8 @@ function Header() {
         }
 
         dispatch(getAllLanguages({navigate}));
-    }, [dispatch, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         MENU_ITEMS.forEach(item => {
@@ -66,7 +67,7 @@ function Header() {
                             <div>
                                 <Tippy content={MESSAGE}>
                                     <button className={cx('action-btn')}>
-                                        <MessageIcon />
+                                        <Link to={config.routes.messages}><MessageIcon /></Link>
                                     </button>
                                 </Tippy>
                             </div>

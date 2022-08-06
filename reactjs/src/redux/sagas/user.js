@@ -40,6 +40,7 @@ function* sagaUserInfo() {
     try {
         const res = yield call(getInfoUser);
         const { data } = res;
+        localStorage.setItem("current", JSON.stringify(data.data));
         yield put(setInfoUser(data.data));
     } catch (error) {
         console.log(error);

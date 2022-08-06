@@ -13,11 +13,10 @@ import { postEmailGoogle, setAccessToken } from '~/redux/actions/login';
 
 const cx = classNames.bind(styles);
 
-function Login({ handleSetMenu, data, hanleHide }) {
+function Login({ handleSetMenu, data }) {
     const dispatch = useDispatch();
 
     const hanleSussess = (response) => {
-        console.log(response);
         dispatch(setAccessToken(response.accessToken));
         dispatch(postEmailGoogle(
             {access_token: response.accessToken},
@@ -28,8 +27,7 @@ function Login({ handleSetMenu, data, hanleHide }) {
 
     const onSuccess = (message) => {
         console.log(message);
-        window.location.reload()
-        // hanleHide(true);
+        window.location.reload();
     };
 
     const onError = (message) => {

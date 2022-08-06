@@ -69,7 +69,6 @@ function Modal() {
                     key={index}
                     handleSetMenu={handleSetMenu}
                     data={item}
-                    hanleHide={hanleHide}
                 />
             )
         });

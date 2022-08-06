@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts';
@@ -6,7 +6,6 @@ import { gapi } from 'gapi-script';
 import { CLIENT_ID, SCOPE } from '~/constants/Login';
 
 function App() {
-    const [loading, setLoading] = useState(false);
     const pathname = window.location.pathname;
 
     useEffect(() => {
@@ -20,40 +19,27 @@ function App() {
         gapi.load('client:auth2', start);
     });
 
-    useEffect(() => {
-        setLoading(true)
-        const time = setTimeout(() => {
-            setLoading(false);
-        }, 1000);
-
-        return () => {
-            clearTimeout(time)
-        }
-    }, [])
-
     return (
         <Router>
-            {!loading && (
-                <div className="App">
-                    <Routes>
-                        {publicRoutes.map((route, index) => {
-                            let Layout = DefaultLayout;
+            <div className="App">
+                <Routes>
+                    {publicRoutes.map((route, index) => {
+                        let Layout = DefaultLayout;
 
-                            if (route.layout) {
-                                Layout = route.layout === null ? Fragment : route.layout;
-                            }
+                        if (route.layout) {
+                            Layout = route.layout === null ? Fragment : route.layout;
+                        }
 
-                            const Page = route.component;
-                            return <Route exact={true} key={index} path={route.path} element={
-                                <Layout>
-                                    <Page />
-                                </Layout>}
-                            />
-                        })}
-                        <Route path='*' exact={true} element={<Navigate to={"/404?fromUrl=" + pathname} />} />
-                    </Routes>
-                </div>
-            )}
+                        const Page = route.component;
+                        return <Route exact={true} key={index} path={route.path} element={
+                            <Layout>
+                                <Page />
+                            </Layout>}
+                        />
+                    })}
+                    <Route path='*' exact={true} element={<Navigate to={"/404?fromUrl=" + pathname} />} />
+                </Routes>
+            </div>
         </Router>
     );
 }

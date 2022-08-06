@@ -5,6 +5,7 @@ import Following from '~/pages/Following';
 import Profile from '~/pages/Profile';
 import Upload from '~/pages/Upload';
 import Feedback from '~/pages/Feedback';
+import Message from '~/pages/Message';
 import Live from '~/pages/Live';
 import PageNoteFound from '~/pages/404';
 import WebError from '~/pages/500';
@@ -18,6 +19,7 @@ const publicRoutes = [
     { path: config.routes.live, component: Live },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.feedback, component: Feedback, layout: HeaderOnly },
+    { path: config.routes.messages, component: Message, layout: HeaderOnly },
     { path: config.routes.pageNotFound, component: PageNoteFound, layout: HeaderOnly },
     { path: config.routes.webError, component: WebError, layout: HeaderOnly }
 ];

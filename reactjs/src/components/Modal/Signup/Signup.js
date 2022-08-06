@@ -7,7 +7,7 @@ import { postEmailGoogle } from '~/redux/actions/login';
 
 const cx = classNames.bind(styles);
 
-function Signup({ hanleHide }) {
+function Signup() {
     const accessToken = useSelector(state => state.login.accessToken);
     const dispatch = useDispatch();
 
@@ -30,8 +30,7 @@ function Signup({ hanleHide }) {
 
     const onSuccess = (message) => {
         console.log(message);
-        window.location.reload()
-        // hanleHide(true);
+        window.location.reload();
     };
 
     const onError = (message) => {
