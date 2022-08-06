@@ -27,6 +27,9 @@ function Message() {
 
         echo
             .channel('public.room')
+            .subscribed(() => {
+                console.log('You are subscribed');
+            })
             .listen('.message.new', (data) => {
                 setMessages((oldMessages) => [...oldMessages, data]);
                 setMessage('');
