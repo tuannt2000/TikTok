@@ -10,6 +10,7 @@ import Pusher from 'pusher-js';
 const cx = classNames.bind(styles);
 
 function Message() {
+    const [idRoom, setIdRoom] = useState(-1);
     const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
@@ -23,10 +24,16 @@ function Message() {
             wsPort: 443,
             disableStats: true,
             encrypted: true,
+            auth: {
+                headers: {
+                  Accept: "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            }
         });
 
         echo
-            .channel('public.room')
+            .channel(`room.${idRoom}`)
             .subscribed(() => {
                 console.log('You are subscribed');
             })
@@ -34,7 +41,11 @@ function Message() {
                 setMessages((oldMessages) => [...oldMessages, data]);
                 setMessage('');
             });
-    }, []);
+
+        return () => {
+            echo.leave(`room.${idRoom}`)
+        }
+    }, [idRoom]);
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -49,7 +60,8 @@ function Message() {
             return;
         }
         try {
-            await Axios.post('/new-message', {
+            await Axios.post('/message', {
+                idRoom: idRoom,
                 user: user,
                 message: message,
             });
@@ -66,8 +78,8 @@ function Message() {
                     <p>Post your random thoughts for the world to see</p>
                 </div>
                 <div>
-                    {messages.map((message) => (
-                        <Messagebox key={message.id} message={message} />
+                    {messages.map((message, index) => (
+                        <Messagebox key={index} message={message} />
                     ))}
                 </div>
                 <div>
@@ -77,6 +89,13 @@ function Message() {
                             placeholder="Set your username"
                             value={user}
                             onChange={(e) => setUser(e.target.value)}
+                            required
+                        />
+                        <input
+                            type="text"
+                            placeholder="Set id room"
+                            value={idRoom}
+                            onChange={(e) => setIdRoom(e.target.value)}
                             required
                         />
                         <div>

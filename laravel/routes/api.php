@@ -37,7 +37,7 @@ Route::get('/discoves', [DiscoveController::class, 'index']);
 
 Route::post('/redirectGoogle', [GoogleController::class, 'loginCallback']);
 
-Route::post('new-message', function (Request $request) {
-    event(new MessageEvent($request->user, $request->message));
+Route::post('/message', function (Request $request) {
+    event(new MessageEvent($request->idRoom, $request->user, $request->message));
     return 'ok';
 });
