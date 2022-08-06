@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DiscoveController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Events\MessageEvent;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,8 @@ Route::get('/languages', [LanguageController::class, 'index']);
 Route::get('/discoves', [DiscoveController::class, 'index']);
 
 Route::post('/redirectGoogle', [GoogleController::class, 'loginCallback']);
+
+Route::post('new-message', function (Request $request) {
+    event(new MessageEvent($request->user, $request->message));
+    return 'ok';
+});
