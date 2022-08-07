@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
+import ListConversation from './ListConversation';
+import ChatBox from './ChatBox';
 
 const cx = classNames.bind(styles);
 
@@ -70,9 +72,17 @@ function Message() {
         }
     }
 
+    const handleClick = (idRoom) => {
+        setIdRoom(idRoom);
+    }
+
+    console.log(idRoom)
+
     return (
-        <div>
-            <div>
+        <div className={cx('content')}>
+            <ListConversation handleClick={handleClick} />
+            <ChatBox />
+            {/* <div>
                 <div>
                     <h1>Public Space</h1>
                     <p>Post your random thoughts for the world to see</p>
@@ -110,7 +120,7 @@ function Message() {
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
