@@ -1,19 +1,21 @@
 import classNames from "classnames/bind";
 import styles from './ChatBox.module.scss';
-import Axios from "axios";
 import {useEffect, useState} from "react";
 import Echo from "laravel-echo";
 import Messagebox from "./Messagebox";
+import {useDispatch, useSelector} from "react-redux";
+import { sendMessage, setAllMessagesAfterSend } from '~/redux/actions/room';
 
 const cx = classNames.bind(styles);
 
 function ChatBox({ idRoom }) {
-    const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
+    const user_id = useSelector(state => state.user.currentUser.id);
+    const listMessages = useSelector(state => state.room.listMessages);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        Axios.defaults.baseURL = process.env.REACT_APP_BASE_URL_LARAVEL;
         const echo = new Echo({
             broadcaster: 'pusher',
             key: process.env.REACT_APP_MIX_ABLY_PUBLIC_KEY,
@@ -35,7 +37,8 @@ function ChatBox({ idRoom }) {
                 console.log('You are subscribed');
             })
             .listen('.message.new', (data) => {
-                setMessages((oldMessages) => [...oldMessages, data]);
+                console.log(data)
+                dispatch(setAllMessagesAfterSend(data));
                 setMessage('');
             });
 
@@ -47,46 +50,22 @@ function ChatBox({ idRoom }) {
     const handleSendMessage = async (e) => {
         e.preventDefault();
 
-        if (!user) {
-            alert('Please add your username');
-            return;
-        }
-
         if (!message) {
             alert('Please add a message');
             return;
         }
-        try {
-            await Axios.post('/message', {
-                idRoom: idRoom,
-                user: user,
-                message: message,
-            });
-        } catch (error) {
-            console.error(error);
-        }
+        dispatch(sendMessage({idRoom, user_id, message}));
     }
 
     return (  
         <div className={cx('wrapper')}>
             <div>
-                <h1>Public Space</h1>
-                <p>Post your random thoughts for the world to see</p>
-            </div>
-            <div>
-                {messages.map((message, index) => (
+                {listMessages.map((message, index) => (
                     <Messagebox key={index} message={message} />
                 ))}
             </div>
             <div>
                 <form onSubmit={(e) => handleSendMessage(e)}>
-                    <input
-                        type="text"
-                        placeholder="Set your username"
-                        value={user}
-                        onChange={(e) => setUser(e.target.value)}
-                        required
-                    />
                     <div>
                         <input
                             type="text"

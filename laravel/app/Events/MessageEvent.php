@@ -9,31 +9,32 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Str;
 
 class MessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    private $id_room, $user, $message;
+    private $room_id, $user_id, $nickname, $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($id_room, $user, $message)
+    public function __construct($room_id, $user_id, $nickname, $message)
     {
-        $this->id_room = $id_room;
-        $this->user = $user;
+        $this->room_id = $room_id;
+        $this->user_id = $user_id;
+        $this->nickname = $nickname;
         $this->message = $message;
     }
 
     public function broadcastWith()
     {
         return [
-            'user' => $this->user,
-            'message' => $this->message,
-            'createdAt' => now()->toDateTimeString(),
+            'user_id' => $this->user_id,
+            'nickname' => $this->nickname,
+            'text' => $this->message,
+//            'createdAt' => now()->toDateTimeString(),
         ];
     }
 
@@ -49,6 +50,6 @@ class MessageEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('room.'.$this->id_room);
+        return new Channel('room.'.$this->room_id);
     }
 }

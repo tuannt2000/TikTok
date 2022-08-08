@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\DiscoveController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Auth\GoogleController;
-use App\Events\MessageEvent;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +35,7 @@ Route::prefix('users')->group(function () {
 Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::get('/rooms', [RoomController::class, 'index']);
     Route::get('/messages', [MessageController::class, 'index']);
+    Route::post('/message', [MessageController::class, 'sendMessage']);
 });
 
 Route::get('/languages', [LanguageController::class, 'index']);
@@ -43,8 +43,3 @@ Route::get('/languages', [LanguageController::class, 'index']);
 Route::get('/discoves', [DiscoveController::class, 'index']);
 
 Route::post('/redirectGoogle', [GoogleController::class, 'loginCallback']);
-
-Route::post('/message', function (Request $request) {
-    event(new MessageEvent($request->idRoom, $request->user, $request->message));
-    return 'ok';
-});

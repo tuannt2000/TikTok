@@ -3,9 +3,9 @@ function Messagebox({ message }) {
         <div>
             <div>
                 <p>
-                    <b>{message.user}</b>
+                    <b>{message.nickname}</b>
                 </p>
-                <p>{message.message}</p>
+                <p>{message.text}</p>
             </div>
         </div>
     );
