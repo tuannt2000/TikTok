@@ -902,3 +902,53 @@ export const MoreIcon = ({ width = '2.4rem', height = '2.4rem', className }) => 
         ></path>
     </svg>
 )
+
+export const SendMessageIcon = ({ width = '3.2rem', height = '3.2rem', className }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        fill="none" 
+        viewBox="0 0 32 32" 
+        className={className}
+        width={width} 
+        height={height}
+    >
+        <path 
+            fill="#FE2C55" 
+            fillRule="evenodd" 
+            clipRule="evenodd" 
+            d="M30.488 4.667A1.333 1.333 0 0029.333 4H2.667a1.333 1.333 0 00-.987 2.23l6.96 7.65c.37.406.948.544 1.46.35l9.667-3.674c.112-.043.163-.025.186-.016a.303.303 0 01.138.13.303.303 0 01.047.184c-.003.023-.012.077-.104.154l-7.936 6.732c-.41.347-.57.905-.41 1.417l3.04 9.67a1.333 1.333 0 002.427.266L30.488 6c.238-.413.238-.92 0-1.333z" 
+        ></path>
+    </svg>
+)
+
+export const EmojiIcon = ({ width = '2.4rem', height = '2.4rem', className }) => (
+    <svg 
+        className={className}
+        width={width} 
+        height={height}
+        viewBox="0 0 48 48" 
+        fill="currentColor" 
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path 
+            fillRule="evenodd" 
+            clipRule="evenodd" 
+            d="M24 6C14.0589 6 6 14.0589 6 24C6 33.9411 14.0589 42 24 42C33.9411 42 42 33.9411 42 24C42 14.0589 33.9411 6 24 6ZM2 24C2 11.8497 11.8497 2 24 2C36.1503 2 46 11.8497 46 24C46 36.1503 36.1503 46 24 46C11.8497 46 2 36.1503 2 24Z"
+        ></path>
+        <path 
+            fillRule="evenodd" 
+            clipRule="evenodd" 
+            d="M17 23C18.6569 23 20 21.2091 20 19C20 16.7909 18.6569 15 17 15C15.3431 15 14 16.7909 14 19C14 21.2091 15.3431 23 17 23Z"
+        ></path>
+        <path 
+            fillRule="evenodd" 
+            clipRule="evenodd" 
+            d="M31 23C32.6569 23 34 21.2091 34 19C34 16.7909 32.6569 15 31 15C29.3431 15 28 16.7909 28 19C28 21.2091 29.3431 23 31 23Z"
+        ></path>
+        <path 
+            fillRule="evenodd" 
+            clipRule="evenodd" 
+            d="M16 28.3431C16 31.4673 19.5817 36 24 36C28.4183 36 32 31.4673 32 28.3431C32 25.219 16 25.219 16 28.3431Z"
+        ></path>
+    </svg>
+)

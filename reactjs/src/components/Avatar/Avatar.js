@@ -6,14 +6,18 @@ import { forwardRef } from "react";
 
 const cx = classNames.bind(styles);
 
-const Avatar = forwardRef(({ data, size, to = true}, ref) => {
+const Avatar = forwardRef(({ data, size, to = true, href = false}, ref) => {
     let Comp = 'div';
     const props = {};
 
     if (to) {
         props.to = `@${data.nickname}`;
         Comp = Link;
-    } 
+    } else if (href) {
+        props.href = `@${data.nickname}`;
+        props.target = '_blank';
+        Comp = 'a';
+    }
 
     return (
         <Comp ref={ref} className={cx('avatar')} {...props}>
@@ -44,7 +48,9 @@ const Avatar = forwardRef(({ data, size, to = true}, ref) => {
 
 Avatar.propTypes = {
     data: PropTypes.object.isRequired,
-    size: PropTypes.number.isRequired
+    size: PropTypes.number.isRequired,
+    to: PropTypes.bool,
+    href: PropTypes.bool
 };
 
 export default Avatar;

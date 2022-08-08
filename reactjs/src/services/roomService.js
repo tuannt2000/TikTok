@@ -19,6 +19,6 @@ export const sendMessage = async ({idRoom, user_id, message}) => {
     return api.post(url, {
         room_id: idRoom,
         user_id,
-        message
+        text: message
     });
 };

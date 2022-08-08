@@ -9,7 +9,7 @@ function* getAllRooms(action) {
         const { data } = response;
         yield put(setAllRooms(data.data));
     } catch (e) {
-        action.onError(e.message);
+        console.log(e);
     }
 }
 
@@ -19,7 +19,7 @@ function* getAllMessages(action) {
         const { data } = response;
         yield put(setAllMessages(data.data));
     } catch (e) {
-        action.onError(e.message);
+        console.log(e);
     }
 }
 

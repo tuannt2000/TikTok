@@ -9,13 +9,15 @@ import { useEffect } from "react";
 const cx = classNames.bind(styles);
 
 function ListConversation({ idRoom, handleClick }) {
-    const user = useSelector(state => state.user.currentUser);
+    const user_id = useSelector(state => state.user.currentUser.id);
     const rooms = useSelector(state => state.room.data);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllRooms(user.id));
-    }, [dispatch, user]);
+        if (user_id) {
+            dispatch(getAllRooms(user_id));
+        }
+    }, [dispatch, user_id]);
 
     return (  
         <div className={cx('wrapper')}>
