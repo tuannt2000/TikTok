@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DiscoveController;
+use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Events\MessageEvent;
 
@@ -30,6 +31,8 @@ Route::prefix('users')->group(function () {
     Route::post('/account-offer', [UserController::class, 'listAccountOffer']);
     Route::post('/following', [UserController::class, 'listFollowing']);
 });
+
+Route::get('/rooms', [RoomController::class, 'index'])->middleware('auth:api');
 
 Route::get('/languages', [LanguageController::class, 'index']);
 

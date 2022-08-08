@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Contracts\Services\Api\LanguageServiceInterface;
 use App\Contracts\Services\Api\MusicServiceInterface;
+use App\Contracts\Services\Api\RoomServiceInterface;
 use App\Contracts\Services\Api\TagServiceInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
 use App\Services\Api\LanguageService;
 use App\Services\Api\MusicService;
+use App\Services\Api\RoomService;
 use App\Services\Api\TagService;
 use App\Services\Api\UserService;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +39,10 @@ class AppServiceProvider extends ServiceProvider
             [
                 MusicServiceInterface::class,
                 MusicService::class
+            ],
+            [
+                RoomServiceInterface::class,
+                RoomService::class
             ],
         ];
         

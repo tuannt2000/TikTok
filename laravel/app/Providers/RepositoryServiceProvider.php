@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Contracts\Repositories\LanguageRepositoryInterface;
 use App\Contracts\Repositories\MusicRepositoryInterface;
+use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Repositories\TagRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Repositories\LanguageRepository;
 use App\Repositories\MusicRepository;
+use App\Repositories\RoomRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +32,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'tag' => [
             TagRepositoryInterface::class,
             TagRepository::class,
+        ],
+        'room' => [
+            RoomRepositoryInterface::class,
+            RoomRepository::class,
         ]
     ];
 

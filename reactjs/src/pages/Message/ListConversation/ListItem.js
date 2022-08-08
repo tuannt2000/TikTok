@@ -6,29 +6,29 @@ import Avatar from "~/components/Avatar";
 
 const cx = classNames.bind(styles);
 
-function ListItem({ handleClick }) {
+function ListItem({ idRoom, room, handleClick }) {
     const [showMore, setShowMore] = useState(false);
 
     return (  
         <div 
             onMouseEnter={() => setShowMore(true)} 
             onMouseLeave={() => setShowMore(false)}
-            onClick={() => handleClick(1)}
-            className={cx('item-wrapper')}
+            onClick={() => handleClick(room.room_id)}
+            className={cx('item-wrapper', { active: room.room_id === idRoom })}
         >
             <div className={cx('item-info')}>
                 <Avatar 
                     data={
                         {
-                            nickname: 'Tuấn',
-                        avatar: 'https://lh3.googleusercontent.com/a/AItbvmktft_aNpM20twceeq1KKGfXEBT9uCLwpE_2_Lv=s96-c'
+                            nickname: room.nickname,
+                            avatar: room.avatar
                         }
                     }
                     size={56}
                     to={false}
                 />
                 <div className={cx('item-text')}>
-                    <div className={cx('item-nickname')}>Tuấn</div>
+                    <div className={cx('item-nickname')}>{room.nickname}</div>
                     <div className={cx('item-extract-time')}>
                         <div className={cx('item-extract')}>👋👋👋</div>
                         <div className={cx('item-time')}>6/8/2022</div>

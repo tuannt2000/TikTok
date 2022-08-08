@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Contracts\Services\Api\RoomServiceInterface;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class RoomController extends Controller
+{
+    protected $roomService;
+
+    public function __construct(RoomServiceInterface $roomService)
+    {
+        $this->roomService = $roomService;
+    }
+
+    public function index (Request $request) {
+        $result = $this->roomService->index($request->user_id);
+
+        return response()->json($result, 200);
+    }
+}

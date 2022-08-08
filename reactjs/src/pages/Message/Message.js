@@ -17,7 +17,7 @@ function Message() {
 
     return (
         <div className={cx('content')}>
-            <ListConversation handleClick={handleClick} />
+            <ListConversation idRoom={idRoom} handleClick={handleClick} />
             <ChatBox idRoom={idRoom} />
         </div>
     );
