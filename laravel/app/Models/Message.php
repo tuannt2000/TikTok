@@ -10,4 +10,8 @@ class Message extends Model
     use HasFactory;
 
     protected $table = 'messages';
+
+    protected $fillable = [
+        'room_id', 'user_id', 'text'
+    ];
 }

@@ -46,4 +46,24 @@ class MessageService extends AbstractService implements MessageServiceInterface
             ];
         }
     }
+
+     /**
+     * @param $params
+     * @return array
+     */
+    public function store($params)
+    {
+        try {
+            $messageStore = $this->messageRepository->store($params);
+            return [
+                'code' => 200,
+                'data' =>  $messageStore,
+            ];
+        } catch (\Throwable $err) {
+            return response()->json([
+                'code' => 400,
+                'message' => $err
+            ]);
+        }
+    }
 }

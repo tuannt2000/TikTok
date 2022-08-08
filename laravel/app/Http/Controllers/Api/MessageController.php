@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Contracts\Services\Api\MessageServiceInterface;
 use App\Events\MessageEvent;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -17,16 +16,26 @@ class MessageController extends Controller
         $this->messageService = $messageService;
     }
 
+     /**
+     * @param Request $request
+     */
     public function index (Request $request) {
         $result = $this->messageService->index($request->room_id);
 
         return response()->json($result, 200);
     }
 
-    public function sendMessage(Request $request) {
-        $user = User::where('id', $request->user_id)->first();
-        $message = event(new MessageEvent($request->room_id, $request->user_id, $user->nickname, $request->message));
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request) {
+        $params = $request->all();
+        $result = $this->messageService->store($params);
+        event(new MessageEvent($params));
 
-        return response()->json($message, 200);
+        return response()->json($result, 200);
     }
 }

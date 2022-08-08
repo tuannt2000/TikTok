@@ -9,31 +9,33 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 
 class MessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    private $room_id, $user_id, $nickname, $message;
+    private $room_id, $user_id, $text;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($room_id, $user_id, $nickname, $message)
+    public function __construct($data)
     {
-        $this->room_id = $room_id;
-        $this->user_id = $user_id;
-        $this->nickname = $nickname;
-        $this->message = $message;
+        $this->room_id = $data['room_id'];
+        $this->user_id = $data['user_id'];
+        $this->text = $data['text'];
     }
 
     public function broadcastWith()
     {
+        $user = User::find($this->user_id);
         return [
             'user_id' => $this->user_id,
-            'nickname' => $this->nickname,
-            'text' => $this->message,
+            'nickname' => $user->nickname,
+            'text' => $this->text,
+            'avatar' => $user->avatar
 //            'createdAt' => now()->toDateTimeString(),
         ];
     }

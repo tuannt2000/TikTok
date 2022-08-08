@@ -28,10 +28,16 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
                 'user_id',
                 'nickname',
                 'text',
+                'avatar'
             ])->leftJoin('users', 'users.id', '=', 'messages.user_id')
             ->where('room_id', $room_id)
             ->get();
 
         return $messages;
+    }
+
+    public function store($params)
+    {
+        return $this->model->create($params);
     }
 }

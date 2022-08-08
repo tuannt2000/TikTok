@@ -35,7 +35,7 @@ Route::prefix('users')->group(function () {
 Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::get('/rooms', [RoomController::class, 'index']);
     Route::get('/messages', [MessageController::class, 'index']);
-    Route::post('/message', [MessageController::class, 'sendMessage']);
+    Route::post('/message', [MessageController::class, 'store']);
 });
 
 Route::get('/languages', [LanguageController::class, 'index']);
