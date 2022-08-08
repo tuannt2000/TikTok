@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Contracts\Repositories\LanguageRepositoryInterface;
+use App\Contracts\Repositories\MessageRepositoryInterface;
 use App\Contracts\Repositories\MusicRepositoryInterface;
 use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Repositories\TagRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Repositories\LanguageRepository;
+use App\Repositories\MessageRepository;
 use App\Repositories\MusicRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\TagRepository;
@@ -36,6 +38,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'room' => [
             RoomRepositoryInterface::class,
             RoomRepository::class,
+        ],
+        'message' => [
+            MessageRepositoryInterface::class,
+            MessageRepository::class,
         ]
     ];
 

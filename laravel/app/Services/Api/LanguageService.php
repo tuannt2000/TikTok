@@ -23,7 +23,6 @@ class LanguageService extends AbstractService implements LanguageServiceInterfac
     }
 
     /**
-     * @param $params
      * @return array
      */
     public function index()

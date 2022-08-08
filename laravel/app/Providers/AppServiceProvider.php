@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Contracts\Services\Api\LanguageServiceInterface;
+use App\Contracts\Services\Api\MessageServiceInterface;
 use App\Contracts\Services\Api\MusicServiceInterface;
 use App\Contracts\Services\Api\RoomServiceInterface;
 use App\Contracts\Services\Api\TagServiceInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
 use App\Services\Api\LanguageService;
+use App\Services\Api\MessageService;
 use App\Services\Api\MusicService;
 use App\Services\Api\RoomService;
 use App\Services\Api\TagService;
@@ -43,6 +45,10 @@ class AppServiceProvider extends ServiceProvider
             [
                 RoomServiceInterface::class,
                 RoomService::class
+            ],
+            [
+                MessageServiceInterface::class,
+                MessageService::class
             ],
         ];
         

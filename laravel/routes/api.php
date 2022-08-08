@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DiscoveController;
 use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Events\MessageEvent;
 
@@ -32,7 +33,10 @@ Route::prefix('users')->group(function () {
     Route::post('/following', [UserController::class, 'listFollowing']);
 });
 
-Route::get('/rooms', [RoomController::class, 'index'])->middleware('auth:api');
+Route::prefix('/')->middleware('auth:api')->group(function () {
+    Route::get('/rooms', [RoomController::class, 'index']);
+    Route::get('/messages', [MessageController::class, 'index']);
+});
 
 Route::get('/languages', [LanguageController::class, 'index']);
 
