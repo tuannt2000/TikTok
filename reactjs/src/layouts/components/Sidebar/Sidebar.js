@@ -32,10 +32,12 @@ function Sidebar() {
     const navigate = useNavigate()
 
     useEffect( () => {
-        dispatch(getUserOffer({id: 1, navigate}));
-        dispatch(getUserFollowing({id: 1, navigate}));
-        dispatch(getAllDiscoves({navigate}));
-    }, [dispatch, navigate]);
+        if (user.currentUser.id) {
+            dispatch(getUserOffer({id: user.currentUser.id, navigate}));
+            dispatch(getUserFollowing({id: user.currentUser.id, navigate}));
+            dispatch(getAllDiscoves({navigate}));
+        }
+    }, [dispatch, navigate, user.currentUser.id]);
 
     return (
         <div
