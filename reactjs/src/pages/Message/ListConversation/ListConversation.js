@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
-function ListConversation({ idRoom, handleClick }) {
+function ListConversation({ idRoom, handleClick, roomGetMess }) {
     const user_id = useSelector(state => state.user.currentUser.id);
     const rooms = useSelector(state => state.room.data);
     const dispatch = useDispatch();
@@ -31,7 +31,12 @@ function ListConversation({ idRoom, handleClick }) {
             <div className={cx('content')}>
                 {rooms.length > 0 &&
                     rooms.map((room, index) => (
-                        <ListItem room={room} idRoom={idRoom} key={index} handleClick={handleClick} />
+                        <ListItem 
+                            room={ Object.keys(roomGetMess).length > 0 && roomGetMess.room_id === room.room_id && roomGetMess.user_id === room.user_id ? roomGetMess : room } 
+                            idRoom={idRoom} 
+                            key={index} 
+                            handleClick={handleClick} 
+                        />
                     ))
                 }
             </div>

@@ -34,10 +34,11 @@ class MessageEvent implements ShouldBroadcast
         $user = User::find($this->user_id);
         return [
             'user_id' => $this->user_id,
+            'room_id' => $this->room_id,
             'nickname' => $user->nickname,
             'text' => $this->text,
             'avatar' => $user->avatar,
-            'create_at' => date('d-m-y h:i:s')
+            'created_at' => date('d-m-y h:i:s')
         ];
     }
 

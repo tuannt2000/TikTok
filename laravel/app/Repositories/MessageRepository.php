@@ -26,6 +26,7 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
     {
         $messages = $this->model->select([
                 'user_id',
+                'room_id',
                 'nickname',
                 'text',
                 'avatar',

@@ -20,7 +20,7 @@ export const roomReducer = (state = initState, action) => {
         case types.SET_ALL_MESSAGES_AFTER_SEND:
             return {
                 ...state,
-                listMessages: [...state.listMessages, action.payload]
+                listMessages: [action.payload, ...state.listMessages]
             };
         default:
             return state;

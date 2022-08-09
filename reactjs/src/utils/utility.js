@@ -29,7 +29,7 @@ export const getIconDiscove = ($type) => {
 };
 
 export const formatDate = (current_time) => {
-    const format_date = current_time.split('T');
+    const format_date = current_time.split(/[T\s]/);
     const day = format_date[0];
 
     return day;

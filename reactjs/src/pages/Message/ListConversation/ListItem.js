@@ -9,6 +9,7 @@ const cx = classNames.bind(styles);
 
 function ListItem({ idRoom, room, handleClick }) {
     const [showMore, setShowMore] = useState(false);
+    console.log(room)
 
     return (  
         <div 

@@ -28,6 +28,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         $list_room = $this->model
             ->select([
+                'rooms.user_id as user_id',
                 'nickname',
                 'rooms.room_id as room_id',
                 'avatar',
