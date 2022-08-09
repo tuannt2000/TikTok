@@ -100,8 +100,7 @@ function ChatBox({ idRoom }) {
                         </a>
                     </div>
                     <div className={cx('chat-main')}>
-                        {console.log(listMessages)}
-                        {listMessages.map((message, index) => (
+                        {listMessages.length > 0 && listMessages.map((message, index) => (
                             <Messagebox user_id={user_id} key={index} message={message} />
                         ))}
                     </div>

@@ -18,6 +18,7 @@ class MessageEvent implements ShouldBroadcast
 
     /**
      * Create a new event instance.
+     * @param $data
      *
      * @return void
      */
@@ -35,8 +36,8 @@ class MessageEvent implements ShouldBroadcast
             'user_id' => $this->user_id,
             'nickname' => $user->nickname,
             'text' => $this->text,
-            'avatar' => $user->avatar
-//            'createdAt' => now()->toDateTimeString(),
+            'avatar' => $user->avatar,
+            'create_at' => date('d-m-y h:i:s')
         ];
     }
 
