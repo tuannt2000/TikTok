@@ -12,12 +12,13 @@ import Tippy from '@tippyjs/react/headless';
 
 const cx = classNames.bind(styles);
 
-function ChatBox({ idRoom }) {
+function ChatBox({ room }) {
     const [message, setMessage] = useState('');
     const [focus, setFocus] = useState(false);
     const user_id = useSelector(state => state.user.currentUser.id);
     const listMessages = useSelector(state => state.room.listMessages);
     const dispatch = useDispatch();
+    const room_id = room.room_id;
 
     useEffect(() => {
         const echo = new Echo({
@@ -36,7 +37,7 @@ function ChatBox({ idRoom }) {
         });
 
         echo
-            .channel(`room.${idRoom}`)
+            .channel(`room.${room_id}`)
             .subscribed(() => {
                 console.log('You are subscribed');
             })
@@ -46,16 +47,16 @@ function ChatBox({ idRoom }) {
             });
 
         return () => {
-            echo.leave(`room.${idRoom}`)
+            echo.leave(`room.${room_id}`)
         }
-    }, [dispatch, idRoom]);
+    }, [dispatch, room_id]);
 
     const handleSendMessage = () => {
         if (!message) {
             alert('Please add a message');
             return;
         }
-        dispatch(sendMessage({ idRoom, user_id, message }));
+        dispatch(sendMessage({ room_id, user_id, message }));
     }
 
     const handleKeyPress = (event) => {
@@ -78,24 +79,24 @@ function ChatBox({ idRoom }) {
 
     return (
         <div className={cx('wrapper')}>
-            {idRoom !== -1 && (
+            {room_id && (
                 <>
                     <div className={cx('header')}>
                         <Avatar
                             data={
                                 {
-                                    nickname: 'Tuấn',
-                                    avatar: 'https://lh3.googleusercontent.com/a/AItbvmktft_aNpM20twceeq1KKGfXEBT9uCLwpE_2_Lv=s96-c'
+                                    nickname: room.nickname,
+                                    avatar: room.avatar
                                 }
                             }
                             to={false}
                             href
                             size={48}
                         />
-                        <a target="_blank" href="@tuan" className={cx('name-container')}>
+                        <a target="_blank" href={`@${room.nickname}`} rel="noreferrer" className={cx('name-container')}>
                             <div className={cx('name')}>
-                                <p className={cx('nickname')}>Tuấn</p>
-                                <p className={cx('uniqueid')}>@tuan</p>
+                                <p className={cx('nickname')}>{room.nickname}</p>
+                                <p className={cx('uniqueid')}>@{room.nickname}</p>
                             </div>
                         </a>
                     </div>

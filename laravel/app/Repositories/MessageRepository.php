@@ -32,6 +32,8 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
                 'messages.created_at as created_at'
             ])->leftJoin('users', 'users.id', '=', 'messages.user_id')
             ->where('room_id', $room_id)
+            ->orderBy('messages.created_at', 'DESC')
+            ->take(20)
             ->get();
 
         return $messages;

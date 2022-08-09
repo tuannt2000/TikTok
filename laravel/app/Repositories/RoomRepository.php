@@ -29,12 +29,16 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $list_room = $this->model
             ->select([
                 'nickname',
-                'room_id',
-                'avatar'
+                'rooms.room_id as room_id',
+                'avatar',
+                'text',
+                'm1.created_at as created_at',
             ])
             ->leftJoin('users', 'users.id', '=', 'rooms.user_id')
-            ->whereIn('room_id', $rooms_id)
-            ->where('user_id', '!=', $user_id)
+            ->leftJoin('messages as m1', 'm1.room_id', '=', 'rooms.room_id')
+            ->whereIn('rooms.room_id', $rooms_id)
+            ->where('rooms.user_id', '!=', $user_id)
+            ->whereRaw('m1.created_at = (select max(m2.created_at) from messages as m2 where m2.room_id = m1.room_id)')
             ->get();
 
         return $list_room;

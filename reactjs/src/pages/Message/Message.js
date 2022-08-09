@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import styles from './Message.module.scss';
 
 import { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
 import Pusher from 'pusher-js';
 import ListConversation from './ListConversation';
 import ChatBox from './ChatBox';
@@ -12,17 +13,22 @@ const cx = classNames.bind(styles);
 
 function Message() {
     const [idRoom, setIdRoom] = useState(-1);
+    const [room, setRoom] = useState({});
     const dispatch = useDispatch();
 
-    const handleClick = (idRoom) => {
-        setIdRoom(idRoom);
-        dispatch(getAllMessages(idRoom));
+    const handleClick = (currentRoom) => {
+        const room_id = currentRoom.room_id
+        if (idRoom !== room_id) {
+            setIdRoom(room_id);
+            setRoom(currentRoom)
+            dispatch(getAllMessages(room_id));
+        }
     };
 
     return (
         <div className={cx('content')}>
             <ListConversation idRoom={idRoom} handleClick={handleClick} />
-            <ChatBox idRoom={idRoom} />
+            <ChatBox room={room} />
         </div>
     );
 }

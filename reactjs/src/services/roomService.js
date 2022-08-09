@@ -14,10 +14,10 @@ export const getListMessages = async (room_id) => {
     });
 };
 
-export const sendMessage = async ({idRoom, user_id, message}) => {
+export const sendMessage = async ({room_id, user_id, message}) => {
     const url = 'message';
     return api.post(url, {
-        room_id: idRoom,
+        room_id,
         user_id,
         text: message
     });
