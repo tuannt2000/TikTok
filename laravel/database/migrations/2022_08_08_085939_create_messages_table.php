@@ -18,7 +18,8 @@ class CreateMessagesTable extends Migration
             $table->integer('room_id');
             $table->integer('user_id');
             $table->string('text');
-            $table->timestamps();
+            $table->dateTime('date_send');
+            $table->timestamps('');
         });
     }
 

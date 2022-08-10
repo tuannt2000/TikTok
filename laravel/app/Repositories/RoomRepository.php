@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Models\Room;
+use Illuminate\Support\Facades\DB;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 {
@@ -27,19 +28,25 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
 
         $list_room = $this->model
-            ->select([
-                'rooms.user_id as user_id',
+            ->select(
+                'm1.user_id as text_user_id',
+                'rooms.user_id as room_user_id',
                 'nickname',
                 'rooms.room_id as room_id',
                 'avatar',
                 'text',
-                'm1.created_at as created_at',
-            ])
+                DB::raw('(CASE 
+                        WHEN m1.date_send is NULL THEN rooms.created_at
+                        ELSE m1.date_send
+                        END) AS created_at')
+            )
             ->leftJoin('users', 'users.id', '=', 'rooms.user_id')
-            ->leftJoin('messages as m1', 'm1.room_id', '=', 'rooms.room_id')
+            ->leftJoin('messages as m1', function ($query) use ($user_id) {
+                $query->on('m1.room_id', '=', 'rooms.room_id');
+                $query->whereRaw('m1.date_send = (select max(m2.date_send) from messages as m2 where m2.room_id = m1.room_id and rooms.user_id !=' . $user_id . ')');
+            })
             ->whereIn('rooms.room_id', $rooms_id)
             ->where('rooms.user_id', '!=', $user_id)
-            ->whereRaw('m1.created_at = (select max(m2.created_at) from messages as m2 where m2.room_id = m1.room_id)')
             ->get();
 
         return $list_room;

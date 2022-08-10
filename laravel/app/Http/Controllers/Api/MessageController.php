@@ -33,6 +33,7 @@ class MessageController extends Controller
      */
     public function store(Request $request) {
         $params = $request->all();
+        $params['date_send'] = date('d-m-y h:i:s');
         $result = $this->messageService->store($params);
         event(new MessageEvent($params));
 

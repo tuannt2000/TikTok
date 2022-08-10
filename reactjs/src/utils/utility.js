@@ -34,3 +34,13 @@ export const formatDate = (current_time) => {
 
     return day;
 }
+
+export const formatTextMessage = (room) => {
+    let new_text = 'Đã trở thành bạn bè';
+
+    if (room.text) {
+        room.text_user_id === room.room_user_id ? new_text = room.text : new_text = 'Bạn: ' + room.text;
+    }
+
+    return new_text;
+}

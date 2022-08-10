@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import Pusher from 'pusher-js';
 import ListConversation from './ListConversation';
 import ChatBox from './ChatBox';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllMessages, setAllMessages, setAllMessagesAfterSend } from '~/redux/actions/room';
 import Echo from "laravel-echo";
 
@@ -15,8 +15,6 @@ const cx = classNames.bind(styles);
 function Message() {
     const [idRoom, setIdRoom] = useState(-1);
     const [room, setRoom] = useState({});
-    const [roomGetMess, setRoomGetMess] = useState({});
-    const user_id = useSelector(state => state.user.currentUser.id)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -38,23 +36,19 @@ function Message() {
         echo
             .channel(`room.${idRoom}`)
             .listen('.message.new', (data) => {
-                if(data.user_id !== user_id) {
-                    setRoomGetMess(data)
-                }
-            
                 dispatch(setAllMessagesAfterSend(data));
             });
 
         return () => {
             echo.leave(`room.${idRoom}`)
         }
-    }, [dispatch, idRoom, user_id]);
+    }, [dispatch, idRoom]);
 
     const handleClick = (currentRoom) => {
-        const room_id = currentRoom.room_id
+        const room_id = currentRoom.room_id;
         if (idRoom !== room_id) {
             setIdRoom(room_id);
-            setRoom(currentRoom)
+            setRoom(currentRoom);
             dispatch(getAllMessages(room_id));
             dispatch(setAllMessages(''))
         }
@@ -62,7 +56,7 @@ function Message() {
 
     return (
         <div className={cx('content')}>
-            <ListConversation idRoom={idRoom} roomGetMess={roomGetMess} handleClick={handleClick} />
+            <ListConversation idRoom={idRoom} handleClick={handleClick} />
             <ChatBox room={room} />
         </div>
     );
