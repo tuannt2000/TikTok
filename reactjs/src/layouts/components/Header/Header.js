@@ -21,10 +21,11 @@ import {
 } from '~/constants/Header';
 import { useSelector, useDispatch } from "react-redux";
 import { getInfoUser } from '~/redux/actions/user';
+import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-function Header() {
+function Header({ max_width = false }) {
     const language = useSelector(state => state.language);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -55,7 +56,7 @@ function Header() {
 
     return (
         <header className={cx('wrapper')}>
-            <div className={cx('inner')}>
+            <div className={cx('inner', { 'max-width' : max_width})}>
                 <div className={cx('logo')}>
                     <Link to={config.routes.home} className={cx('logo')}><img src={images.logo} alt="TikTok" /></Link>
                 </div>  
@@ -103,5 +104,9 @@ function Header() {
         </header >
     );
 }
+
+Header.propTypes = {
+    max_width: PropTypes.bool
+};
 
 export default memo(Header);

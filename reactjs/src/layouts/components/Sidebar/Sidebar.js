@@ -24,7 +24,7 @@ import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function Sidebar() {
+function Sidebar({ header_only = false }) {
     const [showScroll, setShowScroll] = useState(false);
     const user = useSelector(state => state.user);
     const discove = useSelector(state => state.discove);
@@ -41,12 +41,12 @@ function Sidebar() {
 
     return (
         <div
-            className={cx('aside')}
+            className={cx('aside', {'header-only' : header_only})}
             onMouseOver={() => setShowScroll(true)}
             onMouseOut={() => setShowScroll(false)}
         >
             <aside
-                className={cx('container')}
+                className={cx('container', {'header-only' : header_only})}
             >
                 <Scrollbars
                     autoHide={!showScroll}
@@ -63,14 +63,16 @@ function Sidebar() {
                         <MenuItem title="Đang Follow" to={config.routes.following} icon={<FollowSidebarIcon />} iconActive={<FollowSidebarActiveIcon />} />
                         <MenuItem title="LIVE" to={config.routes.live} icon={<LiveSidebarIcon />} iconActive={<LiveSidebarActiveIcon />} />
                     </Menu>
-                    <Account title="Tài khoản được đề xuất" showMore="Xem tất cả" >
-                        {user.userOffer.length === 0 && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
-                        {user.userOffer.map(result => (
-                            <AccountOffer key={result.id} data={result}>
-                                <AccountItem className="sidebar" data={result} />
-                            </AccountOffer>
-                        ))}
-                    </Account>
+                    { header_only || (
+                        <Account title="Tài khoản được đề xuất" showMore="Xem tất cả" >
+                            {user.userOffer.length === 0 && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
+                            {user.userOffer.map(result => (
+                                <AccountOffer key={result.id} data={result}>
+                                    <AccountItem className="sidebar" data={result} />
+                                </AccountOffer>
+                            ))}
+                        </Account>
+                    )}
                     <Account title="Các tài khoản đang follow" showMore="Xem thêm" >
                         {user.userFollowing.length === 0 && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
                         {user.userFollowing.map(result => (

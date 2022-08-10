@@ -13,6 +13,11 @@
     bottom: 0;
 }
 
+.header-only {
+    width: 240px;
+    flex: 0 0 240px;
+}
+
 .wrapper {
     flex-shrink: 0;
     padding: 20px 0 26px;

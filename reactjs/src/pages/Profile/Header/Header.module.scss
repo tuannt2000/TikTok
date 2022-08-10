@@ -1,0 +1,51 @@
+.container {
+  position: relative;
+  flex: 0 0 auto;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  max-width: 624px;
+  padding-right: 92px;
+}
+
+.share-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+// like, following, follower
+.count-info {
+  display: flex;
+  align-items: center;
+  margin-top: 22px;
+  color: rgba(18, 18, 18, 0.75);
+}
+
+.div-number {
+  margin-right: 20px;
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 25px;
+  display: flex;
+  direction: ltr;
+  align-items: baseline;
+}
+
+.span-unit {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 22px;
+  display: inline-block;
+  margin-left: 6px;
+}
+
+// bio
+.user-bio {
+  text-align: left;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 22px;
+  color: rgb(18, 18, 18);
+  white-space: pre-line;
+  margin-top: 10px;
+}
