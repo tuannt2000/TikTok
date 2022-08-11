@@ -68,7 +68,7 @@ const MENU_SHARES_MORE = [
     }
 ];
 
-function Share({ children }) {
+function Share({ children, profile = false }) {
     const [menu, setMenu] = useState(MENU_SHARES);
     const [more, setMore] = useState(false);
 
@@ -104,8 +104,8 @@ function Share({ children }) {
             <Tippy
                 trigger="click mouseenter"
                 interactive
-                placement='top-start'
-                offset={[-30, 0]}
+                placement={profile ? 'top-end' : 'top-start'}
+                offset={profile ? [30, 0] : [-30, 0]}
                 render={renderResult}
                 onHide={() => {
                     setMenu(MENU_SHARES);
@@ -119,7 +119,8 @@ function Share({ children }) {
 }
 
 Share.propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    profile: PropTypes.bool
 };
 
 export default Share;

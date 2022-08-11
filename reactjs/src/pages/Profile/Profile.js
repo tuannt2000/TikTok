@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./Profile.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import Header from "./Header";
+import Main from "./Main";
 import { useEffect } from "react";
 import { getProfileUser, setProfileUser } from '~/redux/actions/user';
 
@@ -23,6 +24,7 @@ function Profile() {
     return (
         <div className={cx('container')}>
             <Header profile={profile} />
+            <Main />
         </div>
     );
 }

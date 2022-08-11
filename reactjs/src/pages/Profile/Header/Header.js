@@ -3,10 +3,11 @@ import styles from "./Header.module.scss";
 import Avatar from "~/components/Avatar";
 import { EditIcon, ShareIcon } from '~/components/Icons';
 import Button from '~/components/Button';
+import { Share } from "~/components/Popper";
 
 const cx = classNames.bind(styles);
 
-function Header({profile}) {
+function Header({ profile }) {
     return (
         <div className={cx('container')}>
             <div className={cx('share-info')}>
@@ -43,9 +44,11 @@ function Header({profile}) {
                 </div>
             </h2>
             <h2 className={cx('user-bio')}>{profile.bio ?? 'Chưa có tiểu sử.'}</h2>
-            <div className={cx('share-action')}>
-                <ShareIcon />
-            </div>
+            <Share profile>
+                <div className={cx('share-action')}>
+                    <ShareIcon />
+                </div>
+            </Share>
         </div>
     );
 }
