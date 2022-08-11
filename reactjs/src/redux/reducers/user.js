@@ -4,7 +4,8 @@ const initState = {
     user: [],
     userFollowing: [],
     userOffer: [],
-    currentUser: {}
+    currentUser: {},
+    profile: {}
 };
 
 export const userReducer = (state = initState, action) => {
@@ -27,7 +28,12 @@ export const userReducer = (state = initState, action) => {
         case types.SET_INFO_USER:
             return {
                 ...state,
-                currentUser: {...action.payload}
+                currentUser: action.payload
+            };
+        case types.SET_PROFILE_USER:
+            return {
+                ...state,
+                profile: action.payload
             };
         default:
             return state;

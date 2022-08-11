@@ -12,6 +12,16 @@ class Follow extends Model
     protected $table = 'follows';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'user_follower_id'
+    ];
+
+    /**
      * Get the user associated with the follow.
      */
     public function currentUser()
@@ -22,5 +32,15 @@ class Follow extends Model
     public function userFollowing()
     {
         return $this->hasOne(User::class, 'id', 'user_follower_id');
+    }
+
+    public function scopeOfFollowingCount($query, $user_id)
+    {
+        return $query->where('user_id', $user_id)->count();
+    }
+
+    public function scopeOfFollowerCount($query, $user_id)
+    {
+        return $query->where('user_follower_id', $user_id)->count();
     }
 }

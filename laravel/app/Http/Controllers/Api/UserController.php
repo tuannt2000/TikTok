@@ -43,9 +43,17 @@ class UserController extends Controller
     }
 
     public function getInfoUser () {
+        $data = Auth::user();
+        $data['full_name'] = $data->first_name . ' ' . $data->last_name;
         $result = [
-            'data' => Auth::user()
+            'data' => $data
         ];
+
+        return response()->json($result, 200);
+    }
+
+    public function getUserByNickname(Request $request) {
+        $result = $this->userService->getUserByNickname($request->nickname);
 
         return response()->json($result, 200);
     }

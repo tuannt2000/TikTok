@@ -38,3 +38,13 @@ export const setInfoUser = ( data ) => ({
     type: types.SET_INFO_USER,
     payload: data
 });
+
+export const getProfileUser = ( nickname ) => ({
+    type: types.GET_PROFILE_USER,
+    payload: nickname
+});
+
+export const setProfileUser = ( data ) => ({
+    type: types.SET_PROFILE_USER,
+    payload: data
+});

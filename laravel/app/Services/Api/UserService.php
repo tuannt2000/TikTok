@@ -10,6 +10,7 @@ namespace App\Services\Api;
 
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
+use App\Models\Follow;
 use App\Services\AbstractService;
 
 class UserService extends AbstractService implements UserServiceInterface
@@ -109,6 +110,25 @@ class UserService extends AbstractService implements UserServiceInterface
             return [
                 'code' => 200,
                 'data' => $result
+            ];
+        } catch (\Throwable $err) {
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function getUserByNickname ($nickname)
+    {
+        try {
+            $data = $this->userRepository->getUserByNickname($nickname);
+            $data['followings_count'] = Follow::ofFollowingCount($data->id);
+            $data['followers_count'] = Follow::ofFollowerCount($data->id);
+
+            return [
+                'code' => 200,
+                'data' => $data
             ];
         } catch (\Throwable $err) {
             return [

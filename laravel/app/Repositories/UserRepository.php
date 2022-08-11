@@ -16,7 +16,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         parent::__construct($user);
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->model
                     ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
                     ->get();
@@ -46,5 +47,13 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
             ->where('id', '!=', $id)
             ->get();
+    }
+
+    public function getUserByNickname ($nickname)
+    {
+        return $this->model
+            ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
+            ->where('nickname', $nickname)
+            ->first();
     }
 }

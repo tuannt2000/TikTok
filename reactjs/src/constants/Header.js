@@ -48,7 +48,8 @@ export const userMenu = [
     {
         icon: <FontAwesomeIcon icon={faUser} />,
         title: 'Xem hồ sơ',
-        to: '/@userdqgdn9mg4p',
+        to: '',
+        type: 'profile',
     },
     {
         icon: <FontAwesomeIcon icon={faCoins} />,

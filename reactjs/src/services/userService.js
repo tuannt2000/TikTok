@@ -19,3 +19,10 @@ export const getInfoUser = async () => {
     const url = 'users/info';
     return api.get(url);
 };
+
+export const getProfileUser = async ( nickname ) => {
+    const url ='/users/profile';
+    return apiWithoutHeader.get(url, {
+        params: { nickname }
+    });
+};

@@ -21,6 +21,7 @@ import {
 } from '~/constants/Header';
 import { useSelector, useDispatch } from "react-redux";
 import { getInfoUser } from '~/redux/actions/user';
+import { getProfileUser } from '~/redux/actions/user';
 import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
@@ -48,10 +49,22 @@ function Header({ max_width = false }) {
 
             return item;
         });
-    }, [language.data]);
+
+        userMenu.forEach(item => {
+            if (item.type === 'profile' && Object.keys(currentUser).length > 0) {
+                item.to = '/@' + currentUser.nickname ;
+            }
+
+            return item;
+        });
+    }, [language, currentUser]);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);
+
+        if (menuItem.type && menuItem.type === 'profile') {
+            dispatch(getProfileUser(currentUser.nickname));
+        }
     };
 
     return (

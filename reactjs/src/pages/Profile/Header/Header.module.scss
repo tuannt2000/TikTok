@@ -7,10 +7,51 @@
   padding-right: 92px;
 }
 
+// info
 .share-info {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.share-title-container {
+  flex: 1 1 0%;
+  cursor: pointer;
+  overflow: visible;
+  margin-left: 20px;
+}
+
+.nickname {
+  font-family: "IBM Plex Sans", SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 38px;
+  padding-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.full-name {
+  font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 25px;
+  text-overflow: ellipsis;
+  height: 25px;
+  overflow: hidden;
+  max-width: 450px;
+  white-space: nowrap;
+  display: flex;
+  align-items: flex-end;
+}
+
+.edit-container {
+  position: relative;
+  width: 136px;
+  height: 36px;
+  padding: 0px;
+  margin: 16px 0px 0px;
 }
 
 // like, following, follower
@@ -48,4 +89,12 @@
   color: rgb(18, 18, 18);
   white-space: pre-line;
   margin-top: 10px;
+}
+
+// share
+.share-action {
+  position: absolute;
+  top: 11px;
+  cursor: pointer;
+  right: 52px;
 }

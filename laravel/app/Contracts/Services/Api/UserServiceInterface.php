@@ -8,4 +8,5 @@ interface UserServiceInterface
     public function findUserByKey($params);
     public function listAccountOffer($id);
     public function listFollowing($id);
+    public function getUserByNickname ($nickname);
 }

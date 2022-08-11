@@ -10,16 +10,16 @@ import Live from '~/pages/Live';
 import PageNoteFound from '~/pages/404';
 import WebError from '~/pages/500';
 
-import { HeaderOnly } from '~/layouts';
+import { HeaderOnly, DefaultLayoutMaxWidth } from '~/layouts';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.following, component: Following },
-    { path: config.routes.profile, component: Profile, layout: HeaderOnly },
     { path: config.routes.live, component: Live },
+    { path: config.routes.profile, component: Profile, layout: DefaultLayoutMaxWidth },
+    { path: config.routes.messages, component: Message, layout: HeaderOnly },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.feedback, component: Feedback, layout: HeaderOnly },
-    { path: config.routes.messages, component: Message, layout: HeaderOnly },
     { path: config.routes.pageNotFound, component: PageNoteFound, layout: HeaderOnly },
     { path: config.routes.webError, component: WebError, layout: HeaderOnly }
 ];

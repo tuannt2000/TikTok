@@ -88,6 +88,24 @@
     }
 }
 
+.edit {
+    border-color: rgba(22, 24, 35, 0.12);
+    border-radius: 2px;
+    min-height: 36px;
+    cursor: pointer;
+    height: 36px;
+    padding: 0px 16px;
+    min-width: 136px;
+    margin: 0;
+    font-family: SofiaPro, PingFangSC, sans-serif;
+
+    > div {
+        .title {
+            margin-left: 5px;
+        }
+    }
+}
+
 .discover {
     display: block;
     width: fit-content;
