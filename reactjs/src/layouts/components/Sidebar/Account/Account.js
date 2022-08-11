@@ -5,25 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import AccountItem from '~/components/AccountItem';
 import { AccountOffer } from '~/components/Popper';
-import { useEffect, memo } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
-import { getUserOffer, getUserFollowing } from '~/redux/actions/user';
+import { memo } from "react";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 function Account({ offer = false, follow = false, title, showMore }) {
     const user = useSelector(state => state.user);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const account = offer ? user.userOffer : user.userFollowing;
-
-    useEffect( () => {
-        if (user.currentUser.id) {
-            dispatch(getUserOffer({id: user.currentUser.id, navigate}));
-            dispatch(getUserFollowing({id: user.currentUser.id, navigate}));
-        }
-    }, [dispatch, navigate, user.currentUser.id]);
 
     return (  
         <div className={cx('user-container')}>

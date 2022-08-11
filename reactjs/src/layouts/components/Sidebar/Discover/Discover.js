@@ -3,22 +3,14 @@ import styles from './Discover.module.scss';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 import Button from '~/components/Button';
-import { useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import { getIconDiscove } from '~/utils/utility';
-import { memo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getAllDiscoves } from '~/redux/actions/discove';
+import { memo } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Discover () {
     const discove = useSelector(state => state.discove);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    useEffect( () => {
-        dispatch(getAllDiscoves({navigate}));
-    }, [dispatch, navigate]);
 
     return (  
         <div className={cx('discover')}>

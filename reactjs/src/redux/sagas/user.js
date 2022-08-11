@@ -34,23 +34,21 @@ function* sagaAllUser(action) {
 
 function* sagaUserFollowing(action) {
     try {
-        const res = yield call(getListFollowing, action.payload.id);
+        const res = yield call(getListFollowing, action.payload);
         const { data } = res;
         yield put(setUserFollowing(data.data));
     } catch (error) {
         console.log(error);
-        action.payload.navigate('/500');
     }
 }
 
 function* sagaUserAccountOffer(action) {
     try {
-        const res = yield call(getListAccountOffer, action.payload.id);
+        const res = yield call(getListAccountOffer, action.payload);
         const { data } = res;
         yield put(setUserOffer(data.data));
     } catch (error) {
         console.log(error);
-        action.payload.navigate('/500');
     }
 }
 

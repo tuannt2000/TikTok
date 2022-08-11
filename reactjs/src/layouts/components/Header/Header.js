@@ -3,7 +3,7 @@ import 'tippy.js/dist/tippy.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Menu as PopperMenu } from '~/components/Popper';
 import classNames from 'classnames/bind';
 import images from '~/assets/images';
@@ -13,14 +13,12 @@ import Image from '~/components/Images';
 import Search from '../Search';
 import config from '~/config';
 import { useEffect, memo } from 'react';
-import { getAllLanguages } from '~/redux/actions/language';
 import { Modal } from '~/components/Modal';
 import {
     MENU_ITEMS, userMenu, UPLOAD,
     MESSAGE, INBOX
 } from '~/constants/Header';
 import { useSelector, useDispatch } from "react-redux";
-import { getInfoUser } from '~/redux/actions/user';
 import { getProfileUser } from '~/redux/actions/user';
 import PropTypes from 'prop-types';
 
@@ -29,17 +27,7 @@ const cx = classNames.bind(styles);
 function Header({ max_width = false }) {
     const language = useSelector(state => state.language);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const currentUser = useSelector(state => state.user.currentUser);
-
-    useEffect(() => {
-        if (localStorage.getItem("token")) {
-            dispatch(getInfoUser());
-        }
-
-        dispatch(getAllLanguages({navigate}));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         MENU_ITEMS.forEach(item => {
