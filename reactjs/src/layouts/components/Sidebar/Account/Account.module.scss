@@ -40,3 +40,24 @@
     font-size: 1.4rem;
     line-height: 20px;
 }
+
+.load-icon {
+    display: flex;
+    justify-content: center;
+    min-height: 200px;
+    align-items: center;
+    width: 100%;
+}
+
+.loading {
+    animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

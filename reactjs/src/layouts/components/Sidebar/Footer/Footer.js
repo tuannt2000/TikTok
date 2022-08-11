@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import styles from './Footer.module.scss';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import { memo } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -110,4 +111,4 @@ function Footer() {
     );
 }
 
-export default Footer;
+export default memo(Footer);
