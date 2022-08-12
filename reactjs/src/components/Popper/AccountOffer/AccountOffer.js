@@ -48,9 +48,10 @@ function AccountOffer({ children, data, home =  false }) {
             <Tippy
                 interactive
                 delay={[700, 700]}
-                offset={[home ? -10 : -50, 8]}
+                offset={[home ? -10 : 0, 8]}
                 placement='bottom-start'
                 render={renderResult}
+                appendTo={document.body}
             >
                 {children}
             </Tippy>

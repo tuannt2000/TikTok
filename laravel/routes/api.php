@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DiscoveController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\Auth\GoogleController;
 
 /*
@@ -37,6 +38,10 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::get('/rooms', [RoomController::class, 'index']);
     Route::get('/messages', [MessageController::class, 'index']);
     Route::post('/message', [MessageController::class, 'store']);
+
+    Route::prefix('video')->group(function () {
+        Route::post('/upload', [VideoController::class, 'upload']);
+    });
 });
 
 Route::get('/languages', [LanguageController::class, 'index']);

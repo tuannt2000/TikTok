@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 function HeaderOnly({ children }) {
     return (
         <div>
-            <Header />
+            <Header max_width />
             <div className={cx('container')}>
                 {children}
             </div>

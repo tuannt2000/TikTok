@@ -1,9 +1,8 @@
 .container {
-  width: var(--default-layout-width);
-  max-width: 100%;
+  width: 100%;
+  background: #fff;
   display: flex;
-  margin-top: 60px;
-  justify-content: space-between;
-  align-self: center;
+  justify-content: flex-start;
   flex: 1 1 auto;
+  padding-top: 60px;
 }
