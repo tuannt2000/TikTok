@@ -1,5 +1,68 @@
 .container {
-  margin-left: 24px;
-  flex: 1 1 0%;
-  min-width: 0px;
+    margin-left: 24px;
+    flex: 1 1 0%;
+    min-width: 0px;
+}
+
+// caption
+.caption-wrap {
+    margin-bottom: 24px;
+}
+
+.caption-container {
+    outline-style: none;
+    position: relative;
+    flex: 1 1 0%;
+}
+
+.caption-text-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.caption-note {
+    font-size: var(--tux-fontSizeP3);
+    line-height: 1.5;
+    font-family: var(--tux-fontFamilyParagraph);
+    font-weight: var(--tux-fontWeightSemibold);
+    color: var(--tux-colorTextPrimary);
+    display: inline;
+}
+
+.require-font {
+    font-family: proxima-regular, Arial, Tahoma, PingFangSC, sans-serif, "Segoe UI Emoji", "Noto Emoji";
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 17px;
+    color: rgba(22, 24, 35, 0.5);
+    white-space: pre;
+}
+
+.caption-input {
+    margin-top: 4px;
+}
+
+.caption-container-v2 {
+    min-height: 46px;
+    position: relative;
+    text-align: center;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    border-radius: 4px;
+}
+
+.caption-editor {
+    font-family: proxima-regular, Arial, Tahoma, PingFangSC, sans-serif, "Segoe UI Emoji", "Noto Emoji";
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    cursor: text;
+    width: 100%;
+    position: relative;
+    padding: 12px 80px 12px 16px;
+}
+
+.input-editor {
+    width: 100%;
+    outline: none;
 }

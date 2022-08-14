@@ -79,3 +79,385 @@
     margin-top: 32px;
     width: 100%;
 }
+
+// preview
+.preview-container {
+    margin-left: -20px;
+    margin-right: 8px;
+    position: relative;
+}
+
+.preview-container-v2 {
+    position: relative;
+    background: rgb(255, 255, 255);
+    line-height: 0;
+    width: 284px;
+    height: 556px;
+}
+
+.player {
+    height: 486px;
+    width: 259px;
+    background-color: rgb(0, 0, 0);
+    object-fit: contain;
+    margin-left: 12px;
+    margin-top: 13px;
+    border-radius: 0.5px;
+}
+
+.video-control {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    top: 0px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.video-control-v2 {
+    position: absolute;
+    bottom: 5px;
+    width: calc(100% - 10px);
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 90px;
+    transition: all 0.3s ease-out 0s;
+    background: linear-gradient(rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.65) 100%);
+    border-radius: 8px 8px 20px 20px;
+}
+
+.video-detail {
+    position: absolute;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 45px);
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 50px;
+}
+
+.video-left {
+    display: flex;
+    align-items: center;
+}
+
+.video-play {
+    cursor: pointer;
+    user-select: none;
+
+    > img {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.video-time {
+    font-family: proxima-semibold, Arial, Tahoma, PingFangSC, sans-serif, "Segoe UI Emoji", "Noto Emoji";
+    font-weight: 600;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    padding: 0px 6px;
+    margin-top: 2px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.video-right {
+    display: flex;
+    align-items: center;
+}
+
+.video-volume {
+    margin-right: 14px;
+    cursor: pointer;
+    user-select: none;
+
+    > img {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.video-maximize {
+    cursor: pointer;
+    user-select: none;
+
+    > img {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.video-progess-wrap {
+    position: absolute;
+    bottom: 30px;
+    width: calc(100% - 40px);
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.video-progress-bar {
+    width: 100%;
+    height: 3px;
+    background: rgb(86, 86, 86);
+    opacity: 0.8;
+    position: absolute;
+    cursor: pointer;
+}
+
+.video-circle {
+    background: rgb(255, 255, 255);
+    box-shadow: rgb(0 0 0 / 10%) -1px 1px 1px;
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: -1px;
+    z-index: 2;
+}
+
+.video-bar {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    z-index: 1;
+    height: 3px;
+    cursor: pointer;
+}
+
+.preview-title {
+    position: absolute;
+    top: 40px;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    width: 100%;
+    opacity: 0.6;
+    font-size: 12px;
+    line-height: 17px;
+    font-family: proxima-bold, Arial, Tahoma, PingFangSC, sans-serif, "Segoe UI Emoji", "Noto Emoji";
+    font-weight: 700;
+}
+
+.meta-data {
+    position: absolute;
+    bottom: 70px;
+    left: 25px;
+    z-index: 2;
+    opacity: 0.6;
+    color: white;
+}
+
+.meta-username {
+    font-size: 1.2rem;
+    line-height: 17px;
+    font-family: proxima-bold, Arial, Tahoma, PingFangSC, sans-serif, "Segoe UI Emoji", "Noto Emoji";
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.meta-caption {
+    font-size: 1.2rem;
+    line-height: 17px;
+    font-family: proxima-regular, Arial, Tahoma, PingFangSC, sans-serif, Arial, Tahoma;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 150px;
+    margin-bottom: 4px;
+}
+
+.meta-sound-container {
+    display: flex;
+}
+
+.meta-music-icon {
+    margin-right: 7px;
+
+    > img {
+        width: 17px;
+        height: 17px;
+    }
+}
+
+.meta-sound {
+    max-width: 150px;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 17px;
+    font-family: proxima-regular, Arial, Tahoma, PingFangSC, sans-serif, Arial, Tahoma;
+    font-weight: 400;
+}
+
+.meta-marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: 10s linear infinite marquee;
+
+    > p {
+        display: inline-block;
+    }
+}
+
+.preview-following {
+    color: rgba(255, 255, 255, 0.75);
+    margin-right: 20px;
+}
+
+.preview-for-you {
+    color: white;
+}
+
+.music-bar-icon {
+    position: absolute;
+    bottom: 130px;
+    right: 24px;
+    z-index: 2;
+    opacity: 0.6;
+}
+
+.music-symbols {
+    position: absolute;
+    bottom: 125px;
+    right: 64px;
+    z-index: 2;
+}
+
+.music-symbol1 {
+    position: absolute;
+    top: calc(20px);
+    left: calc(-20px);
+    display: block;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: calc(15px);
+    height: calc(15px);
+    animation: 2s linear infinite symbol1;
+}
+
+.music-symbol2 {
+    position: absolute;
+    top: calc(8px);
+    left: calc(-24px);
+    display: block;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: calc(12px);
+    height: calc(12px);
+    animation: 2s linear infinite symbol2;
+}
+
+.music-symbol3 {
+    position: absolute;
+    top: calc(-4px);
+    left: calc(-28px);
+    display: block;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: calc(9px);
+    height: calc(9px);
+    animation: 2s linear infinite symbol3;
+}
+
+.tiktok-app-frame {
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+@keyframes symbol1 {
+    0% {
+        opacity: 0;
+        transform: translate3d(0.5em, calc(0.2em), 0px) rotate(calc(20deg)) scale(0.6);
+    }
+    20% {
+        opacity: 0.6;
+    }
+    40% {
+        opacity: 1;
+        transform: translate3d(0.1em, calc(-0.2em), 0px) rotate(calc(60deg)) scale(1);
+    }
+    60% {
+        transform: translate3d(-0.1em, calc(-0.4em), 0px) rotate(calc(80deg));
+    }
+    80% {
+        opacity: 0.8;
+        transform: translate3d(-0.2em, -0.6em, 0px) rotate(100deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(-0.3em, calc(-0.8em), 0px) rotate(calc(120deg));
+    }
+}
+
+@keyframes symbol2 {
+    0% {
+        opacity: 0;
+        transform: translate3d(0.5em, calc(0.4em), 0px) rotate(calc(40deg)) scale(0.6);
+    }
+    20% {
+        opacity: 0.6;
+    }
+    40% {
+        opacity: 1;
+        transform: translate3d(0.1em, calc(-0.4em), 0px) rotate(calc(120deg)) scale(1);
+    }
+    60% {
+        transform: translate3d(-0.1em, calc(-0.8em), 0px) rotate(calc(160deg));
+    }
+    80% {
+        opacity: 0.8;
+        transform: translate3d(-0.2em, calc(-1.2em), 0px) rotate(calc(200deg));
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(-0.3em, calc(-1.6em), 0px) rotate(calc(240deg));
+    }
+}
+
+@keyframes symbol3 {
+    0% {
+        opacity: 0;
+        transform: translate3d(0.5em, calc(0.6em), 0px) rotate(calc(60deg)) scale(0.6);
+    }
+    20% {
+        opacity: 0.6;
+    }
+    40% {
+        opacity: 1;
+        transform: translate3d(0.1em, calc(-0.6em), 0px) rotate(calc(180deg)) scale(1);
+    }
+    60% {
+        transform: translate3d(-0.1em, calc(-1.2em), 0px) rotate(calc(240deg));
+    }
+    80% {
+        opacity: 0.8;
+        transform: translate3d(-0.2em, calc(-1.8em), 0px) rotate(calc(300deg));
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(-0.3em, calc(-2.4em), 0px) rotate(calc(360deg));
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translate3d(0px, 0px, 0px);
+    }
+    100% {
+        transform: translate3d(-50%, 0px, 0px);
+    }
+}

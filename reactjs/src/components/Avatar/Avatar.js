@@ -6,7 +6,7 @@ import { forwardRef } from "react";
 
 const cx = classNames.bind(styles);
 
-const Avatar = forwardRef(({ data, size, to = true, href = false}, ref) => {
+const Avatar = forwardRef(({ data, size, to = true, href = false, album = false, className}, ref) => {
     let Comp = 'div';
     const props = {};
 
@@ -20,7 +20,7 @@ const Avatar = forwardRef(({ data, size, to = true, href = false}, ref) => {
     }
 
     return (
-        <Comp ref={ref} className={cx('avatar')} {...props}>
+        <Comp ref={ref} className={cx('avatar', {[className]: className})} {...props}>
             <div 
                 className={cx('container')}
                 style={
@@ -39,6 +39,7 @@ const Avatar = forwardRef(({ data, size, to = true, href = false}, ref) => {
                         }
                     }
                 >
+                    {album && (<div className={cx('album-border')}></div>)}
                     <img src={data.avatar} alt={data.nickname} />
                 </span>
             </div>

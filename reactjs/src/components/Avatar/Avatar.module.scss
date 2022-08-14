@@ -28,3 +28,45 @@ img {
     height: 100%;
     object-fit: cover;
 }
+
+.video {
+    position: absolute;
+    bottom: 275px;
+    right: 20px;
+    z-index: 2;
+    opacity: 0.6;
+}
+
+.album-border {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: conic-gradient(from 90deg at 50% 50%, rgb(57, 57, 57) -40.11deg, rgb(21, 21, 21) 47.27deg, rgb(57, 57, 57) 143.02deg, rgb(22, 22, 22) 227.49deg, rgb(57, 57, 57) 319.89deg, rgb(21, 21, 21) 407.27deg);
+
+    + img {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        animation: spinner 2s linear infinite;
+    }
+}
+
+.album {
+    position: absolute;
+    bottom: 74px;
+    right: 20px;
+    z-index: 2;
+    opacity: 0.6;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

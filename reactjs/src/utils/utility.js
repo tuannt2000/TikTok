@@ -44,3 +44,11 @@ export const formatTextMessage = (room) => {
 
     return new_text;
 }
+
+export const formatTime = (time) => {
+    if(!time) {
+        return '00:00';
+    }
+    const timewithdate = new Date(time.toFixed(0) * 1000).toISOString().substr(11, 8);
+    return timewithdate.slice(3);
+}
