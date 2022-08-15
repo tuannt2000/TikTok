@@ -15,6 +15,8 @@ function App() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
 
+    console.log(1)
+
     useEffect(() => {
         const start = () => {
             gapi.client.init({
@@ -24,7 +26,7 @@ function App() {
         };
 
         gapi.load('client:auth2', start);
-    });
+    },[]);
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
@@ -41,8 +43,6 @@ function App() {
             dispatch(getUserOffer(user.currentUser.id));
             dispatch(getUserFollowing(user.currentUser.id));
         }
-
-        dispatch(getAllLanguages());
     }, [dispatch, user.currentUser.id]);
 
 

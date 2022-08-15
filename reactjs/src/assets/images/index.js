@@ -13,6 +13,8 @@ const images = {
     muteOffIcon: require('~/assets/images/mute_off.svg').default,
     muteOnIcon: require('~/assets/images/mute_on.svg').default,
     fullScreenIcon: require('~/assets/images/fullscreen.svg').default,
+    atIcon: require('~/assets/images/at.svg').default,
+    hashtagIcon: require('~/assets/images/hashtag.svg').default,
 };
 
 export default images;
