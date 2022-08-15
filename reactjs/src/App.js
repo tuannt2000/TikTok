@@ -15,8 +15,6 @@ function App() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
 
-    console.log(1)
-
     useEffect(() => {
         const start = () => {
             gapi.client.init({
