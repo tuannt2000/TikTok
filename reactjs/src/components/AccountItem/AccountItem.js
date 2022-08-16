@@ -24,6 +24,7 @@ const AccountItem = forwardRef(({ data, className = null }, ref) => {
                 className={cx('avatar')}
                 src={data.avatar || images.noImage}
                 alt={data.nickname}
+                referrerPolicy={'no-referrer'}
             />
             <div className={cx('info')}>
                 <h4 className={cx('name')}>

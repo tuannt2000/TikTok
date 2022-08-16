@@ -92,6 +92,7 @@ function Header({ max_width = false }) {
                                     src={currentUser.avatar}
                                     alt={currentUser.nickname}
                                     className={cx('user-avatar')}
+                                    referrerPolicy={'no-referrer'}
                                 />
                             ) : (
                                 <button className={cx('more-btn')} >
