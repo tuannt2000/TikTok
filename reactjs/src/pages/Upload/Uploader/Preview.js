@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import images from "~/assets/images";
 import { useEffect, useRef, useState } from "react";
 import { formatTime } from '~/utils/utility';
+import { Upload } from '~/components/Modal';
 
 const cx = classNames.bind(styles);
 
 function Preview({ url }) {
-    // const [show, setShow] = useState(false);
     const [play, setPlay] = useState(true);
     const [mute, setMute] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -24,22 +24,22 @@ function Preview({ url }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         setDuration(videoRef.current.duration)
-    })
+    });
 
     useEffect(() => {
         play ? videoRef.current.play() : videoRef.current.pause();
-    }, [play])
+    }, [play]);
 
     useEffect(() => {
         videoRef.current.muted = !mute;
-    }, [mute])
+    }, [mute]);
 
     const handleTimeUpdate = () => {
         setCurrentTime(videoRef.current.currentTime);
         const pos = progessRef.current.offsetWidth * videoRef.current.currentTime / videoRef.current.duration + 'px';
         circleRef.current.style.left = pos;
         barRef.current.style.width = pos;
-    }
+    };
 
     return (
         <div className={cx('preview-container')}>
@@ -57,7 +57,7 @@ function Preview({ url }) {
                     muted={true}
                     ref={videoRef}
                     onTimeUpdate={handleTimeUpdate}
-                ></video>
+                />
                 <div className={cx('video-control')} ref={videoControlRef}>
                     <div className={cx('video-control-v2')}>
                         <div className={cx('video-detail')}>
@@ -77,7 +77,7 @@ function Preview({ url }) {
                             </div>
                         </div>
                         <div className={cx('video-progess-wrap')}>
-                            <div className={cx('video-progress-bar')} ref={progessRef}></div>
+                            <div className={cx('video-progress-bar')} ref={progessRef}/>
                             <div 
                                 className={cx('video-circle')} 
                                 ref={circleRef}
@@ -86,7 +86,7 @@ function Preview({ url }) {
                                         left: 0
                                     }
                                 }
-                            ></div>
+                            />
                             <div 
                                 className={cx('video-bar')} 
                                 ref={barRef}
@@ -95,7 +95,7 @@ function Preview({ url }) {
                                         width: 0
                                     }
                                 }
-                            ></div>
+                            />
                         </div>
                     </div>
                 </div>
@@ -142,26 +142,33 @@ function Preview({ url }) {
                         style={{
                             backgroundImage: 'url(' + images.musicSymbol1 + ')'
                         }}
-                    ></div>
+                    />
                     <div
                         className={cx('music-symbol2')}
                         style={{
                             backgroundImage: 'url(' + images.musicSymbol2 + ')'
                         }}
-                    ></div>
+                    />
                     <div
                         className={cx('music-symbol3')}
                         style={{
                             backgroundImage: 'url(' + images.musicSymbol3 + ')'
                         }}
-                    ></div>
+                    />
                 </div>
                 <div
                     className={cx('tiktok-app-frame')}
                     style={{
                         backgroundImage: 'url(' + images.app + ')'
                     }}
-                ></div>
+                />
+            </div>
+            <div className={cx('change-video-btn')}>
+                <div className={cx('file')}>
+                    <img src={images.checkIcon} alt={'check-icon'} />
+                    <div className={cx('file-text')}>test.mp4</div>
+                </div>
+                <Upload />
             </div>
         </div>
     );

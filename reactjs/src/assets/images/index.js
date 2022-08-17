@@ -15,6 +15,7 @@ const images = {
     fullScreenIcon: require('~/assets/images/fullscreen.svg').default,
     atIcon: require('~/assets/images/at.svg').default,
     hashtagIcon: require('~/assets/images/hashtag.svg').default,
+    checkIcon: require('~/assets/images/check_icon.svg').default,
 };
 
 export default images;

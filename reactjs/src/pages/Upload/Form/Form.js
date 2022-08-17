@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { TickIcon } from '~/components/Icons';
 import Button from "./Button";
 import Switch from "./Switch";
+import Type from "./Type";
 
 const cx = classNames.bind(styles);
 
@@ -46,6 +47,7 @@ function Form() {
                     </div>
                 </div>
             </div>
+            <Type/>
             <div className={cx('access-title')}>
                 <span>Cho phép người dùng:</span>
             </div>

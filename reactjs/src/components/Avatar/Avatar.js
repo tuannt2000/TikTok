@@ -40,7 +40,7 @@ const Avatar = forwardRef(({ data, size, to = true, href = false, album = false,
                     }
                 >
                     {album && (<div className={cx('album-border')}></div>)}
-                    <img src={data.avatar} alt={data.nickname} />
+                    <img referrerPolicy={'no-referrer'} src={data.avatar} alt={data.nickname} />
                 </span>
             </div>
         </Comp>
