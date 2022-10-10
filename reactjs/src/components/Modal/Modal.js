@@ -23,7 +23,7 @@ const MODAL_MENU = [
             ]
         }
     }
-]
+];
 
 function Modal() {
     const [history, setHistory] = useState([{ data: MODAL_MENU }]);
@@ -45,7 +45,7 @@ function Modal() {
         onFailure: onFailure,
     });
 
-    const hanleHide = (success) => {
+    const handleHide = (success) => {
         if (history.length > 1 && !success) {
             signOut();
         }
@@ -58,7 +58,7 @@ function Modal() {
         if (isParent) {
             setHistory(prev => [...prev, data.children])
         }
-    }
+    };
 
     const renderItems = () => {
         return currentMenu.data.map((item, index) => {
@@ -77,7 +77,7 @@ function Modal() {
     return (
         <>
             <Button onClick={() => setShow(true)} primary>{LOGIN}</Button>
-            <Dialog className={cx('container')} open={show} onClose={() => hanleHide(false)}>
+            <Dialog className={cx('container')} open={show} onClose={() => handleHide(false)}>
                 {show && (
                     <>
                         {history.length > 1 && (
@@ -112,7 +112,7 @@ function Modal() {
                                 )}
                             </div>
                         </div>
-                        <div onClick={() => hanleHide(false)} className={cx('close-btn')}><CloseIcon /></div>
+                        <div onClick={() => handleHide(false)} className={cx('close-btn')}><CloseIcon /></div>
                     </>
                 )}
             </Dialog>

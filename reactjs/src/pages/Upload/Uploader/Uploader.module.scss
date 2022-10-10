@@ -378,6 +378,44 @@
     z-index: 1;
 }
 
+// btn file
+.change-video-btn {
+    margin-top: 18px;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    box-sizing: border-box;
+    border-radius: 12px;
+    padding: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file {
+    font-size: 1.2rem;
+    line-height: 17px;
+    font-family: proxima-regular, Arial, Tahoma, PingFangSC, sans-serif, Arial, Tahoma;
+    font-weight: 400;
+    color: rgba(22, 24, 35, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 150px;
+
+    > img {
+        margin-right: 4px;
+        width: 16px;
+    }
+}
+
+.file-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+// animation
+
 @keyframes symbol1 {
     0% {
         opacity: 0;
