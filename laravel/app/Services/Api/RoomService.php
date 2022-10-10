@@ -5,6 +5,7 @@ namespace App\Services\Api;
 use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Services\Api\RoomServiceInterface;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Log;
 
 class RoomService extends AbstractService implements RoomServiceInterface
 {
@@ -36,6 +37,8 @@ class RoomService extends AbstractService implements RoomServiceInterface
                 'data' => $list_room
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+            
             return [
                 'code' => 400,
                 'message' => $err,

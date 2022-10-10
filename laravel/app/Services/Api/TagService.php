@@ -11,6 +11,7 @@ namespace App\Services\Api;
 use App\Contracts\Services\Api\TagServiceInterface;
 use App\Contracts\Repositories\TagRepositoryInterface;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Log;
 
 class TagService extends AbstractService implements TagServiceInterface
 {
@@ -39,6 +40,8 @@ class TagService extends AbstractService implements TagServiceInterface
                 'data' => $this->tagRepository->getAll()
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+            
             return [
                 'code' => 400,
                 'message' => $err,

@@ -12,6 +12,7 @@ use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
 use App\Models\Follow;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Log;
 
 class UserService extends AbstractService implements UserServiceInterface
 {
@@ -43,6 +44,8 @@ class UserService extends AbstractService implements UserServiceInterface
             ];
             
         } catch (\Throwable $err) {
+            Log::error($err);
+
             return [
                 'code' => 400,
                 'message' => $err,
@@ -73,6 +76,8 @@ class UserService extends AbstractService implements UserServiceInterface
                 ],                
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+
             return [
                 'code' => 400,
                 'message' => $err,
@@ -90,6 +95,8 @@ class UserService extends AbstractService implements UserServiceInterface
                 'data' => $data
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+
             return [
                 'code' => 400,
                 'message' => $err,
@@ -112,6 +119,8 @@ class UserService extends AbstractService implements UserServiceInterface
                 'data' => $result
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+
             return [
                 'code' => 400,
                 'message' => $err,
@@ -131,6 +140,8 @@ class UserService extends AbstractService implements UserServiceInterface
                 'data' => $data
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+            
             return [
                 'code' => 400,
                 'message' => $err,

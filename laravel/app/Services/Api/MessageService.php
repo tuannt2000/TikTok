@@ -11,6 +11,7 @@ namespace App\Services\Api;
 use App\Contracts\Services\Api\MessageServiceInterface;
 use App\Contracts\Repositories\MessageRepositoryInterface;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Log;
 
 class MessageService extends AbstractService implements MessageServiceInterface
 {
@@ -40,6 +41,8 @@ class MessageService extends AbstractService implements MessageServiceInterface
                 'data' => $this->messageRepository->getListMessages($room_id)
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+
             return [
                 'code' => 400,
                 'message' => $err,
@@ -60,6 +63,8 @@ class MessageService extends AbstractService implements MessageServiceInterface
                 'data' =>  $messageStore,
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+            
             return response()->json([
                 'code' => 400,
                 'message' => $err

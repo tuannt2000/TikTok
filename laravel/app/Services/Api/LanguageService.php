@@ -5,6 +5,7 @@ namespace App\Services\Api;
 use App\Contracts\Repositories\LanguageRepositoryInterface;
 use App\Contracts\Services\Api\LanguageServiceInterface;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Log;
 
 class LanguageService extends AbstractService implements LanguageServiceInterface
 {
@@ -33,6 +34,8 @@ class LanguageService extends AbstractService implements LanguageServiceInterfac
                 'data' => $this->languageRepository->getAll()
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+            
             return [
                 'code' => 400,
                 'message' => $err,

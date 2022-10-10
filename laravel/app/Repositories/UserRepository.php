@@ -25,20 +25,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function findUserByKey($q, $type)
     {
+        $query = $this->model
+                ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
+                ->where('nickname', 'like', '%'.$q.'%');
+
         if ($type == 'less') {
-            return $this->model
-                        ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
-                        ->where('nickname', 'like', '%'.$q.'%')
-                        ->orderBy('followers_count', 'DESC')
-                        ->take(5)
-                        ->get();
+            $query->take(5);
         }
 
-        return $this->model
-                    ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
-                    ->where('nickname', 'like', '%'.$q.'%')
-                    ->orderBy('followers_count', 'DESC')
-                    ->get();
+        return $query->get();
     }
 
     public function getListAccountOffer ($id)

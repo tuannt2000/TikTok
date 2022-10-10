@@ -11,6 +11,7 @@ namespace App\Services\Api;
 use App\Contracts\Services\Api\MusicServiceInterface;
 use App\Contracts\Repositories\MusicRepositoryInterface;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Log;
 
 class MusicService extends AbstractService implements MusicServiceInterface
 {
@@ -39,6 +40,8 @@ class MusicService extends AbstractService implements MusicServiceInterface
                 'data' => $this->musicRepository->getAll()
             ];
         } catch (\Throwable $err) {
+            Log::error($err);
+            
             return [
                 'code' => 400,
                 'message' => $err,
