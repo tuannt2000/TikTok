@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-//use App\Contracts\Services\Api\MessageServiceInterface;
+use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -12,10 +12,16 @@ class VideoController extends Controller
 {
     protected $videoService;
 
-//    public function __construct(MessageServiceInterface $messageService)
-//    {
-//        $this->messageService = $messageService;
-//    }
+    public function __construct(VideoServiceInterface $videoService)
+    {
+        $this->videoService = $videoService;
+    }
+
+    public function index() {
+        $result = $this->videoService->index();
+
+        return response()->json($result, 200);
+    }
 
     /**
       * @param Request $request
@@ -23,11 +29,17 @@ class VideoController extends Controller
       * @return \Illuminate\Http\Response
      */
     public function upload (Request $request) {
-        $video = $request->url;
-//        return response()->json(file_get_contents($video), 200);
-
-        Storage::disk('google')->put('test.mp4', file_get_contents($video));
-
-        return response()->json('Đã upload file lên google drive thành công!', 200);
+        try {
+            $video = $request->url;
+            if (Storage::disk('google')->exists($request->name)) {
+                return response()->json('Tên video đã tồn tại', 200);
+            }
+            Storage::disk('google')->put($request->name, file_get_contents($video));
+            $result = $this->videoService->uploadVideo(Storage::disk('google')->url($request->name));
+            return response()->json($result, 200);
+        } catch (\Throwable $err) {
+            Log::error($err);
+            return response()->json('Upload file lên google drive thất bại!', 500);
+        }
     }
 }

@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     search: searchReducer,
     user: userReducer,
     room: roomReducer,
-    video: videoReducer()
+    video: videoReducer
 });
 
 export default rootReducer;

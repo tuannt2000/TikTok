@@ -6,23 +6,21 @@ import Video from "./Video";
 import { useEffect } from 'react';
 import { AccountOffer } from '~/components/Popper';
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUser } from '~/redux/actions/user';
-import { useNavigate } from "react-router-dom";
+import { listVideo } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
 function Home() {
-    const user = useSelector(state => state.user);
+    const video = useSelector(state => state.video);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getAllUser({ navigate }));
-    }, [dispatch, navigate]);
+        dispatch(listVideo());
+    }, [dispatch]);
 
     return (
         <div>
-            {user.user.map((result, index) => (
+            {video.list_video.map((result, index) => (
                 <div key={index} className={cx('list-item')}>
                     <AccountOffer home data={result}>
                         <Avatar
@@ -32,7 +30,7 @@ function Home() {
                     </AccountOffer>
                     <div className={cx('main-container')}>
                         <Header data={result} />
-                        <Video />
+                        <Video data={result} />
                     </div>
                 </div>
             ))}

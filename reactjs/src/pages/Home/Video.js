@@ -4,17 +4,16 @@ import ReactPlayer from 'react-player';
 import ActionItem from './ActionItem';
 import { VideoLikeIcon, VideoMessageIcon, VideoShareIcon } from '~/components/Icons';
 import { Share } from '~/components/Popper';
-import video from "~/assets/videos";
 
 const cx = classNames.bind(styles);
 
-function Video() {
+function Video({data}) {
     return (
         <div className={cx('video-wrapper')}>
             <div className={cx('video-container')}>
                 <ReactPlayer
                     className={cx('video')}
-                    url={video.video1}
+                    url={data.url}
                     controls={true}
                 />
             </div>

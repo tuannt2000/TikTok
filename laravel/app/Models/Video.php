@@ -9,5 +9,20 @@ class Video extends Model
 {
     use HasFactory;
 
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'cover_image',
+        'url',
+        'description',
+        'status',
+        'allow',
+        'date_upload'      
+    ];
+
     protected $table = 'videos';
 }

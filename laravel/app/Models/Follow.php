@@ -34,6 +34,11 @@ class Follow extends Model
         return $this->hasOne(User::class, 'id', 'user_follower_id');
     }
 
+    public function scopeOfListIdUserFollowing($query, $user_id)
+    {
+        return $query->select('user_follower_id')->where('user_id', $user_id)->get()->toArray();
+    }
+
     public function scopeOfFollowingCount($query, $user_id)
     {
         return $query->where('user_id', $user_id)->count();

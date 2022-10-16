@@ -2,36 +2,22 @@ import classNames from "classnames/bind";
 import styles from "./Uploader.module.scss";
 import images from '~/assets/images';
 import Button from '~/components/Button';
-// import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-// import { uploadVideo } from '~/redux/actions/video';
 import { useRef } from 'react';
 import Preview from './Preview';
 
 const cx = classNames.bind(styles);
 
-function Uploader() {
+function Uploader({video, url, hanleChange}) {
     const inputFile = useRef();
-    const [video, setVideo] = useState('');
-    const [url, setUrl] = useState('');
-    // const dispatch = useDispatch();
 
     const hanleClick = () => {
         inputFile.current.click();
     };
 
     const handleChange = (event) => {
-        setVideo(event.target.files[0]);
         const file = event.target.files[0];
         const url = URL.createObjectURL(file);
-        setUrl(url);
-
-        // var reader = new FileReader();
-        // reader.readAsDataURL(event.target.files[0]);
-        // reader.onloadend = function() {
-        //     var base64data = reader.result;
-        //     dispatch(uploadVideo(base64data));
-        // }
+        hanleChange(event, url, event.target.files[0]);
     };
 
     return (
@@ -76,7 +62,7 @@ function Uploader() {
                     </div>
                 </div>
             ) : (
-                <Preview url={url}/>
+                <Preview name={video.name} url={url}/>
             )
             }
         </>

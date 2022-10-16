@@ -7,12 +7,14 @@ use App\Contracts\Repositories\MessageRepositoryInterface;
 use App\Contracts\Repositories\MusicRepositoryInterface;
 use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Repositories\TagRepositoryInterface;
+use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Repositories\LanguageRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\MusicRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\TagRepository;
+use App\Repositories\VideoRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -42,6 +44,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'message' => [
             MessageRepositoryInterface::class,
             MessageRepository::class,
+        ],
+        'video' => [
+            VideoRepositoryInterface::class,
+            VideoRepository::class,
         ]
     ];
 

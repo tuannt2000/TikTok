@@ -9,7 +9,7 @@ import { Upload } from '~/components/Modal';
 
 const cx = classNames.bind(styles);
 
-function Preview({ url }) {
+function Preview({ name, url }) {
     const [play, setPlay] = useState(true);
     const [mute, setMute] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -166,7 +166,7 @@ function Preview({ url }) {
             <div className={cx('change-video-btn')}>
                 <div className={cx('file')}>
                     <img src={images.checkIcon} alt={'check-icon'} />
-                    <div className={cx('file-text')}>test.mp4</div>
+                    <div className={cx('file-text')}>{name}</div>
                 </div>
                 <Upload />
             </div>

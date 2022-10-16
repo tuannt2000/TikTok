@@ -40,6 +40,7 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::post('/message', [MessageController::class, 'store']);
 
     Route::prefix('video')->group(function () {
+        Route::get('/', [VideoController::class, 'index']);
         Route::post('/upload', [VideoController::class, 'upload']);
     });
 });

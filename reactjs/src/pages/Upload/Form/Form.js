@@ -27,7 +27,7 @@ const MENU_CHECKBOX = [
     }
 ];
 
-function Form() {
+function Form({ event, url, hanleChange }) {
     const [listCheckBox, setListCheckBox] = useState(MENU_CHECKBOX);
 
     const handleChangeCheckBox = (checkbox) => {
@@ -69,7 +69,7 @@ function Form() {
                 ))}
             </div>
             <Switch/>
-            <Button/>
+            <Button event={event} url={url} hanleChange={hanleChange} />
         </div>
     );
 }
