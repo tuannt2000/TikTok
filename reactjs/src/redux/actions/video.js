@@ -9,6 +9,15 @@ export const setListVideo = ( data ) => ({
     payload: data
 });
 
+export const myVideo = () => ({
+    type: types.GET_MY_VIDEO
+});
+
+export const setMyVideo = ( data ) => ({
+    type: types.SET_MY_VIDEO,
+    payload: data
+});
+
 export const uploadVideo = ( data ) => ({
     type: types.UPLOAD_VIDEO,
     payload: data

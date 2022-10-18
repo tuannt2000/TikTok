@@ -41,6 +41,7 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
 
     Route::prefix('video')->group(function () {
         Route::get('/', [VideoController::class, 'index']);
+        Route::get('/my-video', [VideoController::class, 'getMyVideo']);
         Route::post('/upload', [VideoController::class, 'upload']);
     });
 });

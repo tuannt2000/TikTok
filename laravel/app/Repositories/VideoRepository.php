@@ -32,6 +32,14 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         return $video;
     }
 
+    public function getMyVideo($id) {
+        $video = $this->model
+            ->where('user_id', $id)
+            ->get();
+
+        return $video;
+    }
+
     public function uploadVideo($url)
     {
         $this->model::create([

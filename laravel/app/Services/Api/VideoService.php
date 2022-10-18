@@ -49,6 +49,22 @@ class VideoService extends AbstractService implements VideoServiceInterface
         }
     }
 
+    public function getMyVideo() {
+        try {
+            return [
+                'code' => 200,
+                'data' => $this->videoRepository->getMyVideo(Auth::user()->id)
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
     /**
      * @param $url
      * @return array
