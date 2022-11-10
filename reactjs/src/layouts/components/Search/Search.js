@@ -16,13 +16,12 @@ const cx = classNames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
-    const [showResult, setShowResult] = useState(false);
-    const search = useSelector(state => state.search);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const debounced = useDebounce(searchValue, 500);
-
+    const [showResult, setShowResult]   = useState(false);
+    const search       = useSelector(state => state.search);
+    const currentUser  = useSelector(state => state.user.currentUser);
+    const dispatch     = useDispatch();
+    const navigate     = useNavigate();
+    const debounced    = useDebounce(searchValue, 500);
     const inputTextRef = useRef();
 
     useEffect(() => {
@@ -31,8 +30,8 @@ function Search() {
             return;
         }
 
-        dispatch(getResultSearch({q: debounced, navigate}));
-    }, [debounced, dispatch, navigate]);
+        dispatch(getResultSearch({q: debounced, navigate, logined: Object.keys(currentUser).length ? true : false}));
+    }, [debounced, dispatch, navigate, currentUser]);
 
     const handleClear = () => {
         setSearchValue('');

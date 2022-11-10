@@ -1,4 +1,4 @@
-import { searchUser } from "~/services/searchService";
+import { searchUser, searchUserWithHeader } from "~/services/searchService";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { GET_RESULT_SEARCH } from "../constants/search";
 import { setResultSearch } from "../actions/search";
@@ -6,7 +6,13 @@ import { setResultSearch } from "../actions/search";
 function* sagaSearch(action) {
     try {
         yield put(setResultSearch({data: [], isLoading: true}));
-        const res = yield call(searchUser, action.payload.q);
+        let res;
+        if (action.payload.logined) {
+            res = yield call(searchUserWithHeader, action.payload.q);
+        } else {
+            res = yield call(searchUser, action.payload.q);
+        }
+        
         const { data } = res;
         yield put(setResultSearch({data: data.data, isLoading: false}));
     } catch (error) {

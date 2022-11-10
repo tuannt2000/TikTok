@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -31,6 +32,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         if ($type == 'less') {
             $query->take(5);
+        }
+
+        if (Auth::check()) {
+            $query->where('id', '!=', Auth::user()->id);
         }
 
         return $query->get();

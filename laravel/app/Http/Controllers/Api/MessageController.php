@@ -6,6 +6,7 @@ use App\Contracts\Services\Api\MessageServiceInterface;
 use App\Events\MessageEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class MessageController extends Controller
 {
@@ -33,7 +34,7 @@ class MessageController extends Controller
      */
     public function store(Request $request) {
         $params = $request->all();
-        $params['date_send'] = date('d-m-y h:i:s');
+        $params['date_send'] = Carbon::now();
         $result = $this->messageService->store($params);
         event(new MessageEvent($params));
 
