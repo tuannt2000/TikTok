@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./Form.module.scss";
 import { useRef, useState } from "react";
 import { ArrowSelectIcon } from '~/components/Icons';
+import { memo } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -83,4 +84,4 @@ function Type() {
     );
 }
 
-export default Type;
+export default memo(Type);

@@ -27,7 +27,7 @@ const MENU_CHECKBOX = [
     }
 ];
 
-function Form({ event, url, hanleChange }) {
+function Form({ event, url, video, hanleChange }) {
     const [listCheckBox, setListCheckBox] = useState(MENU_CHECKBOX);
 
     const handleChangeCheckBox = (checkbox) => {
@@ -38,7 +38,7 @@ function Form({ event, url, hanleChange }) {
 
     return (
         <div className={cx('container')}>
-            <Caption />
+            <Caption video={video} />
             <div className={cx('cover-image')}>
                 <span className={cx('title-cover-image')}>Ảnh bìa</span>
                 <div className={cx('cover-image-container-v2')}>

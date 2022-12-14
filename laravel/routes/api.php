@@ -26,24 +26,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('users')->group(function () {
-    Route::get('/', [UserController::class, 'index']);
-    Route::get('/info', [UserController::class, 'getInfoUser'])->middleware('auth:api');
-    Route::get('/search', [UserController::class, 'findUser']);
-    Route::get('/search/logined', [UserController::class, 'findUser'])->middleware('auth:api');
-    Route::get('/profile', [UserController::class, 'getUserByNickname']);
-    Route::post('/account-offer', [UserController::class, 'listAccountOffer']);
-    Route::post('/following', [UserController::class, 'listFollowing']);
+    Route::get ('/',               [UserController::class, 'index']);
+    Route::get ('/info',           [UserController::class, 'getInfoUser'])->middleware('auth:api');
+    Route::get ('/search',         [UserController::class, 'findUser']);
+    Route::get ('/search/logined', [UserController::class, 'findUser'])->middleware('auth:api');
+    Route::get ('/profile',        [UserController::class, 'getUserByNickname']);
+    Route::post('/account-offer',  [UserController::class, 'listAccountOffer']);
+    Route::post('/following',      [UserController::class, 'listFollowing']);
 });
 
 Route::prefix('/')->middleware('auth:api')->group(function () {
-    Route::get('/rooms', [RoomController::class, 'index']);
-    Route::get('/messages', [MessageController::class, 'index']);
-    Route::post('/message', [MessageController::class, 'store']);
+    Route::get ('/rooms',    [RoomController::class, 'index']);
+    Route::get ('/messages', [MessageController::class, 'index']);
+    Route::post('/message',  [MessageController::class, 'store']);
 
     Route::prefix('video')->group(function () {
-        Route::get('/', [VideoController::class, 'index']);
-        Route::get('/my-video', [VideoController::class, 'getMyVideo']);
-        Route::post('/upload', [VideoController::class, 'upload']);
+        Route::get ('/',         [VideoController::class, 'index']);
+        Route::get ('/my-video', [VideoController::class, 'getMyVideo']);
+        Route::post('/upload',   [VideoController::class, 'upload']);
     });
 });
 

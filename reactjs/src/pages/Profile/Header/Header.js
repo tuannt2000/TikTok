@@ -39,7 +39,7 @@ function Header({ profile }) {
                     <span className={cx('span-unit')}>Follower</span>
                 </div>
                 <div className={cx('div-number')}>
-                    <strong>{profile.likes_count}</strong>
+                    <strong>{profile.likes}</strong>
                     <span className={cx('span-unit')}>Thích</span>
                 </div>
             </h2>

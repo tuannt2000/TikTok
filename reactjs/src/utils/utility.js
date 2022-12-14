@@ -52,3 +52,9 @@ export const formatTime = (time) => {
     const timewithdate = new Date(time.toFixed(0) * 1000).toISOString().substr(11, 8);
     return timewithdate.slice(3);
 }
+
+export const formatFilename = (filename) => {
+    filename = filename.substring(0, filename.lastIndexOf('.'));
+
+    return filename;
+}

@@ -11,7 +11,9 @@ namespace App\Services\Api;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
 use App\Models\Follow;
+use App\Models\Like;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class UserService extends AbstractService implements UserServiceInterface
@@ -88,11 +90,18 @@ class UserService extends AbstractService implements UserServiceInterface
     public function listAccountOffer ($id)
     {
         try {
-            $data = $this->userRepository->getListAccountOffer($id);
+            $datas = $this->userRepository->getListAccountOffer($id);
+            $result = [];
+
+            foreach ($datas as $data) {
+                $data->likes = Like::ofLikesCount($data->id);
+                $data->followers_count = Follow::ofFollowingCount($data->id);
+                $result[] = $data;
+            }
 
             return [
                 'code' => 200,
-                'data' => $data
+                'data' => $result
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -134,6 +143,27 @@ class UserService extends AbstractService implements UserServiceInterface
             $data = $this->userRepository->getUserByNickname($nickname);
             $data['followings_count'] = Follow::ofFollowingCount($data->id);
             $data['followers_count'] = Follow::ofFollowerCount($data->id);
+            $data['likes'] = Like::ofLikesCount($data->id);
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+            
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function getInfoUser ()
+    {
+        try {
+            $data = Auth::user();
+            $data['full_name'] = $data->first_name . ' ' . $data->last_name;
 
             return [
                 'code' => 200,

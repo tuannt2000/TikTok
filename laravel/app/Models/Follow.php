@@ -39,11 +39,13 @@ class Follow extends Model
         return $query->select('user_follower_id')->where('user_id', $user_id)->get()->toArray();
     }
 
+     // số lượng người đang follow
     public function scopeOfFollowingCount($query, $user_id)
     {
         return $query->where('user_id', $user_id)->count();
     }
 
+    // số lượng người bản thân follow
     public function scopeOfFollowerCount($query, $user_id)
     {
         return $query->where('user_follower_id', $user_id)->count();

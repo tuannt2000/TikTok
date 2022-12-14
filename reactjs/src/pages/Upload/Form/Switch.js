@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Form.module.scss";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { InforIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
@@ -41,4 +41,4 @@ function Switch() {
     );
 }
 
-export default Switch;
+export default memo(Switch);

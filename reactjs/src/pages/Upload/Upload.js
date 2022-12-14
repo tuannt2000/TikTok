@@ -26,7 +26,7 @@ function Upload() {
                         <div className={cx('sub-title')}>Đăng video vào tài khoản của bạn</div>
                         <div className={cx('content')}>
                             <Uploader video={video} url={url} hanleChange={hanleChange} />
-                            <Form event={event} url={url} hanleChange={hanleChange} />
+                            <Form event={event} video={video} url={url} hanleChange={hanleChange} />
                         </div>
                     </div>
                 </div>

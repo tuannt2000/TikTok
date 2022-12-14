@@ -16,8 +16,10 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('/', [LanguageController::class, 'test']);
 Route::get('upload-file', function() {
     \Illuminate\Support\Facades\Storage::disk('google')->put('google-drive.txt', 'Google Drive As Filesystem In Laravel');
     dd('Đã upload file lên google drive thành công!');
+});
+Route::get('/', function() {
+    return view('home');
 });

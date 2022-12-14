@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('bio')->nullable();
             $table->boolean('tick')->default(false);
-            $table->integer('likes_count')->default(0);
             $table->string('facebook_url')->nullable();
             $table->string('youtube_url')->nullable();
             $table->string('twitter_url')->nullable();
