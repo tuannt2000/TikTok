@@ -111,6 +111,44 @@
     border: 2px solid transparent;
 }
 
+.cover-image-bg-container-v2.has-thumbnail {
+    display: flex;
+    border: 2px solid rgba(22, 24, 35, 0.12);
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.cover-image-bg-container-v2.has-thumbnail img {
+    opacity: 0.3;
+    user-select: none;
+    width: 84.2px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.chosen-v2 {
+    cursor: grab;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    box-sizing: content-box;
+    border: 6px solid rgb(255, 255, 255);
+    box-shadow: rgb(34 90 89 / 20%) 2px 4px 20px;
+    border-radius: 8px;
+}
+
+.choose-thumbnail {
+    cursor: grab;
+    line-height: 0;
+}
+
+.candidate-video-v2 {
+    border-radius: 0.5px;
+    width: 84.2px;
+    height: 150px;
+    object-fit: cover;
+}
+
 .cover-image-candidate {
     width: 84.2px;
     height: 150px;

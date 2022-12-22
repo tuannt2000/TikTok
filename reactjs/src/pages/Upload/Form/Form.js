@@ -1,8 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "./Form.module.scss";
 import Caption from './Caption';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { TickIcon } from '~/components/Icons';
+import VideoThumbnail from 'react-video-thumbnail';
 import Button from "./Button";
 import Switch from "./Switch";
 import Type from "./Type";
@@ -29,6 +30,9 @@ const MENU_CHECKBOX = [
 
 function Form({ event, url, video, hanleChange }) {
     const [listCheckBox, setListCheckBox] = useState(MENU_CHECKBOX);
+    const videoRef = useRef();
+    const thumbnailRef = useRef();
+
 
     const handleChangeCheckBox = (checkbox) => {
         const newState = [...listCheckBox];
@@ -36,15 +40,57 @@ function Form({ event, url, video, hanleChange }) {
         setListCheckBox(newState);
     };
 
+    const handleDrag= (e) => {
+        console.log(e.screenX, thumbnailRef.current.getBoundingClientRect().x)
+        const transform = e.pageX - thumbnailRef.current.getBoundingClientRect().x
+        videoRef.current.style.transform = 'translate3d(' + transform + 'px, 1px, 0px) scaleX(1.1) scaleY(1.1)';
+    }
+
+    const handleDragOver = (e) => {
+        event.preventDefault();
+    }
+
     return (
         <div className={cx('container')}>
             <Caption video={video} />
             <div className={cx('cover-image')}>
                 <span className={cx('title-cover-image')}>Ảnh bìa</span>
                 <div className={cx('cover-image-container-v2')}>
-                    <div className={cx('cover-image-bg-container-v2')}>
-                        <div className={cx('cover-image-candidate')} />
+                    <div ref={thumbnailRef} className={cx('cover-image-bg-container-v2', { 'has-thumbnail': !!url })}>
+                        {!!url ?  
+                            <>
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                            </>
+                            :
+                            <div className={cx('cover-image-candidate')} />
+                        }
                     </div>
+                    {!!url && (
+                        <div 
+                            ref={videoRef} 
+                            className={cx('chosen-v2')}
+                            style={{
+                                transform: 'translate3d(4px, 1px, 0px) scaleX(1.1) scaleY(1.1)'
+                            }}
+                        >
+                            <div className={cx('choose-thumbnail')}>
+                                <video 
+                                    draggable 
+                                    onDrag={handleDrag} 
+                                    onDragOver={handleDragOver} 
+                                    className={cx('candidate-video-v2')} 
+                                    src={url}
+                                ></video>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
             <Type/>
