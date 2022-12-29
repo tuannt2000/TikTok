@@ -37,7 +37,8 @@ function Form({ event, url, video, hanleChange }) {
     const videoThumbnailRef = useRef();
 
     useEffect(() => {
-        if (videoThumbnailRef.current !== undefined) {
+        setWidthThumbnail(0)
+        if (!!videoThumbnailRef.current) {
             setWidthThumbnail(thumbnailRef.current.offsetWidth - videoThumbnailRef.current.offsetWidth);
         }
     }, [url])
@@ -49,8 +50,11 @@ function Form({ event, url, video, hanleChange }) {
     };
 
     const handleDrag = (data) => {
-        console.log(videoThumbnailRef.current.duration.toFixed(0), (data.layerX/widthThumbnail).toFixed(2))
         videoThumbnailRef.current.currentTime = (videoThumbnailRef.current.duration.toFixed(0)) * ((data.layerX/widthThumbnail).toFixed(2))
+    }
+
+    const handeGetImagesThumbnail = (data) => {
+        console.log(data)
     }
 
     return (
@@ -69,7 +73,7 @@ function Form({ event, url, video, hanleChange }) {
                                 <VideoThumbnail videoUrl={url} width={674} height={379} />
                                 <VideoThumbnail videoUrl={url} width={674} height={379} />
                                 <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail snapshotAtTime={10} thumbnailHandler={handeGetImagesThumbnail} videoUrl={url} width={674} height={379} />
                             </>
                             :
                             <div className={cx('cover-image-candidate')} />
