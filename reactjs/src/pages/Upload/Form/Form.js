@@ -1,12 +1,13 @@
 import classNames from "classnames/bind";
 import styles from "./Form.module.scss";
 import Caption from './Caption';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { TickIcon } from '~/components/Icons';
 import VideoThumbnail from 'react-video-thumbnail';
 import Button from "./Button";
 import Switch from "./Switch";
 import Type from "./Type";
+import Draggable from 'react-draggable';
 
 const cx = classNames.bind(styles);
 
@@ -30,9 +31,16 @@ const MENU_CHECKBOX = [
 
 function Form({ event, url, video, hanleChange }) {
     const [listCheckBox, setListCheckBox] = useState(MENU_CHECKBOX);
+    const [widthThumbnail, setWidthThumbnail] = useState(0);
     const videoRef = useRef();
     const thumbnailRef = useRef();
+    const videoThumbnailRef = useRef();
 
+    useEffect(() => {
+        if (videoThumbnailRef.current !== undefined) {
+            setWidthThumbnail(thumbnailRef.current.offsetWidth - videoThumbnailRef.current.offsetWidth);
+        }
+    }, [url])
 
     const handleChangeCheckBox = (checkbox) => {
         const newState = [...listCheckBox];
@@ -40,14 +48,9 @@ function Form({ event, url, video, hanleChange }) {
         setListCheckBox(newState);
     };
 
-    const handleDrag= (e) => {
-        console.log(e.screenX, thumbnailRef.current.getBoundingClientRect().x)
-        const transform = e.pageX - thumbnailRef.current.getBoundingClientRect().x
-        videoRef.current.style.transform = 'translate3d(' + transform + 'px, 1px, 0px) scaleX(1.1) scaleY(1.1)';
-    }
-
-    const handleDragOver = (e) => {
-        event.preventDefault();
+    const handleDrag = (data) => {
+        console.log(videoThumbnailRef.current.duration.toFixed(0), (data.layerX/widthThumbnail).toFixed(2))
+        videoThumbnailRef.current.currentTime = (videoThumbnailRef.current.duration.toFixed(0)) * ((data.layerX/widthThumbnail).toFixed(2))
     }
 
     return (
@@ -73,23 +76,27 @@ function Form({ event, url, video, hanleChange }) {
                         }
                     </div>
                     {!!url && (
-                        <div 
-                            ref={videoRef} 
-                            className={cx('chosen-v2')}
-                            style={{
-                                transform: 'translate3d(4px, 1px, 0px) scaleX(1.1) scaleY(1.1)'
-                            }}
+                        <Draggable
+                            axis="x"
+                            bounds={{left: 0, right: widthThumbnail}}
+                            onDrag={handleDrag}
                         >
-                            <div className={cx('choose-thumbnail')}>
-                                <video 
-                                    draggable 
-                                    onDrag={handleDrag} 
-                                    onDragOver={handleDragOver} 
-                                    className={cx('candidate-video-v2')} 
-                                    src={url}
-                                ></video>
+                            <div 
+                                ref={videoRef} 
+                                className={cx('chosen-v2')}
+                                style={{
+                                    transform: 'translate3d(4px, 1px, 0px) scaleX(1.1) scaleY(1.1)'
+                                }}
+                            >
+                                    <div className={cx('choose-thumbnail')}>
+                                        <video
+                                            ref={videoThumbnailRef}
+                                            className={cx('candidate-video-v2')} 
+                                            src={url}
+                                        ></video>
+                                    </div>
                             </div>
-                        </div>
+                        </Draggable>
                     )}
                 </div>
             </div>
