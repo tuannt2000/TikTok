@@ -8,6 +8,9 @@ import Button from "./Button";
 import Switch from "./Switch";
 import Type from "./Type";
 import Draggable from 'react-draggable';
+import { useDispatch } from 'react-redux';
+import { uploadVideo } from '~/redux/actions/video';
+import { useFormik } from 'formik';
 
 const cx = classNames.bind(styles);
 
@@ -32,9 +35,29 @@ const MENU_CHECKBOX = [
 function Form({ event, url, video, hanleChange }) {
     const [listCheckBox, setListCheckBox] = useState(MENU_CHECKBOX);
     const [widthThumbnail, setWidthThumbnail] = useState(0);
+    const [time, setTime] = useState(0);
+
+    const dispatch = useDispatch();
+
     const videoRef = useRef();
     const thumbnailRef = useRef();
     const videoThumbnailRef = useRef();
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+        },
+        onSubmit: values => {
+            const reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]);
+            reader.onloadend = function() {
+                dispatch(uploadVideo({
+                    url: reader.result,
+                    ...values
+                }));
+            }
+        },
+    });
 
     useEffect(() => {
         setWidthThumbnail(0)
@@ -51,15 +74,16 @@ function Form({ event, url, video, hanleChange }) {
 
     const handleDrag = (data) => {
         videoThumbnailRef.current.currentTime = (videoThumbnailRef.current.duration.toFixed(0)) * ((data.layerX/widthThumbnail).toFixed(2))
+        setTime(0)
     }
 
-    const handeGetImagesThumbnail = (data) => {
-        console.log(data)
+    const handleStop = () => {
+        setTime(videoThumbnailRef.current.currentTime)
     }
 
     return (
         <div className={cx('container')}>
-            <Caption video={video} />
+            <Caption video={video} formik={formik} />
             <div className={cx('cover-image')}>
                 <span className={cx('title-cover-image')}>Ảnh bìa</span>
                 <div className={cx('cover-image-container-v2')}>
@@ -73,17 +97,19 @@ function Form({ event, url, video, hanleChange }) {
                                 <VideoThumbnail videoUrl={url} width={674} height={379} />
                                 <VideoThumbnail videoUrl={url} width={674} height={379} />
                                 <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail snapshotAtTime={10} thumbnailHandler={handeGetImagesThumbnail} videoUrl={url} width={674} height={379} />
+                                <VideoThumbnail videoUrl={url} width={674} height={379} />
                             </>
                             :
                             <div className={cx('cover-image-candidate')} />
                         }
                     </div>
+                    {time !== 0 && <VideoThumbnail snapshotAtTime={time} videoUrl={url} width={674} height={379} />}
                     {!!url && (
                         <Draggable
                             axis="x"
                             bounds={{left: 0, right: widthThumbnail}}
                             onDrag={handleDrag}
+                            onStop={handleStop}
                         >
                             <div 
                                 ref={videoRef} 
@@ -126,7 +152,7 @@ function Form({ event, url, video, hanleChange }) {
                 ))}
             </div>
             <Switch/>
-            <Button event={event} url={url} hanleChange={hanleChange} />
+            <Button handleUpload={formik.handleSubmit} hanleChange={hanleChange} url={url} />
         </div>
     );
 }

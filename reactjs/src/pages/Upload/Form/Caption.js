@@ -1,16 +1,15 @@
 import classNames from "classnames/bind";
 import styles from "./Form.module.scss";
 import images from '~/assets/images';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { formatFilename } from '~/utils/utility';
 
 const cx = classNames.bind(styles);
 
-function Caption({ video }) {
-    const [cation, setCation] = useState('');
-
+function Caption({ video, formik }) {
     useEffect(() => {
-        setCation(!!video ? formatFilename(video.name) : '')
+        formik.setFieldValue('name', !!video ? formatFilename(video.name) : '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [video])
 
     return (  
@@ -26,7 +25,7 @@ function Caption({ video }) {
                 <div className={cx('caption-input')}>
                     <div className={cx('caption-container-v2')}>
                         <div className={cx('caption-editor')}>
-                            <input type="textarea" className={cx('input-editor')} value={cation} onChange={e => setCation(e.target.value)} />
+                            <input type="textarea" className={cx('input-editor')} value={formik.values.name} onChange={formik.handleChange} />
                         </div>
                         <div className={cx('at-icon')}>
                             <img src={images.atIcon} alt="at" />
