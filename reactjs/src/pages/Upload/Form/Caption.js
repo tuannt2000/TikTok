@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 function Caption({ video, formik }) {
     useEffect(() => {
-        formik.setFieldValue('name', !!video ? formatFilename(video.name) : '')
+        formik.setFieldValue('description', !!video ? formatFilename(video.name) : '')
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [video])
 
@@ -25,7 +25,7 @@ function Caption({ video, formik }) {
                 <div className={cx('caption-input')}>
                     <div className={cx('caption-container-v2')}>
                         <div className={cx('caption-editor')}>
-                            <input type="textarea" className={cx('input-editor')} value={formik.values.name} onChange={formik.handleChange} />
+                            <input type="textarea" name="description" className={cx('input-editor')} value={formik.values.description} onChange={formik.handleChange} />
                         </div>
                         <div className={cx('at-icon')}>
                             <img src={images.atIcon} alt="at" />

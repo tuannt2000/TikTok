@@ -10,21 +10,24 @@ const MENU_SELECT = [
     {
         id: 1,
         title: 'Công khai',
-        selected: true
+        selected: true,
+        value: 0
     },
     {
         id: 2,
         title: 'Bạn bè',
-        selected: false
+        selected: false,
+        value: 1
     },
     {
         id: 3,
         title: 'Riêng tư',
-        selected: false
+        selected: false,
+        value: 2
     }
 ];
 
-function Type() {
+function Type({ formik }) {
     const [showType, setShowType] = useState(false);
     const [type, setType] = useState(MENU_SELECT[0].title);
 
@@ -42,6 +45,7 @@ function Type() {
 
             if (type.id === result.id) {
                 result.selected = true;
+                formik.setFieldValue('status', result.value)
             }
 
             return result;

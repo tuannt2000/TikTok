@@ -18,7 +18,8 @@ function Button({ handleUpload, hanleChange, url }) {
                 </button>
             </div>
             <div className={cx('btn-post')}>
-                <button 
+                <button
+                    type="submit"
                     disabled={!Boolean(url)} 
                     className={cx('css-y1m958')}
                     onClick={handleUpload}

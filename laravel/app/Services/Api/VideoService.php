@@ -66,13 +66,13 @@ class VideoService extends AbstractService implements VideoServiceInterface
     }
 
     /**
-     * @param $url
+     * @param $data
      * @return array
      */
-    public function uploadVideo($url)
+    public function uploadVideo($data)
     {
         try {
-            $this->videoRepository->uploadVideo($url);
+            $this->videoRepository->uploadVideo($data);
 
             return [
                 'code' => 200,

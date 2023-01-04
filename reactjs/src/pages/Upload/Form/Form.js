@@ -11,6 +11,7 @@ import Draggable from 'react-draggable';
 import { useDispatch } from 'react-redux';
 import { uploadVideo } from '~/redux/actions/video';
 import { useFormik } from 'formik';
+import { formatFilename } from '~/utils/utility';
 
 const cx = classNames.bind(styles);
 
@@ -45,7 +46,9 @@ function Form({ event, url, video, hanleChange }) {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
+            cover_image: '',
+            description: '',
+            status: 0
         },
         onSubmit: values => {
             const reader = new FileReader();
@@ -53,7 +56,11 @@ function Form({ event, url, video, hanleChange }) {
             reader.onloadend = function() {
                 dispatch(uploadVideo({
                     url: reader.result,
-                    ...values
+                    ...values,
+                    name: formatFilename(event.target.files[0].name),
+                    comment: listCheckBox[0].checked ? 1 : 0,
+                    duet: listCheckBox[1].checked ? 1 : 0,
+                    stitch: listCheckBox[2].checked ? 1 : 0,
                 }));
             }
         },
@@ -103,7 +110,17 @@ function Form({ event, url, video, hanleChange }) {
                             <div className={cx('cover-image-candidate')} />
                         }
                     </div>
-                    {time !== 0 && <VideoThumbnail snapshotAtTime={time} videoUrl={url} width={674} height={379} />}
+                    {!!url && 
+                        <div className="d-none">
+                            <VideoThumbnail
+                                thumbnailHandler={(data) => formik.setFieldValue('cover_image', data) }
+                                snapshotAtTime={time}
+                                videoUrl={url}
+                                width={674}
+                                height={379}
+                            />
+                        </div>
+                    }
                     {!!url && (
                         <Draggable
                             axis="x"
@@ -121,7 +138,7 @@ function Form({ event, url, video, hanleChange }) {
                                     <div className={cx('choose-thumbnail')}>
                                         <video
                                             ref={videoThumbnailRef}
-                                            className={cx('candidate-video-v2')} 
+                                            className={cx('candidate-video-v2')}
                                             src={url}
                                         ></video>
                                     </div>
@@ -130,7 +147,7 @@ function Form({ event, url, video, hanleChange }) {
                     )}
                 </div>
             </div>
-            <Type/>
+            <Type formik={formik} />
             <div className={cx('access-title')}>
                 <span>Cho phép người dùng:</span>
             </div>
@@ -142,7 +159,13 @@ function Form({ event, url, video, hanleChange }) {
                                 <span>{result.title}</span>
                             </label>
                             <div className={cx('css-4pkwts')}>
-                                <input type={"checkbox"} className={cx('css-1pzrh5a')} checked={result.checked} onChange={() => handleChangeCheckBox(result)} />
+                                <input
+                                    type={"checkbox"}
+                                    className={cx('css-1pzrh5a')}
+                                    checked={result.checked}
+                                    onChange={() => handleChangeCheckBox(result)}
+                                    value={formik.values.description}
+                                />
                                 <div className={cx('css-mbgljv', {'checked': result.checked})}>
                                     <TickIcon />
                                 </div>

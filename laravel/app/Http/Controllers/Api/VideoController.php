@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,14 +36,15 @@ class VideoController extends Controller
       *
       * @return \Illuminate\Http\Response
      */
-    public function upload (Request $request) {
+    public function upload(Request $request) {
         try {
-            $video = $request->url;
-            if (Storage::disk('google')->exists($request->name)) {
-                return response()->json('Tên video đã tồn tại', 200);
-            }
-            Storage::disk('google')->put($request->name, file_get_contents($video));
-            $result = $this->videoService->uploadVideo(Storage::disk('google')->url($request->name));
+            $nameVideo = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $request->name;
+            Storage::disk('google')->put($nameVideo, file_get_contents($request->url));
+            $request['url'] = Storage::disk('google')->url($nameVideo);
+            $nameImage = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . 'image_' . $request->name;
+            Storage::disk('google')->put($nameImage, file_get_contents($request->cover_image));
+            $request['cover_image'] = Storage::disk('google')->url($nameImage);
+            $result = $this->videoService->uploadVideo($request);
             return response()->json($result, 200);
         } catch (\Throwable $err) {
             Log::error($err);

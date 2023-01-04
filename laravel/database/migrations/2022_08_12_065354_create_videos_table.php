@@ -20,7 +20,9 @@ class CreateVideosTable extends Migration
             $table->string('url');
             $table->string('description');
             $table->integer('status');
-            $table->integer('allow');
+            $table->boolean('comment');
+            $table->boolean('duet');
+            $table->boolean('stitch');
             $table->dateTime('date_upload');
             $table->timestamps();
         });

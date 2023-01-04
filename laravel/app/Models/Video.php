@@ -20,8 +20,10 @@ class Video extends Model
         'url',
         'description',
         'status',
-        'allow',
-        'date_upload'      
+        'comment',
+        'duet',
+        'stitch',
+        'date_upload'
     ];
 
     protected $table = 'videos';

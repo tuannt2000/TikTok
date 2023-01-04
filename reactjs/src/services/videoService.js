@@ -12,8 +12,5 @@ export const getMyVideo = async () => {
 
 export const uploadVideo = async (data) => {
     const url ='/video/upload';
-    return api.post(url, {
-        url: data.url,
-        name: data.name
-    });
+    return api.post(url, data);
 };

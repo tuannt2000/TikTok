@@ -11,6 +11,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class VideoRepository extends BaseRepository implements VideoRepositoryInterface
 {
@@ -40,16 +41,18 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         return $video;
     }
 
-    public function uploadVideo($url)
+    public function uploadVideo($data)
     {
         $this->model::create([
             'user_id' => Auth::user()->id,
-            'cover_image' => 'test',
-            'url' => $url,
-            'description' => 'Video upload',
-            'status' => 0,
-            'allow' => 0,
-            'date_upload' => date('d-m-y h:i:s')
+            'cover_image' => $data->cover_image,
+            'url' => $data->url,
+            'description' => $data->description,
+            'status' => $data->status,
+            'comment' => $data->comment,
+            'duet' => $data->duet,
+            'stitch' => $data->stitch,
+            'date_upload' => Carbon::now()
         ]);
     }
 }
