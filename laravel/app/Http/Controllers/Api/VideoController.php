@@ -38,17 +38,34 @@ class VideoController extends Controller
      */
     public function upload(Request $request) {
         try {
-            $nameVideo = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $request->name;
-            Storage::disk('google')->put($nameVideo, file_get_contents($request->url));
-            $request['url'] = Storage::disk('google')->url($nameVideo);
-            $nameImage = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . 'image_' . $request->name;
-            Storage::disk('google')->put($nameImage, file_get_contents($request->cover_image));
-            $request['cover_image'] = Storage::disk('google')->url($nameImage);
+            $request['url'] = $this->__createUrlFile($request->name, $request->url);
+            $request['cover_image'] = $this->__createUrlFile($request->name, $request->cover_image, true);
             $result = $this->videoService->uploadVideo($request);
+
             return response()->json($result, 200);
         } catch (\Throwable $err) {
             Log::error($err);
             return response()->json('Upload file lên google drive thất bại!', 500);
         }
+    }
+
+     /**
+      * create path url
+      * @param string $name
+      * @param string $content
+      * @param boolean $image
+      *
+      * @return string $url
+     */
+    private function __createUrlFile($name, $content, $image = false) {
+        $name = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $name;
+        if ($image) {
+            $name = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . 'image_' . $name;
+        }
+        
+        Storage::disk('google')->put($name, file_get_contents($content));
+        $url = Storage::disk('google')->url($name);
+
+        return $url;
     }
 }
