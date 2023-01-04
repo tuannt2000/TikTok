@@ -15,7 +15,7 @@ class RoomService extends AbstractService implements RoomServiceInterface
     protected $roomRepository;
 
     /**
-     * CategoryService constructor.
+     * RoomService constructor.
      * @param RoomRepositoryInterface $roomRepository
      */
     public function __construct(RoomRepositoryInterface $roomRepository)

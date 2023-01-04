@@ -24,7 +24,7 @@ class UserService extends AbstractService implements UserServiceInterface
     protected $userRepository;
 
     /**
-     * CategoryService constructor.
+     * UserService constructor.
      * @param UserRepositoryInterface $userRepository
      */
     public function __construct(UserRepositoryInterface $userRepository)

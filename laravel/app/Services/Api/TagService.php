@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Log;
 class TagService extends AbstractService implements TagServiceInterface
 {
     /**
-     * @var TagServiceInterface
+     * @var TagRepositoryInterface
      */
     protected $tagRepository;
 
     /**
-     * CategoryService constructor.
+     * TagService constructor.
      * @param TagRepositoryInterface $tagRepository
      */
     public function __construct(TagRepositoryInterface $tagRepository)

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Follow extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'follows';
 
@@ -18,7 +19,8 @@ class Follow extends Model
      */
     protected $fillable = [
         'user_id',
-        'user_follower_id'
+        'user_follower_id',
+        'deleted_at'
     ];
 
     /**

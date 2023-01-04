@@ -8,10 +8,23 @@ import Button from '~/components/Button';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatNumber } from '~/utils/utility';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { postFollow } from '~/redux/actions/user';
 
 const cx = classNames.bind(styles);
 
-function AccountOffer({ children, data, home =  false }) {
+function AccountOffer({ children, data, home = false }) {
+    const [follow, setFollow] = useState(false);
+    const dispatch = useDispatch();
+
+    const handClick = () => {
+        setFollow(prevState => !prevState);
+        dispatch(postFollow({
+            user_follower_id: data.id
+        }));
+    }
+
     const renderResult = (attrs) => (
         <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
             <PopperWrapper className={cx('menu-popper')}>
@@ -22,7 +35,7 @@ function AccountOffer({ children, data, home =  false }) {
                     {home ? (
                         <Button outline>Follow</Button>
                     ) : (
-                        <Button primary>Follow</Button>
+                        <Button onClick={handClick} primary>{ follow ? 'Đang follow' : 'Follow' }</Button>
                     )}
                 </div>
                 <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank" className={cx('nickname')}>

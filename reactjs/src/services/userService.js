@@ -26,3 +26,8 @@ export const getProfileUser = async ( nickname ) => {
         params: { nickname }
     });
 };
+
+export const follow = (data) => {
+    const url ='/follow';
+    return api.post(url, data);
+};

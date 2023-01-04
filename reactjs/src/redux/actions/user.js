@@ -48,3 +48,8 @@ export const setProfileUser = ( data ) => ({
     type: types.SET_PROFILE_USER,
     payload: data
 });
+
+export const postFollow = ( data ) => ({
+    type: types.FOLLOW,
+    payload: data
+});

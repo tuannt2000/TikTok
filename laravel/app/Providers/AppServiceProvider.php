@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\Services\Api\FollowServiceInterface;
 use App\Contracts\Services\Api\LanguageServiceInterface;
 use App\Contracts\Services\Api\MessageServiceInterface;
 use App\Contracts\Services\Api\MusicServiceInterface;
@@ -9,6 +10,7 @@ use App\Contracts\Services\Api\RoomServiceInterface;
 use App\Contracts\Services\Api\TagServiceInterface;
 use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
+use App\Services\Api\FollowService;
 use App\Services\Api\LanguageService;
 use App\Services\Api\MessageService;
 use App\Services\Api\MusicService;
@@ -55,6 +57,10 @@ class AppServiceProvider extends ServiceProvider
             [
                 VideoServiceInterface::class,
                 VideoService::class
+            ],
+            [
+                FollowServiceInterface::class,
+                FollowService::class
             ]
         ];
         

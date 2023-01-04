@@ -18,15 +18,15 @@ function Account({ offer = false, follow = false, title, showMore }) {
         <div className={cx('user-container')}>
             <p className={cx('title')}>{title}</p>
             {account.length === 0 && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
-            {account.map(result => {
+            {account.map((result, index) => {
                 let Comp;
                 if (offer) {
                     Comp =
-                        <AccountOffer key={result.id} data={result}>
+                        <AccountOffer key={index} data={result}>
                             <AccountItem className="sidebar" data={result} />
                         </AccountOffer>
                 } else if (follow) {
-                    Comp = <AccountItem key={result.id} className="sidebar" data={result} />
+                    Comp = <AccountItem key={index} className="sidebar" data={result} />
                 }
 
                 return Comp;

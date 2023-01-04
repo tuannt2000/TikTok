@@ -21,7 +21,7 @@ class MusicService extends AbstractService implements MusicServiceInterface
     protected $musicRepository;
 
     /**
-     * CategoryService constructor.
+     * MusicService constructor.
      * @param MusicRepositoryInterface $musicRepository
      */
     public function __construct(MusicRepositoryInterface $musicRepository)
