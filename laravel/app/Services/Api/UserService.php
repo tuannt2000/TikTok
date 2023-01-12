@@ -90,7 +90,9 @@ class UserService extends AbstractService implements UserServiceInterface
     public function listAccountOffer ($id)
     {
         try {
-            $datas = $this->userRepository->getListAccountOffer($id);
+            $followerIds = Follow::ofPluckIdUserFollowing($id);
+            $followerIds[] = $id;
+            $datas = $this->userRepository->getListAccountOffer($followerIds);
             $result = [];
 
             foreach ($datas as $data) {
