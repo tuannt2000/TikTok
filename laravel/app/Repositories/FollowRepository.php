@@ -21,7 +21,7 @@ class FollowRepository extends BaseRepository implements FollowRepositoryInterfa
     {
         return $this->model->withTrashed()
             ->where('user_id', Auth::user()->id)
-            ->where('user_follower_id', $data->user_follower_id)
+            ->where('user_follower_id', $data['user_follower_id'])
             ->first();
     }
 }

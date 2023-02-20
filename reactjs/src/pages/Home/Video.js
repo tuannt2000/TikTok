@@ -11,8 +11,8 @@ import { likeVideo } from '~/redux/actions/video';
 const cx = classNames.bind(styles);
 
 function Video({ data, video }) {
-    const [like, setLike] = useState(data.likes.length ? true : false);
-    const [countLike, setCountLike] = useState(data.likes_count);
+    const [like, setLike] = useState(false);
+    const [countLike, setCountLike] = useState(0);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -20,6 +20,11 @@ function Video({ data, video }) {
         setCountLike(like ? countLike - 1 : countLike + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [video.message])
+
+    useEffect(() => {
+        setLike(data.likes.length ? true : false);
+        setCountLike(data.likes_count);
+    }, [data])
 
     const handleClick = async () => {
         dispatch(likeVideo({video_id: data.id}));

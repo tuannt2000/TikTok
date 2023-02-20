@@ -53,7 +53,7 @@ class FollowService extends AbstractService implements FollowServiceInterface
             
             return [
                 'code' => 400,
-                'message' => $err,
+                'message' => $err->getMessage()
             ];
         }
     }
