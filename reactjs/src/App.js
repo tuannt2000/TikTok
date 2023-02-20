@@ -51,7 +51,7 @@ function App() {
                     {publicRoutes.map((route, index) => {
                         let Layout = DefaultLayout;
 
-                        if (route.layout) {
+                        if (typeof route.layout !== 'undefined') {
                             Layout = route.layout === null ? Fragment : route.layout;
                         }
 

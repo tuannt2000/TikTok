@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import styles from './Home.module.scss';
 import ReactPlayer from 'react-player';
 import ActionItem from './ActionItem';
+import { Link } from 'react-router-dom';
 import { VideoLikeIcon, VideoMessageIcon, VideoShareIcon, VideoLikedIcon } from '~/components/Icons';
 import { Share } from '~/components/Popper';
 import { useEffect, useState } from "react";
@@ -13,11 +14,14 @@ const cx = classNames.bind(styles);
 function Video({ data, video }) {
     const [like, setLike] = useState(false);
     const [countLike, setCountLike] = useState(0);
+    const [videoId, setVideoId] = useState(0);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        setLike(!like);
-        setCountLike(like ? countLike - 1 : countLike + 1);
+        if (videoId === data.id) {
+            setLike(!like);
+            setCountLike(like ? countLike - 1 : countLike + 1);
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [video.message])
 
@@ -28,6 +32,7 @@ function Video({ data, video }) {
 
     const handleClick = async () => {
         dispatch(likeVideo({video_id: data.id}));
+        setVideoId(data.id)
     }
 
     return (
@@ -41,7 +46,7 @@ function Video({ data, video }) {
             </div>
             <div className={cx('action-item')}>
                 <ActionItem text={countLike} onClick={handleClick} >{ like ? <VideoLikedIcon /> : <VideoLikeIcon/> }</ActionItem>
-                <ActionItem text={805}><VideoMessageIcon /></ActionItem>
+                <Link to={'/@' + data.user.nickname + '/video/' + data.id} className={cx('common-link')}><ActionItem text={805}><VideoMessageIcon /></ActionItem></Link>
                 <Share>
                     <ActionItem text={1054}><VideoShareIcon /></ActionItem>
                 </Share>

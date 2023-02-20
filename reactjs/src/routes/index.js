@@ -9,6 +9,7 @@ import Message from '~/pages/Message';
 import Live from '~/pages/Live';
 import PageNoteFound from '~/pages/404';
 import WebError from '~/pages/500';
+import VideoDetail from '~/pages/VideoDetail';
 
 import { HeaderOnly, DefaultLayoutMaxWidth } from '~/layouts';
 
@@ -20,6 +21,7 @@ const publicRoutes = [
     { path: config.routes.messages, component: Message, layout: HeaderOnly },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.feedback, component: Feedback, layout: HeaderOnly },
+    { path: config.routes.videoDetail, component: VideoDetail, layout: null },
     { path: config.routes.pageNotFound, component: PageNoteFound, layout: HeaderOnly },
     { path: config.routes.webError, component: WebError, layout: HeaderOnly }
 ];
