@@ -1,17 +1,20 @@
 import { 
     getListVideo, 
     getMyVideo, 
-    uploadVideo 
+    uploadVideo,
+    likeVideo
 } from "~/services/videoService";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { 
     GET_LIST_VIDEO, 
     GET_MY_VIDEO,
-    UPLOAD_VIDEO 
+    UPLOAD_VIDEO,
+    LIKE_VIDEO
 } from "../constants/video";
 import {
     setListVideo,
-    setMyVideo
+    setMyVideo,
+    setMessageVideo
 } from "../actions/video";
 
 function* sagaListVideo() {
@@ -44,10 +47,21 @@ function* sagaUpload(action) {
     }
 }
 
+function* sagaLikeVideo(action) {
+    try {
+        const res = yield call(likeVideo, action.payload);
+        const { data } = res;
+        yield put(setMessageVideo(data.message));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function* followVideo() {
     yield takeLatest(GET_LIST_VIDEO, sagaListVideo);
     yield takeLatest(GET_MY_VIDEO, sagaMyVideo);
     yield takeLatest(UPLOAD_VIDEO, sagaUpload);
+    yield takeLatest(LIKE_VIDEO, sagaLikeVideo);
 }
 
 export default followVideo;

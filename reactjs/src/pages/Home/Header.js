@@ -12,8 +12,8 @@ function Header({ data }) {
         <div className={cx('container')}>
             <div className={cx('author')}>
                 <Link to='test' className={cx('author-anchor')}>
-                    <h3 className={cx('author-title')}>{data.nickname}</h3>
-                    <h4 className={cx('author-nickname')}>{data.full_name}</h4>
+                    <h3 className={cx('author-title')}>{data.user.nickname}</h3>
+                    <h4 className={cx('author-nickname')}>{data.user.full_name}</h4>
                 </Link>
             </div>
             <Button className={cx('follow-btn')} outline>Follow</Button>

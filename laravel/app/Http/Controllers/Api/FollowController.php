@@ -16,7 +16,7 @@ class FollowController extends Controller
     }
 
     public function store (Request $request) {
-        $result = $this->followService->store($request);
+        $result = $this->followService->store($request->all());
 
         return response()->json($result, 200);
     }

@@ -22,15 +22,15 @@ function Home() {
         <div>
             {video.list_video.map((result, index) => (
                 <div key={index} className={cx('list-item')}>
-                    <AccountOffer home data={result}>
+                    <AccountOffer home data={result.user}>
                         <Avatar
-                            data={result}
+                            data={result.user}
                             size={56}
                         />
                     </AccountOffer>
                     <div className={cx('main-container')}>
                         <Header data={result} />
-                        <Video data={result} />
+                        <Video data={result} video={video} />
                     </div>
                 </div>
             ))}

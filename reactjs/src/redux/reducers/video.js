@@ -2,7 +2,8 @@ import * as types from '../constants/video';
 
 const initState = {
     list_video: [],
-    my_video: []
+    my_video: [],
+    message: ''
 };
 
 export const videoReducer = (state = initState, action) => {
@@ -16,6 +17,11 @@ export const videoReducer = (state = initState, action) => {
             return {
                 ...state,
                 my_video: [...action.payload]
+            }
+        case types.SET_MESSAGE_VIDEO:
+            return {
+                ...state,
+                message: action.payload
             }
         default:
             return state;

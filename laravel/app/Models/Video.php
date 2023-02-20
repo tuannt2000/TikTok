@@ -27,4 +27,14 @@ class Video extends Model
     ];
 
     protected $table = 'videos';
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

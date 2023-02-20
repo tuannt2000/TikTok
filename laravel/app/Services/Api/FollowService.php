@@ -5,6 +5,7 @@ namespace App\Services\Api;
 use App\Contracts\Repositories\FollowRepositoryInterface;
 use App\Contracts\Services\Api\FollowServiceInterface;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class FollowService extends AbstractService implements FollowServiceInterface
@@ -32,7 +33,10 @@ class FollowService extends AbstractService implements FollowServiceInterface
         try {
             $follow = $this->followRepository->findFollow($data);
             if (is_null($follow)) {
-                $this->followRepository->store($data);
+                $this->followRepository->create([
+                    'user_id' => Auth::user()->id,
+                    'user_follower_id' => $data['user_follower_id']
+                ]);
             } else {
                 if (is_null($follow->deleted_at)) {
                     $follow->delete();

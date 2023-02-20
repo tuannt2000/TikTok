@@ -22,3 +22,13 @@ export const uploadVideo = ( data ) => ({
     type: types.UPLOAD_VIDEO,
     payload: data
 });
+
+export const likeVideo = ( data ) => ({
+    type: types.LIKE_VIDEO,
+    payload: data
+});
+
+export const setMessageVideo = ( data ) => ({
+    type: types.SET_MESSAGE_VIDEO,
+    payload: data
+});

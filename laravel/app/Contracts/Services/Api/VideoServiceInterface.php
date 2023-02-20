@@ -7,4 +7,5 @@ interface VideoServiceInterface
     public function index();
     public function getMyVideo();
     public function uploadVideo($data);
+    public function likeVideo($data);
 }

@@ -5,9 +5,9 @@ import { forwardRef } from "react";
 
 const cx = classNames.bind(styles);
 
-const ActionItem = forwardRef(({ children, text }, ref) => {
+const ActionItem = forwardRef(({ children, text, onClick }, ref) => {
     return (  
-        <button ref={ref} className={cx('action-item-btn')}>
+        <button onClick={onClick} ref={ref} className={cx('action-item-btn')}>
             <span className={cx('span-icon-wrappper')}>
                 {children}
             </span>
@@ -18,7 +18,8 @@ const ActionItem = forwardRef(({ children, text }, ref) => {
 
 ActionItem.propTypes = {
     children: PropTypes.node.isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.number.isRequired,
+    onClick: PropTypes.func
 };
 
 export default ActionItem;

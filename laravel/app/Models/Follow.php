@@ -46,7 +46,7 @@ class Follow extends Model
         return $query->where('user_id', $user_id)->pluck('user_follower_id')->toArray();
     }
 
-     // số lượng người đang follow
+    // số lượng người đang follow
     public function scopeOfFollowingCount($query, $user_id)
     {
         return $query->where('user_id', $user_id)->count();

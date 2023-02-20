@@ -14,3 +14,8 @@ export const uploadVideo = async (data) => {
     const url ='/video/upload';
     return api.post(url, data);
 };
+
+export const likeVideo = async (data) => {
+    const url ='/video/like';
+    return api.post(url, data);
+};

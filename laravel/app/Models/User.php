@@ -46,11 +46,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['full_name'];
+
     /**
      * Get the follow associated with the user.
      */
     public function follows()
     {
         return $this->hasMany(Follow::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

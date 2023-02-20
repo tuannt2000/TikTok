@@ -17,14 +17,6 @@ class FollowRepository extends BaseRepository implements FollowRepositoryInterfa
         parent::__construct($follow);
     }
 
-    public function store($data)
-    {
-        return $this->model->create([
-            'user_id' => Auth::user()->id,
-            'user_follower_id' => $data->user_follower_id
-        ]);
-    }
-
     public function findFollow($data)
     {
         return $this->model->withTrashed()

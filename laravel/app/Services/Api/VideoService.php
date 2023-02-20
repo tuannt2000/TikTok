@@ -8,6 +8,7 @@
 
 namespace App\Services\Api;
 
+use App\Contracts\Repositories\LikeRepositoryInterface;
 use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Services\AbstractService;
@@ -23,12 +24,18 @@ class VideoService extends AbstractService implements VideoServiceInterface
     protected $videoRepository;
 
     /**
+     * @var LikeRepositoryInterface
+     */
+    protected $likeRepository;
+
+    /**
      * VideoService constructor.
      * @param VideoRepositoryInterface $videoRepository
      */
-    public function __construct(VideoRepositoryInterface $videoRepository)
+    public function __construct(VideoRepositoryInterface $videoRepository, LikeRepositoryInterface $likeRepository)
     {
         $this->videoRepository = $videoRepository;
+        $this->likeRepository = $likeRepository;
     }
 
     public function index() {
@@ -77,6 +84,42 @@ class VideoService extends AbstractService implements VideoServiceInterface
             return [
                 'code' => 200,
                 'message' => 'Upload video thành công'
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    public function likeVideo($data)
+    {
+        try {
+            $like = $this->likeRepository->findVideo($data);
+            $message = '';
+            if (is_null($like)) {
+                $this->likeRepository->create(['video_id' => $data['video_id'], 'user_id' => Auth::user()->id]);
+                $message = 'Like video thành công';
+            } else {
+                if (is_null($like->deleted_at)) {
+                    $like->delete();
+                    $message = 'Xóa like video thành công';
+                } else {
+                    $like->restore();
+                    $message = 'Like video thành công';
+                }
+            }
+
+            return [
+                'code' => 200,
+                'message' => $message
             ];
         } catch (\Throwable $err) {
             Log::error($err);

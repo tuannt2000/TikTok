@@ -49,6 +49,17 @@ class VideoController extends Controller
         }
     }
 
+    /**
+      * @param Request $request
+      *
+      * @return \Illuminate\Http\Response
+     */
+    public function like(Request $request) {
+        $result = $this->videoService->likeVideo($request->all());
+
+        return response()->json($result, 200);
+    }
+
      /**
       * create path url
       * @param string $name

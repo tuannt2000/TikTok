@@ -44,7 +44,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function getListAccountOffer ($followerIds)
     {
         return $this->model
-            ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
+            ->withCount(['likes', 'follows'])
             ->whereNotIn('users.id', $followerIds)
             ->get();
     }

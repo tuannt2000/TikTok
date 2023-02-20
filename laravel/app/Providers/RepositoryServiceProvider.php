@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\Repositories\FollowRepositoryInterface;
 use App\Contracts\Repositories\LanguageRepositoryInterface;
+use App\Contracts\Repositories\LikeRepositoryInterface;
 use App\Contracts\Repositories\MessageRepositoryInterface;
 use App\Contracts\Repositories\MusicRepositoryInterface;
 use App\Contracts\Repositories\RoomRepositoryInterface;
@@ -12,6 +13,7 @@ use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Repositories\FollowRepository;
 use App\Repositories\LanguageRepository;
+use App\Repositories\LikeRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\MusicRepository;
 use App\Repositories\RoomRepository;
@@ -54,6 +56,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'follow' => [
             FollowRepositoryInterface::class,
             FollowRepository::class,
+        ],
+        'like' => [
+            LikeRepositoryInterface::class,
+            LikeRepository::class,
         ]
     ];
 

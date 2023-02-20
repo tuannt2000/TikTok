@@ -93,17 +93,10 @@ class UserService extends AbstractService implements UserServiceInterface
             $followerIds = Follow::ofPluckIdUserFollowing($id);
             $followerIds[] = $id;
             $datas = $this->userRepository->getListAccountOffer($followerIds);
-            $result = [];
-
-            foreach ($datas as $data) {
-                $data->likes = Like::ofLikesCount($data->id);
-                $data->followers_count = Follow::ofFollowingCount($data->id);
-                $result[] = $data;
-            }
 
             return [
                 'code' => 200,
-                'data' => $result
+                'data' => $datas
             ];
         } catch (\Throwable $err) {
             Log::error($err);
