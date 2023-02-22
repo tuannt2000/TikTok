@@ -27,7 +27,10 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
     public function index($users_following) {
         $video = $this->model
             ->with(['user' => function($query) { 
-                $query->withCount(['likes', 'follows']);
+                $query->withCount([
+                    'followers', 
+                    'likes'
+                ]);
             }])
             ->with(['likes' => function($query) {
                 $query->where('likes.user_id', Auth::user()->id)

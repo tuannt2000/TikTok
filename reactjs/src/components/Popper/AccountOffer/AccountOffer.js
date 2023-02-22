@@ -46,7 +46,7 @@ function AccountOffer({ children, data, home = false, className }) {
                     <span>{data.full_name}</span>
                 </a>
                 <p className={cx('info')}>
-                    <span className={cx('follow-count')}>{formatNumber(data.follows_count)}</span>
+                    <span className={cx('follow-count')}>{formatNumber(data.followers_count)}</span>
                     <span className={cx('follow')}>Follower</span>
                     <span className={cx('like-count')}>{formatNumber(data.likes_count)}</span>
                     <span className={cx('like')}>Thích</span>
