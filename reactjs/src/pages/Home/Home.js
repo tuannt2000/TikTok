@@ -16,7 +16,8 @@ function Home() {
 
     useEffect(() => {
         dispatch(listVideo());
-    }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div>

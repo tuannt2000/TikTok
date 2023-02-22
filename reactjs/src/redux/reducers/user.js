@@ -5,7 +5,8 @@ const initState = {
     userFollowing: [],
     userOffer: [],
     currentUser: {},
-    profile: {}
+    profile: {},
+    alertMessage: ''
 };
 
 export const userReducer = (state = initState, action) => {
@@ -34,6 +35,11 @@ export const userReducer = (state = initState, action) => {
             return {
                 ...state,
                 profile: action.payload
+            };
+        case types.SET_ALERT_MESSAGE:
+            return {
+                ...state,
+                alertMessage: action.payload
             };
         default:
             return state;

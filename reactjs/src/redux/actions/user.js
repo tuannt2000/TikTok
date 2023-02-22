@@ -53,3 +53,8 @@ export const postFollow = ( data ) => ({
     type: types.FOLLOW,
     payload: data
 });
+
+export const setAlertMessage = ( data ) => ({
+    type: types.SET_ALERT_MESSAGE,
+    payload: data
+});

@@ -7,13 +7,15 @@ import { CLIENT_ID, SCOPE } from '~/constants/Login';
 import {useDispatch, useSelector} from "react-redux";
 import { getAllLanguages } from '~/redux/actions/language';
 import { getInfoUser } from '~/redux/actions/user';
-import { getUserOffer, getUserFollowing } from '~/redux/actions/user';
+import { getUserOffer, getUserFollowing, setAlertMessage } from '~/redux/actions/user';
 import { getAllDiscoves } from '~/redux/actions/discove';
+import Alert from './components/Alert';
 
 function App() {
     const pathname = window.location.pathname;
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
+    const alertMessage = useSelector(state => state.user.alertMessage);
 
     useEffect(() => {
         const start = () => {
@@ -25,6 +27,21 @@ function App() {
 
         gapi.load('client:auth2', start);
     },[]);
+
+    useEffect(() => {
+        if (!alertMessage) {
+            return;
+        }
+
+        const time = setTimeout(() => {
+            dispatch(setAlertMessage(''));
+        }, 2000)
+
+        return (() => {
+            clearTimeout(time);
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [alertMessage])
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
@@ -46,7 +63,7 @@ function App() {
 
     return (
         <Router>
-            <div className="App">
+            <div className="App" style={{ position: "relative" }}>
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         let Layout = DefaultLayout;
@@ -65,6 +82,7 @@ function App() {
                     <Route path='*' exact={true} element={<Navigate to={"/404?fromUrl=" + pathname} />} />
                 </Routes>
             </div>
+            { alertMessage && <Alert />}
         </Router>
     );
 }

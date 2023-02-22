@@ -192,6 +192,10 @@ input,
 a[href] {
     color: var(--text-color);
     text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 img, picture {

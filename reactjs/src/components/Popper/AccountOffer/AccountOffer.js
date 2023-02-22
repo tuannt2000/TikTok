@@ -14,7 +14,7 @@ import { postFollow } from '~/redux/actions/user';
 
 const cx = classNames.bind(styles);
 
-function AccountOffer({ children, data, home = false }) {
+function AccountOffer({ children, data, home = false, className }) {
     const [follow, setFollow] = useState(false);
     const dispatch = useDispatch();
 
@@ -57,7 +57,7 @@ function AccountOffer({ children, data, home = false }) {
     );
 
     return (
-        <div>
+        <div className={cx('', {[className]: className})}>
             <Tippy
                 interactive
                 delay={[700, 700]}
@@ -75,7 +75,8 @@ function AccountOffer({ children, data, home = false }) {
 AccountOffer.propTypes = {
     children: PropTypes.node.isRequired,
     data: PropTypes.object.isRequired,
-    home: PropTypes.bool
+    home: PropTypes.bool,
+    className: PropTypes.string
 };
 
 export default AccountOffer;

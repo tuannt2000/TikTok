@@ -1,0 +1,181 @@
+.video-detail-wrapper {
+    z-index: 1000;
+    position: fixed;
+    inset: 0px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+}
+
+// video
+.video-container {
+    flex: 1 0 600px;
+    max-width: 100%;
+    background: rgb(0, 0, 0);
+    position: relative;
+    overflow: hidden;
+    padding: 0px 80px;
+}
+
+.video-background {
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    filter: blur(2px);
+    left: 50%;
+    top: 50%;
+    transform: scale(11);
+    opacity: 0.3;
+    background: center center / cover no-repeat;
+}
+
+
+
+// content
+.content-container {
+    flex: 0 0 544px;
+    width: 544px;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0px 0px;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 22px 32px 0px;
+    margin-bottom: 15px;
+    position: relative;
+    flex: 0 0 82px;
+}
+
+.author-anchor {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 1 1 auto;
+    margin-right: 12px;
+
+    &:hover {
+        .browse-username {
+            text-decoration: underline;
+        }
+    }
+}
+
+.browse-username {
+    font-family: "IBM Plex Sans", SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+}
+
+.browser-nickname {
+    font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.main-content {
+    padding: 0px 32px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.main-content-wrapper {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: unset;
+}
+
+.main-content-text {
+    max-height: unset;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.main-content-overflow {
+    fill: rgba(22, 24, 35, 1);
+}
+
+.main-content-span-text {
+    display: inline;
+    font-weight: 400;
+}
+
+.video-music {
+    font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 22px;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    flex: 0 0 auto;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.main-content-container {
+    position: relative;
+    padding: 16px 0px;
+}
+
+.main-content-icon {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.main-content-copy-link {
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 1.5rem;
+    line-height: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 16px;
+    box-sizing: border-box;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.browse-video-link {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 1 1 auto;
+    padding: 7px 0px 5px 12px;
+    background-color: rgba(22, 24, 35, 0.06);
+}
+
+.browse-copy {
+    border: none;
+    background: none rgba(22, 24, 35, 0.06);
+    outline: none;
+    color: rgb(22, 24, 35);
+    font-weight: 700;
+    flex: 0 0 auto;
+    cursor: pointer;
+    padding: 7px 18px;
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}

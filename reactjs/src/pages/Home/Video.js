@@ -2,12 +2,11 @@ import classNames from "classnames/bind";
 import styles from './Home.module.scss';
 import ReactPlayer from 'react-player';
 import ActionItem from './ActionItem';
-import { Link } from 'react-router-dom';
 import { VideoLikeIcon, VideoMessageIcon, VideoShareIcon, VideoLikedIcon } from '~/components/Icons';
 import { Share } from '~/components/Popper';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { likeVideo } from '~/redux/actions/video';
+import { likeVideo, setVideoDetail } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
@@ -35,9 +34,17 @@ function Video({ data, video }) {
         setVideoId(data.id)
     }
 
+    const handleVideoDetail = () => {
+        window.history.replaceState(null, "", '/@' + data.user.nickname + '/video/' + data.id)
+        dispatch(setVideoDetail(data));
+    }
+
     return (
         <div className={cx('video-wrapper')}>
-            <div className={cx('video-container')}>
+            <div 
+                className={cx('video-container')} 
+                onClick={handleVideoDetail}
+            >
                 <ReactPlayer
                     className={cx('video')}
                     url={data.url}
@@ -45,8 +52,15 @@ function Video({ data, video }) {
                 />
             </div>
             <div className={cx('action-item')}>
-                <ActionItem text={countLike} onClick={handleClick} >{ like ? <VideoLikedIcon /> : <VideoLikeIcon/> }</ActionItem>
-                <Link to={'/@' + data.user.nickname + '/video/' + data.id} className={cx('common-link')}><ActionItem text={805}><VideoMessageIcon /></ActionItem></Link>
+                <ActionItem text={countLike} onClick={handleClick} >
+                    { like ? <VideoLikedIcon /> : <VideoLikeIcon/> }
+                </ActionItem>
+                <ActionItem
+                    text={805}
+                    onClick={handleVideoDetail}
+                >
+                    <VideoMessageIcon />
+                </ActionItem>
                 <Share>
                     <ActionItem text={1054}><VideoShareIcon /></ActionItem>
                 </Share>

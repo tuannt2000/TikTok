@@ -9,3 +9,4 @@ export const SET_INFO_USER = 'SET_INFO_USER';
 export const GET_PROFILE_USER = 'GET_PROFILE_USER';
 export const SET_PROFILE_USER = 'SET_PROFILE_USER';
 export const FOLLOW = 'FOLLOW';
+export const SET_ALERT_MESSAGE = 'SET_ALERT_MESSAGE';

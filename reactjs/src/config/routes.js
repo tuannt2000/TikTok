@@ -4,7 +4,6 @@ const routes = {
     profile: '/@:nickname',
     upload: '/upload',
     feedback: '/feedback',
-    videoDetail: '/@:nickname/video/:id',
     search: '/search',
     live: '/live',
     messages: '/messages',
