@@ -6,6 +6,7 @@ import { searchReducer } from "./search";
 import { userReducer } from "./user"
 import { roomReducer } from "./room";
 import { videoReducer } from "./video";
+import { commentReducer } from "./comment";
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     search: searchReducer,
     user: userReducer,
     room: roomReducer,
-    video: videoReducer
+    video: videoReducer,
+    comment: commentReducer
 });
 
 export default rootReducer;

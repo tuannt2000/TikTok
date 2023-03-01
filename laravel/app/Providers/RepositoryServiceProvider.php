@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\Repositories\CommentRepositoryInterface;
 use App\Contracts\Repositories\FollowRepositoryInterface;
 use App\Contracts\Repositories\LanguageRepositoryInterface;
 use App\Contracts\Repositories\LikeRepositoryInterface;
@@ -11,6 +12,7 @@ use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Repositories\TagRepositoryInterface;
 use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
+use App\Repositories\CommentRepository;
 use App\Repositories\FollowRepository;
 use App\Repositories\LanguageRepository;
 use App\Repositories\LikeRepository;
@@ -60,7 +62,11 @@ class RepositoryServiceProvider extends ServiceProvider
         'like' => [
             LikeRepositoryInterface::class,
             LikeRepository::class,
-        ]
+        ],
+        'comment' => [
+            CommentRepositoryInterface::class,
+            CommentRepository::class,
+        ],
     ];
 
     /**

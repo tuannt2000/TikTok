@@ -324,7 +324,6 @@
     word-break: break-all;
     overflow-y: auto;
     font-size: 14px;
-    line-height: 17px;
 }
 
 .public-draft-editor-placeholder-root {
@@ -362,4 +361,15 @@
     cursor: pointer;
     background-color: transparent;
     border-radius: 8px;
+}
+
+.div-text-count {
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 10px;
+}
+
+.max-text {
+    color: rgba(255, 76, 58, 0.92);
 }

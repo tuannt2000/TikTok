@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\Services\Api\CommentServiceInterface;
 use App\Contracts\Services\Api\FollowServiceInterface;
 use App\Contracts\Services\Api\LanguageServiceInterface;
 use App\Contracts\Services\Api\MessageServiceInterface;
@@ -10,6 +11,7 @@ use App\Contracts\Services\Api\RoomServiceInterface;
 use App\Contracts\Services\Api\TagServiceInterface;
 use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
+use App\Services\Api\CommentService;
 use App\Services\Api\FollowService;
 use App\Services\Api\LanguageService;
 use App\Services\Api\MessageService;
@@ -61,7 +63,11 @@ class AppServiceProvider extends ServiceProvider
             [
                 FollowServiceInterface::class,
                 FollowService::class
-            ]
+            ],
+            [
+                CommentServiceInterface::class,
+                CommentService::class
+            ],
         ];
         
         foreach ($services as $service) {

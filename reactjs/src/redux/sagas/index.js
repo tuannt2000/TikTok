@@ -6,6 +6,7 @@ import followSearch from "./search";
 import followUser from "./user"
 import followRoom from "./room";
 import followVideo from "./video";
+import commentDiscove from "./comment";
 
 export default function* rootSaga() {
     yield all([
@@ -15,6 +16,7 @@ export default function* rootSaga() {
         call(followSearch),
         call(followUser),
         call(followRoom),
-        call(followVideo)
+        call(followVideo),
+        call(commentDiscove)
     ]);
 }

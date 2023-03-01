@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Auth\GoogleController;
 
 /*
@@ -40,13 +41,17 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::get ('/rooms',    [RoomController::class, 'index']);
     Route::get ('/messages', [MessageController::class, 'index']);
     Route::post('/message',  [MessageController::class, 'store']);
-    Route::post('/follow',  [FollowController::class, 'store']);
+    Route::post('/follow',   [FollowController::class, 'store']);
 
     Route::prefix('video')->group(function () {
         Route::get ('/',         [VideoController::class, 'index']);
         Route::get ('/my-video', [VideoController::class, 'getMyVideo']);
         Route::post('/upload',   [VideoController::class, 'upload']);
-        Route::post('/like',   [VideoController::class, 'like']);
+        Route::post('/like',     [VideoController::class, 'like']);
+    });
+
+    Route::prefix('comment')->group(function () {
+        Route::post ('/create', [CommentController::class, 'store']);
     });
 });
 
