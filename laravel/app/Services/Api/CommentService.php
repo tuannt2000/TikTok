@@ -55,4 +55,26 @@ class CommentService extends AbstractService implements CommentServiceInterface
             ];
         }
     }
+
+    /**
+     * @param int $video_id
+     * @return array
+     */
+    public function getListComment($video_id) {
+        try {
+            $data = $this->commentRepository->getListComment($video_id);
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+            
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
 }

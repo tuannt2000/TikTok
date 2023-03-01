@@ -25,4 +25,9 @@ class Comment extends Model
         'date_comment',
         'deleted_at'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

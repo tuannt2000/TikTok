@@ -21,4 +21,10 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
     {
         parent::__construct($comment);
     }
+
+    public function getListComment($video_id) {
+        return $this->model
+            ->with('user')
+            ->where('video_id', $video_id)->get();
+    }
 }

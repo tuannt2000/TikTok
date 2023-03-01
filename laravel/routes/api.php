@@ -51,6 +51,7 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
     });
 
     Route::prefix('comment')->group(function () {
+        Route::get('/{video_id}/list-comment', [CommentController::class, 'getListComment']);
         Route::post ('/create', [CommentController::class, 'store']);
     });
 });
