@@ -45,6 +45,7 @@ function BottomComment({ video }) {
 
         inputRef.current.innerText = ''
         setShowPlaceholder(true);
+        setTextCount(0)
         dispatch(getListComment(video.id))
     }
 
