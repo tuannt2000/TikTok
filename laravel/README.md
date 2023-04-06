@@ -7,6 +7,7 @@ docker-compose up -d
 Set up set in server docker:
 docker exec -it travellist-app bash
 composer install
+composer dump-autoload
 cp .env.example .env
 php artisan config:clear
 php artisan key:generate
