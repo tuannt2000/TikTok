@@ -5,17 +5,28 @@ import {
     PlayVideoIcon, CloseVideoIcon, VoiceControlOnIcon,
     PrevVideoIcon, NextVideoIcon, ReportVideoIcon
 } from "~/components/Icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setVideoDetail } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
 function Video({ video }) {
+    const listVideo = useSelector(state => state.video.list_video);
     const dispatch = useDispatch();
 
     const handleHideVideoDetail = () => {
         window.history.replaceState(null, "", '/')
         dispatch(setVideoDetail({}));
+    }
+
+    const handleNextVideo = (next = true) => {
+        const currentVideoIndex = listVideo.findIndex(element => {
+            return element.id === video.id;
+        });
+
+        const nextVideoIndex = next ? currentVideoIndex + 1 : currentVideoIndex - 1;
+
+        dispatch(setVideoDetail(listVideo[nextVideoIndex]));
     }
 
     return (
@@ -36,8 +47,8 @@ function Video({ video }) {
                     <VoiceControlOnIcon />
                 </button>
             </div>
-            <button className={cx('switch-video-prev')}><PrevVideoIcon /></button>
-            <button className={cx('switch-video-next')}><NextVideoIcon /></button>
+            {listVideo[0].id !== video.id && <button className={cx('switch-video-prev')} onClick={() => handleNextVideo(false)}><PrevVideoIcon /></button>}
+            {listVideo[listVideo.length - 1].id !== video.id && <button className={cx('switch-video-next')} onClick={() => handleNextVideo()}><NextVideoIcon /></button>}
             <div className={cx('div-report-text')}>
                 <ReportVideoIcon className={cx('report-video-icon')} />
                 Báo cáo
