@@ -33,7 +33,7 @@ const MENU_CHECKBOX = [
     }
 ];
 
-function Form({ event, url, video, hanleChange }) {
+function Form({ url, video, handleChange }) {
     const [listCheckBox, setListCheckBox] = useState(MENU_CHECKBOX);
     const [widthThumbnail, setWidthThumbnail] = useState(0);
     const [time, setTime] = useState(0);
@@ -51,18 +51,17 @@ function Form({ event, url, video, hanleChange }) {
             status: 0
         },
         onSubmit: values => {
-            const reader = new FileReader();
-            reader.readAsDataURL(event.target.files[0]);
-            reader.onloadend = function() {
-                dispatch(uploadVideo({
-                    url: reader.result,
-                    ...values,
-                    name: formatFilename(event.target.files[0].name),
-                    comment: listCheckBox[0].checked ? 1 : 0,
-                    duet: listCheckBox[1].checked ? 1 : 0,
-                    stitch: listCheckBox[2].checked ? 1 : 0,
-                }));
-            }
+            const formData = new FormData();
+            formData.append("description", values.description);
+            formData.append("status", values.status);
+            formData.append("video", video);
+            formData.append("name", formatFilename(video.name));
+            formData.append("comment", listCheckBox[0].checked ? 1 : 0);
+            formData.append("duet", listCheckBox[1].checked ? 1 : 0);
+            formData.append("stitch", listCheckBox[2].checked ? 1 : 0);
+            formData.append("cover_image", values.cover_image);
+
+            dispatch(uploadVideo(formData));
         },
     });
 
@@ -175,7 +174,7 @@ function Form({ event, url, video, hanleChange }) {
                 ))}
             </div>
             <Switch/>
-            <Button handleUpload={formik.handleSubmit} hanleChange={hanleChange} url={url} />
+            <Button handleUpload={formik.handleSubmit} handleChange={handleChange} url={url} />
         </div>
     );
 }

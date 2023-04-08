@@ -8,11 +8,9 @@ const cx = classNames.bind(styles);
 
 function Upload() {
     const [url, setUrl] = useState('');
-    const [event, setEvent] = useState(null);
     const [video, setVideo] = useState('');
 
-    const hanleChange = (event = null, url = '', video = '') => {
-        setEvent(event);
+    const handleChange = (url = '', video = '') => {
         setUrl(url);
         setVideo(video);
     }
@@ -25,8 +23,8 @@ function Upload() {
                         <span className={cx('main-title')}>Tải video lên</span>
                         <div className={cx('sub-title')}>Đăng video vào tài khoản của bạn</div>
                         <div className={cx('content')}>
-                            <Uploader video={video} url={url} hanleChange={hanleChange} />
-                            <Form event={event} video={video} url={url} hanleChange={hanleChange} />
+                            <Uploader video={video} url={url} handleChange={handleChange} />
+                            <Form video={video} url={url} handleChange={handleChange} />
                         </div>
                     </div>
                 </div>

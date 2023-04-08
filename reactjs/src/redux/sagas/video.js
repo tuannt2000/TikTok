@@ -16,6 +16,9 @@ import {
     setMyVideo,
     setMessageVideo
 } from "../actions/video";
+import {
+    setAlertMessage
+} from "../actions/user";
 
 function* sagaListVideo() {
     try {
@@ -41,9 +44,10 @@ function* sagaUpload(action) {
     try {
         const res = yield call(uploadVideo, action.payload);
         const { data } = res;
-        alert(data.message);
+        yield put(setAlertMessage(data.message));
     } catch (error) {
         console.log(error);
+        yield put(setAlertMessage(error.message));
     }
 }
 

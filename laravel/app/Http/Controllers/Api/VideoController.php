@@ -38,8 +38,11 @@ class VideoController extends Controller
      */
     public function upload(Request $request) {
         try {
-            $request['url'] = $this->__createUrlFile($request->name, $request->url);
-            $request['cover_image'] = $this->__createUrlFile($request->name, $request->cover_image, true);
+            $file_name = $request->file('video')->getClientOriginalName();
+            $folder_name = pathinfo($file_name, PATHINFO_FILENAME);
+            $link = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $folder_name;
+            $request['url'] = $this->__createUrlFile($link . '/' . $file_name, $request->video);
+            $request['cover_image'] = $this->__createUrlFile($link . '/' . "anh.img", $request->cover_image);
             $result = $this->videoService->uploadVideo($request);
 
             return response()->json($result, 200);
@@ -60,22 +63,16 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
-     /**
+    /**
       * create path url
-      * @param string $name
-      * @param string $content
-      * @param boolean $image
+      * @param string $link
+      * @param string $file
       *
       * @return string $url
      */
-    private function __createUrlFile($name, $content, $image = false) {
-        $name = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $name;
-        if ($image) {
-            $name = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . 'image_' . $name;
-        }
-        
-        Storage::disk('google')->put($name, file_get_contents($content));
-        $url = Storage::disk('google')->url($name);
+    private function __createUrlFile($link, $file) {
+        Storage::disk('google')->put($link, file_get_contents($file));
+        $url = Storage::disk('google')->url($link);
 
         return $url;
     }
