@@ -3,7 +3,6 @@ import styles from "./Form.module.scss";
 import Caption from './Caption';
 import { useState, useRef, useEffect } from 'react';
 import { TickIcon } from '~/components/Icons';
-import VideoThumbnail from 'react-video-thumbnail';
 import Button from "./Button";
 import Switch from "./Switch";
 import Type from "./Type";
@@ -12,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { uploadVideo } from '~/redux/actions/video';
 import { useFormik } from 'formik';
 import { formatFilename } from '~/utils/utility';
+import { generateVideoThumbnails } from "~/hooks/useGetThumnail";
 
 const cx = classNames.bind(styles);
 
@@ -36,7 +36,7 @@ const MENU_CHECKBOX = [
 function Form({ url, video, handleChange }) {
     const [listCheckBox, setListCheckBox] = useState(MENU_CHECKBOX);
     const [widthThumbnail, setWidthThumbnail] = useState(0);
-    const [time, setTime] = useState(0);
+    const [thumbnailUrl, setThumbnailUrl] = useState('');
 
     const dispatch = useDispatch();
 
@@ -67,10 +67,18 @@ function Form({ url, video, handleChange }) {
 
     useEffect(() => {
         setWidthThumbnail(0)
-        if (!!videoThumbnailRef.current) {
+        if (videoThumbnailRef.current) {
             setWidthThumbnail(thumbnailRef.current.offsetWidth - videoThumbnailRef.current.offsetWidth);
         }
-    }, [url])
+    }, [url]);
+
+    useEffect(() => {
+        if (video) {
+            generateVideoThumbnails(video, 0).then((thumbs) => {
+                setThumbnailUrl(thumbs[0])
+            });
+        }
+    }, [video]);
 
     const handleChangeCheckBox = (checkbox) => {
         const newState = [...listCheckBox];
@@ -80,11 +88,12 @@ function Form({ url, video, handleChange }) {
 
     const handleDrag = (data) => {
         videoThumbnailRef.current.currentTime = (videoThumbnailRef.current.duration.toFixed(0)) * ((data.layerX/widthThumbnail).toFixed(2))
-        setTime(0)
     }
 
     const handleStop = () => {
-        setTime(videoThumbnailRef.current.currentTime)
+        generateVideoThumbnails(video, videoThumbnailRef.current.currentTime).then((thumbs) => {
+            formik.setFieldValue('cover_image', thumbs)
+        });
     }
 
     return (
@@ -94,33 +103,22 @@ function Form({ url, video, handleChange }) {
                 <span className={cx('title-cover-image')}>Ảnh bìa</span>
                 <div className={cx('cover-image-container-v2')}>
                     <div ref={thumbnailRef} className={cx('cover-image-bg-container-v2', { 'has-thumbnail': !!url })}>
-                        {!!url ?  
+                        {thumbnailUrl ?               
                             <>
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
-                                <VideoThumbnail videoUrl={url} width={674} height={379} />
+                                <img src={thumbnailUrl} alt="" />
+                                <img src={thumbnailUrl} alt="" />
+                                <img src={thumbnailUrl} alt="" />
+                                <img src={thumbnailUrl} alt="" />
+                                <img src={thumbnailUrl} alt="" />
+                                <img src={thumbnailUrl} alt="" />
+                                <img src={thumbnailUrl} alt="" />
+                                <img src={thumbnailUrl} alt="" />
                             </>
                             :
                             <div className={cx('cover-image-candidate')} />
                         }
                     </div>
-                    {!!url && 
-                        <div className="d-none">
-                            <VideoThumbnail
-                                thumbnailHandler={(data) => formik.setFieldValue('cover_image', data) }
-                                snapshotAtTime={time}
-                                videoUrl={url}
-                                width={674}
-                                height={379}
-                            />
-                        </div>
-                    }
-                    {!!url && (
+                    {url && (
                         <Draggable
                             axis="x"
                             bounds={{left: 0, right: widthThumbnail}}

@@ -42,7 +42,7 @@ class VideoController extends Controller
             $folder_name = pathinfo($file_name, PATHINFO_FILENAME);
             $link = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $folder_name;
             $request['url'] = $this->__createUrlFile($link . '/' . $file_name, $request->video);
-            $request['cover_image'] = $this->__createUrlFile($link . '/' . "anh.img", $request->cover_image);
+            $request['cover_image'] = $this->__createUrlFile($link . '/' . $folder_name . ".png", $request->cover_image);
             $result = $this->videoService->uploadVideo($request);
 
             return response()->json($result, 200);

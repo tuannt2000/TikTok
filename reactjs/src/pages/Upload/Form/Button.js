@@ -10,7 +10,7 @@ function Button({ handleUpload, handleChange, url }) {
             <div className={cx('btn-cancel')}>
                 <button 
                     className={cx('css-35jbna')}
-                    onClick={handleChange}
+                    onClick={() => handleChange('')}
                 >
                     <div className={cx('css-1db5cpb')}>
                         <div className={cx('css-1z070dx')}>Hủy bỏ</div>
