@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import ActionItem from './ActionItem';
 import { VideoLikeIcon, VideoMessageIcon, VideoShareIcon, VideoLikedIcon } from '~/components/Icons';
 import { Share } from '~/components/Popper';
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { useDispatch } from "react-redux";
 import { likeVideo, setVideoDetail } from '~/redux/actions/video';
 
@@ -13,16 +13,7 @@ const cx = classNames.bind(styles);
 function Video({ data, video }) {
     const [like, setLike] = useState(false);
     const [countLike, setCountLike] = useState(0);
-    const [videoId, setVideoId] = useState(0);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (videoId === data.id) {
-            setLike(!like);
-            setCountLike(like ? countLike - 1 : countLike + 1);
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [video.message])
 
     useEffect(() => {
         setLike(data.likes.length ? true : false);
@@ -31,7 +22,8 @@ function Video({ data, video }) {
 
     const handleClick = async () => {
         dispatch(likeVideo({video_id: data.id}));
-        setVideoId(data.id)
+        setLike(!like)
+        setCountLike(like ? countLike - 1 : countLike + 1 )
     }
 
     const handleVideoDetail = () => {
@@ -69,4 +61,4 @@ function Video({ data, video }) {
     );
 }
 
-export default Video;
+export default memo(Video);

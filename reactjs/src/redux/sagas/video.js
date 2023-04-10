@@ -13,8 +13,7 @@ import {
 } from "../constants/video";
 import {
     setListVideo,
-    setMyVideo,
-    setMessageVideo
+    setMyVideo
 } from "../actions/video";
 import {
     setAlertMessage
@@ -53,9 +52,7 @@ function* sagaUpload(action) {
 
 function* sagaLikeVideo(action) {
     try {
-        const res = yield call(likeVideo, action.payload);
-        const { data } = res;
-        yield put(setMessageVideo(data.message));
+        yield call(likeVideo, action.payload);
     } catch (error) {
         console.log(error);
     }

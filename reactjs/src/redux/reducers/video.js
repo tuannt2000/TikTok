@@ -19,11 +19,6 @@ export const videoReducer = (state = initState, action) => {
                 ...state,
                 my_video: [...action.payload]
             }
-        case types.SET_MESSAGE_VIDEO:
-            return {
-                ...state,
-                message: action.payload
-            }
         case types.SET_VIDEO_DETAIL:
             return {
                 ...state,
