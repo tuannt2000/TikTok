@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api, apiPostFile } from './api';
 
 export const getListVideo = async () => {
     const url ='/video';
@@ -12,7 +12,7 @@ export const getMyVideo = async () => {
 
 export const uploadVideo = async (data) => {
     const url ='/video/upload';
-    return api.post(url, data);
+    return apiPostFile.post(url, data);
 };
 
 export const likeVideo = async (data) => {
