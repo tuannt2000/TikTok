@@ -40,7 +40,7 @@ function Video({ index, data }) {
             <div className={cx('TagCardDesc')}>
                 <a href="/">
                     <div className={cx('TagDivContainer')}>
-                        <span className={cx('SpanText')}>nui</span>
+                        <span className={cx('SpanText')}>{ data.description }</span>
                     </div>
                 </a>
             </div>

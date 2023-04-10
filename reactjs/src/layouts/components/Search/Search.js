@@ -10,7 +10,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '~/hooks';
 import { useSelector, useDispatch } from "react-redux";
 import { getResultSearch, setResultSearch } from '~/redux/actions/search';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -58,10 +58,13 @@ function Search() {
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWrapper>
-                            <h4 className={cx('search-title')}>Accounts</h4>
+                            <h4 className={cx('search-title')}>Tài khoản</h4>
                             {search.data.map(result => (
-                                !result.message ? <AccountItem key={result.id} data={result}/> : (result.message)
+                                <AccountItem key={result.id} data={result}/>
                             ))}
+                            <Link to={`/search`} className={cx('sug-more')}>
+                                <p>Xem tất cả kết quả dành cho "{searchValue}"</p>
+                            </Link>
                         </PopperWrapper>
                     </div>
                 )}
