@@ -38,6 +38,14 @@ class VideoController extends Controller
      */
     public function upload(Request $request) {
         try {
+            $file = request()->file('video');
+
+            if (!$file->isValid()) {
+                Log::error($file->getErrorMessage());
+            }
+            if (!$request->hasFile('video') || !$request->hasFile('cover_image')) {
+                throw new \Exception('not file');
+            }
             $file_name = $request->file('video')->getClientOriginalName();
             $folder_name = pathinfo($file_name, PATHINFO_FILENAME);
             $link = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $folder_name;

@@ -3,22 +3,22 @@ services:
   app:
     build:
       args:
-        user: sammy
+        user: tuannh
         uid: 1000
       context: ./
       dockerfile: Dockerfile
-    image: travellist
-    container_name: travellist-app
+    image: tiktok-app
+    container_name: tiktok-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
     networks:
-      - travellist
+      - tiktok
 
   db:
     image: mysql:5.7
-    container_name: travellist-db
+    container_name: tiktok-db
     restart: unless-stopped
     ports:
       - 4306:3306
@@ -32,11 +32,11 @@ services:
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
-      - travellist
+      - tiktok
 
   nginx:
     image: nginx:alpine
-    container_name: travellist-nginx
+    container_name: tiktok-nginx
     restart: unless-stopped
     ports:
       - 8000:80
@@ -44,8 +44,8 @@ services:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      - travellist
+      - tiktok
 
 networks:
-  travellist:
+  tiktok:
     driver: bridge
