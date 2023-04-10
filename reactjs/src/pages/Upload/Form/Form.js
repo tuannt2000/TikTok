@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { uploadVideo } from '~/redux/actions/video';
 import { useFormik } from 'formik';
 import { formatFilename } from '~/utils/utility';
-import { generateVideoThumbnails } from "~/hooks/useGetThumnail";
+import { generateVideoThumbnails, dataURLtoBlob } from "~/hooks/useGetThumnail";
 
 const cx = classNames.bind(styles);
 
@@ -76,8 +76,12 @@ function Form({ url, video, handleChange }) {
         if (video) {
             generateVideoThumbnails(video, 0).then((thumbs) => {
                 setThumbnailUrl(thumbs[0])
+                dataURLtoBlob(thumbs[0]).then((data) => {
+                    formik.setFieldValue('cover_image', data)
+                })
             });
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [video]);
 
     const handleChangeCheckBox = (checkbox) => {
@@ -92,7 +96,9 @@ function Form({ url, video, handleChange }) {
 
     const handleStop = () => {
         generateVideoThumbnails(video, videoThumbnailRef.current.currentTime).then((thumbs) => {
-            formik.setFieldValue('cover_image', thumbs)
+            dataURLtoBlob(thumbs[0]).then((data) => {
+                formik.setFieldValue('cover_image', data)
+            })
         });
     }
 

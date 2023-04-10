@@ -32,32 +32,26 @@ export const generateVideoThumbnails = async (videoFile, time) => {
     return new Promise(async (resolve, reject) => {
         if (!videoFile.type?.includes("video")) reject("not a valid video file");
         await getVideoDuration(videoFile).then(async (duration) => {
-            // divide the video timing into particular timestamps in respective to number of thumbnails
-            // ex if time is 10 and numOfthumbnails is 4 then result will be -> 0, 2.5, 5, 7.5 ,10
-            // we will use this timestamp to take snapshots
             fractions.push(time);
-            // the array of promises
             let promiseArray = fractions.map((time) => {
                 return getVideoThumbnail(videoFile, time)
             })
 
             await Promise.all(promiseArray).then((res) => {
                 res.forEach((res) => {
-                    // console.log('res', res.slice(0,8))
                     thumbnail.push(res);
                 });
-                // console.log('thumbnail', thumbnail)
                 resolve(thumbnail);
             }).catch((err) => {
                 console.error(err)
             }).finally((res) => {
-                console.log(res);
                 resolve(thumbnail);
             })
         });
         reject("something went wront");
     });
 };
+
 const getVideoThumbnail = (file, videoTimeInSeconds) => {
     return new Promise((resolve, reject) => {
         if (file.type.match("video")) {
@@ -128,3 +122,9 @@ export const getVideoDuration = (videoFile)=> {
         }
     });
 };
+
+export const dataURLtoBlob = async (dataurl) => {
+    const response = await fetch(dataurl);
+
+    return response.blob();
+}

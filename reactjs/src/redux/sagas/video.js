@@ -47,7 +47,7 @@ function* sagaUpload(action) {
         yield put(setAlertMessage(data.message));
     } catch (error) {
         console.log(error);
-        yield put(setAlertMessage(error.message));
+        yield put(setAlertMessage("Upload thất bại"));
     }
 }
 
