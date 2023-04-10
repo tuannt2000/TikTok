@@ -38,25 +38,26 @@ class VideoController extends Controller
      */
     public function upload(Request $request) {
         try {
-            $file = request()->file('video');
+            $video = $request->file('video_file');
+            $cover_image = $request->file('cover_image_file');
 
-            if (!$file->isValid()) {
-                Log::error($file->getErrorMessage());
+            if (!$video->isValid() || !$cover_image->isValid()) {
+                throw new \Exception('file error');
             }
-            if (!$request->hasFile('video') || !$request->hasFile('cover_image')) {
+            if (!$request->hasFile('video_file') || !$request->hasFile('cover_image_file')) {
                 throw new \Exception('not file');
             }
-            $file_name = $request->file('video')->getClientOriginalName();
+            $file_name = $video->getClientOriginalName();
             $folder_name = pathinfo($file_name, PATHINFO_FILENAME);
             $link = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $folder_name;
-            $request['url'] = $this->__createUrlFile($link . '/' . $file_name, $request->video);
-            $request['cover_image'] = $this->__createUrlFile($link . '/' . $folder_name . ".png", $request->cover_image);
+            $request['url'] = $this->__createUrlFile($link . '/' . $file_name, $request->video_file);
+            $request['cover_image'] = $this->__createUrlFile($link . '/' . $folder_name . ".png", $request->cover_image_file);
             $result = $this->videoService->uploadVideo($request);
 
             return response()->json($result, 200);
         } catch (\Throwable $err) {
             Log::error($err);
-            return response()->json('Upload file lên google drive thất bại!', 500);
+            return response()->json('Upload file thất bại!', 500);
         }
     }
 

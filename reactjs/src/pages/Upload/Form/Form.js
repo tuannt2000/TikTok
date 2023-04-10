@@ -54,12 +54,12 @@ function Form({ url, video, handleChange }) {
             const formData = new FormData();
             formData.append("description", values.description);
             formData.append("status", values.status);
-            formData.append("video", video);
+            formData.append("video_file", video);
             formData.append("name", formatFilename(video.name));
             formData.append("comment", listCheckBox[0].checked ? 1 : 0);
             formData.append("duet", listCheckBox[1].checked ? 1 : 0);
             formData.append("stitch", listCheckBox[2].checked ? 1 : 0);
-            formData.append("cover_image", values.cover_image);
+            formData.append("cover_image_file", values.cover_image);
 
             dispatch(uploadVideo(formData));
         },
@@ -109,7 +109,7 @@ function Form({ url, video, handleChange }) {
                 <span className={cx('title-cover-image')}>Ảnh bìa</span>
                 <div className={cx('cover-image-container-v2')}>
                     <div ref={thumbnailRef} className={cx('cover-image-bg-container-v2', { 'has-thumbnail': !!url })}>
-                        {thumbnailUrl ?               
+                        {video ?               
                             <>
                                 <img src={thumbnailUrl} alt="" />
                                 <img src={thumbnailUrl} alt="" />
