@@ -13,11 +13,12 @@ const cx = classNames.bind(styles);
 function Account({ offer = false, follow = false, title, showMore }) {
     const user = useSelector(state => state.user);
     const account = offer ? user.userOffer : user.userFollowing;
+    const loadData = offer ? user.setUserOffer : user.setUserFollowing;
 
     return (  
         <div className={cx('user-container')}>
             <p className={cx('title')}>{title}</p>
-            {account.length === 0 && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
+            {!loadData && <div className={cx('load-icon')}><FontAwesomeIcon icon={faSpinner} className={cx('loading')}/></div>}
             {account.map((result, index) => {
                 let Comp;
                 if (offer) {

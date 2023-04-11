@@ -10,7 +10,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '~/hooks';
 import { useSelector, useDispatch } from "react-redux";
 import { getResultSearch, setResultSearch } from '~/redux/actions/search';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -23,6 +23,13 @@ function Search() {
     const navigate     = useNavigate();
     const debounced    = useDebounce(searchValue, 500);
     const inputTextRef = useRef();
+    const [searchParams] = useSearchParams();
+
+    useEffect(() => {
+        if(searchParams.get('q')){
+            setSearchValue(searchParams.get('q'));
+        }
+    },[searchParams]);
 
     useEffect(() => {
         if(!debounced.trim()){
@@ -49,6 +56,12 @@ function Search() {
     const handleHideResult = () => {
         setShowResult(false);
     };
+
+    const handleSubmit = (e) => {
+        if (e.keyCode === 13 && searchValue) {
+            navigate('/search?q=' + searchValue);
+        }
+    }
 
     return (
         <div>
@@ -79,6 +92,7 @@ function Search() {
                         value={searchValue}
                         ref={inputTextRef}
                         onFocus={() => setShowResult(true)}
+                        onKeyDown={handleSubmit}
                     />
                     {!!searchValue && !search.isLoading && (
                         <button 

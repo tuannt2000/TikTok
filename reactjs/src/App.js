@@ -26,7 +26,15 @@ function App() {
         };
 
         gapi.load('client:auth2', start);
-    },[]);
+
+        if (localStorage.getItem("token")) {
+            dispatch(getInfoUser());
+        }
+
+        dispatch(getAllDiscoves());
+        dispatch(getAllLanguages());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (!alertMessage) {
@@ -44,21 +52,12 @@ function App() {
     }, [alertMessage])
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
-            dispatch(getInfoUser());
-        }
-
-        dispatch(getAllDiscoves());
-        dispatch(getAllLanguages());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
         if (user.currentUser.id) {
             dispatch(getUserOffer(user.currentUser.id));
             dispatch(getUserFollowing(user.currentUser.id));
         }
-    }, [dispatch, user.currentUser.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user.currentUser.id]);
 
 
     return (

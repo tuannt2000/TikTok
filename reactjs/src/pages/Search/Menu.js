@@ -25,7 +25,7 @@ function Menu({ menu }) {
 
         setNewMenu(menuActive);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [location]);
 
     useEffect(() => {
         if (line.current && currentActive.current) {
