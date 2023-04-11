@@ -1,0 +1,79 @@
+.main-container {
+    display: flex;
+    margin: 0px auto;
+    position: relative;
+    min-width: 420px;
+}
+
+.search-container {
+    flex: 1 1 auto;
+    padding: 16px 24px 67px 16px;
+    width: 800px;
+}
+
+.tabs-container {
+    background: rgb(255, 255, 255);
+    height: 50px;
+    margin-top: -16px;
+    position: sticky;
+    top: 60px;
+    z-index: 100;
+    padding-top: 8px;
+}
+
+.tabs-wrappper {
+    display: flex;
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        right: 12px;
+        left: 0px;
+        border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+        transform: scaleY(0.5);
+    }
+}
+
+.tabs-nav-wrappper {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.tabs-nav-list {
+    position: relative;
+    display: flex;
+    transition: transform 0.3s ease 0s;
+}
+
+.tab-nav-ink {
+    transition: width 0.3s ease 0s, left 0.3s ease 0s, right 0.3s ease 0s;
+    height: 2px;
+    background: rgb(22, 24, 35);
+    position: absolute;
+    pointer-events: none;
+    bottom: 0px;
+}
+
+.div-tab {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 16px;
+    line-height: 22px;
+    color: rgba(22, 24, 35, 0.5);
+    transition: all 0s ease 0s, all 0.3s ease 0s;
+    width: 120px;
+}
+
+.div-tab.active {
+    color: rgb(22, 24, 35);
+}
