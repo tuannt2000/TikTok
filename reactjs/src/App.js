@@ -73,7 +73,7 @@ function App() {
 
                         const Page = route.component;
                         return <Route exact={true} key={index} path={route.path} element={
-                            <Layout>
+                            <Layout max_width={route.max_width ?? false}>
                                 <Page />
                             </Layout>}
                         />

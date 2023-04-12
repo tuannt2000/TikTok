@@ -6,11 +6,11 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import AccountItem from '~/components/AccountItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { SearchIcon, ClearSearchIcon } from '~/components/Icons';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { useDebounce } from '~/hooks';
 import { useSelector, useDispatch } from "react-redux";
 import { getResultSearch, setResultSearch } from '~/redux/actions/search';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -23,14 +23,6 @@ function Search() {
     const navigate     = useNavigate();
     const debounced    = useDebounce(searchValue, 500);
     const inputTextRef = useRef();
-    const [searchParams] = useSearchParams();
-
-    useEffect(() => {
-        console.log(1);
-        if(searchParams.get('q')){
-            setSearchValue(searchParams.get('q'));
-        }
-    }, [searchParams]);
 
     useEffect(() => {
         if(!debounced.trim()){
@@ -55,10 +47,6 @@ function Search() {
         }
     };
 
-    const handleHideResult = () => {
-        setShowResult(false);
-    };
-
     const handleSubmit = (e) => {
         if (e.keyCode === 13 && searchValue) {
             navigate('/search?q=' + searchValue);
@@ -75,7 +63,7 @@ function Search() {
                         <PopperWrapper>
                             <h4 className={cx('search-title')}>Tài khoản</h4>
                             {search.data.map(result => (
-                                <AccountItem key={result.id} data={result}/>
+                                <AccountItem hanleClick={() => setShowResult(false)} key={result.id} data={result}/>
                             ))}
                             <Link onClick={() => setShowResult(false)} to={`/search?q=${searchValue}`} className={cx('sug-more')}>
                                 <p>Xem tất cả kết quả dành cho "{searchValue}"</p>
@@ -83,7 +71,7 @@ function Search() {
                         </PopperWrapper>
                     </div>
                 )}
-                onClickOutside={handleHideResult}
+                onClickOutside={() => setShowResult(false)}
             >
                 <div className={cx('search')}>
                     <input 
@@ -117,4 +105,4 @@ function Search() {
     );
 }
 
-export default Search;
+export default memo(Search);

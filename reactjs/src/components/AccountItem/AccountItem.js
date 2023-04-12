@@ -11,15 +11,22 @@ import { getProfileUser } from '~/redux/actions/user';
 
 const cx = classNames.bind(styles);
 
-const AccountItem = forwardRef(({ data, className = null }, ref) => {
+const defaultFn = () => {};
+
+const AccountItem = forwardRef(({ data, className = null, hanleClick = defaultFn }, ref) => {
     const dispatch = useDispatch();
 
     const classes = cx('wrapper', {
         [className]: className
     });
 
+    const getInfoUser = () => {
+        dispatch(getProfileUser(data.nickname))
+        hanleClick();
+    }
+
     return (
-        <Link onClick={() => dispatch(getProfileUser(data.nickname))} ref={ref} to={`/@${data.nickname}`} className={classes}>
+        <Link onClick={getInfoUser} ref={ref} to={`/@${data.nickname}`} className={classes}>
             <img
                 className={cx('avatar')}
                 src={data.avatar || images.noImage}

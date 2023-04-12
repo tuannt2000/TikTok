@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
-function DefaultLayout({ children }) {
+function DefaultLayout({ max_width, children }) {
     const [showVideoDetail, setShowVideoDetail] = useState(false)
     const video = useSelector(state => state.video);
 
@@ -20,10 +20,10 @@ function DefaultLayout({ children }) {
 
     return (
         <div className={cx('wrapper')}>
-            <Header />
-            <div className={cx('container')}>
-                <Sidebar />
-                <div className={cx('content')}>
+            <Header max_width={max_width} />
+            <div className={cx('container', {"max_width" : max_width})}>
+                <Sidebar max_width={max_width} />
+                <div className={cx('content', {"max_width" : max_width})}>
                     {children}
                     <DownloadApp />
                 </div>
