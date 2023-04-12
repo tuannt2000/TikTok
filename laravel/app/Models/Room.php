@@ -11,6 +11,16 @@ class Room extends Model
 
     protected $table = 'rooms';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'room_id',
+        'user_id'
+    ];
+
     public function users()
     {
         return $this->hasMany(User::class);

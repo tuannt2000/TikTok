@@ -3,9 +3,11 @@
 namespace App\Services\Api;
 
 use App\Contracts\Repositories\FollowRepositoryInterface;
+use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Services\Api\FollowServiceInterface;
 use App\Services\AbstractService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class FollowService extends AbstractService implements FollowServiceInterface
@@ -16,12 +18,19 @@ class FollowService extends AbstractService implements FollowServiceInterface
     protected $followRepository;
 
     /**
-     * FollowService constructor.
-     * @param FollowRepositoryInterface $roomRepository
+     * @var RoomRepositoryInterface
      */
-    public function __construct(FollowRepositoryInterface $followRepository)
+    protected $roomRepository;
+
+    /**
+     * FollowService constructor.
+     * @param FollowRepositoryInterface $followRepository
+     * @param RoomRepositoryInterface $roomRepository
+     */
+    public function __construct(FollowRepositoryInterface $followRepository, RoomRepositoryInterface $roomRepository)
     {
         $this->followRepository = $followRepository;
+        $this->roomRepository = $roomRepository;
     }
 
     /**
@@ -30,6 +39,7 @@ class FollowService extends AbstractService implements FollowServiceInterface
      */
     public function store($data)
     {
+        DB::beginTransaction();
         try {
             $follow = $this->followRepository->findFollow($data);
             if (is_null($follow)) {
@@ -45,10 +55,16 @@ class FollowService extends AbstractService implements FollowServiceInterface
                 }
             }
 
+            if (!$this->__createRoom([Auth::user()->id, $data['user_follower_id']])) {
+                throw new \Exception('Could not create room');
+            }
+            DB::commit();
+
             return [
                 'code' => 200
             ];
         } catch (\Throwable $err) {
+            DB::rollBack();
             Log::error($err);
             
             return [
@@ -56,5 +72,18 @@ class FollowService extends AbstractService implements FollowServiceInterface
                 'message' => $err->getMessage()
             ];
         }
+    }
+
+    private function __createRoom($users_id = []) {
+        $follows = $this->followRepository->getFollowAlong($users_id);
+        if ($follows->count() == 2) {
+            if ($this->roomRepository->createRoom($users_id)) {
+                return true;
+            }
+
+            return false;
+        }
+
+        return true;
     }
 }
