@@ -55,16 +55,20 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
 
     public function uploadVideo($data)
     {
-        $this->model::create([
-            'user_id' => Auth::user()->id,
-            'cover_image' => $data->cover_image,
-            'url' => $data->url,
-            'description' => $data->description,
-            'status' => $data->status,
-            'comment' => $data->comment,
-            'duet' => $data->duet,
-            'stitch' => $data->stitch,
-            'date_upload' => Carbon::now()
-        ]);
+        $data['user_id'] = Auth::user()->id;
+        $data['date_upload'] = Carbon::now();
+        $this->model::create($data);
+    }
+
+    public function getTopVideo($key_word) {
+        $video = $this->model
+            ->with('user')
+            ->withCount('likes')
+            ->where('description', 'like', '%' . $key_word . '%')
+            ->orderBy('likes_count', 'DESC')
+            ->take(15)
+            ->get();
+
+        return $video;
     }
 }

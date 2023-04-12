@@ -130,4 +130,27 @@ class VideoService extends AbstractService implements VideoServiceInterface
             ];
         }
     }
+
+    /**
+     * @param $key_word
+     * @return array
+     */
+    public function findTopVideo($key_word)
+    {
+        try {
+            $data = $this->videoRepository->getTopVideo($key_word);
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
 }

@@ -8,4 +8,5 @@ interface VideoServiceInterface
     public function getMyVideo();
     public function uploadVideo($data);
     public function likeVideo($data);
+    public function findTopVideo($key_word);
 }

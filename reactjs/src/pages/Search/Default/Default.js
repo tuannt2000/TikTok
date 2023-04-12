@@ -7,7 +7,13 @@ function Default() {
 
     return (
         <div className={cx('container')}>
-            Default
+            <div className={cx('video-feed')}>
+                <div className={cx('block-container')}>
+                    <div className={cx('title-container')}>
+                        <h2 className={cx('top-video-title')}>Video</h2>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

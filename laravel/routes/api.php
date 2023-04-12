@@ -37,6 +37,10 @@ Route::prefix('users')->group(function () {
     Route::post('/following',      [UserController::class, 'listFollowing']);
 });
 
+Route::prefix('search')->group(function () {
+    Route::get ('/top-video',      [VideoController::class, 'findTopVideo']);
+});
+
 Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::get ('/rooms',    [RoomController::class, 'index']);
     Route::get ('/messages', [MessageController::class, 'index']);
