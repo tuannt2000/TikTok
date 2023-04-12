@@ -77,3 +77,39 @@
 .div-tab.active {
     color: rgb(22, 24, 35);
 }
+
+.container {
+    margin-top: 16px;
+    width: calc(100% - 12px);
+}
+
+
+// load more
+.more-container {
+    padding: 16px 0px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.button-more {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+    color: rgba(22, 24, 35, 0.5);
+    font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.chev-down-icon {
+    margin-left: 4px;
+}

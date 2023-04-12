@@ -7,7 +7,7 @@ function Default() {
 
     return (
         <div className={cx('container')}>
-
+            Default
         </div>
     );
 }

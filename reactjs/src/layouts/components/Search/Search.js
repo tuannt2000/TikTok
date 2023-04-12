@@ -26,10 +26,11 @@ function Search() {
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
+        console.log(1);
         if(searchParams.get('q')){
             setSearchValue(searchParams.get('q'));
         }
-    },[searchParams]);
+    }, [searchParams]);
 
     useEffect(() => {
         if(!debounced.trim()){
@@ -38,7 +39,8 @@ function Search() {
         }
 
         dispatch(getResultSearch({q: debounced, navigate, logined: Object.keys(currentUser).length ? true : false}));
-    }, [debounced, dispatch, navigate, currentUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -49,7 +51,7 @@ function Search() {
         const searchValue = e.target.value;
 
         if (!searchValue.startsWith(' ')){
-            setSearchValue(searchValue);                                                                             
+            setSearchValue(searchValue);
         }
     };
 
@@ -67,7 +69,7 @@ function Search() {
         <div>
             <HeadlessTippy
                 interactive
-                visible={showResult  && search.data.length > 0}
+                visible={showResult && search.data.length > 0}
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWrapper>
@@ -75,7 +77,7 @@ function Search() {
                             {search.data.map(result => (
                                 <AccountItem key={result.id} data={result}/>
                             ))}
-                            <Link to={`/search`} className={cx('sug-more')}>
+                            <Link onClick={() => setShowResult(false)} to={`/search?q=${searchValue}`} className={cx('sug-more')}>
                                 <p>Xem tất cả kết quả dành cho "{searchValue}"</p>
                             </Link>
                         </PopperWrapper>

@@ -7,7 +7,7 @@ function User() {
 
     return (
         <div className={cx('container')}>
-
+            User
         </div>
     );
 }

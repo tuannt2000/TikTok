@@ -7,7 +7,7 @@ function Video() {
 
     return (
         <div className={cx('container')}>
-
+            Video
         </div>
     );
 }
