@@ -4,7 +4,7 @@ import { UserIcon, LockIcon } from "~/components/Icons";
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { myVideo } from '~/redux/actions/video';
-import Video from "./Video";
+import Video from "~/components/Video";
 
 const cx = classNames.bind(styles);
 
@@ -57,7 +57,7 @@ function Main() {
                 <div className={cx('DivThreeColumnContainer')}>
                     <div className={cx('DivVideoFeedV2')}>
                         {video.my_video.map((result, index) => (
-                            <Video key={index} index={index} data={result} />
+                            <Video key={index} data={result} />
                         ))}
                     </div>
                 </div>
