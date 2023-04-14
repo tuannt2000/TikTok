@@ -39,6 +39,27 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             ->withCount(['likes' => function($query) {
                 $query->whereNull('deleted_at');
             }])
+            ->whereNotIn('user_id', $users_following)
+            ->get();
+
+        return $video;
+    }
+
+    public function videoFollowing($users_following) {
+        $video = $this->model
+            ->with(['user' => function($query) { 
+                $query->withCount([
+                    'followers', 
+                    'likes'
+                ]);
+            }])
+            ->with(['likes' => function($query) {
+                $query->where('likes.user_id', Auth::user()->id)
+                    ->whereNull('deleted_at');
+            }])
+            ->withCount(['likes' => function($query) {
+                $query->whereNull('deleted_at');
+            }])
             ->whereIn('user_id', $users_following)
             ->get();
 

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-function Header({ data }) {
+function Header({ data, following, onClick, followText }) {
     return (
         <div className={cx('container')}>
             <div className={cx('author')}>
@@ -16,7 +16,11 @@ function Header({ data }) {
                     <h4 className={cx('author-nickname')}>{data.user.full_name}</h4>
                 </Link>
             </div>
-            <Button className={cx('follow-btn')} outline>Follow</Button>
+            {!following && 
+                <Button className={cx('follow-btn')} onClick={onClick} outline>
+                    {followText ? 'Đang follow' : 'Follow'}
+                </Button>
+            }
             <div className={cx('description')}>
                 <span className={cx('description-text')}>😂😂😂</span>
                 <Link to='tag/test' className={cx('common-link')}>#LearnOnTikTok</Link>

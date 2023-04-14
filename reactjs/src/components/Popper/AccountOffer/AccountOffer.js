@@ -8,13 +8,19 @@ import Button from '~/components/Button';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatNumber } from '~/utils/utility';
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postFollow } from '~/redux/actions/user';
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
-function AccountOffer({ children, data, home = false, className }) {
+const AccountOffer = (
+{ 
+    children,
+    data,
+    home = false,
+    className
+}) => {
     const [follow, setFollow] = useState(false);
     const dispatch = useDispatch();
 
@@ -32,11 +38,7 @@ function AccountOffer({ children, data, home = false, className }) {
                     <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank"  className={cx('avatar')}>
                         <Image referrerPolicy={'no-referrer'} src={data.avatar} alt={data.avatar} />
                     </a>
-                    {home ? (
-                        <Button outline>Follow</Button>
-                    ) : (
-                        <Button onClick={handClick} primary>{ follow ? 'Đang follow' : 'Follow' }</Button>
-                    )}
+                    <Button onClick={handClick} primary>{ follow ? 'Đang follow' : 'Follow' }</Button>
                 </div>
                 <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank" className={cx('nickname')}>
                     <span>{data.nickname}</span>

@@ -41,10 +41,29 @@ class VideoService extends AbstractService implements VideoServiceInterface
     public function index() {
         try {
             $users_following = Follow::ofListIdUserFollowing(Auth::user()->id);
+            $users_following[] = Auth::user()->id;
 
             return [
                 'code' => 200,
                 'data' => $this->videoRepository->index($users_following)
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function following() {
+        try {
+            $users_following = Follow::ofListIdUserFollowing(Auth::user()->id);
+
+            return [
+                'code' => 200,
+                'data' => $this->videoRepository->videoFollowing($users_following)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
