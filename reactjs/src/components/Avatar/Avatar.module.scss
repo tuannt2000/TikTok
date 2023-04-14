@@ -1,3 +1,7 @@
+.avatar:hover {
+    text-decoration: underline !important;
+}
+
 .container {
     position: relative;
     display: flex;
@@ -60,6 +64,14 @@ img {
     right: 20px;
     z-index: 2;
     opacity: 0.6;
+}
+
+.unique-id {
+    margin-right: 4px;
+    margin-left: 4px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @keyframes spinner {

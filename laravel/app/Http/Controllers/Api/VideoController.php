@@ -25,6 +25,12 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
+    public function following() {
+        $result = $this->videoService->following();
+
+        return response()->json($result, 200);
+    }
+
     public function getMyVideo() {
         $result = $this->videoService->getMyVideo();
 
@@ -52,7 +58,7 @@ class VideoController extends Controller
             $link = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $folder_name;
             $request['url'] = $this->__createUrlFile($link . '/' . $file_name, $request->video_file);
             $request['cover_image'] = $this->__createUrlFile($link . '/' . $folder_name . ".png", $request->cover_image_file);
-            $result = $this->videoService->uploadVideo($request);
+            $result = $this->videoService->uploadVideo($request->all());
 
             return response()->json($result, 200);
         } catch (\Throwable $err) {
@@ -68,6 +74,17 @@ class VideoController extends Controller
      */
     public function like(Request $request) {
         $result = $this->videoService->likeVideo($request->all());
+
+        return response()->json($result, 200);
+    }
+
+    /**
+      * @param Request $request
+      *
+      * @return \Illuminate\Http\Response
+     */
+    public function findTopVideo(Request $request) {
+        $result = $this->videoService->findTopVideo($request->q ?? '');
 
         return response()->json($result, 200);
     }

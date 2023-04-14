@@ -4,18 +4,15 @@ import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts';
 import { gapi } from 'gapi-script';
 import { CLIENT_ID, SCOPE } from '~/constants/Login';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllLanguages } from '~/redux/actions/language';
 import { getInfoUser } from '~/redux/actions/user';
-import { getUserOffer, getUserFollowing, setAlertMessage } from '~/redux/actions/user';
 import { getAllDiscoves } from '~/redux/actions/discove';
 import Alert from './components/Alert';
 
 function App() {
     const pathname = window.location.pathname;
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
-    const alertMessage = useSelector(state => state.user.alertMessage);
 
     useEffect(() => {
         const start = () => {
@@ -26,40 +23,15 @@ function App() {
         };
 
         gapi.load('client:auth2', start);
-    },[]);
 
-    useEffect(() => {
-        if (!alertMessage) {
-            return;
-        }
-
-        const time = setTimeout(() => {
-            dispatch(setAlertMessage(''));
-        }, 2000)
-
-        return (() => {
-            clearTimeout(time);
-        })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [alertMessage])
-
-    useEffect(() => {
         if (localStorage.getItem("token")) {
             dispatch(getInfoUser());
         }
 
         dispatch(getAllDiscoves());
         dispatch(getAllLanguages());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        if (user.currentUser.id) {
-            dispatch(getUserOffer(user.currentUser.id));
-            dispatch(getUserFollowing(user.currentUser.id));
-        }
-    }, [dispatch, user.currentUser.id]);
-
 
     return (
         <Router>
@@ -74,7 +46,7 @@ function App() {
 
                         const Page = route.component;
                         return <Route exact={true} key={index} path={route.path} element={
-                            <Layout>
+                            <Layout max_width={route.max_width ?? false}>
                                 <Page />
                             </Layout>}
                         />
@@ -82,7 +54,7 @@ function App() {
                     <Route path='*' exact={true} element={<Navigate to={"/404?fromUrl=" + pathname} />} />
                 </Routes>
             </div>
-            { alertMessage && <Alert />}
+            <Alert />
         </Router>
     );
 }

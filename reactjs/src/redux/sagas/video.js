@@ -1,18 +1,21 @@
 import { 
-    getListVideo, 
+    getListVideo,
+    getListVideoFollowing,
     getMyVideo, 
     uploadVideo,
     likeVideo
 } from "~/services/videoService";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { 
-    GET_LIST_VIDEO, 
+    GET_LIST_VIDEO,
+    GET_LIST_VIDEO_FOLLOWING,
     GET_MY_VIDEO,
     UPLOAD_VIDEO,
     LIKE_VIDEO
 } from "../constants/video";
 import {
     setListVideo,
+    setListVideoFollowing,
     setMyVideo
 } from "../actions/video";
 import {
@@ -23,7 +26,19 @@ function* sagaListVideo() {
     try {
         const res = yield call(getListVideo);
         const { data } = res;
-        yield put(setListVideo(data.data));
+        const new_data = data.data.map(obj => ({ ...obj, user: {...obj.user, following: false} }))
+        yield put(setListVideo(new_data));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function* sagaListVideoFollowing() {
+    try {
+        const res = yield call(getListVideoFollowing);
+        const { data } = res;
+        const new_data = data.data.map(obj => ({ ...obj, user: {...obj.user, following: true} }))
+        yield put(setListVideoFollowing(new_data));
     } catch (error) {
         console.log(error);
     }
@@ -60,6 +75,7 @@ function* sagaLikeVideo(action) {
 
 function* followVideo() {
     yield takeLatest(GET_LIST_VIDEO, sagaListVideo);
+    yield takeLatest(GET_LIST_VIDEO_FOLLOWING, sagaListVideoFollowing);
     yield takeLatest(GET_MY_VIDEO, sagaMyVideo);
     yield takeLatest(UPLOAD_VIDEO, sagaUpload);
     yield takeLatest(LIKE_VIDEO, sagaLikeVideo);

@@ -9,6 +9,15 @@ export const setListVideo = ( data ) => ({
     payload: data
 });
 
+export const listVideoFollowing = () => ({
+    type: types.GET_LIST_VIDEO_FOLLOWING
+});
+
+export const setListVideoFollowing = ( data ) => ({
+    type: types.SET_LIST_VIDEO_FOLLOWING,
+    payload: data
+});
+
 export const myVideo = () => ({
     type: types.GET_MY_VIDEO
 });
@@ -30,5 +39,10 @@ export const likeVideo = ( data ) => ({
 
 export const setVideoDetail = ( data ) => ({
     type: types.SET_VIDEO_DETAIL,
+    payload: data
+});
+
+export const setVideoUserFollow = ( data ) => ({
+    type: types.SET_VIDEO_USER_FOLLOW,
     payload: data
 });

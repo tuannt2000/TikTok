@@ -24,4 +24,11 @@ class FollowRepository extends BaseRepository implements FollowRepositoryInterfa
             ->where('user_follower_id', $data['user_follower_id'])
             ->first();
     }
+
+    public function getFollowAlong($users_id)
+    {
+        return $this->model
+            ->whereIn('user_id', $users_id)
+            ->get();
+    }
 }

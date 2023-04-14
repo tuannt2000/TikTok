@@ -37,6 +37,10 @@ Route::prefix('users')->group(function () {
     Route::post('/following',      [UserController::class, 'listFollowing']);
 });
 
+Route::prefix('search')->group(function () {
+    Route::get ('/top-video',      [VideoController::class, 'findTopVideo']);
+});
+
 Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::get ('/rooms',    [RoomController::class, 'index']);
     Route::get ('/messages', [MessageController::class, 'index']);
@@ -45,6 +49,7 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
 
     Route::prefix('video')->group(function () {
         Route::get ('/',         [VideoController::class, 'index']);
+        Route::get ('/following',[VideoController::class, 'following']);
         Route::get ('/my-video', [VideoController::class, 'getMyVideo']);
         Route::post('/upload',   [VideoController::class, 'upload']);
         Route::post('/like',     [VideoController::class, 'like']);

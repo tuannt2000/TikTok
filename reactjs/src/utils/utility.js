@@ -1,3 +1,4 @@
+import moment from 'moment/moment';
 import { DiscoverStyleTagIcon, DiscoverStyleMusicIcon } from '~/components/Icons';
 
 export const formatNumber = ($number) => {
@@ -29,6 +30,7 @@ export const getIconDiscove = ($type) => {
 };
 
 export const formatDate = (current_time) => {
+    current_time = current_time ?? moment().format('YYYY-MM-DD HH:mm:ss');
     const format_date = current_time.split(/[T\s]/);
     const day = format_date[0];
 

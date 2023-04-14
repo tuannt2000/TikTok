@@ -51,4 +51,25 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $list_room;
     }
+
+    public function createRoom($users_id) {
+        $count = $this->model->count();
+        $room_id = $count/2 + 1;
+        $query = $this->model->insert([
+            [
+                'room_id' => $room_id,
+                'user_id' => $users_id[0],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'room_id' => $room_id,
+                'user_id' => $users_id[1],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        ]);
+
+        return $query;
+    }
 }

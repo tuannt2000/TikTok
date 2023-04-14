@@ -6,7 +6,7 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import AccountItem from '~/components/AccountItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { SearchIcon, ClearSearchIcon } from '~/components/Icons';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { useDebounce } from '~/hooks';
 import { useSelector, useDispatch } from "react-redux";
 import { getResultSearch, setResultSearch } from '~/redux/actions/search';
@@ -31,7 +31,8 @@ function Search() {
         }
 
         dispatch(getResultSearch({q: debounced, navigate, logined: Object.keys(currentUser).length ? true : false}));
-    }, [debounced, dispatch, navigate, currentUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -42,33 +43,35 @@ function Search() {
         const searchValue = e.target.value;
 
         if (!searchValue.startsWith(' ')){
-            setSearchValue(searchValue);                                                                             
+            setSearchValue(searchValue);
         }
     };
 
-    const handleHideResult = () => {
-        setShowResult(false);
-    };
+    const handleSubmit = (e) => {
+        if (e.keyCode === 13 && searchValue) {
+            navigate('/search?q=' + searchValue);
+        }
+    }
 
     return (
         <div>
             <HeadlessTippy
                 interactive
-                visible={showResult  && search.data.length > 0}
+                visible={showResult && search.data.length > 0}
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWrapper>
                             <h4 className={cx('search-title')}>Tài khoản</h4>
                             {search.data.map(result => (
-                                <AccountItem key={result.id} data={result}/>
+                                <AccountItem hanleClick={() => setShowResult(false)} key={result.id} data={result}/>
                             ))}
-                            <Link to={`/search`} className={cx('sug-more')}>
+                            <Link onClick={() => setShowResult(false)} to={`/search?q=${searchValue}`} className={cx('sug-more')}>
                                 <p>Xem tất cả kết quả dành cho "{searchValue}"</p>
                             </Link>
                         </PopperWrapper>
                     </div>
                 )}
-                onClickOutside={handleHideResult}
+                onClickOutside={() => setShowResult(false)}
             >
                 <div className={cx('search')}>
                     <input 
@@ -79,6 +82,7 @@ function Search() {
                         value={searchValue}
                         ref={inputTextRef}
                         onFocus={() => setShowResult(true)}
+                        onKeyDown={handleSubmit}
                     />
                     {!!searchValue && !search.isLoading && (
                         <button 
@@ -101,4 +105,4 @@ function Search() {
     );
 }
 
-export default Search;
+export default memo(Search);

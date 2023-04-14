@@ -5,6 +5,11 @@ export const getListVideo = async () => {
     return api.get(url);
 };
 
+export const getListVideoFollowing = async () => {
+    const url ='/video/following';
+    return api.get(url);
+};
+
 export const getMyVideo = async () => {
     const url ='/video/my-video';
     return api.get(url);

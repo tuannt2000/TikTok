@@ -1,18 +1,25 @@
 import classNames from "classnames/bind";
-import styles from "./Main.module.scss";
+import styles from "./Video.module.scss";
 import ReactPlayer from 'react-player';
 import { useRef, useEffect } from "react";
+import Avatar from "../Avatar";
+import { PlaySearchIcon } from "../Icons";
 const cx = classNames.bind(styles);
 
-function Video({ index, data }) {
+function Video({ data, search = false, className }) {
     const videoRef = useRef();
 
     useEffect(() => {
         console.log(videoRef)
     })
 
+    const classes = cx('wrapper', {
+        [className]: className,
+        search
+    });
+
     return (
-        <div className={cx('DivItemContainerV2')}>
+        <div className={classes}>
             <div className={cx('StyledDivContainerV2')}>
                 <div style={{
                     paddingTop: '132.653%'
@@ -24,7 +31,6 @@ function Video({ index, data }) {
                                     <div className={cx('xgplayer-container')}>
                                         <ReactPlayer
                                             ref={videoRef}
-                                            index={index}
                                             loop
                                             className={cx('video')}
                                             url={data.url}
@@ -37,12 +43,30 @@ function Video({ index, data }) {
                     </div>
                 </div>
             </div>
-            <div className={cx('TagCardDesc')}>
-                <a href="/">
-                    <div className={cx('TagDivContainer')}>
-                        <span className={cx('SpanText')}>{ data.description }</span>
+            <div className={cx('div-video-search-card')}>
+                <div className={cx('card-bottom-info')}>
+                    <div className={cx('TagCardDesc')}>
+                        <a href="/">
+                            <div className={cx('TagDivContainer')}>
+                                <span className={cx('SpanText')}>{ data.description }</span>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                    { search && (
+                        <div className={cx('div-play-line')}>
+                            <Avatar
+                                data={data.user}
+                                size={24}
+                                info
+                                to
+                            />
+                            <div className={cx('div-play-icon')}>
+                                <PlaySearchIcon />
+                                <strong className={cx('video-count')}>{data.likes_count}</strong>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
