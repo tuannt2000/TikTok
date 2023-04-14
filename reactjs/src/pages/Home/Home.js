@@ -12,16 +12,21 @@ import { useLocation } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 function Home() {
-    const [followText, setFollowText] = useState(false);
     const video = useSelector(state => state.video);
     const location = useLocation();
+    const [listVideoState, setListVideoState] = useState(location.pathname === '/' ? video.list_video : video.list_video_following);
     const dispatch = useDispatch();
 
     const following = location.pathname === '/following';
-    const list_video = location.pathname === '/' ? video.list_video : video.list_video_following;
 
     useEffect(() => {
-        if (list_video.length) {
+        const new_list_video = location.pathname === '/' ? video.list_video : video.list_video_following
+        setListVideoState(new_list_video);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [video.list_video, video.list_video_following]);
+
+    useEffect(() => {
+        if (listVideo.length) {
             return;
         }
 
@@ -33,13 +38,9 @@ function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
-    const handleFollow = () => {
-        setFollowText(!followText);
-    }
-
     return (
         <div>
-            {list_video.map((result, index) => (
+            {listVideoState.map((result, index) => (
                 <div key={index} className={cx('list-item')}>
                     <AccountOffer home data={result.user}>
                         <Avatar
@@ -48,7 +49,7 @@ function Home() {
                         />
                     </AccountOffer>
                     <div className={cx('main-container')}>
-                        <Header onClick={handleFollow} followText={followText} following={following} data={result} />
+                        <Header following={following} data={result} />
                         <Video data={result} video={video} />
                     </div>
                 </div>

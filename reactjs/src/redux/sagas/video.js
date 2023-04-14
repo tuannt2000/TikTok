@@ -26,7 +26,8 @@ function* sagaListVideo() {
     try {
         const res = yield call(getListVideo);
         const { data } = res;
-        yield put(setListVideo(data.data));
+        const new_data = data.data.map(obj => ({ ...obj, user: {...obj.user, following: false} }))
+        yield put(setListVideo(new_data));
     } catch (error) {
         console.log(error);
     }
@@ -36,7 +37,8 @@ function* sagaListVideoFollowing() {
     try {
         const res = yield call(getListVideoFollowing);
         const { data } = res;
-        yield put(setListVideoFollowing(data.data));
+        const new_data = data.data.map(obj => ({ ...obj, user: {...obj.user, following: true} }))
+        yield put(setListVideoFollowing(new_data));
     } catch (error) {
         console.log(error);
     }

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatNumber } from '~/utils/utility';
 import { useDispatch } from "react-redux";
 import { postFollow } from '~/redux/actions/user';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -21,11 +21,14 @@ const AccountOffer = (
     home = false,
     className
 }) => {
-    const [follow, setFollow] = useState(false);
+    const [follow, setFollow] = useState(data.following);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        setFollow(data.following);
+    }, [data.following])
+
     const handClick = () => {
-        setFollow(prevState => !prevState);
         dispatch(postFollow({
             user_follower_id: data.id
         }));
