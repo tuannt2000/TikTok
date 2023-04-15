@@ -8,6 +8,7 @@ import { AccountOffer } from '~/components/Popper';
 import { useSelector, useDispatch } from "react-redux";
 import { listVideo, listVideoFollowing } from '~/redux/actions/video';
 import { useLocation } from "react-router-dom";
+import { postFollow } from "~/redux/actions/user";
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +39,12 @@ function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
+    const hanldeSumitFollow = (data) => {
+        dispatch(postFollow({
+            user_follower_id: data.id
+        }));
+    }
+
     return (
         <div>
             {listVideoState.map((result, index) => (
@@ -49,7 +56,7 @@ function Home() {
                         />
                     </AccountOffer>
                     <div className={cx('main-container')}>
-                        <Header following={following} data={result} />
+                        <Header onClick={hanldeSumitFollow} following={following} data={result} />
                         <Video data={result} video={video} />
                     </div>
                 </div>

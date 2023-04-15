@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-function Header({ data, following }) {
+function Header({ data, following, onClick }) {
     return (
         <div className={cx('container')}>
             <div className={cx('author')}>
@@ -17,7 +17,7 @@ function Header({ data, following }) {
                 </Link>
             </div>
             {!following && 
-                <Button className={cx('follow-btn')} outline>
+                <Button onClick={() => onClick(data.user)} className={cx('follow-btn')} outline>
                     {data.user.following ? 'Đang follow' : 'Follow'}
                 </Button>
             }

@@ -1,12 +1,12 @@
 import classNames from "classnames/bind";
 import styles from "./Video.module.scss";
-import ReactPlayer from 'react-player';
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Avatar from "../Avatar";
 import { PlaySearchIcon } from "../Icons";
 const cx = classNames.bind(styles);
 
 function Video({ data, search = false, className }) {
+    const [hover, setHover] = useState(false);
     const videoRef = useRef();
 
     useEffect(() => {
@@ -19,27 +19,33 @@ function Video({ data, search = false, className }) {
     });
 
     return (
-        <div className={classes}>
-            <div className={cx('StyledDivContainerV2')}>
+        <div 
+            className={classes}
+            onMouseOver={() => setHover(true)}
+            onMouseOut={() => setHover(false)}
+        >
+            <div 
+                className={cx('StyledDivContainerV2')}
+            >
                 <div style={{
                     paddingTop: '132.653%'
                 }}>
                     <div className={cx('DivWrapper')}>
-                        <div className={cx('DivPlayerContainer')}>
-                            <div className={cx('VideoDivContainer')}>
-                                <div className={cx('DivBasicPlayerWrapper')}>
-                                    <div className={cx('xgplayer-container')}>
-                                        <ReactPlayer
-                                            ref={videoRef}
-                                            loop
-                                            className={cx('video')}
-                                            url={data.url}
-                                            controls={true}
-                                        />
-                                    </div>
+                        <a href="/">
+                            <canvas className={cx('canvas-placeholder')} />
+                            <div className={cx('DivPlayerContainer')}>
+                                <div className={cx('VideoDivContainer')}>
+                                    <img src={data.cover_image} alt="" className={cx('img-poster')}/>
+                                    { hover && (
+                                        <div className={cx('DivBasicPlayerWrapper')}>
+                                            <div className={cx('xgplayer-container')}>
+                                                <video src={data.url} autoPlay muted className={cx('video')}></video>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
