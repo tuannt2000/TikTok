@@ -6,11 +6,11 @@ import { VideoLikeIcon, VideoMessageIcon, VideoShareIcon, VideoLikedIcon } from 
 import { Share } from '~/components/Popper';
 import { useEffect, useState, memo } from "react";
 import { useDispatch } from "react-redux";
-import { likeVideo, setVideoDetail } from '~/redux/actions/video';
+import { likeVideo } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
-function Video({ data, video }) {
+function Video({ data, onClick }) {
     const [like, setLike] = useState(false);
     const [countLike, setCountLike] = useState(0);
     const dispatch = useDispatch();
@@ -26,16 +26,11 @@ function Video({ data, video }) {
         setCountLike(like ? countLike - 1 : countLike + 1 )
     }
 
-    const handleVideoDetail = () => {
-        window.history.replaceState(null, "", '/@' + data.user.nickname + '/video/' + data.id)
-        dispatch(setVideoDetail(data));
-    }
-
     return (
         <div className={cx('video-wrapper')}>
             <div 
                 className={cx('video-container')} 
-                onClick={handleVideoDetail}
+                onClick={() => onClick(data)}
             >
                 <ReactPlayer
                     className={cx('video')}
@@ -48,8 +43,8 @@ function Video({ data, video }) {
                     { like ? <VideoLikedIcon /> : <VideoLikeIcon/> }
                 </ActionItem>
                 <ActionItem
-                    text={805}
-                    onClick={handleVideoDetail}
+                    text={data.comments_count}
+                    onClick={() => onClick(data)}
                 >
                     <VideoMessageIcon />
                 </ActionItem>

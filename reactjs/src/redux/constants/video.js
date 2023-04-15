@@ -6,5 +6,6 @@ export const GET_MY_VIDEO = 'GET_MY_VIDEO';
 export const SET_MY_VIDEO = 'SET_MY_VIDEO';
 export const UPLOAD_VIDEO = 'UPLOAD_VIDEO';
 export const LIKE_VIDEO = 'LIKE_VIDEO';
+export const SET_LIST_VIDEO_DETAIL = 'SET_LIST_VIDEO_DETAIL';
 export const SET_VIDEO_DETAIL = 'SET_VIDEO_DETAIL';
 export const SET_VIDEO_USER_FOLLOW = 'SET_VIDEO_USER_FOLLOW';

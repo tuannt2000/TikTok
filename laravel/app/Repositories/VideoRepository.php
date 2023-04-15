@@ -39,6 +39,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             ->withCount(['likes' => function($query) {
                 $query->whereNull('deleted_at');
             }])
+            ->withCount('comments')
             ->whereNotIn('user_id', $users_following)
             ->get();
 
@@ -60,6 +61,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             ->withCount(['likes' => function($query) {
                 $query->whereNull('deleted_at');
             }])
+            ->withCount('comments')
             ->whereIn('user_id', $users_following)
             ->get();
 

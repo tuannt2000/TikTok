@@ -6,7 +6,7 @@ import Video from "./Video";
 import { useEffect, useState } from 'react';
 import { AccountOffer } from '~/components/Popper';
 import { useSelector, useDispatch } from "react-redux";
-import { listVideo, listVideoFollowing } from '~/redux/actions/video';
+import { listVideo, listVideoFollowing, setListVideoDetail } from '~/redux/actions/video';
 import { useLocation } from "react-router-dom";
 import { postFollow } from "~/redux/actions/user";
 
@@ -45,6 +45,14 @@ function Home() {
         }));
     }
 
+    const handleVideoDetail = (data) => {
+        window.history.replaceState(null, "", '/@' + data.user.nickname + '/video/' + data.id)
+        dispatch(setListVideoDetail({
+            list_video_detail: listVideoState,
+            data: data
+        }));
+    }
+
     return (
         <div>
             {listVideoState.map((result, index) => (
@@ -57,7 +65,7 @@ function Home() {
                     </AccountOffer>
                     <div className={cx('main-container')}>
                         <Header onClick={hanldeSumitFollow} following={following} data={result} />
-                        <Video data={result} video={video} />
+                        <Video onClick={handleVideoDetail} data={result} />
                     </div>
                 </div>
             ))}

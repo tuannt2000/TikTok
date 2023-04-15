@@ -11,7 +11,7 @@ import { setVideoDetail } from '~/redux/actions/video';
 const cx = classNames.bind(styles);
 
 function Video({ video }) {
-    const listVideo = useSelector(state => state.video.list_video);
+    const listVideoDetail = useSelector(state => state.video.list_video_detail);
     const dispatch = useDispatch();
 
     const handleHideVideoDetail = () => {
@@ -20,13 +20,13 @@ function Video({ video }) {
     }
 
     const handleNextVideo = (next = true) => {
-        const currentVideoIndex = listVideo.findIndex(element => {
+        const currentVideoIndex = listVideoDetail.findIndex(element => {
             return element.id === video.id;
         });
 
         const nextVideoIndex = next ? currentVideoIndex + 1 : currentVideoIndex - 1;
 
-        dispatch(setVideoDetail(listVideo[nextVideoIndex]));
+        dispatch(setVideoDetail(listVideoDetail[nextVideoIndex]));
     }
 
     return (
@@ -47,8 +47,8 @@ function Video({ video }) {
                     <VoiceControlOnIcon />
                 </button>
             </div>
-            {listVideo[0].id !== video.id && <button className={cx('switch-video-prev')} onClick={() => handleNextVideo(false)}><PrevVideoIcon /></button>}
-            {listVideo[listVideo.length - 1].id !== video.id && <button className={cx('switch-video-next')} onClick={() => handleNextVideo()}><NextVideoIcon /></button>}
+            {listVideoDetail[0].id !== video.id && <button className={cx('switch-video-prev')} onClick={() => handleNextVideo(false)}><PrevVideoIcon /></button>}
+            {listVideoDetail[listVideoDetail.length - 1].id !== video.id && <button className={cx('switch-video-next')} onClick={() => handleNextVideo()}><NextVideoIcon /></button>}
             <div className={cx('div-report-text')}>
                 <ReportVideoIcon className={cx('report-video-icon')} />
                 Báo cáo
