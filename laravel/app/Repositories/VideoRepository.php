@@ -25,20 +25,8 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
     }
 
     public function index($users_following) {
-        $video = $this->model
-            ->with(['user' => function($query) { 
-                $query->withCount([
-                    'followers', 
-                    'likes'
-                ]);
-            }])
-            ->with(['likes' => function($query) {
-                $query->where('likes.user_id', Auth::user()->id)
-                    ->whereNull('deleted_at');
-            }])
-            ->withCount(['likes' => function($query) {
-                $query->whereNull('deleted_at');
-            }])
+        $query = $this->__getQueryListVideo();
+        $video = $query
             ->whereNotIn('user_id', $users_following)
             ->get();
 
@@ -46,20 +34,8 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
     }
 
     public function videoFollowing($users_following) {
-        $video = $this->model
-            ->with(['user' => function($query) { 
-                $query->withCount([
-                    'followers', 
-                    'likes'
-                ]);
-            }])
-            ->with(['likes' => function($query) {
-                $query->where('likes.user_id', Auth::user()->id)
-                    ->whereNull('deleted_at');
-            }])
-            ->withCount(['likes' => function($query) {
-                $query->whereNull('deleted_at');
-            }])
+        $query = $this->__getQueryListVideo();
+        $video = $query
             ->whereIn('user_id', $users_following)
             ->get();
 
@@ -67,7 +43,8 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
     }
 
     public function getMyVideo($id) {
-        $video = $this->model
+        $query = $this->__getQueryListVideo();
+        $video = $query
             ->where('user_id', $id)
             ->get();
 
@@ -91,5 +68,25 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             ->get();
 
         return $video;
+    }
+
+    private function __getQueryListVideo () {
+        $query = $this->model
+            ->with(['user' => function($query) { 
+                $query->withCount([
+                    'followers', 
+                    'likes'
+                ]);
+            }])
+            ->with(['likes' => function($query) {
+                $query->where('likes.user_id', Auth::user()->id)
+                    ->whereNull('deleted_at');
+            }])
+            ->withCount(['likes' => function($query) {
+                $query->whereNull('deleted_at');
+            }])
+            ->withCount('comments');
+
+        return $query;
     }
 }

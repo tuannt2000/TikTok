@@ -1,17 +1,14 @@
 import classNames from "classnames/bind";
 import styles from "./Video.module.scss";
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 import Avatar from "../Avatar";
 import { PlaySearchIcon } from "../Icons";
 const cx = classNames.bind(styles);
 
-function Video({ data, search = false, className }) {
-    const [hover, setHover] = useState(false);
-    const videoRef = useRef();
+const defaultFn = () => {};
 
-    useEffect(() => {
-        console.log(videoRef)
-    })
+function Video({ data, search = false, className, onClick = defaultFn }) {
+    const [hover, setHover] = useState(false);
 
     const classes = cx('wrapper', {
         [className]: className,
@@ -23,6 +20,7 @@ function Video({ data, search = false, className }) {
             className={classes}
             onMouseOver={() => setHover(true)}
             onMouseOut={() => setHover(false)}
+            onClick={() => onClick(data)}
         >
             <div 
                 className={cx('StyledDivContainerV2')}
@@ -31,7 +29,7 @@ function Video({ data, search = false, className }) {
                     paddingTop: '132.653%'
                 }}>
                     <div className={cx('DivWrapper')}>
-                        <a href="/">
+                        <a href={'/@' + data.user.nickname + '/video/' + data.id} onClick={e => e.preventDefault()}>
                             <canvas className={cx('canvas-placeholder')} />
                             <div className={cx('DivPlayerContainer')}>
                                 <div className={cx('VideoDivContainer')}>

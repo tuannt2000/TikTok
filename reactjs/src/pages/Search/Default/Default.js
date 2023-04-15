@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getTopVideo } from "~/redux/actions/search";
 import { useSearchParams } from "react-router-dom";
 import Video from "~/components/Video";
+import { setListVideoDetail } from "~/redux/actions/video";
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +19,14 @@ function Default() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams])
 
+    const handleShowVideoDetail = (data) => {
+        window.history.replaceState(null, "", '/@' + data.user.nickname + '/video/' + data.id)
+        dispatch(setListVideoDetail({
+            list_video_detail: topVideoList,
+            data: data
+        }));
+    }
+
     return (
         <div className={cx('container')}>
             <div className={cx('video-feed')}>
@@ -27,7 +36,7 @@ function Default() {
                     </div>
                 </div>
                 {topVideoList.map((result, index) => (
-                    <Video key={index} data={result} search />
+                    <Video onClick={handleShowVideoDetail} key={index} data={result} search />
                 ))}
             </div>
         </div>

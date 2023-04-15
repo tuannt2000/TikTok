@@ -37,6 +37,11 @@ export const likeVideo = ( data ) => ({
     payload: data
 });
 
+export const setListVideoDetail = ( data ) => ({
+    type: types.SET_LIST_VIDEO_DETAIL,
+    payload: data
+});
+
 export const setVideoDetail = ( data ) => ({
     type: types.SET_VIDEO_DETAIL,
     payload: data

@@ -3,7 +3,7 @@ import styles from "./Main.module.scss";
 import { UserIcon, LockIcon } from "~/components/Icons";
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { myVideo } from '~/redux/actions/video';
+import { myVideo, setListVideoDetail } from '~/redux/actions/video';
 import Video from "~/components/Video";
 
 const cx = classNames.bind(styles);
@@ -23,7 +23,7 @@ const TAB = [
 function Main() {
     const [active, setActive] = useState(0);
     const [hover, setHover] = useState(-1);
-    const video = useSelector(state => state.video);
+    const my_video = useSelector(state => state.video.my_video);
     const dispatch = useDispatch();
     const line = useRef();
 
@@ -35,6 +35,14 @@ function Main() {
         const position = hover >= 0 ? hover * 230 : active * 230;
         line.current.style.transform = 'translateX(' + position + 'px)';
     }, [active, hover])
+
+    const handleShowVideoDetail = (data) => {
+        window.history.replaceState(null, "", '/@' + data.user.nickname + '/video/' + data.id)
+        dispatch(setListVideoDetail({
+            list_video_detail: my_video,
+            data: data
+        }));
+    }
 
     return (
         <div className={cx('container')}>
@@ -53,11 +61,11 @@ function Main() {
                 ))}
                 <div className={cx('bottom-line')} ref={line}></div>
             </div>
-            {video.my_video.length ? (
+            {my_video.length ? (
                 <div className={cx('DivThreeColumnContainer')}>
                     <div className={cx('DivVideoFeedV2')}>
-                        {video.my_video.map((result, index) => (
-                            <Video key={index} data={result} />
+                        {my_video.map((result, index) => (
+                            <Video onClick={handleShowVideoDetail} list_video={my_video} key={index} data={result} />
                         ))}
                     </div>
                 </div>
