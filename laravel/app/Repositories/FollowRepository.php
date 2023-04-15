@@ -29,6 +29,7 @@ class FollowRepository extends BaseRepository implements FollowRepositoryInterfa
     {
         return $this->model
             ->whereIn('user_id', $users_id)
+            ->whereIn('user_follower_id', $users_id)
             ->get();
     }
 }

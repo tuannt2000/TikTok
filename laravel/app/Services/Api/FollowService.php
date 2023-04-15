@@ -76,14 +76,25 @@ class FollowService extends AbstractService implements FollowServiceInterface
 
     private function __createRoom($users_id = []) {
         $follows = $this->followRepository->getFollowAlong($users_id);
-        if ($follows->count() == 2) {
-            if ($this->roomRepository->createRoom($users_id)) {
-                return true;
+        $rooms = $this->roomRepository->getRoomCreated($users_id);
+        try {
+            if ($follows->count() == 2) {
+                if (is_null($rooms)) {
+                    $this->roomRepository->createRoom($users_id);
+                } else {
+                    $this->roomRepository->restoreRoomCreated($rooms->room_id);
+                }
+            } else {
+                if ($rooms) {
+                    $this->roomRepository->deleteRoomCreated($rooms->room_id);
+                }
             }
 
-            return false;
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e);
         }
 
-        return true;
+        return false;
     }
 }
