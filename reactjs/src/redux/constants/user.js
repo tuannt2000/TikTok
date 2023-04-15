@@ -10,3 +10,4 @@ export const GET_PROFILE_USER = 'GET_PROFILE_USER';
 export const SET_PROFILE_USER = 'SET_PROFILE_USER';
 export const FOLLOW = 'FOLLOW';
 export const SET_ALERT_MESSAGE = 'SET_ALERT_MESSAGE';
+export const SET_USER_FOLLOW = 'SET_USER_FOLLOW';

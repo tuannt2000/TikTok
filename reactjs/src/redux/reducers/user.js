@@ -45,6 +45,19 @@ export const userReducer = (state = initState, action) => {
                 ...state,
                 alertMessage: action.payload
             };
+        case types.SET_USER_FOLLOW:
+            const new_list_user_offer = state.userOffer.map(result => {
+                if (result.id === action.payload) {
+                    result.following = !result.following;
+                }
+
+                return result;
+            })
+
+            return {
+                ...state,
+                userOffer: new_list_user_offer
+            };
         default:
             return state;
     }

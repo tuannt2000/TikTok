@@ -58,3 +58,8 @@ export const setAlertMessage = ( data = '' ) => ({
     type: types.SET_ALERT_MESSAGE,
     payload: data
 });
+
+export const setUserFollow = ( data ) => ({
+    type: types.SET_USER_FOLLOW,
+    payload: data
+});

@@ -1285,8 +1285,7 @@ export const ReportVideoIcon = ({ width = '1.6rem', height = '1.5rem', className
 )
 
 export const PlaySearchIcon = ({ width = '1.6rem', height = '1.6rem', className }) => (
-    <svg 
-        class="like-icon tiktok-b82ygf-StyledPlay etrd4pu9" 
+    <svg
         className={className}
         width={width}
         height={height}
