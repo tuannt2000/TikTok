@@ -22,7 +22,7 @@ function Header({ data, following, onClick }) {
                 </Button>
             }
             <div className={cx('description')}>
-                <span className={cx('description-text')}>{data.description}</span>
+                <span className={cx('description-text')}>{data.bio}</span>
                 <Link to='tag/test' className={cx('common-link')}>#LearnOnTikTok</Link>
             </div>
             <h4 className={cx('video-music')}>

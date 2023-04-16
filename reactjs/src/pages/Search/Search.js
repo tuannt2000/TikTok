@@ -31,7 +31,7 @@ function Search() {
     const new_menu = useMemo(() => {
         const menu = TABS_MENU.map(result => {
             if (searchParams.get('q')) {
-                result.link = result.pathname + '?q=' + searchParams.get('q');
+                result.link = result.pathname + '?q=' + encodeURI(searchParams.get('q'));
             }
     
             return result;
@@ -43,7 +43,7 @@ function Search() {
     const Comp = () => {
         let Comp = '';
         new_menu.forEach(result => {
-            if (location.pathname === result.link) {
+            if (location.pathname === result.pathname) {
                 Comp = result.Comp;
             }
         });

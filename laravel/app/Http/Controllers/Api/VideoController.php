@@ -90,7 +90,7 @@ class VideoController extends Controller
       * @return \Illuminate\Http\Response
      */
     public function findTopVideo(Request $request) {
-        $result = $this->videoService->findTopVideo($request->q ?? '');
+        $result = $this->videoService->findTopVideo($request->q ? urldecode($request->q) : '');
 
         return response()->json($result, 200);
     }

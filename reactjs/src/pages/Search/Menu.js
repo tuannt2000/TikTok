@@ -9,7 +9,6 @@ function Menu({ menu }) {
     const [newMenu, setNewMenu] = useState(menu);
     const location = useLocation();
     const navigate = useNavigate();
-    console.log(newMenu);
 
     const line = useRef();
     const currentActive = useRef();

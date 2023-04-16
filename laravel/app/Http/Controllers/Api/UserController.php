@@ -52,4 +52,15 @@ class UserController extends Controller
 
         return response()->json($result, 200);
     }
+
+    /**
+      * @param Request $request
+      *
+      * @return \Illuminate\Http\Response
+     */
+    public function findTopUser(Request $request) {
+        $result = $this->userService->findTopUser($request->q ? urldecode($request->q) : '');
+
+        return response()->json($result, 200);
+    }
 }

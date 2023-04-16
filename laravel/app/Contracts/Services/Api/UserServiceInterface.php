@@ -9,5 +9,6 @@ interface UserServiceInterface
     public function listAccountOffer($id);
     public function listFollowing($id);
     public function getUserByNickname ($nickname);
-    public function getInfoUser ();
+    public function getInfoUser();
+    public function findTopUser($key_word);
 }
