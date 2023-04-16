@@ -6,11 +6,11 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import AccountItem from '~/components/AccountItem';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { SearchIcon, ClearSearchIcon } from '~/components/Icons';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { useDebounce } from '~/hooks';
 import { useSelector, useDispatch } from "react-redux";
 import { getResultSearch, setResultSearch } from '~/redux/actions/search';
-import { useNavigate } from 'react-router-dom';
+import { Link, createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -21,8 +21,13 @@ function Search() {
     const currentUser  = useSelector(state => state.user.currentUser);
     const dispatch     = useDispatch();
     const navigate     = useNavigate();
+    const [searchParams] = useSearchParams();
     const debounced    = useDebounce(searchValue, 500);
     const inputTextRef = useRef();
+
+    useEffect(() => {
+        setSearchValue(searchParams.get('q') ? decodeURI(searchParams.get('q')) : '');
+    }, [searchParams]);
 
     useEffect(() => {
         if(!debounced.trim()){
@@ -31,7 +36,8 @@ function Search() {
         }
 
         dispatch(getResultSearch({q: debounced, navigate, logined: Object.keys(currentUser).length ? true : false}));
-    }, [debounced, dispatch, navigate, currentUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -42,30 +48,50 @@ function Search() {
         const searchValue = e.target.value;
 
         if (!searchValue.startsWith(' ')){
-            setSearchValue(searchValue);                                                                             
+            setSearchValue(searchValue);
         }
     };
 
-    const handleHideResult = () => {
-        setShowResult(false);
-    };
+    const handleSubmit = (e) => {
+        if (e.keyCode === 13 && searchValue) {
+            setShowResult(false);
+            inputTextRef.current.blur();
+            navigate({
+                pathname: "/search",
+                search: createSearchParams({
+                    q: encodeURI(searchValue)
+                }).toString()
+            });
+        }
+    }
 
     return (
         <div>
             <HeadlessTippy
                 interactive
-                visible={showResult  && search.data.length > 0}
+                visible={showResult && search.data.length > 0}
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWrapper>
-                            <h4 className={cx('search-title')}>Accounts</h4>
+                            <h4 className={cx('search-title')}>Tài khoản</h4>
                             {search.data.map(result => (
-                                !result.message ? <AccountItem key={result.id} data={result}/> : (result.message)
+                                <AccountItem hanleClick={() => setShowResult(false)} key={result.id} data={result}/>
                             ))}
+                            <Link onClick={() => setShowResult(false)} 
+                                to={{
+                                    pathname: `/search`,
+                                    search: createSearchParams({
+                                        q: encodeURI(searchValue)
+                                    }).toString()
+                                }} 
+                                className={cx('sug-more')}
+                            >
+                                <p>Xem tất cả kết quả dành cho "{searchValue}"</p>
+                            </Link>
                         </PopperWrapper>
                     </div>
                 )}
-                onClickOutside={handleHideResult}
+                onClickOutside={() => setShowResult(false)}
             >
                 <div className={cx('search')}>
                     <input 
@@ -76,6 +102,7 @@ function Search() {
                         value={searchValue}
                         ref={inputTextRef}
                         onFocus={() => setShowResult(true)}
+                        onKeyDown={handleSubmit}
                     />
                     {!!searchValue && !search.isLoading && (
                         <button 
@@ -98,4 +125,4 @@ function Search() {
     );
 }
 
-export default Search;
+export default memo(Search);

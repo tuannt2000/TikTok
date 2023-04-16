@@ -1,0 +1,59 @@
+.container {
+    width: 100%;
+}
+
+.user-item-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+    &:hover {
+        background-color: rgb(248, 248, 248);
+        text-decoration: none;
+    }
+}
+
+.user-info-container {
+    font-size: 14px;
+    line-height: 20px;
+    flex: 1 1 0%;
+    margin: 16px 0px;
+}
+
+.user-title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.div-sub-title-wrapper {
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 1px;
+}
+
+.user-decs {
+    margin-top: 4px;
+
+    strong {
+        font-weight: 400;
+    }
+}
+
+.user-full-name {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    display: inline;
+}
+
+.follow-count {
+    color: rgb(22, 24, 35);
+    font-weight: 600;
+
+    span {
+        color: rgba(22, 24, 35, 0.75);
+        font-weight: 400;
+    }
+}

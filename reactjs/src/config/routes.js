@@ -5,7 +5,7 @@ const routes = {
     upload: '/upload',
     feedback: '/feedback',
     search: '/search',
-    live: '/live',
+    searchType: '/search/:type',
     messages: '/messages',
     pageNotFound: '/404',
     webError: '/500'

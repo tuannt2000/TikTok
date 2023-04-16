@@ -64,18 +64,9 @@ class UserService extends AbstractService implements UserServiceInterface
         try {
             $data = $this->userRepository->findUserByKey($params['q'], $params['type']);
 
-            if ($data->count() > 0) {
-                return [
-                    'code' => 200,
-                    'data' => $data
-                ];
-            }
-
             return [
-                'code' => 404,
-                'data' => [
-                    ['message' => 'Không có kết quả nào được tìm thấy']
-                ],                
+                'code' => 200,
+                'data' => $data
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -170,6 +161,29 @@ class UserService extends AbstractService implements UserServiceInterface
             return [
                 'code' => 400,
                 'message' => $err,
+            ];
+        }
+    }
+
+    /**
+     * @param $key_word
+     * @return array
+     */
+    public function findTopUser($key_word)
+    {
+        try {
+            $data = $this->userRepository->getTopUser($key_word);
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
             ];
         }
     }

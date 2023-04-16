@@ -56,4 +56,20 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             ->where('nickname', $nickname)
             ->first();
     }
+
+    public function getTopUser ($key_word) {
+        $video = $this->model
+            ->withCount('follows')
+            ->where(function ($query) use($key_word) {
+                $query->where('nickname', 'like', '%' . $key_word . '%')
+                      ->orWhere('first_name', 'like', '%' . $key_word . '%')
+                      ->orWhere('last_name', 'like', '%' . $key_word . '%')
+                      ->orWhere('bio', 'like', '%' . $key_word . '%');
+            })
+            ->orderBy('follows_count', 'DESC')
+            ->take(15)
+            ->get();
+
+        return $video;
+    }
 }

@@ -3,14 +3,14 @@ import styles from "./Form.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Button({ handleUpload, hanleChange, url }) {
+function Button({ handleUpload, handleChange, url }) {
 
     return (
         <div className={cx('button-row')}>
             <div className={cx('btn-cancel')}>
                 <button 
                     className={cx('css-35jbna')}
-                    onClick={hanleChange}
+                    onClick={() => handleChange('')}
                 >
                     <div className={cx('css-1db5cpb')}>
                         <div className={cx('css-1z070dx')}>Hủy bỏ</div>

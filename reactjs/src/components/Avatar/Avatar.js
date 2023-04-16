@@ -6,15 +6,15 @@ import { forwardRef } from "react";
 
 const cx = classNames.bind(styles);
 
-const Avatar = forwardRef(({ data, size, to = true, href = false, album = false, className}, ref) => {
+const Avatar = forwardRef(({ data, size, to = true, href = false, album = false, info = false, className}, ref) => {
     let Comp = 'div';
     const props = {};
 
     if (to) {
-        props.to = `@${data.nickname}`;
+        props.to = `/@${data.nickname}`;
         Comp = Link;
     } else if (href) {
-        props.href = `@${data.nickname}`;
+        props.href = `/@${data.nickname}`;
         props.target = '_blank';
         Comp = 'a';
     }
@@ -23,12 +23,6 @@ const Avatar = forwardRef(({ data, size, to = true, href = false, album = false,
         <Comp ref={ref} className={cx('avatar', {[className]: className})} {...props}>
             <div 
                 className={cx('container')}
-                style={
-                    {
-                        width: size,
-                        height: size
-                    }
-                }
             >
                 <span 
                     className={cx('circle')}
@@ -42,6 +36,9 @@ const Avatar = forwardRef(({ data, size, to = true, href = false, album = false,
                     {album && (<div className={cx('album-border')}></div>)}
                     <img referrerPolicy={'no-referrer'} src={data.avatar} alt={data.nickname} />
                 </span>
+                { info && (
+                    <p className={cx('unique-id')}>{data.nickname}</p>
+                )}
             </div>
         </Comp>
     );

@@ -7,17 +7,17 @@ import Preview from './Preview';
 
 const cx = classNames.bind(styles);
 
-function Uploader({video, url, hanleChange}) {
+function Uploader({video, url, handleChange}) {
     const inputFile = useRef();
 
     const hanleClick = () => {
         inputFile.current.click();
     };
 
-    const handleChange = (event) => {
+    const handleUpload = (event) => {
         const file = event.target.files[0];
         const url = URL.createObjectURL(file);
-        hanleChange(event, url, event.target.files[0]);
+        handleChange(url, file);
     };
 
     return (
@@ -28,7 +28,7 @@ function Uploader({video, url, hanleChange}) {
                     <div className={cx('wrapper')}>
                         <input 
                             type="file" accept="video/*" 
-                            onChange={handleChange} 
+                            onChange={handleUpload} 
                             className={cx('input-video')} 
                             ref={inputFile} 
                             value={video}

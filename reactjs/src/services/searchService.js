@@ -13,3 +13,17 @@ export const searchUserWithHeader = (q, type = 'less') => {
         params: {q, type}
     });
 };
+
+export const searchTopVideo = (q) => {
+    const url ='/search/top-video';
+    return api.get(url, {
+        params: {q}
+    });
+};
+
+export const searchTopUser = (q) => {
+    const url ='/search/top-user';
+    return api.get(url, {
+        params: {q}
+    });
+};

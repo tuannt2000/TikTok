@@ -5,7 +5,7 @@ import PropsTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-function Button({
+const Button = ({
     to,
     href,
     primary = false,
@@ -24,7 +24,7 @@ function Button({
     rightIcon,
     onClick,
     ...passProps
-}) {
+}) => {
     let Comp = 'button';
     const props = {
         onClick,

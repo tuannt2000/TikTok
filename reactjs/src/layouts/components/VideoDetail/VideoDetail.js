@@ -9,8 +9,8 @@ function VideoDetail({ video }) {
 
     return (
         <div className={cx('video-detail-wrapper')}>
-            <Video video={video} />
-            <Content video={video} />
+            {Object.keys(video).length && <Video video={video} />}
+            {Object.keys(video).length && <Content video={video} />}
         </div>
     );
 }

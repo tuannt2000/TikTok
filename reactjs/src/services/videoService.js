@@ -1,18 +1,32 @@
-import { api } from './api';
+import { api, apiPostFile } from './api';
 
 export const getListVideo = async () => {
     const url ='/video';
     return api.get(url);
 };
 
-export const getMyVideo = async () => {
-    const url ='/video/my-video';
+export const getListVideoFollowing = async () => {
+    const url ='/video/following';
     return api.get(url);
+};
+
+export const getMyVideo = async (id) => {
+    const url ='/video/my-video';
+    return api.get(url, {
+        params: {id}
+    });
+};
+
+export const getMyVideoLike = async (id) => {
+    const url ='/video/my-video/like';
+    return api.get(url, {
+        params: {id}
+    });
 };
 
 export const uploadVideo = async (data) => {
     const url ='/video/upload';
-    return api.post(url, data);
+    return apiPostFile.post(url, data);
 };
 
 export const likeVideo = async (data) => {

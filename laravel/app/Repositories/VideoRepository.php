@@ -25,7 +25,64 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
     }
 
     public function index($users_following) {
+        $query = $this->__getQueryListVideo();
+        $video = $query
+            ->whereNotIn('user_id', $users_following)
+            ->get();
+
+        return $video;
+    }
+
+    public function videoFollowing($users_following) {
+        $query = $this->__getQueryListVideo();
+        $video = $query
+            ->whereIn('user_id', $users_following)
+            ->get();
+
+        return $video;
+    }
+
+    public function getMyVideo($id) {
+        $query = $this->__getQueryListVideo();
+        $video = $query
+            ->where('user_id', $id)
+            ->get();
+
+        return $video;
+    }
+
+    public function getMyVideoLike($id) {
+        $query = $this->__getQueryListVideo();
+        $video = $query
+            ->join('likes', 'likes.video_id', '=', 'videos.id')
+            ->where('likes.user_id', $id)
+            ->whereNull('likes.deleted_at')
+            ->get();
+
+        return $video;
+    }
+
+    public function uploadVideo($data)
+    {
+        $data['user_id'] = Auth::user()->id;
+        $data['date_upload'] = Carbon::now();
+        $this->model::create($data);
+    }
+
+    public function getTopVideo($key_word) {
         $video = $this->model
+            ->with('user')
+            ->withCount('likes')
+            ->where('description', 'like', '%' . $key_word . '%')
+            ->orderBy('likes_count', 'DESC')
+            ->take(15)
+            ->get();
+
+        return $video;
+    }
+
+    private function __getQueryListVideo () {
+        $query = $this->model
             ->with(['user' => function($query) { 
                 $query->withCount([
                     'followers', 
@@ -39,32 +96,8 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             ->withCount(['likes' => function($query) {
                 $query->whereNull('deleted_at');
             }])
-            ->whereIn('user_id', $users_following)
-            ->get();
+            ->withCount('comments');
 
-        return $video;
-    }
-
-    public function getMyVideo($id) {
-        $video = $this->model
-            ->where('user_id', $id)
-            ->get();
-
-        return $video;
-    }
-
-    public function uploadVideo($data)
-    {
-        $this->model::create([
-            'user_id' => Auth::user()->id,
-            'cover_image' => $data->cover_image,
-            'url' => $data->url,
-            'description' => $data->description,
-            'status' => $data->status,
-            'comment' => $data->comment,
-            'duet' => $data->duet,
-            'stitch' => $data->stitch,
-            'date_upload' => Carbon::now()
-        ]);
+        return $query;
     }
 }

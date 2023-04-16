@@ -1,7 +1,17 @@
-import { searchUser, searchUserWithHeader } from "~/services/searchService";
+import { 
+    searchUser, searchUserWithHeader, searchTopVideo, 
+    searchTopUser 
+} from "~/services/searchService";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { GET_RESULT_SEARCH } from "../constants/search";
-import { setResultSearch } from "../actions/search";
+import { 
+    GET_RESULT_SEARCH, GET_TOP_USER, GET_TOP_VIDEO 
+} from "../constants/search";
+import { 
+    setResultSearch, setTopUser, setTopVideo 
+} from "../actions/search";
+import {
+    setAlertMessage
+} from "../actions/user";
 
 function* sagaSearch(action) {
     try {
@@ -21,8 +31,32 @@ function* sagaSearch(action) {
     }
 }
 
+function* sagaSearchTopVideo(action) {
+    try {
+        const response = yield call(searchTopVideo, action.payload.q);
+        const { data } = response;
+        yield put(setTopVideo(data.data));
+    } catch (error) {
+        console.log(error)
+        yield put(setAlertMessage("Website đang xảy ra sự cố, hãy thử lại sau !"));
+    }
+}
+
+function* sagaSearchTopUser(action) {
+    try {
+        const response = yield call(searchTopUser, action.payload.q);
+        const { data } = response;
+        yield put(setTopUser(data.data));
+    } catch (error) {
+        console.log(error)
+        yield put(setAlertMessage("Website đang xảy ra sự cố, hãy thử lại sau !"));
+    }
+}
+
 function* followSearch() {
     yield takeLatest(GET_RESULT_SEARCH, sagaSearch);
+    yield takeLatest(GET_TOP_VIDEO, sagaSearchTopVideo);
+    yield takeLatest(GET_TOP_USER, sagaSearchTopUser);
 }
 
 export default followSearch;

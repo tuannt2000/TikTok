@@ -4,25 +4,16 @@ import ReactPlayer from 'react-player';
 import ActionItem from './ActionItem';
 import { VideoLikeIcon, VideoMessageIcon, VideoShareIcon, VideoLikedIcon } from '~/components/Icons';
 import { Share } from '~/components/Popper';
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { useDispatch } from "react-redux";
-import { likeVideo, setVideoDetail } from '~/redux/actions/video';
+import { likeVideo } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
-function Video({ data, video }) {
+function Video({ data, onClick }) {
     const [like, setLike] = useState(false);
     const [countLike, setCountLike] = useState(0);
-    const [videoId, setVideoId] = useState(0);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (videoId === data.id) {
-            setLike(!like);
-            setCountLike(like ? countLike - 1 : countLike + 1);
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [video.message])
 
     useEffect(() => {
         setLike(data.likes.length ? true : false);
@@ -31,19 +22,15 @@ function Video({ data, video }) {
 
     const handleClick = async () => {
         dispatch(likeVideo({video_id: data.id}));
-        setVideoId(data.id)
-    }
-
-    const handleVideoDetail = () => {
-        window.history.replaceState(null, "", '/@' + data.user.nickname + '/video/' + data.id)
-        dispatch(setVideoDetail(data));
+        setLike(!like)
+        setCountLike(like ? countLike - 1 : countLike + 1 )
     }
 
     return (
         <div className={cx('video-wrapper')}>
             <div 
                 className={cx('video-container')} 
-                onClick={handleVideoDetail}
+                onClick={() => onClick(data)}
             >
                 <ReactPlayer
                     className={cx('video')}
@@ -56,8 +43,8 @@ function Video({ data, video }) {
                     { like ? <VideoLikedIcon /> : <VideoLikeIcon/> }
                 </ActionItem>
                 <ActionItem
-                    text={805}
-                    onClick={handleVideoDetail}
+                    text={data.comments_count}
+                    onClick={() => onClick(data)}
                 >
                     <VideoMessageIcon />
                 </ActionItem>
@@ -69,4 +56,4 @@ function Video({ data, video }) {
     );
 }
 
-export default Video;
+export default memo(Video);

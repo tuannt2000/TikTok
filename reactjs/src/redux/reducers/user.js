@@ -3,7 +3,9 @@ import * as types from '../constants/user';
 const initState = {
     user: [],
     userFollowing: [],
+    setUserFollowing: false,
     userOffer: [],
+    setUserOffer: false,
     currentUser: {},
     profile: {},
     alertMessage: ''
@@ -19,12 +21,14 @@ export const userReducer = (state = initState, action) => {
         case types.SET_USER_FOLLOWING:
             return {
                 ...state,
-                userFollowing: [...action.payload]
+                userFollowing: [...action.payload],
+                setUserFollowing: true
             };
         case types.SET_USER_OFFER:
             return {
                 ...state,
-                userOffer: [...action.payload]
+                userOffer: [...action.payload],
+                setUserOffer: true
             };
         case types.SET_INFO_USER:
             return {
@@ -40,6 +44,19 @@ export const userReducer = (state = initState, action) => {
             return {
                 ...state,
                 alertMessage: action.payload
+            };
+        case types.SET_USER_FOLLOW:
+            const new_list_user_offer = state.userOffer.map(result => {
+                if (result.id === action.payload) {
+                    result.following = !result.following;
+                }
+
+                return result;
+            })
+
+            return {
+                ...state,
+                userOffer: new_list_user_offer
             };
         default:
             return state;

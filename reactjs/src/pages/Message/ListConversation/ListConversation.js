@@ -17,7 +17,8 @@ function ListConversation({ idRoom, handleClick }) {
         if (user_id) {
             dispatch(getAllRooms(user_id));
         }
-    }, [dispatch, user_id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user_id]);
 
     return (  
         <div className={cx('wrapper')}>

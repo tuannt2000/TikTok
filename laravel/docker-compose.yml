@@ -1,24 +1,22 @@
 version: "3.7"
 services:
-  app:
-    build:
-      args:
-        user: sammy
-        uid: 1000
-      context: ./
-      dockerfile: Dockerfile
-    image: travellist
-    container_name: travellist-app
-    restart: unless-stopped
-    working_dir: /var/www/
+  web:
+    build: ./docker/web/
+    image: tiktok-app
+    container_name: tiktok-app
     volumes:
-      - ./:/var/www
-    networks:
-      - travellist
+    - .:/home/tiktok
+    - ./docker/web/httpd.conf:/etc/httpd/conf/httpd.conf
+    - ./docker/web/php.ini:/etc/php.ini
+    ports:
+    - 8000:80
+    depends_on:
+    - db
+    tty: true
 
   db:
     image: mysql:5.7
-    container_name: travellist-db
+    container_name: tiktok-db
     restart: unless-stopped
     ports:
       - 4306:3306
@@ -30,22 +28,4 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
-    networks:
-      - travellist
-
-  nginx:
-    image: nginx:alpine
-    container_name: travellist-nginx
-    restart: unless-stopped
-    ports:
-      - 8000:80
-    volumes:
-      - ./:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d/
-    networks:
-      - travellist
-
-networks:
-  travellist:
-    driver: bridge
+      - ./docker/mysql:/docker-entrypoint-initdb.d

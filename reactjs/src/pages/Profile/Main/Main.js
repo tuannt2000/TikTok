@@ -3,38 +3,68 @@ import styles from "./Main.module.scss";
 import { UserIcon, LockIcon } from "~/components/Icons";
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { myVideo } from '~/redux/actions/video';
-import Video from "./Video";
+import { myVideo, setListVideoDetail, getMyVideoLike } from '~/redux/actions/video';
+import Video from "~/components/Video";
 
 const cx = classNames.bind(styles);
 
 const TAB = [
     {
         className: 'video',
-        title: 'Video'
+        title: 'Video',
+        title_empty: 'Tải video đầu tiên của bạn lên',
+        desc_empty: 'Video của bạn sẽ xuất hiện tại đây'
     },
     {
         className: 'like',
         title: 'Đã thích',
-        icon: <LockIcon />
+        icon: <LockIcon />,
+        title_empty: 'Chưa thích video nào',
+        desc_empty: 'Những video bạn đã thích sẽ xuất hiện tại đây'
     }
 ]
 
-function Main() {
+function Main({ profile }) {
     const [active, setActive] = useState(0);
     const [hover, setHover] = useState(-1);
     const video = useSelector(state => state.video);
+    const [listVideo, setListVideo] = useState([]); 
     const dispatch = useDispatch();
     const line = useRef();
 
     useEffect(() => {
-        dispatch(myVideo());
-    }, [dispatch]);
+        dispatch(myVideo(profile.id));
+        dispatch(getMyVideoLike(profile.id));
+        setActive(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [profile]);
+
+    useEffect(() => {
+        setListVideo(video.my_video);
+    }, [video.my_video]);
 
     useEffect(() => {
         const position = hover >= 0 ? hover * 230 : active * 230;
         line.current.style.transform = 'translateX(' + position + 'px)';
     }, [active, hover])
+
+    const handleShowVideoDetail = (data) => {
+        window.history.replaceState(null, "", '/@' + data.user.nickname + '/video/' + data.id)
+        dispatch(setListVideoDetail({
+            list_video_detail: listVideo,
+            data: data
+        }));
+    }
+
+    const handleClick = (index) => {
+        setActive(index);
+
+        if (index === 0) {
+            setListVideo(video.my_video)
+        } else if (index === 1) {
+            setListVideo(video.my_video_like)
+        }
+    }
 
     return (
         <div className={cx('container')}>
@@ -42,7 +72,7 @@ function Main() {
                 {TAB.map((result, index) => (
                     <p
                         key={index}
-                        onClick={() => setActive(index)}
+                        onClick={() => handleClick(index)}
                         onMouseEnter={() => setHover(index)}
                         onMouseLeave={() => setHover(-1)}
                         className={cx(result.className, { 'active': active === index })}
@@ -53,11 +83,11 @@ function Main() {
                 ))}
                 <div className={cx('bottom-line')} ref={line}></div>
             </div>
-            {video.my_video.length ? (
+            {listVideo.length ? (
                 <div className={cx('DivThreeColumnContainer')}>
                     <div className={cx('DivVideoFeedV2')}>
-                        {video.my_video.map((result, index) => (
-                            <Video key={index} index={index} data={result} />
+                        {listVideo.map((result, index) => (
+                            <Video onClick={handleShowVideoDetail} list_video={listVideo} key={index} data={result} />
                         ))}
                     </div>
                 </div>
@@ -65,8 +95,8 @@ function Main() {
                 <main className={cx('main-wrapper')}>
                     <div className={cx('error-container')}>
                         <UserIcon className={cx('user-icon')} />
-                        <p className={cx('title-error')}>Tải video đầu tiên của bạn lên</p>
-                        <p className={cx('desc-error')}>Video của bạn sẽ xuất hiện tại đây</p>
+                        <p className={cx('title-error')}>{ TAB[active].title_empty }</p>
+                        <p className={cx('desc-error')}>{ TAB[active].desc_empty }</p>
                     </div>
                 </main>
             )}

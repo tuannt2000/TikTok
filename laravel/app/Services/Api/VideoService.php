@@ -41,6 +41,7 @@ class VideoService extends AbstractService implements VideoServiceInterface
     public function index() {
         try {
             $users_following = Follow::ofListIdUserFollowing(Auth::user()->id);
+            $users_following[] = Auth::user()->id;
 
             return [
                 'code' => 200,
@@ -56,11 +57,45 @@ class VideoService extends AbstractService implements VideoServiceInterface
         }
     }
 
-    public function getMyVideo() {
+    public function following() {
+        try {
+            $users_following = Follow::ofListIdUserFollowing(Auth::user()->id);
+
+            return [
+                'code' => 200,
+                'data' => $this->videoRepository->videoFollowing($users_following)
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function getMyVideo($user_id) {
         try {
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->getMyVideo(Auth::user()->id)
+                'data' => $this->videoRepository->getMyVideo($user_id)
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function getMyVideoLike($user_id) {
+        try {
+            return [
+                'code' => 200,
+                'data' => $this->videoRepository->getMyVideoLike($user_id)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -127,6 +162,29 @@ class VideoService extends AbstractService implements VideoServiceInterface
             return [
                 'code' => 400,
                 'message' => $err,
+            ];
+        }
+    }
+
+    /**
+     * @param $key_word
+     * @return array
+     */
+    public function findTopVideo($key_word)
+    {
+        try {
+            $data = $this->videoRepository->getTopVideo($key_word);
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
             ];
         }
     }

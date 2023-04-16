@@ -51,4 +51,50 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $list_room;
     }
+
+    public function createRoom($users_id) {
+        $count = $this->model->withTrashed()->count();
+        $room_id = $count/2 + 1;
+        $query = $this->model->insert([
+            [
+                'room_id' => $room_id,
+                'user_id' => $users_id[0],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'room_id' => $room_id,
+                'user_id' => $users_id[1],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        ]);
+
+        return $query;
+    }
+
+    public function getRoomCreated($users_id) {
+        $rooms = $this->model
+            ->withTrashed()
+            ->select(DB::raw("count(room_id) as count"), 'room_id')
+            ->whereIn('user_id', $users_id)
+            ->groupBy('room_id')
+            ->having('count', 2)
+            ->first();
+
+        return $rooms;
+    }
+
+    public function deleteRoomCreated($room_id) {
+        $this->model
+            ->where('room_id', $room_id)
+            ->delete();
+    }
+
+    public function restoreRoomCreated($room_id) {
+        $this->model
+            ->withTrashed()
+            ->where('room_id', $room_id)
+            ->restore();
+    }
 }

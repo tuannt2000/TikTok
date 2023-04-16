@@ -3,25 +3,59 @@ import styles from './Home.module.scss';
 import Avatar from '~/components/Avatar';
 import Header from "./Header";
 import Video from "./Video";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AccountOffer } from '~/components/Popper';
 import { useSelector, useDispatch } from "react-redux";
-import { listVideo } from '~/redux/actions/video';
+import { listVideo, listVideoFollowing, setListVideoDetail } from '~/redux/actions/video';
+import { useLocation } from "react-router-dom";
+import { postFollow } from "~/redux/actions/user";
 
 const cx = classNames.bind(styles);
 
 function Home() {
     const video = useSelector(state => state.video);
+    const location = useLocation();
+    const [listVideoState, setListVideoState] = useState(location.pathname === '/' ? video.list_video : video.list_video_following);
     const dispatch = useDispatch();
 
+    const following = location.pathname === '/following';
+
     useEffect(() => {
-        dispatch(listVideo());
+        const new_list_video = location.pathname === '/' ? video.list_video : video.list_video_following
+        setListVideoState(new_list_video);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [video.list_video, video.list_video_following]);
+
+    useEffect(() => {
+        if (listVideo.length) {
+            return;
+        }
+
+        if (location.pathname === '/') {
+            dispatch(listVideo());
+        } else if (location.pathname === '/following') {
+            dispatch(listVideoFollowing());
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname]);
+
+    const hanldeSumitFollow = (data) => {
+        dispatch(postFollow({
+            user_follower_id: data.id
+        }));
+    }
+
+    const handleVideoDetail = (data) => {
+        window.history.replaceState(null, "", '/@' + data.user.nickname + '/video/' + data.id)
+        dispatch(setListVideoDetail({
+            list_video_detail: listVideoState,
+            data: data
+        }));
+    }
 
     return (
         <div>
-            {video.list_video.map((result, index) => (
+            {listVideoState.map((result, index) => (
                 <div key={index} className={cx('list-item')}>
                     <AccountOffer home data={result.user}>
                         <Avatar
@@ -30,8 +64,8 @@ function Home() {
                         />
                     </AccountOffer>
                     <div className={cx('main-container')}>
-                        <Header data={result} />
-                        <Video data={result} video={video} />
+                        <Header onClick={hanldeSumitFollow} following={following} data={result} />
+                        <Video onClick={handleVideoDetail} data={result} />
                     </div>
                 </div>
             ))}

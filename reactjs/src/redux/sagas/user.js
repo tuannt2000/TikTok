@@ -20,8 +20,10 @@ import {
     setUserFollowing,
     setUserOffer,
     setInfoUser,
-    setProfileUser
+    setProfileUser,
+    setUserFollow
 } from "../actions/user";
+import { setVideoUserFollow } from "../actions/video";
 
 function* sagaAllUser(action) {
     try {
@@ -48,7 +50,8 @@ function* sagaUserAccountOffer(action) {
     try {
         const res = yield call(getListAccountOffer, action.payload);
         const { data } = res;
-        yield put(setUserOffer(data.data));
+        const new_data = data.data.map(obj => ({ ...obj, following: false }))
+        yield put(setUserOffer(new_data));
     } catch (error) {
         console.log(error);
     }
@@ -77,6 +80,8 @@ function* sagaProfileUser(action) {
 
 function* sagaFollow(action) {
     try {
+        yield put(setUserFollow(action.payload.user_follower_id));
+        yield put(setVideoUserFollow(action.payload.user_follower_id));
         yield call(follow, action.payload);
     } catch (error) {
         console.log(error);

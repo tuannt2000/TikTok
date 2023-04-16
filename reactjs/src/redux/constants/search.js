@@ -1,2 +1,8 @@
 export const GET_RESULT_SEARCH = 'GET_RESULT_SEARCH';
 export const SET_RESULT_SEARCH = 'SET_RESULT_SEARCH';
+export const GET_TOP_VIDEO = 'GET_TOP_VIDEO';
+export const SET_TOP_VIDEO = 'SET_TOP_VIDEO';
+export const GET_TOP_USER = 'GET_TOP_USER';
+export const SET_TOP_USER = 'SET_TOP_USER';
+export const GET_SEARCH_VIDEO = 'GET_SEARCH_VIDEO';
+export const SET_SEARCH_VIDEO = 'SET_SEARCH_VIDEO';

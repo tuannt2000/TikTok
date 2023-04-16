@@ -31,19 +31,19 @@ function Sidebar({ header_only = false }) {
                     renderThumbVertical={props => <div {...props} className={cx('thumb-vertical')} />}
                     renderTrackVertical={props => <div {...props} className={cx('track-vertical')} />}
                 >
-                <div
-                    className={cx('wrapper')}
-                >
-                    <Menu />
-                    {user.profile.id === user.currentUser.id || (
-                        <Account offer title="Tài khoản được đề xuất" showMore="Xem tất cả" />
-                    )}
-                    <Account follow title="Các tài khoản đang follow" showMore="Xem thêm" />
-                    <Discover />
-                    <Footer />
-                </div>
-            </Scrollbars>
-        </aside>
+                    <div
+                        className={cx('wrapper')}
+                    >
+                        <Menu />
+                        {user.profile.id === user.currentUser.id || (
+                            <Account offer title="Tài khoản được đề xuất" showMore="Xem tất cả" />
+                        )}
+                        <Account follow title="Các tài khoản đang follow" showMore="Xem thêm" />
+                        <Discover />
+                        <Footer />
+                    </div>
+                </Scrollbars>
+            </aside>
         </div >
     );
 }

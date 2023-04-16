@@ -7,28 +7,6 @@
     flex-direction: row;
 }
 
-// video
-.video-container {
-    flex: 1 0 600px;
-    max-width: 100%;
-    background: rgb(0, 0, 0);
-    position: relative;
-    overflow: hidden;
-    padding: 0px 80px;
-}
-
-.video-background {
-    position: absolute;
-    width: 10%;
-    height: 10%;
-    filter: blur(2px);
-    left: 50%;
-    top: 50%;
-    transform: scale(11);
-    opacity: 0.3;
-    background: center center / cover no-repeat;
-}
-
 
 
 // content
