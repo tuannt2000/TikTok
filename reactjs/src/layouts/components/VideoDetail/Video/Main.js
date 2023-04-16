@@ -1,14 +1,13 @@
 import classNames from "classnames/bind";
 import styles from './Video.module.scss';
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
-function Main({ video, play }) {
-    const videoRef = useRef();
-
+const Main = forwardRef(({ video, play }, ref) => {
     useEffect(() => {
-        play ? videoRef.current.play() : videoRef.current.pause();
+        play ? ref.current.play() : ref.current.pause();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [play]);
 
     return (
@@ -17,7 +16,7 @@ function Main({ video, play }) {
                 <img src={video.cover_image} className={cx('img-poster')} alt="" />
                 <div className={cx('div-basic-player-wrapper')}>
                     <div className={cx('video-playing')}>
-                        <video loop ref={videoRef} autoPlay src={video.url}></video>
+                        <video loop ref={ref} autoPlay src={video.url}></video>
                     </div>
                 </div>
             </div>
@@ -28,6 +27,6 @@ function Main({ video, play }) {
             <div className={cx('video-control-bottom')}></div>
         </div>
     );
-}
+})
 
 export default Main;

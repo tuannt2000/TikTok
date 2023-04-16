@@ -19,12 +19,13 @@ function Profile() {
         return () => {
             dispatch(setProfileUser({}));
         }
-    },[dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className={cx('container')}>
             <Header profile={profile} />
-            <Main />
+            <Main profile={profile} />
         </div>
     );
 }

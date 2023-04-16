@@ -18,12 +18,23 @@ export const setListVideoFollowing = ( data ) => ({
     payload: data
 });
 
-export const myVideo = () => ({
-    type: types.GET_MY_VIDEO
+export const myVideo = (data) => ({
+    type: types.GET_MY_VIDEO,
+    payload: data
 });
 
 export const setMyVideo = ( data ) => ({
     type: types.SET_MY_VIDEO,
+    payload: data
+});
+
+export const getMyVideoLike = (data) => ({
+    type: types.GET_MY_VIDEO_LIKE,
+    payload: data
+});
+
+export const setMyVideoLike = ( data ) => ({
+    type: types.SET_MY_VIDEO_LIKE,
     payload: data
 });
 
