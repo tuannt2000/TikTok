@@ -51,6 +51,16 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         return $video;
     }
 
+    public function getMyVideoLike($id) {
+        $query = $this->__getQueryListVideo();
+        $video = $query
+            ->join('likes', 'likes.video_id', '=', 'videos.id')
+            ->where('likes.user_id', $id)
+            ->get();
+
+        return $video;
+    }
+
     public function uploadVideo($data)
     {
         $data['user_id'] = Auth::user()->id;

@@ -10,9 +10,18 @@ export const getListVideoFollowing = async () => {
     return api.get(url);
 };
 
-export const getMyVideo = async () => {
+export const getMyVideo = async (id) => {
     const url ='/video/my-video';
-    return api.get(url);
+    return api.get(url, {
+        params: {id}
+    });
+};
+
+export const getMyVideoLike = async (id) => {
+    const url ='/video/my-video/like';
+    return api.get(url, {
+        params: {id}
+    });
 };
 
 export const uploadVideo = async (data) => {

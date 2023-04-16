@@ -4,6 +4,7 @@ const initState = {
     list_video: [],
     list_video_following: [],
     my_video: [],
+    my_video_like: [],
     message: '',
     list_video_detail: [],
     video_detail: {}
@@ -25,6 +26,11 @@ export const videoReducer = (state = initState, action) => {
             return {
                 ...state,
                 my_video: [...action.payload]
+            }
+        case types.SET_MY_VIDEO_LIKE:
+            return {
+                ...state,
+                my_video_like: [...action.payload]
             }
         case types.SET_LIST_VIDEO_DETAIL:
             return {
