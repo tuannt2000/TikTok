@@ -8,7 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setListVideoDetail, setVideoDetail } from '~/redux/actions/video';
 import { useLocation } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Voice from "./Voice";
 
 const cx = classNames.bind(styles);
@@ -20,6 +20,12 @@ function Video({ video }) {
     const location = useLocation();
 
     const videoRef = useRef();
+
+    useEffect(() => {
+        if (videoRef) {
+            videoRef.current.volume = 0.2;
+        }
+    }, [videoRef, video])
 
     const handleHideVideoDetail = () => {
         window.history.replaceState(null, "", location.pathname)
