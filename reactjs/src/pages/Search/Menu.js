@@ -9,6 +9,7 @@ function Menu({ menu }) {
     const [newMenu, setNewMenu] = useState(menu);
     const location = useLocation();
     const navigate = useNavigate();
+    console.log(newMenu);
 
     const line = useRef();
     const currentActive = useRef();
@@ -16,7 +17,7 @@ function Menu({ menu }) {
     useEffect(() => {
         const menuActive = menu.map(result => {
             result.active = false;
-            if (location.pathname === result.link) {
+            if (location.pathname === result.pathname) {
                 result.active = true;
             }
 
@@ -25,7 +26,7 @@ function Menu({ menu }) {
 
         setNewMenu(menuActive);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location]);
+    }, [location.pathname]);
 
     useEffect(() => {
         if (line.current && currentActive.current) {

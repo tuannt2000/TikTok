@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "./Default.module.scss";
+import styles from "./Video.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getTopVideo } from "~/redux/actions/search";
@@ -9,10 +9,10 @@ import { setListVideoDetail } from "~/redux/actions/video";
 
 const cx = classNames.bind(styles);
 
-function Default() {
+function TopVideo() {
     const topVideoList = useSelector(state => state.search.search_top_video);
     const dispatch = useDispatch();
-    let [searchParams] = useSearchParams()
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         dispatch(getTopVideo({q: searchParams.get('q')}))
@@ -43,4 +43,4 @@ function Default() {
     );
 }
 
-export default Default;
+export default TopVideo;

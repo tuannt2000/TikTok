@@ -10,7 +10,7 @@ import { useState, useEffect, useRef, memo } from 'react';
 import { useDebounce } from '~/hooks';
 import { useSelector, useDispatch } from "react-redux";
 import { getResultSearch, setResultSearch } from '~/redux/actions/search';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -21,8 +21,13 @@ function Search() {
     const currentUser  = useSelector(state => state.user.currentUser);
     const dispatch     = useDispatch();
     const navigate     = useNavigate();
+    const [searchParams] = useSearchParams();
     const debounced    = useDebounce(searchValue, 500);
     const inputTextRef = useRef();
+
+    useEffect(() => {
+        setSearchValue(searchParams.get('q') ?? '');
+    }, [searchParams]);
 
     useEffect(() => {
         if(!debounced.trim()){
@@ -49,6 +54,8 @@ function Search() {
 
     const handleSubmit = (e) => {
         if (e.keyCode === 13 && searchValue) {
+            setShowResult(false);
+            inputTextRef.current.blur();
             navigate('/search?q=' + searchValue);
         }
     }

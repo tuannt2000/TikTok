@@ -103,7 +103,7 @@ function Header({ max_width = false }) {
                     </div>
                 </div>
             </div>
-        </header >
+        </header>
     );
 }
 

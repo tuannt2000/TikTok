@@ -37,7 +37,7 @@ function Video({ data, search = false, className, onClick = defaultFn }) {
                                     { hover && (
                                         <div className={cx('DivBasicPlayerWrapper')}>
                                             <div className={cx('xgplayer-container')}>
-                                                <video src={data.url} autoPlay muted className={cx('video')}></video>
+                                                <video src={data.url} autoPlay loop muted className={cx('video')}></video>
                                             </div>
                                         </div>
                                     )}
