@@ -20,3 +20,10 @@ export const searchTopVideo = (q) => {
         params: {q}
     });
 };
+
+export const searchTopUser = (q) => {
+    const url ='/search/top-user';
+    return api.get(url, {
+        params: {q}
+    });
+};

@@ -164,4 +164,27 @@ class UserService extends AbstractService implements UserServiceInterface
             ];
         }
     }
+
+    /**
+     * @param $key_word
+     * @return array
+     */
+    public function findTopUser($key_word)
+    {
+        try {
+            $data = $this->userRepository->getTopUser($key_word);
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
 }

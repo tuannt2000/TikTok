@@ -4,6 +4,7 @@ const initState = {
     data: [],
     isLoading: false,
     search_top_video: [],
+    search_top_user: [],
     search_video: []
 };
 
@@ -19,6 +20,11 @@ export const searchReducer = (state = initState, action) => {
             return {
                 ...state,
                 search_top_video: action.payload
+            }
+        case types.SET_TOP_USER:
+            return {
+                ...state,
+                search_top_user: action.payload
             }
         case types.SET_SEARCH_VIDEO:
             return {

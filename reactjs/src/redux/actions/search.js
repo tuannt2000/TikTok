@@ -20,6 +20,16 @@ export const setTopVideo = ( data ) => ({
     payload: data
 });
 
+export const getTopUser = ( data ) => ({
+    type: types.GET_TOP_USER,
+    payload: data
+});
+
+export const setTopUser = ( data ) => ({
+    type: types.SET_TOP_USER,
+    payload: data
+});
+
 export const getSearchVideo = ( data ) => ({
     type: types.GET_SEARCH_VIDEO,
     payload: data

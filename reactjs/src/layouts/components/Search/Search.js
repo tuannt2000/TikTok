@@ -10,7 +10,7 @@ import { useState, useEffect, useRef, memo } from 'react';
 import { useDebounce } from '~/hooks';
 import { useSelector, useDispatch } from "react-redux";
 import { getResultSearch, setResultSearch } from '~/redux/actions/search';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -21,8 +21,13 @@ function Search() {
     const currentUser  = useSelector(state => state.user.currentUser);
     const dispatch     = useDispatch();
     const navigate     = useNavigate();
+    const [searchParams] = useSearchParams();
     const debounced    = useDebounce(searchValue, 500);
     const inputTextRef = useRef();
+
+    useEffect(() => {
+        setSearchValue(searchParams.get('q') ? decodeURI(searchParams.get('q')) : '');
+    }, [searchParams]);
 
     useEffect(() => {
         if(!debounced.trim()){
@@ -49,7 +54,14 @@ function Search() {
 
     const handleSubmit = (e) => {
         if (e.keyCode === 13 && searchValue) {
-            navigate('/search?q=' + searchValue);
+            setShowResult(false);
+            inputTextRef.current.blur();
+            navigate({
+                pathname: "/search",
+                search: createSearchParams({
+                    q: encodeURI(searchValue)
+                }).toString()
+            });
         }
     }
 
@@ -65,7 +77,15 @@ function Search() {
                             {search.data.map(result => (
                                 <AccountItem hanleClick={() => setShowResult(false)} key={result.id} data={result}/>
                             ))}
-                            <Link onClick={() => setShowResult(false)} to={`/search?q=${searchValue}`} className={cx('sug-more')}>
+                            <Link onClick={() => setShowResult(false)} 
+                                to={{
+                                    pathname: `/search`,
+                                    search: createSearchParams({
+                                        q: encodeURI(searchValue)
+                                    }).toString()
+                                }} 
+                                className={cx('sug-more')}
+                            >
                                 <p>Xem tất cả kết quả dành cho "{searchValue}"</p>
                             </Link>
                         </PopperWrapper>

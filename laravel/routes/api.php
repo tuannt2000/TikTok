@@ -39,6 +39,7 @@ Route::prefix('users')->group(function () {
 
 Route::prefix('search')->group(function () {
     Route::get ('/top-video',      [VideoController::class, 'findTopVideo']);
+    Route::get ('/top-user',       [UserController::class, 'findTopUser']);
 });
 
 Route::prefix('/')->middleware('auth:api')->group(function () {

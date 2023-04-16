@@ -31,6 +31,12 @@ function Menu({ children, items = [], hideOnClick = 'false', onChange = defaultF
                     data={item}
                     onClick={
                         () => {
+                            if (item.title === "Đăng xuất") {
+                                localStorage.removeItem("token");
+                                window.location.reload();
+                                return;
+                            }
+
                             if (isParent) {
                                 setHistory(prev => [...prev, item.children])
                             } else {

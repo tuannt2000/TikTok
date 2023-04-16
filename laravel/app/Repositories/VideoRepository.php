@@ -56,6 +56,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         $video = $query
             ->join('likes', 'likes.video_id', '=', 'videos.id')
             ->where('likes.user_id', $id)
+            ->whereNull('likes.deleted_at')
             ->get();
 
         return $video;

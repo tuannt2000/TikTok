@@ -6,7 +6,6 @@ const routes = {
     feedback: '/feedback',
     search: '/search',
     searchType: '/search/:type',
-    live: '/live',
     messages: '/messages',
     pageNotFound: '/404',
     webError: '/500'

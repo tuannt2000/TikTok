@@ -74,6 +74,11 @@ img {
     text-overflow: ellipsis;
 }
 
+.avatar-user-link {
+    flex: 0 0 64px;
+    margin: 16px;
+}
+
 @keyframes spinner {
     from {
         transform: rotate(0);
