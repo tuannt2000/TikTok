@@ -7,7 +7,12 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-            @yield('content')
+            <!-- Main Content -->
+            <div id="content">
+                @include('layouts/sections/topbar')
+                @yield('content')
+            </div>
+            <!-- End of Main Content -->
 
             @include('layouts/sections/footer')
         </div>

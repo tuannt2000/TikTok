@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function() {
     return view('content/dashboard/index');
 })->name('dashboard');
+
+Route::get('/users', [UsersController::class, 'index'])->name('users');
 
 Route::get('/login', function() {
     return view('content/auth/login');
