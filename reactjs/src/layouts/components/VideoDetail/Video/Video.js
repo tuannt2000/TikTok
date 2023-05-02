@@ -6,7 +6,7 @@ import {
     PrevVideoIcon, NextVideoIcon, ReportVideoIcon,
 } from "~/components/Icons";
 import { useDispatch, useSelector } from "react-redux";
-import { setListVideoDetail, setVideoDetail } from '~/redux/actions/video';
+import { setListVideoDetail, setReportVideo, setVideoDetail } from '~/redux/actions/video';
 import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Voice from "./Voice";
@@ -78,7 +78,13 @@ function Video({ video }) {
                     <NextVideoIcon />
                 </button>
             )}
-            <div className={cx('div-report-text')}>
+            <div 
+                className={cx('div-report-text')}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(setReportVideo(true));
+                }}
+            >
                 <ReportVideoIcon className={cx('report-video-icon')} />
                 Báo cáo
             </div>

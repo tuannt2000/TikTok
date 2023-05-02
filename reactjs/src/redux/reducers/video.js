@@ -7,7 +7,8 @@ const initState = {
     my_video_like: [],
     message: '',
     list_video_detail: [],
-    video_detail: {}
+    video_detail: {},
+    report: false
 };
 
 export const videoReducer = (state = initState, action) => {
@@ -64,6 +65,11 @@ export const videoReducer = (state = initState, action) => {
                 ...state,
                 list_video: new_list_video,
                 list_video_following: new_list_video_following
+            }
+        case types.SET_REPORT_VIDEO:
+            return {
+                ...state,
+                report: action.payload
             }
         default:
             return state;
