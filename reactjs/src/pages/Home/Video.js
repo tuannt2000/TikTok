@@ -50,7 +50,7 @@ function Video({ data, onClick }) {
                         className={cx('div-report-text')}
                         onClick={(e) => {
                             e.stopPropagation();
-                            dispatch(setReportVideo(true));
+                            dispatch(setReportVideo({ video_id: data.id, check: true }));
                         }}
                     >
                         <ReportVideoIcon className={cx('report-video-icon')} />

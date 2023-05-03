@@ -8,6 +8,7 @@ export const MENU_REPORT = [
                 children: {
                     data: [
                         {
+                            id: 1,
                             title: "Hình ảnh khỏa thân hoặc hoạt động tình dục của trẻ vị thành niên",
                             report_text: [
                                 "Nội dung để lộ bộ phận sinh dục, mông hoặc vùng mu của trẻ vị thành niên hay núm vú của bé gái ở tuổi vị thành niên",
@@ -25,6 +26,7 @@ export const MENU_REPORT = [
                 children: {
                     data: [
                         {
+                            id: 2,
                             title: "Lạm dụng hoặc tội phạm nhắm vào trẻ vị thành niên",
                             report_text: [
                                 "Nội dung có tính chất yêu cầu, cổ xúy hoặc tạo điều kiện cho hành vi tấn công tình dục, sàm sỡ, giết người, lạm dụng hoặc bỏ bê thể chất, bắt cóc trẻ em, cha mẹ bắt cóc con cái ra nước ngoài, buôn người, lao động trẻ em, tảo hôn, bóc lột trẻ vị thành niên trong các hoạt động mại dâm, lạm dụng tình dục trẻ vị thành niên trực tuyến trên LIVE hoặc bóc lột tình dục trẻ vị thành niên trong trường hợp đi du lịch, tìm cách lấy hoặc phát tán tài liệu lạm dụng tình dục trẻ em hoặc hình ảnh lạm dụng trẻ em chung chung hơn, cũng như hành vi sản xuất, sở hữu hoặc phát tán tài liệu lạm dụng tình dục trẻ em.",
@@ -44,6 +46,7 @@ export const MENU_REPORT = [
                 children: {
                     data: [
                         {
+                            id: 3,
                             title: "Lạm dụng hoặc tội phạm nhắm vào trẻ vị thành niên",
                             report_text: [
                                "Nội dung gợi ý, trình bày, bắt chước hoặc cổ động trẻ vị thành niên sở hữu hoặc tiêu thụ đồ uống có cồn, thuốc lá hoặc ma túy, bao gồm sử dụng biểu tượng cảm xúc để cổ động hành vi sử dụng trái phép thuốc không kê đơn",
@@ -63,6 +66,7 @@ export const MENU_REPORT = [
         children: {
             data: [
                 {
+                    id: 4,
                     title: "Hành động và thử thách nguy hiểm",
                     report_text: [
                        "Nội dung trình bày hoặc gợi ý việc sử dụng không phù hợp các công cụ hoặc đồ vật nguy hiểm",
@@ -84,6 +88,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 5,
                                 title: "Tự tử và tự làm hại bản thân",
                                 report_text: [
                                    "Nội dung trình bày, cổ động, bình thường hóa hoặc ca ngợi hành vi tự tử hoặc tự làm hại bản thân",
@@ -99,6 +104,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 6,
                                 title: "Rối loạn ăn uống",
                                 report_text: [
                                    "Nội dung trình bày, cổ động, bình thường hóa hoặc ca ngợi hành vi rối loạn ăn uống",
@@ -120,6 +126,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 7,
                                 title: "Nội dung khiêu dâm và khoả thân của người lớn",
                                 report_text: [
                                    "Nội dung khỏa thân, đồi trụy hoặc khiêu dâm",
@@ -133,6 +140,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 8,
                                 title: "Tấn công tình dục hoặc chia sẻ hình ảnh thân mật riêng tư",
                                 report_text: [
                                    "Nội dung trình bày hoặc cổ động hành vi tấn công tình dục, chia sẻ hình ảnh thân mật riêng tư hoặc gạ gẫm tình dục"
@@ -149,6 +157,7 @@ export const MENU_REPORT = [
         children: {
             data: [
                 {
+                    id: 9,
                     title: "Tôi đã từng bị bắt nạt hoặc quấy rối",
                     report_text: [
                        "Nội dung hạ thấp nhân phẩm của người khác hoặc nguyền rủa họ gặp nguy hiểm",
@@ -166,6 +175,7 @@ export const MENU_REPORT = [
         children: {
             data: [
                 {
+                    id: 10,
                     title: "Hành vi thù địch",
                     report_text: [
                        "Nội dung có chứa phát ngôn thù địch hoặc liên quan đến hành vi thù địch",
@@ -185,6 +195,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 11,
                                 title: "Các tổ chức thù địch, khủng bố và tội phạm",
                                 report_text: [
                                    "Nội dung ca ngợi, tán thành, tôn vinh hoặc ủng hộ các tổ chức thù địch, khủng bố hoặc tội phạm."
@@ -198,6 +209,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 12,
                                 title: "Đe dọa bạo lực hoặc kích động bạo lực",
                                 report_text: [
                                    "Tuyên bố về ý định gây thương tích cho một người hoặc một nhóm người",
@@ -217,6 +229,7 @@ export const MENU_REPORT = [
         children: {
             data: [
                 {
+                    id: 13,
                     title: "Nội dung rác và tương tác giả mạo",
                     report_text: [
                        "Thông tin về cách tăng lượt xem, lượt thích, follower, bình luận hoặc hoạt động chia sẻ nội dung bằng cách giả tạo",
@@ -237,6 +250,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 14,
                                 title: "Y tế",
                                 report_text: [
                                    "Thông tin sai lệch có thể gây tổn hại đến sức khỏe của cá nhân hoặc cộng đồng, bao gồm tư vấn y tế gây hại hoặc thông tin không chính xác về các căn bệnh và vắc xin có thể gây chết người."
@@ -250,6 +264,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 15,
                                 title: "Các thông tin sai lệch gây nguy hiểm khác",
                                 report_text: [
                                    "Thông tin sai lệch gây kích động tư tưởng thù ghét hoặc thiên kiến",
@@ -273,6 +288,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 16,
                                 title: "Cổ vũ hoạt động phạm tội",
                                 report_text: [
                                    "Nội dung cổ động các hành vi gây tổn hại về thể chất, như hành hung hoặc bắt cóc",
@@ -292,6 +308,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 17,
                                 title: "Bán hoặc sử dụng vũ khí",
                                 report_text: [
                                    "Nội dung có hiển thị hình ảnh súng cầm tay, phụ kiện súng, đạn dược hoặc vũ khí gây nổ",
@@ -306,6 +323,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 18,
                                 title: "Ma túy hoặc chất bị kiểm soát",
                                 report_text: [
                                    "Nội dung trình bày hoặc quảng bá ma túy, tiêu thụ ma túy hoặc khuyến khích người khác sản xuất, sử dụng hoặc giao dịch ma túy hay các chất bị kiểm soát khác",
@@ -322,6 +340,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 19,
                                 title: "Cờ bạc",
                                 report_text: [
                                    "Nội dung quảng bá sòng bài, cá cược thể thao, đánh bài, xổ số, phần mềm và ứng dụng liên quan đến cờ bạc hoặc các dịch vụ cờ bạc khác"
@@ -335,6 +354,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 20,
                                 title: "Quyền riêng tư và dữ liệu cá nhân",
                                 report_text: [
                                    "Nội dung chứa dữ liệu cá nhân hoặc thông tin nhận dạng cá nhân"
@@ -348,6 +368,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 21,
                                 title: "Buôn bán động vật hoang dã",
                                 report_text: [
                                    "Nội dung trình bày hoặc cổ động hành vi buôn bán trái phép các loài động vật có nguy cơ tuyệt chủng, bao gồm mua bán các động vật còn sống, các bộ phận của động vật hoặc sản phẩm làm từ những động vật này",
@@ -362,6 +383,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 22,
                                 title: "Gian lận và lừa đảo",
                                 report_text: [
                                    "Nội dung cổ động hành vi lừa đảo",
@@ -380,6 +402,7 @@ export const MENU_REPORT = [
         children: {
             data: [
                 {
+                    id: 23,
                     title: "Nội dung bạo lực và phản cảm",
                     report_text: [
                        "Nội dung trình bày sự việc tử vong do tai nạn hoặc mang tính bạo lực của người thật",
@@ -402,6 +425,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 24,
                                 title: "Không thể tìm thấy lý do thích hợp để báo cáo",
                                 report_text: [
                                    "Ưu tiên của chúng tôi là cung cấp môi trường an toàn và mang tính hỗ trợ. Chúng tôi cũng khuyến khích môi trường tương tác xác thực bằng cách loại bỏ nội dung và tài khoản lừa đảo khỏi nền tảng."
@@ -415,6 +439,7 @@ export const MENU_REPORT = [
                     children: {
                         data: [
                             {
+                                id: 25,
                                 title: "Tôi không quan tâm đến nội dung này",
                                 report_text: [
                                    "Ưu tiên của chúng tôi là cung cấp môi trường an toàn và mang tính hỗ trợ. Chúng tôi cũng khuyến khích môi trường tương tác xác thực bằng cách loại bỏ nội dung và tài khoản lừa đảo khỏi nền tảng."

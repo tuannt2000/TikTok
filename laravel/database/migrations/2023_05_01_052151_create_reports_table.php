@@ -17,7 +17,7 @@ class CreateReportsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('video_id');
-            $table->string('body');
+            $table->integer('value');
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ArrowRightIcon, CloseIcon, ArrowLeftIcon } from "~/components/Icons";
 import { MENU_REPORT } from "~/constants/Report";
 import { useDispatch, useSelector } from "react-redux";
-import { setReportVideo } from '~/redux/actions/video';
+import { reportVideo, setReportVideo } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +28,17 @@ function Report() {
         setHistory((prev) => prev.slice(0, history.length - 1));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const options = {
+            video_id: report.video_id,
+            value: currentMenu.data[0].id
+        }
+        dispatch(reportVideo(options));
+        dispatch(setReportVideo({ video: null, check: false }));
+        setHistory((prev) => prev.slice(0, 1));
+    }
+
     const renderItems = () => {
         if (currentMenu.data.length === 1) {
             return (
@@ -48,7 +59,10 @@ function Report() {
                         </ul>
                     ))}
                     <div className={cx('div-footer')}>
-                        <button className={cx('button-submit')}>Gửi</button>
+                        <button 
+                            className={cx('button-submit')}
+                            onClick={handleSubmit}
+                        >Gửi</button>
                     </div>
                 </div>
             );
@@ -74,7 +88,7 @@ function Report() {
     };
 
     return (
-        <Modal open={report}>
+        <Modal open={report.check}>
             <div className={cx("container")}>
                 <div className={cx("modal")}>
                     <div className={cx("modal-wrapper")}>
@@ -90,7 +104,7 @@ function Report() {
                                     <div 
                                         className={cx("close-btn")}
                                         onClick={() => {
-                                            dispatch(setReportVideo());
+                                            dispatch(setReportVideo({ video: null, check: false }));
                                             setHistory((prev) => prev.slice(0, 1));
                                         }}
                                     >

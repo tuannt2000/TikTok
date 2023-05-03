@@ -33,3 +33,8 @@ export const likeVideo = async (data) => {
     const url ='/video/like';
     return api.post(url, data);
 };
+
+export const report = async (data) => {
+    const url ='/video/report';
+    return api.post(url, data);
+};

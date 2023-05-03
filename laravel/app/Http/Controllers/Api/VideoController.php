@@ -81,7 +81,7 @@ class VideoController extends Controller
     public function like(Request $request) {
         $result = $this->videoService->likeVideo($request->all());
 
-        return response()->json($result, 200);
+        return response()->json($result, $result['code']);
     }
 
     /**
@@ -92,7 +92,18 @@ class VideoController extends Controller
     public function findTopVideo(Request $request) {
         $result = $this->videoService->findTopVideo($request->q ? urldecode($request->q) : '');
 
-        return response()->json($result, 200);
+        return response()->json($result, $result['code']);
+    }
+
+    /**
+      * @param Request $request
+      *
+      * @return \Illuminate\Http\Response
+     */
+    public function report(Request $request) {
+        $result = $this->videoService->report($request->all());
+
+        return response()->json($result, $result['code']);
     }
 
     /**

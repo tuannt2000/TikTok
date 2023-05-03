@@ -63,7 +63,12 @@ export const setVideoUserFollow = ( data ) => ({
     payload: data
 });
 
-export const setReportVideo = ( data = false ) => ({
+export const setReportVideo = ( data = {} ) => ({
     type: types.SET_REPORT_VIDEO,
+    payload: data
+});
+
+export const reportVideo = ( data = false ) => ({
+    type: types.POST_REPORT_VIDEO,
     payload: data
 });

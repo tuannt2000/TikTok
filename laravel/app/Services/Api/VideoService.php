@@ -15,6 +15,7 @@ use App\Services\AbstractService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
+use App\Models\Report;
 
 class VideoService extends AbstractService implements VideoServiceInterface
 {
@@ -178,6 +179,34 @@ class VideoService extends AbstractService implements VideoServiceInterface
             return [
                 'code' => 200,
                 'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public function report($request)
+    {
+        try {
+            $options = [
+                'user_id' => Auth::user()->id,
+                'video_id' => $request['video_id'],
+                'value' => $request['value']
+            ];
+            $data = Report::create($options);
+
+            return [
+                'code' => 200,
+                'message' => 'Report successfully'
             ];
         } catch (\Throwable $err) {
             Log::error($err);

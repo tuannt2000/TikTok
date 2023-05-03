@@ -8,7 +8,10 @@ const initState = {
     message: '',
     list_video_detail: [],
     video_detail: {},
-    report: false
+    report: {
+        video_id: null,
+        check: false
+    }
 };
 
 export const videoReducer = (state = initState, action) => {

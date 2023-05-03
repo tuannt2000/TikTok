@@ -55,6 +55,7 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
         Route::post('/upload',   [VideoController::class, 'upload']);
         Route::post('/like',     [VideoController::class, 'like']);
         Route::get ('/my-video/like', [VideoController::class, 'getMyVideoLike']);
+        Route::post ('/report',  [VideoController::class, 'report']);
     });
 
     Route::prefix('comment')->group(function () {
