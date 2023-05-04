@@ -351,3 +351,34 @@
 .max-text {
     color: rgba(255, 76, 58, 0.92);
 }
+
+.div-error-message {
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 16px;
+    line-height: 22px;
+    flex: 1 1 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.div-empty {
+    color: rgba(22, 24, 35, 0.5);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 0px;
+    width: 100%;
+    padding: 0px 16px;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}

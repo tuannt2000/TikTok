@@ -18,6 +18,7 @@ class CreateReportsTable extends Migration
             $table->integer('user_id');
             $table->integer('video_id');
             $table->integer('value');
+            $table->string('progress');
             $table->timestamps();
         });
     }

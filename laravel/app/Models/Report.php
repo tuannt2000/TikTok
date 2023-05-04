@@ -14,6 +14,7 @@ class Report extends Model
     protected $fillable = [
         'video_id', 
         'user_id',
-        'value'
+        'value',
+        'progress'
     ];
 }

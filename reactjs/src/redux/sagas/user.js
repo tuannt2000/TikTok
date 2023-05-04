@@ -23,7 +23,7 @@ import {
     setProfileUser,
     setUserFollow
 } from "../actions/user";
-import { setVideoUserFollow } from "../actions/video";
+import { setMyVideoFollow, setVideoUserFollow } from "../actions/video";
 
 function* sagaAllUser(action) {
     try {
@@ -82,6 +82,7 @@ function* sagaFollow(action) {
     try {
         yield put(setUserFollow(action.payload.user_follower_id));
         yield put(setVideoUserFollow(action.payload.user_follower_id));
+        yield put(setMyVideoFollow(action.payload.user_follower_id));
         yield call(follow, action.payload);
     } catch (error) {
         console.log(error);

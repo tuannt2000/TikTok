@@ -21,8 +21,6 @@ class Video extends Model
         'description',
         'status',
         'comment',
-        'duet',
-        'stitch',
         'date_upload'
     ];
 
@@ -41,5 +39,10 @@ class Video extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function following()
+    {
+        return $this->hasMany(Follow::class, 'user_follower_id', 'user_id');
     }
 }

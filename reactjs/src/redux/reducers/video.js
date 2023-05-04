@@ -69,6 +69,19 @@ export const videoReducer = (state = initState, action) => {
                 list_video: new_list_video,
                 list_video_following: new_list_video_following
             }
+        case types.SET_MY_VIDEO_FOLLOW:
+            const new_my_video = state.my_video.map(result => {
+                if (result.user.id === action.payload) {
+                    result.user.following = !result.user.following;
+                }
+
+                return result;
+            });
+
+            return {
+                ...state,
+                my_video: new_my_video
+            }
         case types.SET_REPORT_VIDEO:
             return {
                 ...state,

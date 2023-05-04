@@ -200,7 +200,8 @@ class VideoService extends AbstractService implements VideoServiceInterface
             $options = [
                 'user_id' => Auth::user()->id,
                 'video_id' => $request['video_id'],
-                'value' => $request['value']
+                'value' => $request['value'],
+                'progress' => 'unprocessed'
             ];
             $data = Report::create($options);
 

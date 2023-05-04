@@ -12,6 +12,8 @@ use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class VideoRepository extends BaseRepository implements VideoRepositoryInterface
 {
@@ -43,9 +45,15 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
     }
 
     public function getMyVideo($id) {
+        $user_id = Auth::check() ? Auth::user()->id : null;
         $query = $this->__getQueryListVideo();
+        if ($user_id) {
+            $query = $query->with(['following' => function ($query) use ($user_id) {
+                $query->where('user_id', $user_id);
+            }]);
+        }
         $video = $query
-            ->where('user_id', $id)
+            ->where('videos.user_id', $id)
             ->get();
 
         return $video;
