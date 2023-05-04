@@ -36,6 +36,11 @@ export const videoReducer = (state = initState, action) => {
                 ...state,
                 my_video_like: [...action.payload]
             }
+        case types.REMOVE_MY_VIDEO_LIKE:
+            return {
+                ...state,
+                my_video_like: []
+            }
         case types.SET_LIST_VIDEO_DETAIL:
             return {
                 ...state,

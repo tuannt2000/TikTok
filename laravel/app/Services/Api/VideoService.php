@@ -41,12 +41,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
 
     public function index() {
         try {
-            $users_following = Follow::ofListIdUserFollowing(Auth::user()->id);
-            $users_following[] = Auth::user()->id;
+            $users_friend = Follow::ofListIdFriend(Auth::user()->id);
 
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->index($users_following)
+                'data' => $this->videoRepository->index($users_friend)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -60,11 +59,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
 
     public function following() {
         try {
-            $users_following = Follow::ofListIdUserFollowing(Auth::user()->id);
+            $users_friend = Follow::ofListIdFriend(Auth::user()->id);
 
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->videoFollowing($users_following)
+                'data' => $this->videoRepository->videoFollowing($users_friend)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -78,9 +77,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
 
     public function getMyVideo($user_id) {
         try {
+            $users_friend = Follow::ofListIdFriend(Auth::user()->id);
+
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->getMyVideo($user_id)
+                'data' => $this->videoRepository->getMyVideo($user_id, in_array($user_id, $users_friend))
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -92,11 +93,13 @@ class VideoService extends AbstractService implements VideoServiceInterface
         }
     }
 
-    public function getMyVideoLike($user_id) {
+    public function getMyVideoLike() {
         try {
+            $users_friend = Follow::ofListIdFriend(Auth::user()->id);
+            
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->getMyVideoLike($user_id)
+                'data' => $this->videoRepository->getMyVideoLike($users_friend)
             ];
         } catch (\Throwable $err) {
             Log::error($err);

@@ -62,7 +62,7 @@ function* sagaMyVideo(action) {
 
 function* sagaMyVideoLike(action) {
     try {
-        const res = yield call(getMyVideoLike, action.payload);
+        const res = yield call(getMyVideoLike);
         const { data } = res;
         yield put(setMyVideoLike(data.data));
     } catch (error) {

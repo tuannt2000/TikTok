@@ -37,8 +37,8 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
-    public function getMyVideoLike(Request $request) {
-        $result = $this->videoService->getMyVideoLike($request->id);
+    public function getMyVideoLike() {
+        $result = $this->videoService->getMyVideoLike();
 
         return response()->json($result, 200);
     }

@@ -28,9 +28,12 @@ export const setMyVideo = ( data ) => ({
     payload: data
 });
 
-export const getMyVideoLike = (data) => ({
+export const getMyVideoLike = () => ({
     type: types.GET_MY_VIDEO_LIKE,
-    payload: data
+});
+
+export const removeMyVideoLike = () => ({
+    type: types.REMOVE_MY_VIDEO_LIKE,
 });
 
 export const setMyVideoLike = ( data ) => ({
