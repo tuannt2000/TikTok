@@ -43,6 +43,12 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
+    public function delete(Request $request) {
+        $result = $this->videoService->delete($request->id);
+
+        return response()->json($result, $result['code']);
+    }
+
     /**
       * @param Request $request
       *

@@ -36,3 +36,8 @@ export const report = async (data) => {
     const url ='/video/report';
     return api.post(url, data);
 };
+
+export const deleteVideo = async (data) => {
+    const url ='/video/delete';
+    return api.post(url, data);
+};

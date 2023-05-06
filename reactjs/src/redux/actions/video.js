@@ -46,6 +46,11 @@ export const uploadVideo = ( data ) => ({
     payload: data
 });
 
+export const deleteVideo = ( data ) => ({
+    type: types.DELETE_MY_VIDEO,
+    payload: data
+});
+
 export const likeVideo = ( data ) => ({
     type: types.LIKE_VIDEO,
     payload: data

@@ -26,6 +26,14 @@ class Video extends Model
 
     protected $table = 'videos';
 
+    protected static function boot() {
+        parent::boot();
+        static::deleting(function($video) { // before delete() method call this
+            $video->likes()->delete();
+            $video->comments()->delete();
+        });
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);

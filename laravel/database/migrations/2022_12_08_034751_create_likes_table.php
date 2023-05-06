@@ -17,6 +17,7 @@ class CreateLikesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('video_id');
             $table->integer('user_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

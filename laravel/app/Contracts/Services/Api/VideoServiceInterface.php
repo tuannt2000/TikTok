@@ -8,6 +8,7 @@ interface VideoServiceInterface
     public function following();
     public function getMyVideo($user_id);
     public function getMyVideoLike();
+    public function delete($id);
     public function uploadVideo($data);
     public function likeVideo($data);
     public function findTopVideo($key_word);

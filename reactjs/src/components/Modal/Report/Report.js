@@ -93,7 +93,7 @@ function Report() {
                 <div className={cx("modal")}>
                     <div className={cx("modal-wrapper")}>
                         <section>
-                            <form>
+                            <form className={cx('report-form')}>
                                 <div className={cx("div-form-header")}>
                                     {history.length > 1 && (
                                         <div onClick={handlePrevMenu} className={cx("div-back")}>

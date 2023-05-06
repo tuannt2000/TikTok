@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
 use App\Models\Report;
+use App\Models\Video;
 
 class VideoService extends AbstractService implements VideoServiceInterface
 {
@@ -106,6 +107,29 @@ class VideoService extends AbstractService implements VideoServiceInterface
 
             return [
                 'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function delete($id) {
+        try {
+            $video = Video::findOrFail($id);
+            if ($video->user_id != Auth::user()->id) {
+                throw new \Exception('Video not found');
+            }
+
+            $this->videoRepository->delete($id);
+
+            return [
+                'code' => 200,
+                'message' => 'Deleted video successfully'
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 404,
                 'message' => $err,
             ];
         }

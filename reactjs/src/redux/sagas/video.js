@@ -5,7 +5,8 @@ import {
     uploadVideo,
     likeVideo,
     getMyVideoLike,
-    report
+    report,
+    deleteVideo
 } from "~/services/videoService";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { 
@@ -15,7 +16,8 @@ import {
     GET_MY_VIDEO_LIKE,
     UPLOAD_VIDEO,
     LIKE_VIDEO,
-    POST_REPORT_VIDEO
+    POST_REPORT_VIDEO,
+    DELETE_MY_VIDEO
 } from "../constants/video";
 import {
     setListVideo,
@@ -81,6 +83,16 @@ function* sagaUpload(action) {
     }
 }
 
+function* sagaDelete(action) {
+    try {
+        yield call(deleteVideo, action.payload);
+        yield put(setAlertMessage('Đã xóa'));
+    } catch (error) {
+        console.log(error);
+        yield put(setAlertMessage("Có lỗi xảy ra, hãy thử lại sau"));
+    }
+}
+
 function* sagaLikeVideo(action) {
     try {
         yield call(likeVideo, action.payload);
@@ -107,6 +119,7 @@ function* followVideo() {
     yield takeLatest(UPLOAD_VIDEO, sagaUpload);
     yield takeLatest(LIKE_VIDEO, sagaLikeVideo);
     yield takeLatest(POST_REPORT_VIDEO, sagaReportVideo);
+    yield takeLatest(DELETE_MY_VIDEO, sagaDelete);
 }
 
 export default followVideo;
