@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
 use App\Models\Report;
 use App\Models\Video;
+use Illuminate\Support\Facades\Storage;
 
 class VideoService extends AbstractService implements VideoServiceInterface
 {
@@ -119,6 +120,7 @@ class VideoService extends AbstractService implements VideoServiceInterface
                 throw new \Exception('Video not found');
             }
 
+            Storage::disk('google')->deleteDirectory($video->path_directory);
             $this->videoRepository->delete($id);
 
             return [

@@ -51,6 +51,11 @@ export const deleteVideo = ( data ) => ({
     payload: data
 });
 
+export const setVideoDetailWhenDelete = ( data ) => ({
+    type: types.SET_VIDEO_DETAIL_WHEN_DELETE,
+    payload: data
+});
+
 export const likeVideo = ( data ) => ({
     type: types.LIKE_VIDEO,
     payload: data

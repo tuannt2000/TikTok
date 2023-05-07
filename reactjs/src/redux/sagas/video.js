@@ -23,7 +23,8 @@ import {
     setListVideo,
     setListVideoFollowing,
     setMyVideo,
-    setMyVideoLike
+    setMyVideoLike,
+    setVideoDetailWhenDelete
 } from "../actions/video";
 import {
     setAlertMessage
@@ -86,6 +87,7 @@ function* sagaUpload(action) {
 function* sagaDelete(action) {
     try {
         yield call(deleteVideo, action.payload);
+        yield put(setVideoDetailWhenDelete(action.payload));
         yield put(setAlertMessage('Đã xóa'));
     } catch (error) {
         console.log(error);

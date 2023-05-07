@@ -47,6 +47,23 @@ export const videoReducer = (state = initState, action) => {
                 list_video_detail: action.payload.list_video_detail,
                 video_detail: action.payload.data
             }
+        case types.SET_VIDEO_DETAIL_WHEN_DELETE:
+            const current_index_video_detail = state.list_video_detail.findIndex(element => element.id === action.payload.id);
+            const list_video_detail_new = state.list_video_detail.filter(video => video.id !== action.payload.id);
+            let video_detail_new;
+            if (list_video_detail_new.length > 0) {
+                video_detail_new = list_video_detail_new.length === 1 ? list_video_detail_new[0] : list_video_detail_new[current_index_video_detail];
+            } else {
+                video_detail_new = {};
+            }
+            const my_video_new = state.my_video.filter(video => video.id !== action.payload.id);
+
+            return {
+                ...state,
+                list_video_detail: list_video_detail_new,
+                my_video: my_video_new,
+                video_detail: video_detail_new
+            }
         case types.SET_VIDEO_DETAIL:
             return {
                 ...state,

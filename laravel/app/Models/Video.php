@@ -16,6 +16,7 @@ class Video extends Model
      */
     protected $fillable = [
         'user_id',
+        'path_directory',
         'cover_image',
         'url',
         'description',
