@@ -12,6 +12,7 @@ import { ArrowTopTippy, LockIcon, MoreIcon, TwoPersonIcon } from "~/components/I
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import DeleteModal from "~/components/Modal/Delete";
+import PrivacyModal from "~/components/Modal/Privacy";
 
 const cx = classNames.bind(styles);
 
@@ -125,6 +126,7 @@ function Header({ video }) {
                             <MoreIcon />
                         </span>
                     </Tippy>
+                    <PrivacyModal video_id={video.id} open={openModalDelete} handleClose={handleClose} />
                     <DeleteModal video_id={video.id} open={openModalDelete} handleClose={handleClose} />
                 </div>
             )}

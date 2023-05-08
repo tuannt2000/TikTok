@@ -1,0 +1,220 @@
+.container {
+    box-sizing: border-box;
+    position: fixed;
+    inset: 0px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.modal {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    position: relative;
+    outline: 0px;
+    max-width: calc(100vw - 32px);
+    background: var(--tux-colorBGPrimary);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 12px;
+    border-radius: 8px;
+    overflow: hidden;
+    width: auto;
+    transition-property: transform, opacity;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+    opacity: 1;
+    transform: none;
+}
+
+.div-content-wrapper {
+    padding: 32px;
+    width: 332px;
+}
+
+.h2-title {
+    font-size: 24px;
+    line-height: 28px;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.p-desc {
+    font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.div-container {
+    font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-size: 14px;
+    line-height: 17px;
+    position: relative;
+    user-select: none;
+}
+
+.div-selection-container {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    cursor: pointer;
+}
+
+.p-selected {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 1 1 auto;
+}
+
+.div-select-mask {
+    position: fixed;
+    inset: 0px;
+}
+
+.ul-option-container {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    background: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 8px;
+    animation: 100ms ease 0s 1 normal none running animation-j70tpi;
+    transform-origin: center top;
+    z-index: 1;
+}
+
+.li-option-container {
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+.p-option-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.p-option-desc {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 12px;
+    line-height: 17px;
+}
+
+.div-switch-container {
+    margin-top: 16px;
+}
+
+.div-switch-item-container {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 40px;
+}
+
+.span-switch-text {
+    color: rgb(22, 24, 35);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    margin-right: 12px;
+    flex: 1 1 auto;
+}
+
+.tiktok-switch {
+    position: relative;
+    box-sizing: border-box;
+    overflow: visible;
+    display: inline-flex;
+    align-items: center;
+    color: rgb(22, 24, 35);
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.tiktok-switch-wrap {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    padding: 2px;
+    box-sizing: border-box;
+    left: 0px;
+    top: 0px;
+    background: rgba(22, 24, 35, 0.12);
+    border-radius: 22px;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    cursor: pointer;
+}
+
+.tiktok-switch-wrap.on {
+    background: rgb(11, 224, 155);
+}
+
+.tiktok-switch-inner {
+    position: absolute;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    left: 2px;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 22px;
+    background: rgb(255, 255, 255);
+    box-shadow: rgb(0 0 0 / 15%) 0px 1px 2px;
+    transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    z-index: 2;
+}
+
+.tiktok-switch-inner.on {
+    left: calc(100% - 2px);
+    transform: translate(-100%, -50%);
+}
+
+.p-hint {
+    color: rgba(22, 24, 35, 0.34);
+    font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-size: 12px;
+    line-height: 17px;
+    margin-top: 4px;
+}
+
+.button-save {
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    border-image: initial;
+    background: none;
+    outline: none;
+    padding: 0px;
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+    line-height: 48px;
+    border-top: 1px solid rgba(22, 24, 35, 0.12);
+    cursor: pointer;
+    color: rgb(22, 24, 35);
+}
