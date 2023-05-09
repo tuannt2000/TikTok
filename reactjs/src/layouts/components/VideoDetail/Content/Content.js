@@ -13,8 +13,14 @@ function Content({ video }) {
         <div className={cx('content-container')}>
             <Header video={video} />
             <Main video={video} />
-            <Comment video={video} />
-            <BottomComment video={video} />
+            { video.comment ? (
+                <>
+                    <Comment video={video} />
+                    <BottomComment video={video} />
+                </>
+            ) : (
+                <div className={cx('div-error-message')}>Bình luận đã bị tắt</div>
+            )}
         </div>
     );
 }

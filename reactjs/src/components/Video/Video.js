@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./Video.module.scss";
 import { useState } from "react";
 import Avatar from "../Avatar";
-import { PlaySearchIcon } from "../Icons";
+import { LockIconNotFill, PlaySearchIcon, TwoPersonIcon } from "../Icons";
 const cx = classNames.bind(styles);
 
 const defaultFn = () => {};
@@ -14,6 +14,14 @@ function Video({ data, search = false, className, onClick = defaultFn }) {
         [className]: className,
         search
     });
+
+    const renderStatus = () => {
+        if (data.status === 1) {
+            return <TwoPersonIcon className={cx('private')} />
+        } else if (data.status === 2) {
+            return <LockIconNotFill width={'1.8rem'} height={'1.8rem'} className={cx('private')} />
+        }
+    }
 
     return (
         <div 
@@ -41,6 +49,9 @@ function Video({ data, search = false, className, onClick = defaultFn }) {
                                             </div>
                                         </div>
                                     )}
+                                </div>
+                                <div className={cx('div-card-footer')}>
+                                    { renderStatus() }
                                 </div>
                             </div>
                         </a>

@@ -54,7 +54,7 @@ function Comment({ video }) {
                     </div>
                 </div>
             )) : (
-                <span>"Chưa có bình luận nào"</span>
+                <div className={cx('div-empty')}>Hãy là người đầu tiên bình luận!</div>
             )}
         </div>
     );

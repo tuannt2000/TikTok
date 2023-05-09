@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import VideoDetail from "../components/VideoDetail";
 import { useSelector } from "react-redux";
+import Report from "~/components/Modal/Report";
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ function DefaultLayout({ max_width, children }) {
                     <DownloadApp />
                 </div>
                 {showVideoDetail && <VideoDetail video={video.video_detail} />}
+                <Report />
             </div>
         </div>
     );

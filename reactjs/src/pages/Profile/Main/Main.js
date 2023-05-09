@@ -1,9 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "./Main.module.scss";
-import { UserIcon, LockIcon } from "~/components/Icons";
+import { UserIcon, LockIcon, LockIconNotFill } from "~/components/Icons";
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { myVideo, setListVideoDetail, getMyVideoLike } from '~/redux/actions/video';
+import { myVideo, setListVideoDetail, getMyVideoLike, removeMyVideoLike } from '~/redux/actions/video';
 import Video from "~/components/Video";
 
 const cx = classNames.bind(styles);
@@ -12,6 +12,7 @@ const TAB = [
     {
         className: 'video',
         title: 'Video',
+        icon_empty: <UserIcon className={cx('user-icon')} />,
         title_empty: 'Tải video đầu tiên của bạn lên',
         desc_empty: 'Video của bạn sẽ xuất hiện tại đây'
     },
@@ -19,23 +20,51 @@ const TAB = [
         className: 'like',
         title: 'Đã thích',
         icon: <LockIcon />,
+        icon_empty: <UserIcon className={cx('user-icon')} />,
         title_empty: 'Chưa thích video nào',
         desc_empty: 'Những video bạn đã thích sẽ xuất hiện tại đây'
+    }
+];
+
+const ANOTHER_TAB = [
+    {
+        className: 'video',
+        title: 'Video',
+        icon_empty: <UserIcon className={cx('user-icon')} />,
+        title_empty: 'Không có nội dung',
+        desc_empty: 'Người dùng này chưa đăng bất kỳ video nào.'
+    },
+    {
+        className: 'like',
+        title: 'Đã thích',
+        icon: <LockIcon />,
+        icon_empty: <LockIconNotFill className={cx('user-icon')} />,
+        title_empty: 'Video đã thích của người dùng này ở trạng thái riêng tư',
+        desc_empty: 'Các video được thích bởi người dùng này hiện đang ẩn'
     }
 ]
 
 function Main({ profile }) {
     const [active, setActive] = useState(0);
     const [hover, setHover] = useState(-1);
+    const [navbar, setNavbar] = useState(TAB);
     const video = useSelector(state => state.video);
+    const currentUser = useSelector(state => state.user.currentUser);
     const [listVideo, setListVideo] = useState([]); 
     const dispatch = useDispatch();
     const line = useRef();
 
     useEffect(() => {
-        dispatch(myVideo(profile.id));
-        dispatch(getMyVideoLike(profile.id));
         setActive(0);
+        dispatch(myVideo(profile.id));
+
+        if (currentUser.id !== profile.id) {
+            setNavbar(ANOTHER_TAB)
+            dispatch(removeMyVideoLike());
+        } else {
+            setNavbar(TAB)
+            dispatch(getMyVideoLike());
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [profile]);
 
@@ -69,7 +98,7 @@ function Main({ profile }) {
     return (
         <div className={cx('container')}>
             <div className={cx('feed-tab')}>
-                {TAB.map((result, index) => (
+                {navbar.map((result, index) => (
                     <p
                         key={index}
                         onClick={() => handleClick(index)}
@@ -94,9 +123,9 @@ function Main({ profile }) {
             ) : (
                 <main className={cx('main-wrapper')}>
                     <div className={cx('error-container')}>
-                        <UserIcon className={cx('user-icon')} />
-                        <p className={cx('title-error')}>{ TAB[active].title_empty }</p>
-                        <p className={cx('desc-error')}>{ TAB[active].desc_empty }</p>
+                        {navbar[active].icon_empty}
+                        <p className={cx('title-error')}>{ navbar[active].title_empty }</p>
+                        <p className={cx('desc-error')}>{ navbar[active].desc_empty }</p>
                     </div>
                 </main>
             )}

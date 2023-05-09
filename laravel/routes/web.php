@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\LanguageController;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +15,28 @@ use Illuminate\Http\Request;
 */
 
 
-Route::get('upload-file', function() {
-    \Illuminate\Support\Facades\Storage::disk('google')->put('google-drive.txt', 'Google Drive As Filesystem In Laravel');
-    dd('Đã upload file lên google drive thành công!');
-});
 Route::get('/', function() {
-    return view('home');
-});
+    return view('content/dashboard/index');
+})->name('dashboard');
+
+Route::get('/users', [UsersController::class, 'index'])->name('users');
+
+Route::get('/login', function() {
+    return view('content/auth/login');
+})->name('login');
+
+Route::get('/register', function() {
+    return view('content/auth/register');
+})->name('register');
+
+Route::get('/forgot-password', function() {
+    return view('content/auth/forgot_password');
+})->name('forgot-password');
+
+Route::get('/charts', function() {
+    return view('content/charts/index');
+})->name('charts');
+
+Route::get('/tables', function() {
+    return view('content/tables/index');
+})->name('tables');

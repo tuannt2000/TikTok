@@ -20,16 +20,6 @@ const MENU_CHECKBOX = [
         id: 1,
         title: 'Bình luận',
         checked: true
-    },
-    {
-        id: 2,
-        title: 'Duet',
-        checked: true
-    },
-    {
-        id: 3,
-        title: 'Stitch',
-        checked: true
     }
 ];
 
@@ -57,10 +47,7 @@ function Form({ url, video, handleChange }) {
             formData.append("video_file", video);
             formData.append("name", formatFilename(video.name));
             formData.append("comment", listCheckBox[0].checked ? 1 : 0);
-            formData.append("duet", listCheckBox[1].checked ? 1 : 0);
-            formData.append("stitch", listCheckBox[2].checked ? 1 : 0);
             formData.append("cover_image_file", values.cover_image);
-
             dispatch(uploadVideo(formData));
         },
     });

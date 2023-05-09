@@ -16,17 +16,24 @@ class Video extends Model
      */
     protected $fillable = [
         'user_id',
+        'path_directory',
         'cover_image',
         'url',
         'description',
         'status',
         'comment',
-        'duet',
-        'stitch',
         'date_upload'
     ];
 
     protected $table = 'videos';
+
+    protected static function boot() {
+        parent::boot();
+        static::deleting(function($video) { // before delete() method call this
+            $video->likes()->delete();
+            $video->comments()->delete();
+        });
+    }
 
     public function likes()
     {
@@ -41,5 +48,10 @@ class Video extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function following()
+    {
+        return $this->hasMany(Follow::class, 'user_follower_id', 'user_id');
     }
 }

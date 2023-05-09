@@ -37,10 +37,22 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
-    public function getMyVideoLike(Request $request) {
-        $result = $this->videoService->getMyVideoLike($request->id);
+    public function getMyVideoLike() {
+        $result = $this->videoService->getMyVideoLike();
 
         return response()->json($result, 200);
+    }
+
+    public function delete(Request $request) {
+        $result = $this->videoService->delete($request->id);
+
+        return response()->json($result, $result['code']);
+    }
+
+    public function edit(Request $request) {
+        $result = $this->videoService->edit($request->all());
+
+        return response()->json($result, $result['code']);
     }
 
     /**
@@ -62,6 +74,7 @@ class VideoController extends Controller
             $file_name = $video->getClientOriginalName();
             $folder_name = pathinfo($file_name, PATHINFO_FILENAME);
             $link = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $folder_name;
+            $request['path_directory'] = $link;
             $request['url'] = $this->__createUrlFile($link . '/' . $file_name, $request->video_file);
             $request['cover_image'] = $this->__createUrlFile($link . '/' . $folder_name . ".png", $request->cover_image_file);
             $result = $this->videoService->uploadVideo($request->all());
@@ -81,7 +94,7 @@ class VideoController extends Controller
     public function like(Request $request) {
         $result = $this->videoService->likeVideo($request->all());
 
-        return response()->json($result, 200);
+        return response()->json($result, $result['code']);
     }
 
     /**
@@ -92,7 +105,18 @@ class VideoController extends Controller
     public function findTopVideo(Request $request) {
         $result = $this->videoService->findTopVideo($request->q ? urldecode($request->q) : '');
 
-        return response()->json($result, 200);
+        return response()->json($result, $result['code']);
+    }
+
+    /**
+      * @param Request $request
+      *
+      * @return \Illuminate\Http\Response
+     */
+    public function report(Request $request) {
+        $result = $this->videoService->report($request->all());
+
+        return response()->json($result, $result['code']);
     }
 
     /**

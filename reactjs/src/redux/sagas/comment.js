@@ -19,7 +19,7 @@ function* sagaCreateComment(action) {
         yield put(setAlertMessage(data.message));
     } catch (error) {
         console.log(error);
-        yield put(setAlertMessage("Đăng comment thất bại! Hãy thử lại sau"));
+        yield put(setAlertMessage("Người sở hữu video đã đóng tính năng comment"));
     }
 }
 

@@ -24,38 +24,68 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         parent::__construct($video);
     }
 
-    public function index($users_following) {
+    public function index($users_friend) {
         $query = $this->__getQueryListVideo();
         $video = $query
-            ->whereNotIn('user_id', $users_following)
+            ->where(function ($query) use($users_friend) {
+                $query->where('status', 0)
+                    ->orWhere(function ($query) use($users_friend) {
+                    $query->whereIn('user_id', $users_friend)
+                        ->where('status', 1);
+                    });
+            })
+            ->where('user_id', '<>', Auth::user()->id)
+            ->orderByDesc('created_at')
+            ->take(15)
             ->get();
 
         return $video;
     }
 
-    public function videoFollowing($users_following) {
+    public function videoFollowing($users_friend) {
         $query = $this->__getQueryListVideo();
         $video = $query
-            ->whereIn('user_id', $users_following)
+            ->whereIn('user_id', $users_friend)
+            ->where('status', '<>', 2)
             ->get();
 
         return $video;
     }
 
-    public function getMyVideo($id) {
+    public function getMyVideo($id, $is_friend) {
+        $user_id = Auth::check() ? Auth::user()->id : null;
         $query = $this->__getQueryListVideo();
+        if ($user_id) {
+            $query = $query->with(['following' => function ($query) use ($user_id) {
+                $query->where('user_id', $user_id);
+            }]);
+        }
+        if ($is_friend) {
+            $query = $query->where('videos.status', '<>', 2);
+        } else if ($user_id != $id) {
+            $query = $query->where('videos.status', 0);
+        }
         $video = $query
-            ->where('user_id', $id)
+            ->where('videos.user_id', $id)
             ->get();
 
         return $video;
     }
 
-    public function getMyVideoLike($id) {
+    public function getMyVideoLike($users_friend) {
+        $user_id = Auth::check() ? Auth::user()->id : null;
         $query = $this->__getQueryListVideo();
         $video = $query
+            ->where(function ($query) use($users_friend) {
+                $query->where('status', 0)
+                    ->orWhere(function ($query) use($users_friend) {
+                    $query->whereIn('videos.user_id', $users_friend)
+                        ->where('status', 1);
+                    });
+            })
+            ->where('videos.user_id', '<>', $user_id)
             ->join('likes', 'likes.video_id', '=', 'videos.id')
-            ->where('likes.user_id', $id)
+            ->where('likes.user_id', $user_id)
             ->whereNull('likes.deleted_at')
             ->get();
 

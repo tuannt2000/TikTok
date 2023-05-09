@@ -57,4 +57,14 @@ class Follow extends Model
     {
         return $query->where('user_follower_id', $user_id)->count();
     }
+
+    public function scopeOfListIdFriend($query, $user_id)
+    {
+        $users_following = $this->ofListIdUserFollowing($user_id);
+
+        return $query->whereIn('user_id', $users_following)
+            ->where('user_follower_id', $user_id)
+            ->pluck('user_id')
+            ->toArray();
+    }
 }

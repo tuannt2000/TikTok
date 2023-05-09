@@ -8,4 +8,5 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
     public function getListAccountOffer($id);
     public function getUserByNickname ($nickname);
     public function getTopUser ($key_word);
+    public function getAllUserFullInfo();
 }

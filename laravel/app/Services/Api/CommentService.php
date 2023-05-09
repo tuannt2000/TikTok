@@ -10,6 +10,7 @@ namespace App\Services\Api;
 
 use App\Contracts\Services\Api\CommentServiceInterface;
 use App\Contracts\Repositories\CommentRepositoryInterface;
+use App\Models\Video;
 use App\Services\AbstractService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,14 @@ class CommentService extends AbstractService implements CommentServiceInterface
     public function store($data)
     {
         try {
+            $video = Video::where([
+                'id' => $data['video_id']
+            ])->first();
+
+            if ($video->comment == 0) {
+                throw new \Exception("Video can't comment");
+            }
+
             $data['user_id'] = Auth::user()->id;
             $data['date_comment'] = Carbon::now();
             $this->commentRepository->create($data);
