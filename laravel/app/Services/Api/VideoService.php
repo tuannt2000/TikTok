@@ -15,6 +15,9 @@ use App\Services\AbstractService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
+use App\Models\Report;
+use App\Models\Video;
+use Illuminate\Support\Facades\Storage;
 
 class VideoService extends AbstractService implements VideoServiceInterface
 {
@@ -40,12 +43,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
 
     public function index() {
         try {
-            $users_following = Follow::ofListIdUserFollowing(Auth::user()->id);
-            $users_following[] = Auth::user()->id;
+            $users_friend = Follow::ofListIdFriend(Auth::user()->id);
 
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->index($users_following)
+                'data' => $this->videoRepository->index($users_friend)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -59,11 +61,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
 
     public function following() {
         try {
-            $users_following = Follow::ofListIdUserFollowing(Auth::user()->id);
+            $users_friend = Follow::ofListIdFriend(Auth::user()->id);
 
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->videoFollowing($users_following)
+                'data' => $this->videoRepository->videoFollowing($users_friend)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -77,9 +79,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
 
     public function getMyVideo($user_id) {
         try {
+            $users_friend = Follow::ofListIdFriend(Auth::user()->id);
+
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->getMyVideo($user_id)
+                'data' => $this->videoRepository->getMyVideo($user_id, in_array($user_id, $users_friend))
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -91,17 +95,78 @@ class VideoService extends AbstractService implements VideoServiceInterface
         }
     }
 
-    public function getMyVideoLike($user_id) {
+    public function getMyVideoLike() {
         try {
+            $users_friend = Follow::ofListIdFriend(Auth::user()->id);
+            
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->getMyVideoLike($user_id)
+                'data' => $this->videoRepository->getMyVideoLike($users_friend)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
 
             return [
                 'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function delete($id) {
+        try {
+            $video = Video::findOrFail($id);
+            if ($video->user_id != Auth::user()->id) {
+                throw new \Exception('Video not found');
+            }
+
+            Storage::disk('google')->deleteDirectory($video->path_directory);
+            $this->videoRepository->delete($id);
+
+            return [
+                'code' => 200,
+                'message' => 'Deleted video successfully'
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 404,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function edit($request) {
+        try {
+            $video = Video::where([
+                'id' => $request['id'],
+                'user_id' => Auth::user()->id
+            ])->first();
+            if ($video->user_id != Auth::user()->id) {
+                throw new \Exception('Video not found');
+            }
+
+            $options = [];
+            if (isset($request['comment'])) {
+                $options['comment'] = $request['comment'];
+            }
+
+            if (isset($request['status'])) {
+                $options['status'] = $request['status'];
+            }
+
+            $this->videoRepository->update($request['id'], $options);
+
+            return [
+                'code' => 200,
+                'message' => 'Edit video successfully'
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 404,
                 'message' => $err,
             ];
         }
@@ -178,6 +243,35 @@ class VideoService extends AbstractService implements VideoServiceInterface
             return [
                 'code' => 200,
                 'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public function report($request)
+    {
+        try {
+            $options = [
+                'user_id' => Auth::user()->id,
+                'video_id' => $request['video_id'],
+                'value' => $request['value'],
+                'progress' => 'unprocessed'
+            ];
+            $data = Report::create($options);
+
+            return [
+                'code' => 200,
+                'message' => 'Report successfully'
             ];
         } catch (\Throwable $err) {
             Log::error($err);

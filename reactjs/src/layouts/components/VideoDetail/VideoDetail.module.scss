@@ -56,7 +56,6 @@
     line-height: 20px;
     display: flex;
     -webkit-box-align: center;
-    align-items: center;
 }
 
 .main-content {
@@ -350,4 +349,114 @@
 
 .max-text {
     color: rgba(255, 76, 58, 0.92);
+}
+
+.div-error-message {
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 16px;
+    line-height: 22px;
+    flex: 1 1 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.div-empty {
+    color: rgba(22, 24, 35, 0.5);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 0px;
+    width: 100%;
+    padding: 0px 16px;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.private-icon {
+    fill: rgb(22, 24, 35);
+    opacity: 0.5;
+    margin: 0px 4px;
+}
+
+.div-action-container {
+    position: relative;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.more-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+
+// tippy
+.menu-list {
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
+}
+
+.ui-popup-container {
+    list-style: none;
+    margin: 0px;
+    padding: 8px 16px;
+    white-space: nowrap;
+    min-width: 200px;
+}
+
+.li-popup-item {
+    font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    position: relative;
+    padding: 13px;
+    cursor: pointer;
+
+    &:last-child {
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 1px;
+            background: rgba(22, 24, 35, 0.12);
+            transform: scaleY(0.5);        
+        }
+    }
+
+    p {
+        border: none;
+        background: none;
+        outline: none;
+        padding: 0px;
+        cursor: pointer;
+        color: rgb(22, 24, 35);
+
+        &:hover {
+            color: rgb(254, 44, 85);
+        }
+    }
+}
+
+.top-arrow {
+    display: block;
+    width: 24px;
+    height: 8px;
+    position: absolute;
+    top: -8px;
+    right: 0px;
 }

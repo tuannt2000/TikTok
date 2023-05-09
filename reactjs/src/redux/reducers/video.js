@@ -7,7 +7,11 @@ const initState = {
     my_video_like: [],
     message: '',
     list_video_detail: [],
-    video_detail: {}
+    video_detail: {},
+    report: {
+        video_id: null,
+        check: false
+    }
 };
 
 export const videoReducer = (state = initState, action) => {
@@ -32,11 +36,50 @@ export const videoReducer = (state = initState, action) => {
                 ...state,
                 my_video_like: [...action.payload]
             }
+        case types.REMOVE_MY_VIDEO_LIKE:
+            return {
+                ...state,
+                my_video_like: []
+            }
         case types.SET_LIST_VIDEO_DETAIL:
             return {
                 ...state,
                 list_video_detail: action.payload.list_video_detail,
                 video_detail: action.payload.data
+            }
+        case types.SET_VIDEO_DETAIL_WHEN_DELETE:
+            const current_index_video_detail = state.list_video_detail.findIndex(element => element.id === action.payload.id);
+            const list_video_detail_new = state.list_video_detail.filter(video => video.id !== action.payload.id);
+            let video_detail_new;
+            if (list_video_detail_new.length > 0) {
+                video_detail_new = list_video_detail_new.length === 1 ? list_video_detail_new[0] : list_video_detail_new[current_index_video_detail];
+            } else {
+                video_detail_new = {};
+            }
+            const my_video_new = state.my_video.filter(video => video.id !== action.payload.id);
+
+            return {
+                ...state,
+                list_video_detail: list_video_detail_new,
+                my_video: my_video_new,
+                video_detail: video_detail_new
+            }
+        case types.SET_VIDEO_DETAIL_WHEN_EDIT_SUCCESS:
+            const video_id = action.payload.id;
+            delete action.payload['id'];
+            const list_video_detail_edit = state.list_video_detail.map(result => {
+                if (result.id === video_id) {
+                    result = {...result, ...action.payload}
+                }
+
+                return result;
+            })
+            
+            return {
+                ...state,
+                my_video: list_video_detail_edit,
+                list_video_detail: list_video_detail_edit,
+                video_detail: {...state.video_detail, ...action.payload}
             }
         case types.SET_VIDEO_DETAIL:
             return {
@@ -64,6 +107,24 @@ export const videoReducer = (state = initState, action) => {
                 ...state,
                 list_video: new_list_video,
                 list_video_following: new_list_video_following
+            }
+        case types.SET_MY_VIDEO_FOLLOW:
+            const new_my_video = state.my_video.map(result => {
+                if (result.user.id === action.payload) {
+                    result.user.following = !result.user.following;
+                }
+
+                return result;
+            });
+
+            return {
+                ...state,
+                my_video: new_my_video
+            }
+        case types.SET_REPORT_VIDEO:
+            return {
+                ...state,
+                report: action.payload
             }
         default:
             return state;

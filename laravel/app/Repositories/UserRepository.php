@@ -72,4 +72,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         return $video;
     }
+
+    public function getAllUserFullInfo()
+    {
+        return $this->model
+                    ->select('users.*')
+                    ->withCount(['follows', 'followers'])
+                    ->get();
+    }
 }

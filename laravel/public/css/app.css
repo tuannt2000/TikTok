@@ -1,0 +1,8 @@
+.sidebar .nav-item .nav-link {
+    padding: 10px 1rem !important;
+}
+
+.nav-link i {
+    width: 20px;
+    text-align: center;
+}

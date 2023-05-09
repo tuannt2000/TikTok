@@ -140,3 +140,19 @@
     padding-top: 4px;
     padding-bottom: 26px;
 }
+
+.div-card-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    height: 100px;
+    background: linear-gradient(rgba(22, 24, 35, 0) 2.92%, rgba(22, 24, 35, 0.5) 98.99%);
+    padding: 67px 13px 17px;
+}
+
+.private {
+    float: right;
+    position: relative;
+    top: 4px;
+    fill: #fff;
+}

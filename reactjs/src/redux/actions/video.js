@@ -28,9 +28,12 @@ export const setMyVideo = ( data ) => ({
     payload: data
 });
 
-export const getMyVideoLike = (data) => ({
+export const getMyVideoLike = () => ({
     type: types.GET_MY_VIDEO_LIKE,
-    payload: data
+});
+
+export const removeMyVideoLike = () => ({
+    type: types.REMOVE_MY_VIDEO_LIKE,
 });
 
 export const setMyVideoLike = ( data ) => ({
@@ -40,6 +43,26 @@ export const setMyVideoLike = ( data ) => ({
 
 export const uploadVideo = ( data ) => ({
     type: types.UPLOAD_VIDEO,
+    payload: data
+});
+
+export const deleteVideo = ( data ) => ({
+    type: types.DELETE_MY_VIDEO,
+    payload: data
+});
+
+export const setVideoDetailWhenDelete = ( data ) => ({
+    type: types.SET_VIDEO_DETAIL_WHEN_DELETE,
+    payload: data
+});
+
+export const setVideoDetailWhenEdit = ( data ) => ({
+    type: types.SET_VIDEO_DETAIL_WHEN_EDIT,
+    payload: data
+});
+
+export const setVideoDetailWhenEditSuccess = ( data ) => ({
+    type: types.SET_VIDEO_DETAIL_WHEN_EDIT_SUCCESS,
     payload: data
 });
 
@@ -60,5 +83,20 @@ export const setVideoDetail = ( data ) => ({
 
 export const setVideoUserFollow = ( data ) => ({
     type: types.SET_VIDEO_USER_FOLLOW,
+    payload: data
+});
+
+export const setMyVideoFollow = ( data ) => ({
+    type: types.SET_MY_VIDEO_FOLLOW,
+    payload: data
+});
+
+export const setReportVideo = ( data = {} ) => ({
+    type: types.SET_REPORT_VIDEO,
+    payload: data
+});
+
+export const reportVideo = ( data = false ) => ({
+    type: types.POST_REPORT_VIDEO,
     payload: data
 });

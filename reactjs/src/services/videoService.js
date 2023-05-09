@@ -17,11 +17,9 @@ export const getMyVideo = async (id) => {
     });
 };
 
-export const getMyVideoLike = async (id) => {
+export const getMyVideoLike = async () => {
     const url ='/video/my-video/like';
-    return api.get(url, {
-        params: {id}
-    });
+    return api.get(url);
 };
 
 export const uploadVideo = async (data) => {
@@ -31,5 +29,20 @@ export const uploadVideo = async (data) => {
 
 export const likeVideo = async (data) => {
     const url ='/video/like';
+    return api.post(url, data);
+};
+
+export const report = async (data) => {
+    const url ='/video/report';
+    return api.post(url, data);
+};
+
+export const deleteVideo = async (data) => {
+    const url ='/video/delete';
+    return api.post(url, data);
+};
+
+export const editVideo = async (data) => {
+    const url ='/video/edit';
     return api.post(url, data);
 };

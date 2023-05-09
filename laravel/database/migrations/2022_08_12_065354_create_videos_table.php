@@ -16,13 +16,12 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->string('path_directory');
             $table->string('cover_image');
             $table->string('url');
             $table->string('description');
             $table->integer('status');
             $table->boolean('comment');
-            $table->boolean('duet');
-            $table->boolean('stitch');
             $table->dateTime('date_upload');
             $table->timestamps();
         });
