@@ -137,6 +137,41 @@ class VideoService extends AbstractService implements VideoServiceInterface
         }
     }
 
+    public function edit($request) {
+        try {
+            $video = Video::where([
+                'id' => $request['id'],
+                'user_id' => Auth::user()->id
+            ])->first();
+            if ($video->user_id != Auth::user()->id) {
+                throw new \Exception('Video not found');
+            }
+
+            $options = [];
+            if (isset($request['comment'])) {
+                $options['comment'] = $request['comment'];
+            }
+
+            if (isset($request['status'])) {
+                $options['status'] = $request['status'];
+            }
+
+            $this->videoRepository->update($request['id'], $options);
+
+            return [
+                'code' => 200,
+                'message' => 'Edit video successfully'
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 404,
+                'message' => $err,
+            ];
+        }
+    }
+
     /**
      * @param $data
      * @return array

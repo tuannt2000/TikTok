@@ -64,6 +64,23 @@ export const videoReducer = (state = initState, action) => {
                 my_video: my_video_new,
                 video_detail: video_detail_new
             }
+        case types.SET_VIDEO_DETAIL_WHEN_EDIT_SUCCESS:
+            const video_id = action.payload.id;
+            delete action.payload['id'];
+            const list_video_detail_edit = state.list_video_detail.map(result => {
+                if (result.id === video_id) {
+                    result = {...result, ...action.payload}
+                }
+
+                return result;
+            })
+            
+            return {
+                ...state,
+                my_video: list_video_detail_edit,
+                list_video_detail: list_video_detail_edit,
+                video_detail: {...state.video_detail, ...action.payload}
+            }
         case types.SET_VIDEO_DETAIL:
             return {
                 ...state,

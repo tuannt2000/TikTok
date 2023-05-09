@@ -49,6 +49,12 @@ class VideoController extends Controller
         return response()->json($result, $result['code']);
     }
 
+    public function edit(Request $request) {
+        $result = $this->videoService->edit($request->all());
+
+        return response()->json($result, $result['code']);
+    }
+
     /**
       * @param Request $request
       *

@@ -4,7 +4,8 @@ import Modal from "@mui/material/Modal";
 import { ChevronDownIcon } from "~/components/Icons";
 import Select from "./Select";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setVideoDetailWhenEdit } from "~/redux/actions/video";
 
 const cx = classNames.bind(styles);
 
@@ -34,6 +35,7 @@ function Privacy({ video_id, open, handleClose }) {
     const [select, setSelect] = useState(false);
     const [switchButton, setSwitchButton] = useState(false);
     const video_detail = useSelector(state => state.video.video_detail);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setSwitchButton(video_detail.comment === 1);
@@ -47,6 +49,10 @@ function Privacy({ video_id, open, handleClose }) {
 
     const handleChangeSelectMenu = (video_status) => {
         setMenuPivacy(video_status);
+        dispatch(setVideoDetailWhenEdit({
+            id: video_id,
+            status: video_status
+        }))
     }
 
     const setMenuPivacy = (id) => {
@@ -59,6 +65,14 @@ function Privacy({ video_id, open, handleClose }) {
             return item;
         });
         setSelectMenu(newSelectMenu);
+    }
+
+    const handleEditComment = () => {
+        dispatch(setVideoDetailWhenEdit({
+            id: video_id,
+            comment: video_detail.comment === 1 ? 0 : 1
+        }))
+        setSwitchButton(!switchButton)
     }
     
     return (
@@ -94,7 +108,7 @@ function Privacy({ video_id, open, handleClose }) {
                         <div className={cx('div-switch-container')}>
                             <div className={cx('div-switch-item-container')}>
                                 <span className={cx('span-switch-text')}>Cho phép bình luận</span>
-                                <div className={cx('tiktok-switch')} onClick={() => setSwitchButton(!switchButton)}>
+                                <div className={cx('tiktok-switch')} onClick={handleEditComment}>
                                     <div className={cx('tiktok-switch-wrap', {'on': switchButton})}>
                                         <span className={cx('tiktok-switch-inner', {'on': switchButton})} />
                                     </div>

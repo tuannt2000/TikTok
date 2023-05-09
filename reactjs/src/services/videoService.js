@@ -41,3 +41,8 @@ export const deleteVideo = async (data) => {
     const url ='/video/delete';
     return api.post(url, data);
 };
+
+export const editVideo = async (data) => {
+    const url ='/video/edit';
+    return api.post(url, data);
+};

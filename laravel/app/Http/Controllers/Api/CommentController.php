@@ -19,7 +19,7 @@ class CommentController extends Controller
     public function store (CommentStoreRequest $request) {
         $result = $this->commentService->store($request->all());
 
-        return response()->json($result, 200);
+        return response()->json($result, $result['code']);
     }
 
     public function getListComment ($video_id = null) {
