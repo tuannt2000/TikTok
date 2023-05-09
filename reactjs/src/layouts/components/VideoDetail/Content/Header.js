@@ -18,6 +18,7 @@ const cx = classNames.bind(styles);
 
 function Header({ video }) {
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [openModalPrivacy, setOpenModalPrivacy] = useState(false);
     const [follow, setFollow] = useState(video.user.following);
     const user = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch();
@@ -34,11 +35,17 @@ function Header({ video }) {
         }));
     }
 
-    const handleOpen = () => {
+    const handleOpenModalDelete = () => {
         tippyRef.current.hide();
         setOpenModalDelete(true);
     };
-    const handleClose = () => setOpenModalDelete(false);
+    const handleCloseModalDelete = () => setOpenModalDelete(false);
+
+    const handleOpenModalPrivacy = () => {
+        tippyRef.current.hide();
+        setOpenModalPrivacy(true);
+    };
+    const handleCloseModalPrivacy = () => setOpenModalPrivacy(false);
 
     const renderStatus = () => {
         if (video.status === 1) {
@@ -74,13 +81,15 @@ function Header({ video }) {
                 <ArrowTopTippy className={cx('top-arrow')} />
                 <ul className={cx('ui-popup-container')}>
                     <li className={cx('li-popup-item')}>
-                        <p className={cx('button-action')}>Cài đặt quyền riêng tư</p>
+                        <p 
+                            className={cx('button-action')}
+                            onClick={handleOpenModalPrivacy}
+                        >Cài đặt quyền riêng tư</p>
                     </li>
                     <li className={cx('li-popup-item')}>
-                        <p 
-                            id={'button-action'}
+                        <p
                             className={cx('button-action')}
-                            onClick={handleOpen}
+                            onClick={handleOpenModalDelete}
                         >Xóa</p>
                     </li>
                 </ul>
@@ -126,8 +135,8 @@ function Header({ video }) {
                             <MoreIcon />
                         </span>
                     </Tippy>
-                    <PrivacyModal video_id={video.id} open={openModalDelete} handleClose={handleClose} />
-                    <DeleteModal video_id={video.id} open={openModalDelete} handleClose={handleClose} />
+                    <PrivacyModal video_id={video.id} open={openModalPrivacy} handleClose={handleCloseModalPrivacy} />
+                    <DeleteModal video_id={video.id} open={openModalDelete} handleClose={handleCloseModalDelete} />
                 </div>
             )}
         </div>
