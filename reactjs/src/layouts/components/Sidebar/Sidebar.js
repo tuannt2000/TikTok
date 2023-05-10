@@ -36,12 +36,11 @@ function Sidebar({ header_only = false }) {
                         className={cx('wrapper')}
                     >
                         <Menu />
+                        {Object.keys(user.currentUser).length === 0 && (<Frame />)}
                         {(Object.keys(user.currentUser).length === 0 || user.profile.id === user.currentUser.id) || (
                             <Account offer title="Tài khoản được đề xuất" showMore="Xem tất cả" />
                         )}
-                        {Object.keys(user.currentUser).length === 0 ? (
-                            <Frame />
-                        ) : (
+                        {Object.keys(user.currentUser).length > 0 && (
                             <Account follow title="Các tài khoản đang follow" showMore="Xem thêm" />
                         )}
                         <Discover />
@@ -49,7 +48,7 @@ function Sidebar({ header_only = false }) {
                     </div>
                 </Scrollbars>
             </aside>
-        </div >
+        </div>
     );
 }
 

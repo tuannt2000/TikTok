@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Resources\lang\vi\messages;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class GoogleController extends Controller
@@ -24,14 +24,6 @@ class GoogleController extends Controller
             ])->first();
         try {
             if (!$user) {  
-                if (!$request->birthday) {
-                    return response()->json([
-                        'data' => [
-                            'code' => 401,
-                            'message' => trans('messages.registerUser')
-                        ]
-                    ]);
-                }
                 $nickname = '';
                 while (true) {
                     $nickname = Str::random(8);
@@ -48,7 +40,7 @@ class GoogleController extends Controller
                     'first_name' => $userData->given_name,
                     'last_name' => $userData->family_name,
                     'nickname' => 'user' . $nickname,
-                    'birthday' => $request->birthday,
+                    'birthday' => date("Y-m-d H:i:s"),
                     'avatar' => $userData->picture
                 ]);
             }  
@@ -69,6 +61,7 @@ class GoogleController extends Controller
                 ]
             ]);
         } catch (\Throwable $err) {
+            Log::error($err);
             return response()->json([
                 'data' => [
                     'code' => 401,

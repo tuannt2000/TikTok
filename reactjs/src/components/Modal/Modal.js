@@ -11,6 +11,7 @@ import { CloseIcon, ArrowLeftIcon } from '~/components/Icons';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { setModalLogin } from '~/redux/actions/modal';
+import Loading from '../Loading';
 
 const cx = classNames.bind(styles);
 
@@ -29,7 +30,8 @@ const MODAL_MENU = [
 
 function Modal() {
     const [history, setHistory] = useState([{ data: MODAL_MENU }]);
-    const modalLogin = useSelector(state => state.modal.modalLogin)
+    const modalLogin = useSelector(state => state.modal.modalLogin);
+    const loading = useSelector(state => state.login.loading)
 
     const dispatch = useDispatch()
 
@@ -97,6 +99,7 @@ function Modal() {
                                     </DialogTitle>
                                     {renderItems()}
                                 </div>
+                                {loading && <Loading />}
                             </div>
                             <div className={cx('footer')}>
                                 {history.length > 1 ? (
