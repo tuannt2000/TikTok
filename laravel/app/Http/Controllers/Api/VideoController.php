@@ -25,6 +25,12 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
+    public function getVideoNotLogin() {
+        $result = $this->videoService->getVideoNotLogin();
+
+        return response()->json($result, 200);
+    }
+
     public function following() {
         $result = $this->videoService->following();
 

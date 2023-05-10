@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Scrollbars } from 'rc-scrollbars';
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
+import Frame from './Frame';
 
 const cx = classNames.bind(styles);
 
@@ -35,16 +36,19 @@ function Sidebar({ header_only = false }) {
                         className={cx('wrapper')}
                     >
                         <Menu />
-                        {user.profile.id === user.currentUser.id || (
+                        {Object.keys(user.currentUser).length === 0 && (<Frame />)}
+                        {(Object.keys(user.currentUser).length === 0 || user.profile.id === user.currentUser.id) || (
                             <Account offer title="Tài khoản được đề xuất" showMore="Xem tất cả" />
                         )}
-                        <Account follow title="Các tài khoản đang follow" showMore="Xem thêm" />
+                        {Object.keys(user.currentUser).length > 0 && (
+                            <Account follow title="Các tài khoản đang follow" showMore="Xem thêm" />
+                        )}
                         <Discover />
                         <Footer />
                     </div>
                 </Scrollbars>
             </aside>
-        </div >
+        </div>
     );
 }
 

@@ -11,3 +11,8 @@ export const setAccessToken = ( data ) => ({
     type: types.SET_ACCESS_TOKEN,
     payload: data
 })
+
+export const setLoading = ( data = false ) => ({
+    type: types.SET_LOADING,
+    payload: data
+})

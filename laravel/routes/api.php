@@ -42,6 +42,10 @@ Route::prefix('search')->group(function () {
     Route::get ('/top-user',       [UserController::class, 'findTopUser']);
 });
 
+Route::prefix('video')->group(function () {
+    Route::get ('/not-login', [VideoController::class, 'getVideoNotLogin']);
+});
+
 Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::get ('/rooms',    [RoomController::class, 'index']);
     Route::get ('/messages', [MessageController::class, 'index']);

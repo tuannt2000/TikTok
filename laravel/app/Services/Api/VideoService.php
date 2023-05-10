@@ -59,6 +59,22 @@ class VideoService extends AbstractService implements VideoServiceInterface
         }
     }
 
+    public function getVideoNotLogin() {
+        try {
+            return [
+                'code' => 200,
+                'data' => $this->videoRepository->getVideoNotLogin()
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
     public function following() {
         try {
             $users_friend = Follow::ofListIdFriend(Auth::user()->id);
