@@ -42,6 +42,17 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         return $video;
     }
 
+    public function getVideoNotLogin() {
+        $query = $this->__getQueryListVideo();
+        $video = $query
+            ->where('status', 0)
+            ->orderByDesc('created_at')
+            ->take(15)
+            ->get();
+
+        return $video;
+    }
+
     public function videoFollowing($users_friend) {
         $query = $this->__getQueryListVideo();
         $video = $query
@@ -120,7 +131,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
                 ]);
             }])
             ->with(['likes' => function($query) {
-                $query->where('likes.user_id', Auth::user()->id)
+                $query->where('likes.user_id', Auth::check() ? Auth::user()->id : 0)
                     ->whereNull('deleted_at');
             }])
             ->withCount(['likes' => function($query) {

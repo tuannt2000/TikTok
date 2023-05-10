@@ -61,7 +61,7 @@ function Header({ max_width = false }) {
                 <div className={cx('logo')}>
                     <Link to={config.routes.home} className={cx('logo')}><img src={images.logo} alt="TikTok" /></Link>
                 </div>  
-                <Search />           
+                <Search />
                 <div className={cx('actions')}>
                     <Button to={config.routes.upload} upload leftIcon={<PlusIcon />}>{UPLOAD}</Button>
                     {Object.keys(currentUser).length > 0 ? (

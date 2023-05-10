@@ -1386,3 +1386,27 @@ export const ArrowTopTippy = ({ width = '1rem', height = '1rem', className }) =>
         verticalpropkey="top" 
     ><path d="M0 8c7 0 10-8 12-8s5 8 12 8z"></path></svg>
 )
+
+export const LoadingIcon = ({ width = '3rem', height = '3rem', className }) => (
+    <svg 
+        preserveAspectRatio="none" 
+        viewBox="0 0 200 200" 
+        className={className}
+        width={width}
+        height={height}
+    >
+        <defs>
+            <mask id="redhole-1683725709393">
+                <rect width="100%" height="100%" fill="white"></rect>
+                <circle className="css-dt84ji-Circle e1ugmybf0"></circle>
+            </mask>
+            <mask id="greenhole-1683725709393">
+                <rect width="100%" height="100%" fill="white"></rect>
+                <circle className="css-nuz7yg-Circle e1ugmybf0"></circle>
+            </mask>
+        </defs>
+        <circle strokeWidth="2" stroke="#3AF2FF" className="css-1ibclz-Circle e1ugmybf0"></circle>
+        <circle mask="url(#redhole-1683725709393)" className="css-1ie96h1-Circle e1ugmybf0"></circle>
+        <circle mask="url(#greenhole-1683725709393)" className="css-162i5jd-Circle e1ugmybf0"></circle>
+    </svg>
+)

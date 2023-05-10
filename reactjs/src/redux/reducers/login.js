@@ -3,7 +3,8 @@ import * as types from '../constants/login';
 const initState = {
     data: {},
     loginSuccess: false,
-    accessToken: ""
+    accessToken: "",
+    loading: false
 };
 
 export const loginReducer = (state = initState, action) => {
@@ -13,6 +14,11 @@ export const loginReducer = (state = initState, action) => {
                 ...state,
                 accessToken: action.payload
             }
+        case types.SET_LOADING:
+            return {
+                ...state,
+                loading: action.payload
+            };
         default:
             return state;
     }

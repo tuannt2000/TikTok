@@ -1,8 +1,8 @@
-import { api, apiPostFile } from './api';
+import { api, apiPostFile, apiWithoutHeader } from './api';
 
 export const getListVideo = async () => {
-    const url ='/video';
-    return api.get(url);
+    const url = localStorage.getItem("token") ? '/video' : '/video/not-login';
+    return localStorage.getItem("token") ? api.get(url) : apiWithoutHeader.get(url);
 };
 
 export const getListVideoFollowing = async () => {

@@ -5,6 +5,7 @@ namespace App\Contracts\Services\Api;
 interface VideoServiceInterface
 {
     public function index();
+    public function getVideoNotLogin();
     public function following();
     public function getMyVideo($user_id);
     public function getMyVideoLike();
