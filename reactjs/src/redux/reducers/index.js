@@ -7,6 +7,7 @@ import { userReducer } from "./user"
 import { roomReducer } from "./room";
 import { videoReducer } from "./video";
 import { commentReducer } from "./comment";
+import { modalReducer } from "./modal";
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     user: userReducer,
     room: roomReducer,
     video: videoReducer,
-    comment: commentReducer
+    comment: commentReducer,
+    modal: modalReducer
 });
 
 export default rootReducer;

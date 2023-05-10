@@ -9,6 +9,8 @@ import Login from "./Login";
 import { useGoogleLogout } from 'react-google-login';
 import { CloseIcon, ArrowLeftIcon } from '~/components/Icons';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { setModalLogin } from '~/redux/actions/modal';
 
 const cx = classNames.bind(styles);
 
@@ -27,7 +29,9 @@ const MODAL_MENU = [
 
 function Modal() {
     const [history, setHistory] = useState([{ data: MODAL_MENU }]);
-    const [show, setShow] = useState(false);
+    const modalLogin = useSelector(state => state.modal.modalLogin)
+
+    const dispatch = useDispatch()
 
     const currentMenu = history[history.length - 1];
 
@@ -50,7 +54,7 @@ function Modal() {
             signOut();
         }
 
-        setShow(false);
+        dispatch(setModalLogin());
     };
 
     const handleSetMenu = (data) => {
@@ -76,9 +80,9 @@ function Modal() {
 
     return (
         <>
-            <Button onClick={() => setShow(true)} primary>{LOGIN}</Button>
-            <Dialog className={cx('container')} open={show} onClose={() => handleHide(false)}>
-                {show && (
+            <Button onClick={() => dispatch(setModalLogin(true))} primary>{LOGIN}</Button>
+            <Dialog className={cx('container')} open={modalLogin} onClose={() => handleHide(false)}>
+                {modalLogin && (
                     <>
                         {history.length > 1 && (
                             <div onClick={signOut} className={cx('div-back')}>

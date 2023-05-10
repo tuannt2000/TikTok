@@ -1,0 +1,2 @@
+
+export const SET_MODAL_LOGIN = 'SET_MODAL_LOGIN';
