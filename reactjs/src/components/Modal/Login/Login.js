@@ -5,14 +5,15 @@ import {
     KakaoTalkIcon, AppleIcon, InstagramIcon
 } from '~/components/Icons';
 import { useGoogleLogin } from 'react-google-login';
-import { CLIENT_ID } from '~/constants/Login';
+import FacebookLogin from 'react-facebook-login';
+import { CLIENT_ID, FACEBOOK_APP_ID } from '~/constants/Login';
 import { useDispatch, useSelector } from "react-redux";
 import { postEmailGoogle, setAccessToken, setLoading } from '~/redux/actions/login';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import "./login-facebook.css";
 
 function Login({ handleSetMenu, data }) {
     const accessToken = useSelector(state => state.login.accessToken);
-    const [click, setClick] = useState(false)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -23,17 +24,9 @@ function Login({ handleSetMenu, data }) {
                 (message) => onSuccess(message),
                 (message) => onError(message)
             ));
-            setClick(false);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accessToken])
-
-    useEffect(() => {
-        if (click) {
-            signIn();
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [click])
 
     const onSuccess = (message) => {
         console.log(message);
@@ -50,19 +43,36 @@ function Login({ handleSetMenu, data }) {
     const { signIn } = useGoogleLogin({
         clientId: CLIENT_ID,
         onSuccess: response => {
-            click && dispatch(setAccessToken(response.accessToken))
+            dispatch(setAccessToken(response.accessToken));
         },
         onFailure: response => console.log(response),
         cookiePolicy: 'single_host_origin',
-        isSignedIn: true
+        autoLoad: false
     })
+
+    const responseFacebook = (response) => {
+        console.log(response);
+        // dispatch(setAccessToken(response.accessToken));
+    }
 
     return (
         <>
             <LoginItem to='/login/qrcode' Icon={<QrIcon />} title='Sử dụng mã QR' />
             <LoginItem to='/login/phone-or-email/phone' Icon={<UserIcon />} title='Số điện thoại / Email / TikTok ID' />
-            <LoginItem Icon={<ShareFaceBookIcon height='2rem' width='2rem' />} title='Tiếp tục với Facebook' />
-            <LoginItem onClick={() => setClick(true)} Icon={<GoogleIcon />} title='Tiếp tục với Google' />
+            <FacebookLogin
+                appId={FACEBOOK_APP_ID}
+                // xfbml={true}
+                // cookie={true}
+                // version={'v16.0'}
+                autoLoad={true}
+                fields="name,email,picture"
+                callback={responseFacebook}
+                icon={<ShareFaceBookIcon height='2rem' width='2rem' />}
+                textButton={"Tiếp tục với Facebook"}
+                tag={"div"}
+                cssClass={"login-facebook"}
+            />
+            <LoginItem onClick={signIn} Icon={<GoogleIcon />} title='Tiếp tục với Google' />
             <LoginItem Icon={<ShareTwitterIcon height='2rem' width='2rem' />} title='Tiếp tục với Twitter' />
             <LoginItem Icon={<ShareLineIcon height='2rem' width='2rem' />} title='Tiếp tục với Line' />
             <LoginItem Icon={<KakaoTalkIcon />} title='Tiếp tục với KakaoTalk' />
