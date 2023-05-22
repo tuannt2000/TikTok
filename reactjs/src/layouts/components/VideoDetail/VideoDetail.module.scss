@@ -460,3 +460,25 @@
     top: -8px;
     right: 0px;
 }
+
+.div-action-container {
+    margin-left: 18px;
+    padding-right: 2px;
+    width: 24px;
+    flex: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-top: 0px;
+}
+
+.more-container {
+    position: relative;
+    display: block;
+}
+
+.comment-creator {
+    font-size: 1.6rem;
+    color: rgb(254, 44, 85);
+}
