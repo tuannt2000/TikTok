@@ -61,8 +61,8 @@ function Login({ handleSetMenu, data }) {
             <LoginItem to='/login/phone-or-email/phone' Icon={<UserIcon />} title='Số điện thoại / Email / TikTok ID' />
             <FacebookLogin
                 appId={FACEBOOK_APP_ID}
-                // xfbml={true}
-                // cookie={true}
+                xfbml={true}
+                cookie={true}
                 // version={'v16.0'}
                 autoLoad={true}
                 fields="name,email,picture"

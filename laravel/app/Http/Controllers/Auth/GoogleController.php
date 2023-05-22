@@ -35,7 +35,7 @@ class GoogleController extends Controller
                 }       
                 $user = User::create([
                     'email' => $userData->email,
-                    'social_provider' => 'google',
+                    'social_provider' => $social_provider,
                     'social_id' => $userData->id,
                     'first_name' => $userData->given_name,
                     'last_name' => $userData->family_name,
