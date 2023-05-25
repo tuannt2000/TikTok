@@ -10,6 +10,7 @@ namespace App\Services\Api;
 
 use App\Contracts\Services\Api\CommentServiceInterface;
 use App\Contracts\Repositories\CommentRepositoryInterface;
+use App\Models\Comment;
 use App\Models\Video;
 use App\Services\AbstractService;
 use Carbon\Carbon;
@@ -54,6 +55,35 @@ class CommentService extends AbstractService implements CommentServiceInterface
             return [
                 'code' => 200,
                 'message' => "Đăng comment thành công"
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+            
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
+
+     /**
+     * @param int $id
+     * @return array
+     */
+    public function delete($id)
+    {
+        try {
+            $comment = Comment::findOrFail($id);
+
+            if ($comment->user_id != Auth::user()->id) {
+                throw new \Exception("Comment can't delete");
+            }
+            
+            $this->commentRepository->delete($id);
+
+            return [
+                'code' => 200,
+                'message' => "Xóa comment thành công"
             ];
         } catch (\Throwable $err) {
             Log::error($err);
