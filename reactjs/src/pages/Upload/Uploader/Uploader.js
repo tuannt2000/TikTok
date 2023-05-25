@@ -20,7 +20,7 @@ function Uploader({video, url, handleChange}) {
     const handleUpload = (event) => {
         const file = event.target.files[0];
         const file_size = file.size/(1024*1024);
-        if (file_size > 1) {
+        if (file_size > 10) {
             dispatch(setAlertMessage("Hãy chọn video có kích thước không quá 10MB"));
         } else {
             const url = URL.createObjectURL(file);
