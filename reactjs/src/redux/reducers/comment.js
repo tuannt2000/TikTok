@@ -13,7 +13,6 @@ export const commentReducer = (state = initState, action) => {
             };
         case types.SET_LIST_COMMENT_DELETED:
             const new_list_comment = state.listComment.filter(item => item.id !== action.payload.id);
-            console.log(new_list_comment);
             return {
                 ...state,
                 listComment: new_list_comment

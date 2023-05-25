@@ -28,7 +28,7 @@ function* sagaDeleteComment(action) {
     try {
         const res = yield call(deleteComment, action.payload);
         const { data } = res;
-        // yield put(setListCommentAfterDelete(action.payload));
+        yield put(setListCommentAfterDelete(action.payload));
         yield put(setAlertMessage(data.message));
     } catch (error) {
         console.log(error);

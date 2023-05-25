@@ -7,7 +7,7 @@ import { AccountOffer } from "~/components/Popper";
 import { ChevronDownIcon, MoreIcon, TrashIcon } from "~/components/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import Tippy from '@tippyjs/react/headless';
-import { deleteComment } from "~/services/commentService";
+import { deleteComment } from "~/redux/actions/comment";
 
 const cx = classNames.bind(styles);
 

@@ -22,6 +22,12 @@ class CommentController extends Controller
         return response()->json($result, $result['code']);
     }
 
+    public function delete (Request $request) {
+        $result = $this->commentService->delete($request->id);
+
+        return response()->json($result, $result['code']);
+    }
+
     public function getListComment ($video_id = null) {
         $result = $this->commentService->getListComment($video_id);
 
