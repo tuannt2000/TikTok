@@ -11,7 +11,6 @@ import { getAllDiscoves } from '~/redux/actions/discove';
 import Alert from './components/Alert';
 
 function App() {
-    const pathname = window.location.pathname;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -51,7 +50,7 @@ function App() {
                             </Layout>}
                         />
                     })}
-                    <Route path='*' exact={true} element={<Navigate to={"/404?fromUrl=" + pathname} />} />
+                    <Route path='*' exact={true} element={<Navigate to={"/"} />} />
                 </Routes>
             </div>
             <Alert />
