@@ -1,18 +1,18 @@
-@extends('layouts/contentNavbarLayout', ['active' => 'users'])
+@extends('layouts/contentNavbarLayout', ['active' => 'videos'])
 
-@section('title', 'Users Manage')
+@section('title', 'Videos Manage')
 
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Users</h1>
-        <p class="mb-4">Hiển thị đầy đủ thông tin user và có thể tìm kiếm theo nhiều tiêu chí.</p>
+        <h1 class="h3 mb-2 text-gray-800">Videos</h1>
+        <p class="mb-4">Hiển thị đầy đủ danh sachs video và có thể tìm kiếm theo nhiều tiêu chí.</p>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">User Infomation</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Video Infomation</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -20,31 +20,29 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>EMAIL</th>
-                                <th>NAME</th>
-                                <th>NICK NAME</th>
-                                <th>SOCIAL PROVIDER</th>
-                                <th>TICK</th>
-                                <th>BIO</th>
-                                <th>FOLLOWER</th>
-                                <th>FOLLOWING</th>
-                                <th>PHONE</th>
+                                <th>USER NAME</th>
+                                <th>LINK VIDEO</th>
+                                <th>STATUS</th>
+                                <th>COMMENT</th>
+                                <th>DATE UPLOAD</th>
+                                <th>LIKE COUNT</th>
                                 <th width="50px">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
+                            @foreach($videos as $video)
                                 <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->full_name }}</td>
-                                    <td>{{ $user->nickname }}</td>
-                                    <td>{{ $user->social_provider }}</td>
-                                    <td>{{ $user->tick ? 'Yes' : 'No' }}</td>
-                                    <td>{{ $user->bio ?? 'No biography' }}</td>
-                                    <td>{{ $user->follows_count }}</td>
-                                    <td>{{ $user->followers_count }}</td>
-                                    <td>{{ $user->phone ?? 'No phone' }}</td>
+                                    <td>{{ $video->id }}</td>
+                                    <td>{{ $video->user->full_name }}</td>
+                                    <td>
+                                        <a target="blank" href="{{ $video->url }}">
+                                            {{ $video->description }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $video->getStatusText() }}</td>
+                                    <td>{{ $video->comment ? "Cho phép" : "Không cho phép" }}</td>
+                                    <td>{{ $video->date_upload }}</td>
+                                    <td>{{ $video->likes_count }}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary m-1" data-toggle="tooltip" data-placement="right" title="Edit">
                                             <i class="fas fa-pen"></i>

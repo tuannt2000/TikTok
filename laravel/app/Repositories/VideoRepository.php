@@ -53,6 +53,15 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         return $video;
     }
 
+    public function getAll() {
+        $videos = $this->model->withCount(['likes' => function($query) {
+                $query->whereNull('deleted_at');
+            }])
+            ->get();
+
+        return $videos;
+    }
+
     public function videoFollowing($users_friend) {
         $query = $this->__getQueryListVideo();
         $video = $query
