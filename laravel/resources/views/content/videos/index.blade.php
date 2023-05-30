@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Videos</h1>
-        <p class="mb-4">Hiển thị đầy đủ danh sachs video và có thể tìm kiếm theo nhiều tiêu chí.</p>
+        <p class="mb-4">Hiển thị đầy đủ danh sách video và có thể tìm kiếm theo nhiều tiêu chí.</p>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
