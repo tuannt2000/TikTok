@@ -89,7 +89,7 @@ export const videoReducer = (state = initState, action) => {
         case types.SET_VIDEO_USER_FOLLOW:
             const new_list_video = state.list_video.map(result => {
                 if (result.user.id === action.payload) {
-                    result.user.following = !result.user.following;
+                    result.is_user_following = !result.is_user_following;
                 }
 
                 return result;
@@ -97,7 +97,7 @@ export const videoReducer = (state = initState, action) => {
 
             const new_list_video_following = state.list_video_following.map(result => {
                 if (result.user.id === action.payload) {
-                    result.user.following = !result.user.following;
+                    result.is_user_following = !result.is_user_following;
                 }
 
                 return result;
@@ -111,7 +111,7 @@ export const videoReducer = (state = initState, action) => {
         case types.SET_MY_VIDEO_FOLLOW:
             const new_my_video = state.my_video.map(result => {
                 if (result.user.id === action.payload) {
-                    result.user.following = !result.user.following;
+                    result.is_user_following = !result.is_user_followingg;
                 }
 
                 return result;

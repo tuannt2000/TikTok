@@ -18,11 +18,11 @@ function Header({ data, following, onClick }) {
             </div>
             {!following && 
                 <Button onClick={() => onClick(data.user)} className={cx('follow-btn')} outline>
-                    {data.user.following ? 'Đang follow' : 'Follow'}
+                    {data.is_user_following ? 'Đang follow' : 'Follow'}
                 </Button>
             }
             <div className={cx('description')}>
-                <span className={cx('description-text')}>{data.bio}</span>
+                <span className={cx('description-text')}>{data.user.bio}</span>
                 <Link to='tag/test' className={cx('common-link')}>#LearnOnTikTok</Link>
             </div>
             <h4 className={cx('video-music')}>

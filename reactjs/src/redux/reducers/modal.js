@@ -1,7 +1,8 @@
 import * as types from '../constants/modal';
 
 const initState = {
-    modalLogin: false
+    modalLogin: false,
+    modelShare: false
 };
 
 export const modalReducer = (state = initState, action) => {
@@ -10,6 +11,11 @@ export const modalReducer = (state = initState, action) => {
             return {
                 ...state,
                 modalLogin: action.payload
+            };
+        case types.SET_MODAL_SHARE:
+            return {
+                ...state,
+                modelShare: action.payload
             };
         default:
             return state;

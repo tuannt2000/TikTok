@@ -44,10 +44,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
     public function index() {
         try {
             $users_friend = Follow::ofListIdFriend(Auth::user()->id);
+            $users_following = Follow::ofPluckIdUserFollowing(Auth::user()->id);
 
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->index($users_friend)
+                'data' => $this->videoRepository->index($users_friend, $users_following)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -78,10 +79,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
     public function following() {
         try {
             $users_friend = Follow::ofListIdFriend(Auth::user()->id);
+            $users_following = Follow::ofPluckIdUserFollowing(Auth::user()->id);
 
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->videoFollowing($users_friend)
+                'data' => $this->videoRepository->videoFollowing($users_friend, $users_following)
             ];
         } catch (\Throwable $err) {
             Log::error($err);

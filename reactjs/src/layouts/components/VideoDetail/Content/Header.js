@@ -19,15 +19,15 @@ const cx = classNames.bind(styles);
 function Header({ video }) {
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalPrivacy, setOpenModalPrivacy] = useState(false);
-    const [follow, setFollow] = useState(video.user.following);
+    const [follow, setFollow] = useState(video.is_user_following);
     const user = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch();
 
     const tippyRef = useRef();
     
     useEffect(() => {
-        setFollow(video.user.following);
-    }, [video.user.following])
+        setFollow(video.is_user_following);
+    }, [video.is_user_following])
 
     const handClick = () => {
         dispatch(postFollow({

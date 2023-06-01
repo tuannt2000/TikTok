@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { listVideo, listVideoFollowing, setListVideoDetail } from '~/redux/actions/video';
 import { useLocation } from "react-router-dom";
 import { postFollow } from "~/redux/actions/user";
+import Share from "~/components/Modal/Share";
+import { setModalShare } from "~/redux/actions/modal";
 
 const cx = classNames.bind(styles);
 
@@ -53,6 +55,10 @@ function Home() {
         }));
     }
 
+    const handleClose = () => {
+        dispatch(setModalShare(false))
+    }
+
     return (
         <div>
             {listVideoState.map((result, index) => (
@@ -69,6 +75,7 @@ function Home() {
                     </div>
                 </div>
             ))}
+            <Share handleClose={handleClose} />
         </div>
     );
 }

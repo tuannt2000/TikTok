@@ -67,12 +67,7 @@ class AppServiceProvider extends ServiceProvider
             [
                 CommentServiceInterface::class,
                 CommentService::class
-            ],
-
-            [
-                VideoServiceInterface::class,
-                CommentService::class
-            ],
+            ]
         ];
         
         foreach ($services as $service) {
