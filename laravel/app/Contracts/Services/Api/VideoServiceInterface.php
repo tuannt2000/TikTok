@@ -15,4 +15,5 @@ interface VideoServiceInterface
     public function likeVideo($data);
     public function findTopVideo($key_word);
     public function report($request);
+    public function share($data);
 }

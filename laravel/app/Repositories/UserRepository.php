@@ -76,8 +76,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function getAllUserFullInfo()
     {
         return $this->model
-                    ->select('users.*')
-                    ->withCount(['follows', 'followers'])
-                    ->get();
+            ->select('users.*')
+            ->withCount(['follows', 'followers'])
+            ->get();
+    }
+
+    public function getListUserById($users_id) {
+        return $this->model
+            ->select('users.*', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"))
+            ->whereIn('id', $users_id)
+            ->get();
     }
 }

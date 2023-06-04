@@ -12,6 +12,10 @@ class Message extends Model
     protected $table = 'messages';
 
     protected $fillable = [
-        'room_id', 'user_id', 'text', 'date_send'
+        'room_id', 
+        'user_id',
+        'share_id',
+        'text',
+        'date_send'
     ];
 }

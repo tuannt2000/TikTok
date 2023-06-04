@@ -168,7 +168,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             ->withCount(['likes' => function($query) {
                 $query->whereNull('deleted_at');
             }])
-            ->withCount('comments');
+            ->withCount(['comments', 'shares']);
 
         return $query;
     }

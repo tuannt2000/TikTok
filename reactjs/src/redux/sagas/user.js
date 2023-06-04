@@ -4,7 +4,8 @@ import {
     getListAccountOffer,
     getInfoUser,
     getProfileUser,
-    follow
+    follow,
+    getListFriend
 } from "~/services/userService";
 import { call, put, takeLatest } from "redux-saga/effects";
 import {
@@ -13,7 +14,8 @@ import {
     GET_USER_OFFER,
     GET_INFO_USER,
     GET_PROFILE_USER,
-    FOLLOW
+    FOLLOW,
+    GET_USER_FRIEND
 } from "../constants/user";
 import {
     setAllUser,
@@ -21,7 +23,8 @@ import {
     setUserOffer,
     setInfoUser,
     setProfileUser,
-    setUserFollow
+    setUserFollow,
+    setUserFriend
 } from "../actions/user";
 import { setMyVideoFollow, setVideoUserFollow } from "../actions/video";
 
@@ -89,6 +92,16 @@ function* sagaFollow(action) {
     }
 }
 
+function* sagaUserFriend() {
+    try {
+        const res = yield call(getListFriend);
+        const { data } = res;
+        yield put(setUserFriend(data.data));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function* followUser() {
     yield takeLatest(GET_ALL_USER, sagaAllUser);
     yield takeLatest(GET_USER_FOLLOWING, sagaUserFollowing);
@@ -97,6 +110,7 @@ function* followUser() {
     yield takeLatest(GET_PROFILE_USER, sagaProfileUser);
     yield takeLatest(GET_PROFILE_USER, sagaProfileUser);
     yield takeLatest(FOLLOW, sagaFollow);
+    yield takeLatest(GET_USER_FRIEND, sagaUserFriend);
 }
 
 export default followUser;

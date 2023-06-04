@@ -100,3 +100,8 @@ export const reportVideo = ( data = false ) => ({
     type: types.POST_REPORT_VIDEO,
     payload: data
 });
+
+export const shareVideo = ( data = {} ) => ({
+    type: types.SHARE_VIDEO,
+    payload: data
+});

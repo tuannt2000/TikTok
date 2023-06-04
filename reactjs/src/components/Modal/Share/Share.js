@@ -4,21 +4,68 @@ import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { CloseIcon, SearchIcon } from '~/components/Icons';
 import UserItem from './UserItem';
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { shareVideo } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
-function Share({ handleClose }) {
+function Share({ handleClose, video_id }) {
     const open = useSelector(state => state.modal.modelShare);
-    const userFollowing = useSelector(state => state.user.userFollowing);
+    const userFriend = useSelector(state => state.user.userFriend);
     const [searchValue, setSearchValue] = useState('');
-    const newUserFollowing = useCallback(() => {
-        return userFollowing.map(user => {
-            return {...user, check: false}
-        })
-    }, [userFollowing])
-    const [userFollowingState, setUserFollowingState] = useState(newUserFollowing);
+    const [submit, setSubmit] = useState(false);
+    const newUserFriend = userFriend.map(user => {
+        return {...user, check: false, search: true}
+    })
+    const [userFriendState, setUserFriendState] = useState(newUserFriend);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const hasChecked = userFriendState.some(user => {
+            return user.check && user.search;
+        });
+
+        setSubmit(hasChecked);
+    }, [userFriendState]);
+
+    useEffect(() => {
+        const newUserFriendState = userFriendState.map(user => {
+            if (user.nickname.search(searchValue) === -1 && user.full_name.search(searchValue) === -1) {
+                user.search = false;
+            } else {
+                user.search = true;
+            }
+            return user;
+        });
+
+        setUserFriendState(newUserFriendState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchValue]);
+
+    const handleClick = (id) => {
+        const newUserFriendMap = userFriendState.map(user => {
+            if (id === user.id) {
+                return {...user, check: !user.check}
+            }
+            return user;
+        });
+
+        setUserFriendState(newUserFriendMap);
+    }
+
+    const handleSubmit = () => {
+        if (!submit) {
+            return;
+        }
+
+        const users_share = userFriendState.filter(user => user.check && user.search);
+        const users_id = users_share.map(user => user.id);
+
+        dispatch(shareVideo({
+            "users_id": users_id,
+            "video_id": video_id
+        }));
+    }
 
     return (
         <Modal
@@ -43,16 +90,26 @@ function Share({ handleClose }) {
                                 value={searchValue} 
                             />
                         </div>
-                        <p className={cx('p-user-title')}>Đang Follow</p>
+                        <p className={cx('p-user-title')}>Bạn bè</p>
                         <div className={cx('div-user-list-container')}>
                             <div className={cx('div-user-list-inner-container')}>
-                                {userFollowingState.map(result => (
-                                    <UserItem key={result.id} data={result} />
-                                ))}
+                                {userFriendState.length > 0 ? (
+                                    userFriendState.map(result => {
+                                        return (
+                                            result.search && <UserItem key={result.id} data={result} handleClick={handleClick} />
+                                        )
+                                    })
+                                ) : (
+                                    <span>Bạn chưa có bạn bè nào.</span>
+                                )}
                             </div>
                         </div>
                         <div className={cx('div-send-container')}>
-                            <button className={cx('send-button')} disabled={true}>
+                            <button 
+                                className={cx('send-button')} 
+                                disabled={!submit}
+                                onClick={handleSubmit}
+                            >
                                 Gửi
                             </button>
                         </div>

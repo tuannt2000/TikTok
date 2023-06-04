@@ -46,3 +46,8 @@ export const editVideo = async (data) => {
     const url ='/video/edit';
     return api.post(url, data);
 };
+
+export const shareVideo = async (data) => {
+    const url ='/video/share';
+    return api.post(url, data);
+};

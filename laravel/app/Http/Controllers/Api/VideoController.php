@@ -126,6 +126,17 @@ class VideoController extends Controller
     }
 
     /**
+      * @param Request $request
+      *
+      * @return \Illuminate\Http\Response
+     */
+    public function share (Request $request) {
+        $result = $this->videoService->share($request->all());
+
+        return response()->json($result, $result['code']);
+    }
+
+    /**
       * create path url
       * @param string $link
       * @param string $file

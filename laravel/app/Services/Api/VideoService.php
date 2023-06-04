@@ -9,6 +9,8 @@
 namespace App\Services\Api;
 
 use App\Contracts\Repositories\LikeRepositoryInterface;
+use App\Contracts\Repositories\RoomRepositoryInterface;
+use App\Contracts\Repositories\ShareRepositoryInterface;
 use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Services\AbstractService;
@@ -16,8 +18,11 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
 use App\Models\Report;
+use App\Models\User;
 use App\Models\Video;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class VideoService extends AbstractService implements VideoServiceInterface
 {
@@ -32,13 +37,30 @@ class VideoService extends AbstractService implements VideoServiceInterface
     protected $likeRepository;
 
     /**
+     * @var ShareRepositoryInterface
+     */
+    protected $shareRepository;
+
+    /**
+     * @var RoomRepositoryInterface
+     */
+    protected $roomRepository;
+
+    /**
      * VideoService constructor.
      * @param VideoRepositoryInterface $videoRepository
      */
-    public function __construct(VideoRepositoryInterface $videoRepository, LikeRepositoryInterface $likeRepository)
+    public function __construct(
+        VideoRepositoryInterface $videoRepository, 
+        LikeRepositoryInterface $likeRepository,
+        ShareRepositoryInterface $shareRepository,
+        RoomRepositoryInterface $roomRepository
+    )
     {
         $this->videoRepository = $videoRepository;
-        $this->likeRepository = $likeRepository;
+        $this->likeRepository  = $likeRepository;
+        $this->shareRepository = $shareRepository;
+        $this->roomRepository  = $roomRepository;
     }
 
     public function index() {
@@ -294,6 +316,54 @@ class VideoService extends AbstractService implements VideoServiceInterface
         } catch (\Throwable $err) {
             Log::error($err);
 
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function share($data)
+    {
+        DB::beginTransaction();
+        try {
+            $users_id = $data['users_id'];
+            $video_id = $data['video_id'];
+            foreach($users_id as $user_id) {
+                User::findOrFail($user_id);
+                $share = $this->shareRepository->create([
+                    'user_id'      => Auth::user()->id,
+                    'recipient_id' => $user_id,
+                    'video_id'     => $video_id
+                ]);
+
+                $room_id = $this->roomRepository->findRoomIdByUserId($user_id);
+
+                if (!$room_id) {
+                    throw new \Exception('Could not find room');
+                }
+
+                $share->message()->create([
+                    'room_id'   => $room_id,
+                    'user_id'   => Auth::user()->id,
+                    'text'      => '',
+                    'date_send' => Carbon::now()
+                ]);
+            }
+
+            DB::commit();
+            return [
+                'message' => "Share successfully",
+                'code' => 200
+            ];
+        } catch (\Throwable $err) {
+            DB::rollback();
+            Log::error($err);
+            
             return [
                 'code' => 400,
                 'message' => $err->getMessage()

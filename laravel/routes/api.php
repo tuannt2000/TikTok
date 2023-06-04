@@ -35,6 +35,7 @@ Route::prefix('users')->group(function () {
     Route::get ('/profile',        [UserController::class, 'getUserByNickname']);
     Route::post('/account-offer',  [UserController::class, 'listAccountOffer']);
     Route::post('/following',      [UserController::class, 'listFollowing']);
+    Route::get('/friend',          [UserController::class, 'listFriend'])->middleware('auth:api');
 });
 
 Route::prefix('search')->group(function () {
@@ -61,7 +62,8 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
         Route::get ('/my-video/like', [VideoController::class, 'getMyVideoLike']);
         Route::post ('/report',  [VideoController::class, 'report']);
         Route::post ('/delete',  [VideoController::class, 'delete']);
-        Route::post ('/edit',  [VideoController::class, 'edit']);
+        Route::post ('/edit',    [VideoController::class, 'edit']);
+        Route::post('/share',    [VideoController::class, 'share']);
     });
 
     Route::prefix('comment')->group(function () {

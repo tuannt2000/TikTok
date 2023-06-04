@@ -8,6 +8,7 @@
 
 namespace App\Services\Api;
 
+use App\Contracts\Repositories\FollowRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
 use App\Models\Follow;
@@ -24,12 +25,21 @@ class UserService extends AbstractService implements UserServiceInterface
     protected $userRepository;
 
     /**
+     * @var FollowRepositoryInterface
+     */
+    protected $followRepository;
+
+    /**
      * UserService constructor.
      * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        FollowRepositoryInterface $followRepository
+    )
     {
         $this->userRepository = $userRepository;
+        $this->followRepository = $followRepository;
     }
 
     /**
@@ -173,6 +183,28 @@ class UserService extends AbstractService implements UserServiceInterface
     {
         try {
             $data = $this->userRepository->getTopUser($key_word);
+
+            return [
+                'code' => 200,
+                'data' => $data
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
+
+    public function getListFriend() {
+        try {
+            $users_id = $this->followRepository->getListIdFriend();
+            $data = [];
+            if (!empty($users_id)) {
+                $data = $this->userRepository->getListUserById($users_id);
+            }
 
             return [
                 'code' => 200,

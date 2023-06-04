@@ -16,6 +16,7 @@ const cx = classNames.bind(styles);
 
 function Home() {
     const video = useSelector(state => state.video);
+    const modelShare = useSelector(state => state.modal.modelShare);
     const location = useLocation();
     const [listVideoState, setListVideoState] = useState(location.pathname === '/' ? video.list_video : video.list_video_following);
     const dispatch = useDispatch();
@@ -73,9 +74,9 @@ function Home() {
                         <Header onClick={hanldeSumitFollow} following={following} data={result} />
                         <Video onClick={handleVideoDetail} data={result} />
                     </div>
+                    {modelShare && <Share video_id={result.id} handleClose={handleClose} />}
                 </div>
             ))}
-            <Share handleClose={handleClose} />
         </div>
     );
 }
