@@ -21,4 +21,9 @@ class Share extends Model
     {
         return $this->hasOne(Message::class);
     }
+
+    public function video()
+    {
+        return $this->belongTo(Video::class);
+    }
 }

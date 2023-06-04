@@ -18,4 +18,9 @@ class Message extends Model
         'text',
         'date_send'
     ];
+
+    public function share()
+    {
+        return $this->belongTo(Share::class);
+    }
 }
