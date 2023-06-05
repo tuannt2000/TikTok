@@ -3,6 +3,7 @@ import styles from './ChatBox.module.scss';
 import Avatar from '~/components/Avatar/Avatar';
 import { MoreIcon } from '~/components/Icons';
 import { useState } from 'react';
+import Video from "./Video";
 
 const cx = classNames.bind(styles);
 
@@ -26,9 +27,13 @@ function Messagebox({ message, user_id }) {
                     to
                     size={32}
                 />
-                <div className={cx('text-container', {'me' : user_id === message.user_id})}>
-                    <p className={cx('text')}>{message.text}</p>
-                </div>
+                {message.video !== null ? (
+                    <Video video={message.video} me={user_id === message.user_id} />
+                ) : (
+                    <div className={cx('text-container', {'me' : user_id === message.user_id})}>
+                        <p className={cx('text')}>{message.text}</p>
+                    </div>
+                )}
                 {showMore && (
                     <div className={cx('more')}>
                         <MoreIcon />
