@@ -14,13 +14,13 @@ class Message extends Model
     protected $fillable = [
         'room_id', 
         'user_id',
-        'share_id',
+        'video_id',
         'text',
         'date_send'
     ];
 
-    public function share()
+    public function video()
     {
-        return $this->belongTo(Share::class);
+        return $this->belongsTo(Video::class);
     }
 }

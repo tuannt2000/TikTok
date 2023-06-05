@@ -9,6 +9,7 @@
 namespace App\Services\Api;
 
 use App\Contracts\Repositories\LikeRepositoryInterface;
+use App\Contracts\Repositories\MessageRepositoryInterface;
 use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Repositories\ShareRepositoryInterface;
 use App\Contracts\Services\Api\VideoServiceInterface;
@@ -47,6 +48,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
     protected $roomRepository;
 
     /**
+     * @var MessageRepositoryInterface
+     */
+    protected $messageRepository;
+
+    /**
      * VideoService constructor.
      * @param VideoRepositoryInterface $videoRepository
      */
@@ -54,13 +60,15 @@ class VideoService extends AbstractService implements VideoServiceInterface
         VideoRepositoryInterface $videoRepository, 
         LikeRepositoryInterface $likeRepository,
         ShareRepositoryInterface $shareRepository,
-        RoomRepositoryInterface $roomRepository
+        RoomRepositoryInterface $roomRepository,
+        MessageRepositoryInterface $messageRepository
     )
     {
         $this->videoRepository = $videoRepository;
         $this->likeRepository  = $likeRepository;
         $this->shareRepository = $shareRepository;
         $this->roomRepository  = $roomRepository;
+        $this->messageRepository = $messageRepository;
     }
 
     public function index() {
@@ -347,9 +355,10 @@ class VideoService extends AbstractService implements VideoServiceInterface
                     throw new \Exception('Could not find room');
                 }
 
-                $share->message()->create([
+                $this->messageRepository->create([
                     'room_id'   => $room_id,
                     'user_id'   => Auth::user()->id,
+                    'video_id'  => $video_id,
                     'text'      => '',
                     'date_send' => Carbon::now()
                 ]);

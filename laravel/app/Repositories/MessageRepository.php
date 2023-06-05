@@ -24,14 +24,11 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
 
     public function getListMessages($room_id)
     {
-        $messages = $this->model->select([
-                'user_id',
-                'room_id',
-                'nickname',
-                'text',
-                'avatar',
-                'messages.date_send as created_at'
-            ])->leftJoin('users', 'users.id', '=', 'messages.user_id')
+        $messages = $this->model
+            ->leftJoin('users', 'users.id', '=', 'messages.user_id')
+            ->with(['video' => function($query) {
+                return $query->with('user');
+            }])
             ->where('room_id', $room_id)
             ->orderBy('messages.date_send', 'DESC')
             ->take(20)

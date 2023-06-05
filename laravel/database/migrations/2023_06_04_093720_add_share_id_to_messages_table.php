@@ -14,7 +14,7 @@ class AddShareIdToMessagesTable extends Migration
     public function up()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->integer('share_id')->nullable()->after('user_id');
+            $table->integer('video_id')->nullable()->default(0)->after('user_id');
         });
     }
 
@@ -26,7 +26,7 @@ class AddShareIdToMessagesTable extends Migration
     public function down()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->dropColumn('share_id');
+            $table->dropColumn('video_id');
         });
     }
 }

@@ -17,11 +17,6 @@ class Share extends Model
         'video_id'
     ];
 
-    public function message()
-    {
-        return $this->hasOne(Message::class);
-    }
-
     public function video()
     {
         return $this->belongTo(Video::class);
