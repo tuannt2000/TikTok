@@ -50,6 +50,23 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         return $video;
     }
 
+    public function getVideoById($id, $users_following) {
+        $query = $this->__getQueryListVideo();
+        if (!empty($users_following)) {
+            $select_following = implode(', ', $users_following);
+            $select_add = '(CASE WHEN user_id IN (' . $select_following . ') THEN True ELSE False END) AS is_user_following';
+        } else {
+            $select_add = 'false AS is_user_following';
+        }
+        $video = $query
+            ->with('user')
+            ->addSelect(DB::raw($select_add))
+            ->where('id', $id)
+            ->first();
+
+        return $video;
+    }
+
     public function getVideoNotLogin() {
         $query = $this->__getQueryListVideo();
         $video = $query

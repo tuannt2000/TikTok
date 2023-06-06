@@ -5,6 +5,11 @@ export const getListVideo = async () => {
     return localStorage.getItem("token") ? api.get(url) : apiWithoutHeader.get(url);
 };
 
+export const getVideoById = async ($id) => {
+    const url = '/video/' + $id;
+    return api.get(url);
+};
+
 export const getListVideoFollowing = async () => {
     const url ='/video/following';
     return api.get(url);

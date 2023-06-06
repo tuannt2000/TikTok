@@ -70,7 +70,7 @@ function Video({ data, onClick }) {
                     <VideoMessageIcon />
                 </ActionItem>
                 {Object.keys(userLogin).length > 0 && (
-                    <Share>
+                    <Share video_id={data.id}>
                         <ActionItem text={data.shares_count}><VideoShareIcon /></ActionItem>
                     </Share>
                 )}

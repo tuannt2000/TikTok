@@ -64,6 +64,7 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
         Route::post ('/delete',  [VideoController::class, 'delete']);
         Route::post ('/edit',    [VideoController::class, 'edit']);
         Route::post('/share',    [VideoController::class, 'share']);
+        Route::get('/{id}',      [VideoController::class, 'getVideo']);
     });
 
     Route::prefix('comment')->group(function () {

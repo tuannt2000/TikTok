@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 interface VideoRepositoryInterface extends BaseRepositoryInterface
 {
     public function index($users_friend, $users_following);
+    public function getVideoById($id, $users_following);
     public function getVideoNotLogin();
     public function videoFollowing($users_friend, $users_following);
     public function getMyVideo($id, $is_friend);

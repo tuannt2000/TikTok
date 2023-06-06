@@ -1,13 +1,24 @@
 import classNames from "classnames/bind";
 import styles from './ChatBox.module.scss';
 import { PlayVideoIcon } from "~/components/Icons";
+import { useDispatch } from "react-redux";
+import { getVideoById } from "~/redux/actions/video";
 
 const cx = classNames.bind(styles);
 
 function Video({ video, me }) {
+    const dispatch = useDispatch();
+
+    const handleVideoDetail = () => {
+        window.history.replaceState(null, "", '/@' + video.user.nickname + '/video/' + video.id)
+        dispatch(getVideoById(video.id));
+    }
 
     return (
-        <div className={cx('div-video-container', {'me': me})}>
+        <div 
+            className={cx('div-video-container', {'me': me})}
+            onClick={handleVideoDetail}
+        >
             <div 
                 className={cx('div-video-wrapper')}
                 style={{

@@ -9,8 +9,9 @@ import { shareVideo } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
-function Share({ handleClose, video_id }) {
+function Share({ handleClose }) {
     const open = useSelector(state => state.modal.modelShare);
+    const video_id = useSelector(state => state.modal.video_share_id);
     const userFriend = useSelector(state => state.user.userFriend);
     const [searchValue, setSearchValue] = useState('');
     const [submit, setSubmit] = useState(false);

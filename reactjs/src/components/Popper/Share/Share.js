@@ -82,7 +82,7 @@ const MENU_SHARES_MORE = [
     }
 ];
 
-function Share({ children, profile = false }) {
+function Share({ children, profile = false, video_id = 0 }) {
     const [menu, setMenu] = useState(MENU_SHARES);
     const [more, setMore] = useState(false);
     const dispatch = useDispatch();
@@ -98,7 +98,10 @@ function Share({ children, profile = false }) {
     const handleShare = (id) => {
         tippyRef.current.hide();
         if (id === 2) {
-            dispatch(setModalShare(true))
+            dispatch(setModalShare({
+                "share": true,
+                "video_id": video_id
+            }))
         }
     }
 

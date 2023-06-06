@@ -14,6 +14,7 @@ use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Repositories\ShareRepositoryInterface;
 use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Contracts\Repositories\VideoRepositoryInterface;
+use App\Events\MessageEvent;
 use App\Services\AbstractService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -79,6 +80,24 @@ class VideoService extends AbstractService implements VideoServiceInterface
             return [
                 'code' => 200,
                 'data' => $this->videoRepository->index($users_friend, $users_following)
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function getVideoById($id) {
+        try {
+            $users_following = Follow::ofPluckIdUserFollowing(Auth::user()->id);
+
+            return [
+                'code' => 200,
+                'data' => $this->videoRepository->getVideoById($id, $users_following)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -341,9 +360,10 @@ class VideoService extends AbstractService implements VideoServiceInterface
         try {
             $users_id = $data['users_id'];
             $video_id = $data['video_id'];
+            $datas_share = [];
             foreach($users_id as $user_id) {
                 User::findOrFail($user_id);
-                $share = $this->shareRepository->create([
+                $this->shareRepository->create([
                     'user_id'      => Auth::user()->id,
                     'recipient_id' => $user_id,
                     'video_id'     => $video_id
@@ -362,6 +382,16 @@ class VideoService extends AbstractService implements VideoServiceInterface
                     'text'      => '',
                     'date_send' => Carbon::now()
                 ]);
+
+                $datas_share[] = [
+                    'room_id'   => $room_id,
+                    'user_id'   => Auth::user()->id,
+                    'video_id'  => $video_id
+                ];
+            }
+
+            foreach ($datas_share as $datas_share) {
+                event(new MessageEvent($datas_share));
             }
 
             DB::commit();

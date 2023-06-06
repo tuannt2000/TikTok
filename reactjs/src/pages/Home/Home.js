@@ -57,7 +57,10 @@ function Home() {
     }
 
     const handleClose = () => {
-        dispatch(setModalShare(false))
+        dispatch(setModalShare({
+            "share": false,
+            "video_id": 0
+        }))
     }
 
     return (
@@ -74,9 +77,9 @@ function Home() {
                         <Header onClick={hanldeSumitFollow} following={following} data={result} />
                         <Video onClick={handleVideoDetail} data={result} />
                     </div>
-                    {modelShare && <Share video_id={result.id} handleClose={handleClose} />}
                 </div>
             ))}
+            {modelShare && <Share handleClose={handleClose} />}
         </div>
     );
 }
