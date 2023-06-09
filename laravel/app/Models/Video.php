@@ -40,6 +40,11 @@ class Video extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function shares()
+    {
+        return $this->hasMany(Share::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -53,5 +58,20 @@ class Video extends Model
     public function following()
     {
         return $this->hasMany(Follow::class, 'user_follower_id', 'user_id');
+    }
+
+    public function getStatusText()
+    {
+        $status = $this->status;
+        $status_text = '';
+        if ($status == 0) {
+            $status_text = "Công khai";
+        } else if ($status == 1) {
+            $status_text = "Bạn bè";
+        } else if ($status == 2) {
+            $status_text = "Cá nhân";
+        }
+
+        return $status_text;
     }
 }

@@ -1,7 +1,8 @@
-import { createComment, getListComment } from "~/services/commentService";
+import { createComment, deleteComment, getListComment } from "~/services/commentService";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { 
     CREATE_COMMENT,
+    DELETE_COMMENT,
     GET_LIST_COMMENT
 } from "../constants/comment";
 import {
@@ -9,7 +10,7 @@ import {
 } from "../actions/user";
 
 import {
-    setListComment
+    setListComment, setListCommentAfterDelete
 } from "../actions/comment";
 
 function* sagaCreateComment(action) {
@@ -23,6 +24,19 @@ function* sagaCreateComment(action) {
     }
 }
 
+function* sagaDeleteComment(action) {
+    try {
+        const res = yield call(deleteComment, action.payload);
+        const { data } = res;
+        yield put(setListCommentAfterDelete(action.payload));
+        yield put(setAlertMessage(data.message));
+    } catch (error) {
+        console.log(error);
+        yield put(setAlertMessage("Đã có lỗi xảy ra, hãy thử lại!"));
+    }
+}
+
+
 function* sagaGetListComment(action) {
     try {
         const res = yield call(getListComment, action.payload);
@@ -33,9 +47,10 @@ function* sagaGetListComment(action) {
     }
 }
 
-function* commentDiscove() {
+function* followComment() {
     yield takeLatest(CREATE_COMMENT, sagaCreateComment);
     yield takeLatest(GET_LIST_COMMENT, sagaGetListComment);
+    yield takeLatest(DELETE_COMMENT, sagaDeleteComment);
 }
 
-export default commentDiscove;
+export default followComment;

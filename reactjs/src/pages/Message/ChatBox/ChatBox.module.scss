@@ -93,7 +93,7 @@
 
 .more {
     position: relative;
-    margin: 8px 16px 0px;
+    margin: 6px 16px 0px;
     cursor: pointer;
 }
 
@@ -165,4 +165,81 @@
     background-color: transparent;
     border-radius: 8px;
     right: 11px;
+}
+
+.div-video-container {
+    margin-left: 8px;
+}
+
+.div-video-container.me {
+    margin-right: 8px;
+}
+
+.div-video-wrapper {
+    position: relative;
+    width: 180px;
+    height: 320px;
+    border-radius: 8px;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    background-size: cover;
+    background-position: center center;
+}
+
+.play-video-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.div-author-outside-container {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 180px;
+    height: 72px;
+    border-radius: 0px 0px 8px 8px;
+    background: linear-gradient(rgba(22, 24, 35, 0) 2.92%, rgba(22, 24, 35, 0.5) 98.99%);
+}
+
+.div-author-inner-container {
+    position: absolute;
+    display: flex;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+}
+
+.span-avatar-container {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-feature-settings: "tnum";
+    position: relative;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 32px;
+    border-radius: 50%;
+    background-color: rgba(136, 136, 136, 0.5);
+}
+
+.p-nickname {
+    max-width: 124px;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 600;
+    margin-left: 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

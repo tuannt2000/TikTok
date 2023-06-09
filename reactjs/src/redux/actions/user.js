@@ -63,3 +63,12 @@ export const setUserFollow = ( data ) => ({
     type: types.SET_USER_FOLLOW,
     payload: data
 });
+
+export const getUserFriend = () => ({
+    type: types.GET_USER_FRIEND
+});
+
+export const setUserFriend = ( data ) => ({
+    type: types.SET_USER_FRIEND,
+    payload: data
+});

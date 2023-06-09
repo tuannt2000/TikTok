@@ -9,15 +9,22 @@
 namespace App\Services\Api;
 
 use App\Contracts\Repositories\LikeRepositoryInterface;
+use App\Contracts\Repositories\MessageRepositoryInterface;
+use App\Contracts\Repositories\RoomRepositoryInterface;
+use App\Contracts\Repositories\ShareRepositoryInterface;
 use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Contracts\Repositories\VideoRepositoryInterface;
+use App\Events\MessageEvent;
 use App\Services\AbstractService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Follow;
 use App\Models\Report;
+use App\Models\User;
 use App\Models\Video;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class VideoService extends AbstractService implements VideoServiceInterface
 {
@@ -32,22 +39,65 @@ class VideoService extends AbstractService implements VideoServiceInterface
     protected $likeRepository;
 
     /**
+     * @var ShareRepositoryInterface
+     */
+    protected $shareRepository;
+
+    /**
+     * @var RoomRepositoryInterface
+     */
+    protected $roomRepository;
+
+    /**
+     * @var MessageRepositoryInterface
+     */
+    protected $messageRepository;
+
+    /**
      * VideoService constructor.
      * @param VideoRepositoryInterface $videoRepository
      */
-    public function __construct(VideoRepositoryInterface $videoRepository, LikeRepositoryInterface $likeRepository)
+    public function __construct(
+        VideoRepositoryInterface $videoRepository, 
+        LikeRepositoryInterface $likeRepository,
+        ShareRepositoryInterface $shareRepository,
+        RoomRepositoryInterface $roomRepository,
+        MessageRepositoryInterface $messageRepository
+    )
     {
         $this->videoRepository = $videoRepository;
-        $this->likeRepository = $likeRepository;
+        $this->likeRepository  = $likeRepository;
+        $this->shareRepository = $shareRepository;
+        $this->roomRepository  = $roomRepository;
+        $this->messageRepository = $messageRepository;
     }
 
     public function index() {
         try {
             $users_friend = Follow::ofListIdFriend(Auth::user()->id);
+            $users_following = Follow::ofPluckIdUserFollowing(Auth::user()->id);
 
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->index($users_friend)
+                'data' => $this->videoRepository->index($users_friend, $users_following)
+            ];
+        } catch (\Throwable $err) {
+            Log::error($err);
+
+            return [
+                'code' => 400,
+                'message' => $err,
+            ];
+        }
+    }
+
+    public function getVideoById($id) {
+        try {
+            $users_following = Follow::ofPluckIdUserFollowing(Auth::user()->id);
+
+            return [
+                'code' => 200,
+                'data' => $this->videoRepository->getVideoById($id, $users_following)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -78,10 +128,11 @@ class VideoService extends AbstractService implements VideoServiceInterface
     public function following() {
         try {
             $users_friend = Follow::ofListIdFriend(Auth::user()->id);
+            $users_following = Follow::ofPluckIdUserFollowing(Auth::user()->id);
 
             return [
                 'code' => 200,
-                'data' => $this->videoRepository->videoFollowing($users_friend)
+                'data' => $this->videoRepository->videoFollowing($users_friend, $users_following)
             ];
         } catch (\Throwable $err) {
             Log::error($err);
@@ -292,6 +343,66 @@ class VideoService extends AbstractService implements VideoServiceInterface
         } catch (\Throwable $err) {
             Log::error($err);
 
+            return [
+                'code' => 400,
+                'message' => $err->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function share($data)
+    {
+        DB::beginTransaction();
+        try {
+            $users_id = $data['users_id'];
+            $video_id = $data['video_id'];
+            $datas_share = [];
+            foreach($users_id as $user_id) {
+                User::findOrFail($user_id);
+                $this->shareRepository->create([
+                    'user_id'      => Auth::user()->id,
+                    'recipient_id' => $user_id,
+                    'video_id'     => $video_id
+                ]);
+
+                $room_id = $this->roomRepository->findRoomIdByUserId($user_id);
+
+                if (!$room_id) {
+                    throw new \Exception('Could not find room');
+                }
+
+                $this->messageRepository->create([
+                    'room_id'   => $room_id,
+                    'user_id'   => Auth::user()->id,
+                    'video_id'  => $video_id,
+                    'text'      => '',
+                    'date_send' => Carbon::now()
+                ]);
+
+                $datas_share[] = [
+                    'room_id'   => $room_id,
+                    'user_id'   => Auth::user()->id,
+                    'video_id'  => $video_id
+                ];
+            }
+
+            foreach ($datas_share as $datas_share) {
+                event(new MessageEvent($datas_share));
+            }
+
+            DB::commit();
+            return [
+                'message' => "Share successfully",
+                'code' => 200
+            ];
+        } catch (\Throwable $err) {
+            DB::rollback();
+            Log::error($err);
+            
             return [
                 'code' => 400,
                 'message' => $err->getMessage()

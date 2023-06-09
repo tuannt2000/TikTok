@@ -63,4 +63,10 @@ class UserController extends Controller
 
         return response()->json($result, 200);
     }
+
+    public function listFriend () {
+        $result = $this->userService->getListFriend();
+
+        return response()->json($result, $result['code']);
+    }
 }

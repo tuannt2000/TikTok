@@ -1,1 +1,2 @@
 export const SET_MODAL_LOGIN = 'SET_MODAL_LOGIN';
+export const SET_MODAL_SHARE = 'SET_MODAL_SHARE';

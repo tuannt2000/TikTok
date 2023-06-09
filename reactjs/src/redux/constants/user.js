@@ -11,3 +11,5 @@ export const SET_PROFILE_USER = 'SET_PROFILE_USER';
 export const FOLLOW = 'FOLLOW';
 export const SET_ALERT_MESSAGE = 'SET_ALERT_MESSAGE';
 export const SET_USER_FOLLOW = 'SET_USER_FOLLOW';
+export const GET_USER_FRIEND = 'GET_USER_FRIEND';
+export const SET_USER_FRIEND = 'SET_USER_FRIEND';

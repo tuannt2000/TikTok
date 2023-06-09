@@ -13,26 +13,28 @@ import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import DeleteModal from "~/components/Modal/Delete";
 import PrivacyModal from "~/components/Modal/Privacy";
+import { setListVideoDetail } from "~/redux/actions/video";
 
 const cx = classNames.bind(styles);
 
 function Header({ video }) {
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [openModalPrivacy, setOpenModalPrivacy] = useState(false);
-    const [follow, setFollow] = useState(video.user.following);
+    const [follow, setFollow] = useState(video.is_user_following);
     const user = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch();
 
     const tippyRef = useRef();
     
     useEffect(() => {
-        setFollow(video.user.following);
-    }, [video.user.following])
+        setFollow(video.is_user_following);
+    }, [video.is_user_following])
 
     const handClick = () => {
         dispatch(postFollow({
             user_follower_id: video.user.id
         }));
+        setFollow(!follow)
     }
 
     const handleOpenModalDelete = () => {
@@ -97,6 +99,15 @@ function Header({ video }) {
         </div>
     );
 
+    const hideVideoDetail = () => {
+        dispatch(
+            setListVideoDetail({
+                list_video_detail: [],
+                data: {}
+            })
+        );
+    }
+
     return (
         <div className={cx('info-container')}>
             <AccountOffer home data={video.user} className={'mr-avatar'}>
@@ -105,7 +116,7 @@ function Header({ video }) {
                     size={40}
                 />
             </AccountOffer>
-            <Link to={'/@' + video.user.nickname} className={cx('author-anchor')}>
+            <Link onClick={hideVideoDetail} to={'/@' + video.user.nickname} className={cx('author-anchor')}>
                 <span className={cx('browse-username')}>{ video.user.full_name }</span>
                 <span className={cx('browser-nickname')}>
                     { video.user.nickname }

@@ -9,6 +9,7 @@ use App\Contracts\Repositories\LikeRepositoryInterface;
 use App\Contracts\Repositories\MessageRepositoryInterface;
 use App\Contracts\Repositories\MusicRepositoryInterface;
 use App\Contracts\Repositories\RoomRepositoryInterface;
+use App\Contracts\Repositories\ShareRepositoryInterface;
 use App\Contracts\Repositories\TagRepositoryInterface;
 use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
@@ -19,6 +20,7 @@ use App\Repositories\LikeRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\MusicRepository;
 use App\Repositories\RoomRepository;
+use App\Repositories\ShareRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\VideoRepository;
 use App\Repositories\UserRepository;
@@ -66,6 +68,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'comment' => [
             CommentRepositoryInterface::class,
             CommentRepository::class,
+        ],
+        'share' => [
+            ShareRepositoryInterface::class,
+            ShareRepository::class,
         ],
     ];
 

@@ -12,6 +12,7 @@ use App\Contracts\Repositories\VideoRepositoryInterface;
 use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class VideoRepository extends BaseRepository implements VideoRepositoryInterface
 {
@@ -24,20 +25,44 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         parent::__construct($video);
     }
 
-    public function index($users_friend) {
+    public function index($users_friend, $users_following) {
         $query = $this->__getQueryListVideo();
+        if (!empty($users_following)) {
+            $select_following = implode(', ', $users_following);
+            $select_add = '(CASE WHEN user_id IN (' . $select_following . ') THEN True ELSE False END) AS is_user_following';
+        } else {
+            $select_add = 'false AS is_user_following';
+        }
         $video = $query
+            ->addSelect(DB::raw($select_add))
             ->where(function ($query) use($users_friend) {
                 $query->where('status', 0)
                     ->orWhere(function ($query) use($users_friend) {
-                    $query->whereIn('user_id', $users_friend)
-                        ->where('status', 1);
+                        $query->whereIn('user_id', $users_friend)
+                            ->where('status', 1);
                     });
             })
             ->where('user_id', '<>', Auth::user()->id)
             ->orderByDesc('created_at')
             ->take(15)
             ->get();
+
+        return $video;
+    }
+
+    public function getVideoById($id, $users_following) {
+        $query = $this->__getQueryListVideo();
+        if (!empty($users_following)) {
+            $select_following = implode(', ', $users_following);
+            $select_add = '(CASE WHEN user_id IN (' . $select_following . ') THEN True ELSE False END) AS is_user_following';
+        } else {
+            $select_add = 'false AS is_user_following';
+        }
+        $video = $query
+            ->with('user')
+            ->addSelect(DB::raw($select_add))
+            ->where('id', $id)
+            ->first();
 
         return $video;
     }
@@ -53,11 +78,34 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         return $video;
     }
 
-    public function videoFollowing($users_friend) {
+    public function getAll() {
+        $videos = $this->model->withCount(['likes' => function($query) {
+                $query->whereNull('deleted_at');
+            }])
+            ->get();
+
+        return $videos;
+    }
+
+    public function videoFollowing($users_friend, $users_following) {
         $query = $this->__getQueryListVideo();
+        if (!empty($users_following)) {
+            $select_following = implode(', ', $users_following);
+            $select_add = '(CASE WHEN user_id IN (' . $select_following . ') THEN True ELSE False END) AS is_user_following';
+        } else {
+            $select_add = 'false AS is_user_following';
+        }
         $video = $query
-            ->whereIn('user_id', $users_friend)
-            ->where('status', '<>', 2)
+            ->addSelect(DB::raw($select_add))
+            ->where(function ($query) use($users_friend, $users_following) {
+                $query->where(function ($query) use($users_friend) {
+                    $query->whereIn('user_id', $users_friend)
+                    ->where('status', '<>', 2);
+                })->orWhere(function ($query) use($users_following) {
+                    $query->whereIn('user_id', $users_following)
+                        ->where('status', 0);
+                });
+            })
             ->get();
 
         return $video;
@@ -137,7 +185,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             ->withCount(['likes' => function($query) {
                 $query->whereNull('deleted_at');
             }])
-            ->withCount('comments');
+            ->withCount(['comments', 'shares']);
 
         return $query;
     }

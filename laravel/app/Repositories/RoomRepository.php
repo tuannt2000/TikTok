@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Models\Room;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
@@ -96,5 +97,22 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->withTrashed()
             ->where('room_id', $room_id)
             ->restore();
+    }
+
+    public function findRoomIdByUserId($user_id) {
+        $room = DB::table('rooms AS r1')
+            ->select('r1.room_id')
+            ->join('rooms AS r2', 'r2.room_id', '=', 'r1.room_id')
+            ->where('r2.user_id', $user_id)
+            ->where('r1.user_id', Auth::user()->id)
+            ->whereNull('r1.deleted_at')
+            ->whereNull('r2.deleted_at')
+            ->first();
+
+        if (!is_null($room)) {
+            return $room->room_id;
+        }
+
+        return null;
     }
 }

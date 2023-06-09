@@ -4,11 +4,14 @@ import images from '~/assets/images';
 import Button from '~/components/Button';
 import { useRef } from 'react';
 import Preview from './Preview';
+import { useDispatch } from "react-redux";
+import { setAlertMessage } from "~/redux/actions/user";
 
 const cx = classNames.bind(styles);
 
 function Uploader({video, url, handleChange}) {
     const inputFile = useRef();
+    const dispatch = useDispatch();
 
     const hanleClick = () => {
         inputFile.current.click();
@@ -16,8 +19,13 @@ function Uploader({video, url, handleChange}) {
 
     const handleUpload = (event) => {
         const file = event.target.files[0];
-        const url = URL.createObjectURL(file);
-        handleChange(url, file);
+        const file_size = file.size/(1024*1024);
+        if (file_size > 10) {
+            dispatch(setAlertMessage("Hãy chọn video có kích thước không quá 10MB"));
+        } else {
+            const url = URL.createObjectURL(file);
+            handleChange(url, file);
+        }
     };
 
     return (

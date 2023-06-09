@@ -8,7 +8,8 @@ const initState = {
     setUserOffer: false,
     currentUser: {},
     profile: {},
-    alertMessage: ''
+    alertMessage: '',
+    userFriend: [],
 };
 
 export const userReducer = (state = initState, action) => {
@@ -34,6 +35,11 @@ export const userReducer = (state = initState, action) => {
             return {
                 ...state,
                 currentUser: action.payload
+            };
+        case types.SET_USER_FRIEND:
+            return {
+                ...state,
+                userFriend: action.payload
             };
         case types.SET_PROFILE_USER:
             return {

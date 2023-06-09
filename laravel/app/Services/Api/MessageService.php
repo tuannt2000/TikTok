@@ -10,7 +10,9 @@ namespace App\Services\Api;
 
 use App\Contracts\Services\Api\MessageServiceInterface;
 use App\Contracts\Repositories\MessageRepositoryInterface;
+use App\Models\Follow;
 use App\Services\AbstractService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class MessageService extends AbstractService implements MessageServiceInterface
@@ -36,9 +38,11 @@ class MessageService extends AbstractService implements MessageServiceInterface
     public function index($room_id)
     {
         try {
+            $users_following = Follow::ofPluckIdUserFollowing(Auth::user()->id);
+            
             return [
                 'code' => 200,
-                'data' => $this->messageRepository->getListMessages($room_id)
+                'data' => $this->messageRepository->getListMessages($room_id, $users_following)
             ];
         } catch (\Throwable $err) {
             Log::error($err);

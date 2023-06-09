@@ -7,12 +7,13 @@ import {
 } from '~/components/Icons';
 import { Share } from '~/components/Popper';
 import { useEffect, useState, memo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { likeVideo, setReportVideo } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
 function Video({ data, onClick }) {
+    const userLogin = useSelector(state => state.user.currentUser)
     const [like, setLike] = useState(false);
     const [countLike, setCountLike] = useState(0);
     const dispatch = useDispatch();
@@ -68,9 +69,11 @@ function Video({ data, onClick }) {
                 >
                     <VideoMessageIcon />
                 </ActionItem>
-                <Share>
-                    <ActionItem text={1054}><VideoShareIcon /></ActionItem>
-                </Share>
+                {Object.keys(userLogin).length > 0 && (
+                    <Share video_id={data.id}>
+                        <ActionItem text={data.shares_count}><VideoShareIcon /></ActionItem>
+                    </Share>
+                )}
             </div>
         </div>
     );
