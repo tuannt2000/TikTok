@@ -12,6 +12,11 @@ class Follow extends Model
 
     protected $table = 'follows';
 
+    protected $casts = [
+        'user_id' => 'int',
+        'user_follower_id' => 'int',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

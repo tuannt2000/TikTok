@@ -12,6 +12,11 @@ class Like extends Model
 
     protected $table = 'likes';
 
+    protected $casts = [
+        'user_id'  => 'int',
+        'video_id' => 'int',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

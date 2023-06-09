@@ -25,6 +25,16 @@ class Video extends Model
         'date_upload'
     ];
 
+    protected $casts = [
+        'user_id' => 'int',
+        'status'  => 'int',
+        'comment' => 'int',
+        'is_user_following' => 'int',
+        'likes_count' => 'int',
+        'comments_count' => 'int',
+        'shares_count' => 'int',
+    ];
+
     protected $table = 'videos';
 
     protected static function boot() {

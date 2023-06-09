@@ -11,6 +11,11 @@ class Report extends Model
 
     protected $table = 'reports';
 
+    protected $casts = [
+        'video_id' => 'int',
+        'user_id'  => 'int'
+    ];
+
     protected $fillable = [
         'video_id', 
         'user_id',

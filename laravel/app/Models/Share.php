@@ -11,6 +11,12 @@ class Share extends Model
 
     protected $table = 'shares';
 
+    protected $casts = [
+        'user_id' => 'int',
+        'recipient_id' => 'int',
+        'video_id' => 'int',
+    ];
+
     protected $fillable = [
         'user_id', 
         'recipient_id',

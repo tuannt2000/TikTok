@@ -11,6 +11,12 @@ class Message extends Model
 
     protected $table = 'messages';
 
+    protected $casts = [
+        'room_id'  => 'int',
+        'user_id'  => 'int',
+        'video_id' => 'int',
+    ];
+
     protected $fillable = [
         'room_id', 
         'user_id',

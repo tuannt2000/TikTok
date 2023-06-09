@@ -12,6 +12,13 @@ class Room extends Model
 
     protected $table = 'rooms';
 
+    protected $casts = [
+        'room_id' => 'int',
+        'user_id' => 'int',
+        'room_user_id' => 'int',
+        'text_user_id' => 'int',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

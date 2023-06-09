@@ -11,6 +11,12 @@ class Comment extends Model
 
     protected $table = 'comments';
 
+    protected $casts = [
+        'parent_id' => 'int',
+        'video_id'  => 'int',
+        'user_id'   => 'int'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

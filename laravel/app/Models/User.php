@@ -24,7 +24,7 @@ class User extends Authenticatable
         'last_name',
         'nickname',
         'birthday',
-        'avatar',       
+        'avatar',
     ];
 
     /**
@@ -44,6 +44,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'tick' => 'int',
     ];
 
     protected $appends = ['full_name'];
