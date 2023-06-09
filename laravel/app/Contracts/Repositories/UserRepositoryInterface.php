@@ -9,4 +9,5 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
     public function getUserByNickname ($nickname);
     public function getTopUser ($key_word);
     public function getAllUserFullInfo();
+    public function getListUserById($users_id);
 }

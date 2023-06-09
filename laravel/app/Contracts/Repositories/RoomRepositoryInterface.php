@@ -9,4 +9,5 @@ interface RoomRepositoryInterface extends BaseRepositoryInterface
     public function getRoomCreated($users_id);
     public function deleteRoomCreated($room_id);
     public function restoreRoomCreated($room_id);
+    public function findRoomIdByUserId($user_id);
 }

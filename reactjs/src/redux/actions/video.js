@@ -9,6 +9,11 @@ export const setListVideo = ( data ) => ({
     payload: data
 });
 
+export const getVideoById = ( id ) => ({
+    type: types.GET_VIDEO_BY_ID,
+    payload: id
+});
+
 export const listVideoFollowing = () => ({
     type: types.GET_LIST_VIDEO_FOLLOWING
 });
@@ -98,5 +103,10 @@ export const setReportVideo = ( data = {} ) => ({
 
 export const reportVideo = ( data = false ) => ({
     type: types.POST_REPORT_VIDEO,
+    payload: data
+});
+
+export const shareVideo = ( data = {} ) => ({
+    type: types.SHARE_VIDEO,
     payload: data
 });

@@ -8,6 +8,7 @@ use App\Contracts\Services\Api\LanguageServiceInterface;
 use App\Contracts\Services\Api\MessageServiceInterface;
 use App\Contracts\Services\Api\MusicServiceInterface;
 use App\Contracts\Services\Api\RoomServiceInterface;
+use App\Contracts\Services\Api\ShareServiceInterface;
 use App\Contracts\Services\Api\TagServiceInterface;
 use App\Contracts\Services\Api\VideoServiceInterface;
 use App\Contracts\Services\Api\UserServiceInterface;
@@ -17,6 +18,7 @@ use App\Services\Api\LanguageService;
 use App\Services\Api\MessageService;
 use App\Services\Api\MusicService;
 use App\Services\Api\RoomService;
+use App\Services\Api\ShareService;
 use App\Services\Api\TagService;
 use App\Services\Api\VideoService;
 use App\Services\Api\UserService;
@@ -68,6 +70,10 @@ class AppServiceProvider extends ServiceProvider
                 CommentServiceInterface::class,
                 CommentService::class
             ],
+            [
+                ShareServiceInterface::class,
+                ShareService::class
+            ]
         ];
         
         foreach ($services as $service) {

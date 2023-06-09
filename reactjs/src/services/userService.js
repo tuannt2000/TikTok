@@ -31,3 +31,8 @@ export const follow = (data) => {
     const url ='/follow';
     return api.post(url, data);
 };
+
+export const getListFriend = () => {
+    const url ='users/friend';
+    return api.get(url);
+};

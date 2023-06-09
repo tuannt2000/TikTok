@@ -25,6 +25,12 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
+    public function getVideo($id) {
+        $result = $this->videoService->getVideoById($id);
+
+        return response()->json($result, $result['code']);
+    }
+
     public function getVideoNotLogin() {
         $result = $this->videoService->getVideoNotLogin();
 
@@ -121,6 +127,17 @@ class VideoController extends Controller
      */
     public function report(Request $request) {
         $result = $this->videoService->report($request->all());
+
+        return response()->json($result, $result['code']);
+    }
+
+    /**
+      * @param Request $request
+      *
+      * @return \Illuminate\Http\Response
+     */
+    public function share (Request $request) {
+        $result = $this->videoService->share($request->all());
 
         return response()->json($result, $result['code']);
     }

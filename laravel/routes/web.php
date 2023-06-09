@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\VideosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,7 @@ Route::get('/', function() {
 })->name('dashboard');
 
 Route::get('/users', [UsersController::class, 'index'])->name('users');
+Route::get('/videos', [VideosController::class, 'index'])->name('videos');
 
 Route::get('/login', function() {
     return view('content/auth/login');
@@ -32,11 +34,3 @@ Route::get('/register', function() {
 Route::get('/forgot-password', function() {
     return view('content/auth/forgot_password');
 })->name('forgot-password');
-
-Route::get('/charts', function() {
-    return view('content/charts/index');
-})->name('charts');
-
-Route::get('/tables', function() {
-    return view('content/tables/index');
-})->name('tables');
