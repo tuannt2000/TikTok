@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Picker from 'emoji-picker-react';
 import { sendMessage } from '~/redux/actions/room';
 import { useDispatch } from 'react-redux';
+import { setAlertMessage } from "~/redux/actions/user";
 
 const cx = classNames.bind(styles);
 
@@ -15,11 +16,12 @@ function ChatBottom({ room_id, user_id}) {
     const dispatch = useDispatch();
 
     const handleSendMessage = () => {
-        if (!message) {
-            alert('Please add a message');
+        const trim_message = message.trim();
+        if (!trim_message) {
+            dispatch(setAlertMessage("Hãy nhập tin nhắn."));
             return;
         }
-        dispatch(sendMessage({ room_id, user_id, message }));
+        dispatch(sendMessage({ room_id, user_id, message: trim_message }));
         setMessage('');
     }
 
@@ -54,7 +56,7 @@ function ChatBottom({ room_id, user_id}) {
                             onFocus={() => setFocus(true)}
                             onBlur={() => setFocus(false)}
                             placeholder="Gửi tin nhắn..."
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyPress}
                         />
                         <Tippy
                             trigger='click'
@@ -71,7 +73,7 @@ function ChatBottom({ room_id, user_id}) {
                     </div>
                 </div>
             </div>
-            {message && <div className={cx('message-send')} onClick={handleSendMessage}><SendMessageIcon /></div>}
+            {message.trim() && <div className={cx('message-send')} onClick={handleSendMessage}><SendMessageIcon /></div>}
         </div>
     );
 }
