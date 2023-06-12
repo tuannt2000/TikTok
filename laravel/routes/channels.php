@@ -20,3 +20,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('room.{id}', function ($user, $id) {
     return true; // user có thể join vào bất kì chatroom nào
 });
+
+Broadcast::channel('notification.{id}', function () {
+    return true;
+});

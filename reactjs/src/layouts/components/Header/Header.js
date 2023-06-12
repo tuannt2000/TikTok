@@ -21,13 +21,46 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { getProfileUser } from '~/redux/actions/user';
 import PropTypes from 'prop-types';
+import Echo from "laravel-echo";
+import { setCountNotification } from '~/redux/actions/notification';
 
 const cx = classNames.bind(styles);
 
 function Header({ max_width = false }) {
     const language = useSelector(state => state.language);
+    const notifications = useSelector(state => state.notification.notifications);
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser);
+
+    useEffect(() => {
+        const echo = new Echo({
+            broadcaster: 'pusher',
+            key: process.env.REACT_APP_MIX_ABLY_PUBLIC_KEY,
+            wsHost: 'realtime-pusher.ably.io',
+            wsPort: 443,
+            disableStats: true,
+            encrypted: true,
+            auth: {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        });
+
+        echo
+            .channel(`notification.${currentUser.id}`)
+            .listen('.notification.new', (data) => {
+                if (Object.keys(data).length > 0) {
+                    dispatch(setCountNotification(data));
+                }
+            });
+
+        return () => {
+            echo.leave(`notification.${currentUser.id}`)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser.id]);
 
     useEffect(() => {
         MENU_ITEMS.forEach(item => {
@@ -69,7 +102,10 @@ function Header({ max_width = false }) {
                             <div>
                                 <Tippy content={MESSAGE}>
                                     <button className={cx('action-btn')}>
-                                        <Link to={config.routes.messages}><MessageIcon /></Link>
+                                        <Link to={config.routes.messages}>
+                                            <MessageIcon />
+                                            {notifications.length > 0 && <span className={cx('badge-message')}>{notifications.length}</span>}
+                                        </Link>
                                     </button>
                                 </Tippy>
                             </div>
@@ -77,7 +113,7 @@ function Header({ max_width = false }) {
                                 <Tippy content={INBOX}>
                                     <button className={cx('action-btn')}>
                                         <InboxIcon />
-                                        <span className={cx('badge')}>12</span>
+                                        {/* <span className={cx('badge')}>12</span> */}
                                     </button>
                                 </Tippy>
                             </div>

@@ -34,4 +34,12 @@ class Room extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function scopeOfUsersByRoomId($query, $room_id, $user_id)
+    {
+        return $query->select('user_id')
+            ->where('room_id', $room_id)
+            ->where('user_id', "<>", $user_id)
+            ->first();
+    }
 }

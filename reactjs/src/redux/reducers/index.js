@@ -8,6 +8,7 @@ import { roomReducer } from "./room";
 import { videoReducer } from "./video";
 import { commentReducer } from "./comment";
 import { modalReducer } from "./modal";
+import { notificationReducer } from "./notification";
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     room: roomReducer,
     video: videoReducer,
     comment: commentReducer,
-    modal: modalReducer
+    modal: modalReducer,
+    notification: notificationReducer
 });
 
 export default rootReducer;
