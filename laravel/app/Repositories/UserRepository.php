@@ -44,7 +44,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function getListAccountOffer ($followerIds)
     {
         return $this->model
-            ->withCount(['likes', 'follows'])
+            ->withCount(['likes', 'followers'])
             ->whereNotIn('users.id', $followerIds)
             ->get();
     }

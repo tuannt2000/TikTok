@@ -33,7 +33,7 @@ function Account({ offer = false, follow = false, title, showMore }) {
                 let Comp;
                 if (offer) {
                     Comp =
-                        <AccountOffer key={index} data={result}>
+                        <AccountOffer key={index} data={result} following={result.following}>
                             <AccountItem className="sidebar" data={result} />
                         </AccountOffer>
                 } else if (follow) {

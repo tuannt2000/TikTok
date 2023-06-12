@@ -24,7 +24,7 @@ function Home() {
     const following = location.pathname === '/following';
 
     useEffect(() => {
-        const new_list_video = location.pathname === '/' ? video.list_video : video.list_video_following
+        const new_list_video = location.pathname === '/' ? video.list_video : video.list_video_following;
         setListVideoState(new_list_video);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [video.list_video, video.list_video_following]);
@@ -67,7 +67,7 @@ function Home() {
         <div>
             {listVideoState.map((result, index) => (
                 <div key={index} className={cx('list-item')}>
-                    <AccountOffer home data={result.user}>
+                    <AccountOffer home data={result.user} following={result.is_user_following}>
                         <Avatar
                             data={result.user}
                             size={56}

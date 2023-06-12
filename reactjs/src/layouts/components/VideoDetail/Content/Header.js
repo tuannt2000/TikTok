@@ -110,7 +110,7 @@ function Header({ video }) {
 
     return (
         <div className={cx('info-container')}>
-            <AccountOffer home data={video.user} className={'mr-avatar'}>
+            <AccountOffer home data={video.user} className={'mr-avatar'} following={video.is_user_following}>
                 <Avatar
                     data={video.user}
                     size={40}
