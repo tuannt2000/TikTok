@@ -18,16 +18,9 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-2">Reset Your Password?</h1>
                                     </div>
-                                    <form class="user" action="" method="POST">
+                                    <form class="user" action="{{ route('reset-password.post') }}" method="POST">
                                         @csrf
-                                        <div class="form-group {{ $errors->has('email') ? 'invalid' : '' }}">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp" name="email"
-                                                placeholder="Enter Email Address..." value="{{ old('email') }}">
-                                            @if ($errors->has('email'))
-                                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                                            @endif
-                                        </div>
+                                        <input type="hidden" name="token" value="{{ $token }}" />
                                         <div class="form-group {{ $errors->has('password') ? 'invalid' : '' }}">
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="New Password" name="password">
@@ -38,13 +31,13 @@
                                         <div class="form-group {{ $errors->has('password') ? 'invalid' : '' }}">
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Re-New Password" name="re-password">
-                                            @if ($errors->has('password'))
-                                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                                            @if ($errors->has('re-password'))
+                                                <span class="text-danger">{{ $errors->first('re-password') }}</span>
                                             @endif
                                         </div>
-                                        <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Reset Password
-                                        </a>
+                                        </button>
                                     </form>
                                     <hr>
                                     <div class="text-center">

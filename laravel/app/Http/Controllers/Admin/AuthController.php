@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Admin\Auth\LoginRequest;
+use App\Http\Requests\Admin\Auth\ResetPasswordRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Mail;
 
@@ -64,5 +66,38 @@ class AuthController extends Controller
     public function resetPassword(Request $request) {
         $token = $request->token ?? null;
         return view('content/auth/reset_password', compact('token'));
+    }
+
+    public function postResetPassword(ResetPasswordRequest $request) {
+        $validated = $request->validated();
+
+        $password_reset = DB::table('password_resets')->where([
+            'token' => $validated['token'],
+        ])->first();
+
+        if (!$password_reset) {
+            return redirect()->back()
+                ->withInput()
+                ->with('flashError', 'Có lỗi xảy ra, vui lòng thử lại');
+        }
+
+        $email = $password_reset->email;
+
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            return redirect()->back()
+                ->withInput()
+                >with('flashError', 'Có lỗi xảy ra, vui lòng thử lại');
+        }
+
+        $user->password = Hash::make($validated['password']);
+
+        if ($user->save()) {
+            return redirect()->route('login')->with('flashSuccess', 'Đổi mật khẩu thành công');
+        }
+
+        return redirect()->back()
+            ->withInput()
+            >with('flashError', 'Có lỗi xảy ra, vui lòng thử lại');
     }
 }

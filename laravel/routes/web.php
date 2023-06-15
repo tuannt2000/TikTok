@@ -25,8 +25,9 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/videos', [VideosController::class, 'index'])->name('videos');
 });
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login',  [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
-Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
+Route::get('/forgot-password',  [AuthController::class, 'forgotPassword'])->name('forgot-password');
 Route::post('/forgot-password', [AuthController::class, 'postForgotPassword'])->name('forgot-password.post');
-Route::get('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
+Route::get('/reset-password',   [AuthController::class, 'resetPassword'])->name('reset-password');
+Route::post('/reset-password',  [AuthController::class, 'postResetPassword'])->name('reset-password.post');
