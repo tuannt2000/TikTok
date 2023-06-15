@@ -30,6 +30,12 @@ i.bi {
     opacity: 0;
 }
 
+.bg-re-password-image {
+    background: url(/img/reset-password.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
 @keyframes alert { 
     0% {
         transform: translateY(-100%);

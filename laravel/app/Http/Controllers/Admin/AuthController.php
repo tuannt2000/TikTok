@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Admin\Auth\LoginRequest;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Mail;
 
 class AuthController extends Controller
 {
@@ -17,7 +23,7 @@ class AuthController extends Controller
         $validated = $request->validated();
 
         if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']])) {
-            return redirect()->route('dashboard')->with('flashSuccess', 'Đăng nhập thành công');    
+            return redirect()->route('dashboard')->with('flashSuccess', 'Đăng nhập thành công');
         }
 
         return redirect()->back()
@@ -27,5 +33,36 @@ class AuthController extends Controller
 
     public function forgotPassword() {
         return view('content/auth/forgot_password');
+    }
+
+    public function postForgotPassword(ForgotPasswordRequest $request) {
+        $validated = $request->validated();
+
+        $user = User::where('email', $validated['email'])->first();
+        if (!$user) {
+            return redirect()->back()
+            ->withInput()
+            ->with('flashError', 'Email không chính xác');
+        }
+
+        $token = Str::random(64);
+  
+        DB::table('password_resets')->insert([
+            'email' => $validated['email'], 
+            'token' => $token, 
+            'created_at' => Carbon::now()
+        ]);
+
+        Mail::send('elements.email.forget_password', ['token' => $token], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Reset Password');
+        });
+
+        return back()->with('flashSuccess', 'Chúng tôi đã gửi link reset password đến mail, hãy kiểm tra');
+    }
+
+    public function resetPassword(Request $request) {
+        $token = $request->token ?? null;
+        return view('content/auth/reset_password', compact('token'));
     }
 }
