@@ -25,7 +25,11 @@ class AuthController extends Controller
         $validated = $request->validated();
 
         if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']])) {
-            return redirect()->route('dashboard')->with('flashSuccess', 'Đăng nhập thành công');
+            if (Auth::user()->role == 'ADM') {
+                return redirect()->route('dashboard')->with('flashSuccess', 'Đăng nhập thành công');
+            }
+
+            Auth::logout();
         }
 
         return redirect()->back()
@@ -99,5 +103,11 @@ class AuthController extends Controller
         return redirect()->back()
             ->withInput()
             >with('flashError', 'Có lỗi xảy ra, vui lòng thử lại');
+    }
+
+    public function logout() {
+        Auth::logout();
+
+        return redirect()->route('login')->with('flashSuccess', 'Đăng xuất thành công');
     }
 }

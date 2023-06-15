@@ -77,6 +77,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $this->model
             ->select('users.*')
+            ->where('users.role', 'USER')
             ->withCount(['follows', 'followers'])
             ->get();
     }

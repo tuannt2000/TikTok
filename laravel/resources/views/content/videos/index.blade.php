@@ -30,9 +30,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($videos as $video)
+                            @foreach($videos as $key => $video)
                                 <tr>
-                                    <td>{{ $video->id }}</td>
+                                    <td>{{ $key + 1 }}</td>
                                     <td>{{ $video->user->full_name }}</td>
                                     <td>
                                         <a target="blank" href="{{ $video->url }}">

@@ -23,6 +23,8 @@ Route::prefix('/')->middleware('auth')->group(function () {
     
     Route::get('/users', [UsersController::class, 'index'])->name('users');
     Route::get('/videos', [VideosController::class, 'index'])->name('videos');
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::get('/login',  [AuthController::class, 'login'])->name('login');

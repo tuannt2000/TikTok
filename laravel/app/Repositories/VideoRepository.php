@@ -79,7 +79,9 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
     }
 
     public function getAll() {
-        $videos = $this->model->withCount(['likes' => function($query) {
+        $videos = $this->model->join('users', 'users.id', '=', 'videos.user_id')
+            ->where('users.role', 'USER')
+            ->withCount(['likes' => function($query) {
                 $query->whereNull('deleted_at');
             }])
             ->get();
