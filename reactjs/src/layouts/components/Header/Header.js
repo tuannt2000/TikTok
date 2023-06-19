@@ -92,7 +92,7 @@ function Header({ max_width = false }) {
         <header className={cx('wrapper')}>
             <div className={cx('inner', { 'max-width' : max_width})}>
                 <div className={cx('logo')}>
-                    <Link to={config.routes.home} className={cx('logo')}><img src={images.logo} alt="TikTok" /></Link>
+                    <Link to={config.routes.home} className={cx('logo')}><img style={{ height: 60 }} src={images.logo} alt="TikTok" /></Link>
                 </div>  
                 <Search />
                 <div className={cx('actions')}>
