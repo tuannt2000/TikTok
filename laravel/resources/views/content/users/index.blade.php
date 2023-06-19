@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout', ['active' => 'users'])
 
-@section('title', 'Users Manage')
+@section('title', 'Users Manage - V&E')
 
 @section('content')
     <!-- Begin Page Content -->

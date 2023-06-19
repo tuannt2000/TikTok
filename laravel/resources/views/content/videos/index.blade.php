@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout', ['active' => 'videos'])
 
-@section('title', 'Videos Manage')
+@section('title', 'Videos Manage - V&E')
 
 @section('content')
     <!-- Begin Page Content -->
