@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\VideosController;
 use Illuminate\Support\Facades\Route;
@@ -17,11 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('/')->middleware('auth')->group(function () {
-    Route::get('/', function() {
-        return view('content/dashboard/index');
-    })->name('dashboard')->middleware('auth');
-    
-    Route::get('/users', [UsersController::class, 'index'])->name('users');
+    Route::get('/',       [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/users',  [UsersController::class, 'index'])->name('users');
     Route::get('/videos', [VideosController::class, 'index'])->name('videos');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
