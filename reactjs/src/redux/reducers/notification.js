@@ -14,6 +14,13 @@ export const notificationReducer = (state = initState, action) => {
                 ...state,
                 notifications: new_notifications
             };
+        case types.REMOVE_NOTIFICATIONS:
+            const new_notifications_remove = state.notifications.filter(data => data.id !== action.payload.notification_id);
+
+            return {
+                ...state,
+                notifications: new_notifications_remove
+            };
         default:
             return state;
     }

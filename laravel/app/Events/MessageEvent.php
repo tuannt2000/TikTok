@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class MessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    private $room_id, $user_id, $recipient_id, $text, $video_id;
+    private $room_id, $user_id, $text, $video_id;
 
     /**
      * Create a new event instance.
@@ -45,6 +45,7 @@ class MessageEvent implements ShouldBroadcast
             'nickname' => $user->nickname,
             'text'     => $this->text,
             'avatar'   => $user->avatar,
+            'readed'   => 0,
             'video' => $video,
             'created_at' => date('d-m-y h:i:s')
         ];

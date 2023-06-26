@@ -7,7 +7,7 @@ import Pusher from 'pusher-js';
 import ListConversation from './ListConversation';
 import ChatBox from './ChatBox';
 import { useDispatch } from "react-redux";
-import { getAllMessages, setAllMessages, setAllMessagesAfterSend } from '~/redux/actions/room';
+import { getAllMessages, removeNotification, setAllMessages, setAllMessagesAfterSend } from '~/redux/actions/room';
 import Echo from "laravel-echo";
 
 const cx = classNames.bind(styles);
@@ -45,6 +45,11 @@ function Message() {
     }, [dispatch, idRoom]);
 
     const handleClick = (currentRoom) => {
+        if (!currentRoom.readed) {
+            currentRoom.readed = 1;
+            dispatch(removeNotification({notification_id: currentRoom.notification_id}));
+        }
+
         const room_id = currentRoom.room_id;
         if (idRoom !== room_id) {
             setIdRoom(room_id);

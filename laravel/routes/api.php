@@ -52,6 +52,7 @@ Route::prefix('/')->middleware('auth:api')->group(function () {
     Route::get ('/messages', [MessageController::class, 'index']);
     Route::post('/message',  [MessageController::class, 'store']);
     Route::post('/follow',   [FollowController::class, 'store']);
+    Route::post('/notification', [RoomController::class, 'removeNotification']);
 
     Route::prefix('video')->group(function () {
         Route::get ('/',         [VideoController::class, 'index']);

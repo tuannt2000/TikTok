@@ -61,7 +61,7 @@ function ListItem({ idRoom, room, handleClick }) {
                 />
                 <div className={cx('item-text')}>
                     <div className={cx('item-nickname')}>{newRoom.nickname}</div>
-                    <div className={cx('item-extract-time')}>
+                    <div className={cx('item-extract-time', {"readed": newRoom.readed})}>
                         <div className={cx('item-extract')}>{formatTextMessage(newRoom)}</div>
                         <div className={cx('item-time')}>{formatDate(newRoom.created_at)}</div>
                     </div>
