@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Contracts\Services\Admin\UserServiceInterface;
 use App\Contracts\Services\Admin\VideoServiceInterface;
+use App\Services\Admin\UserService;
 use App\Services\Admin\VideoService;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +21,10 @@ class AdminServiceProvider extends ServiceProvider
             [
                 VideoServiceInterface::class,
                 VideoService::class
+            ],
+            [
+                UserServiceInterface::class,
+                UserService::class
             ]
         ];
         
