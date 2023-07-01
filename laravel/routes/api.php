@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\GoogleController;
 
 /*
@@ -80,3 +81,5 @@ Route::get('/languages', [LanguageController::class, 'index']);
 Route::get('/discoves', [DiscoveController::class, 'index']);
 
 Route::post('/redirectGoogle', [GoogleController::class, 'loginCallback']);
+Route::post('/login',    [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);

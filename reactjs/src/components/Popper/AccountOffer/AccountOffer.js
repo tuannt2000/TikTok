@@ -34,7 +34,7 @@ const AccountOffer = (
             <PopperWrapper className={cx('menu-popper')}>
                 <div className={cx('header')}>
                     <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank"  className={cx('avatar')}>
-                        <Image referrerPolicy={'no-referrer'} src={data.avatar} alt={data.avatar} />
+                        <Image referrerPolicy={'no-referrer'} src={data.avatar ?? ''} alt={data.avatar} />
                     </a>
                     <Button onClick={handClick} primary>{ following ? 'Đang follow' : 'Follow' }</Button>
                 </div>

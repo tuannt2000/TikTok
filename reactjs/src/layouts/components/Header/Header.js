@@ -125,7 +125,7 @@ function Header({ max_width = false }) {
                         <PopperMenu items={Object.keys(currentUser).length ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                             {Object.keys(currentUser).length > 0 ? (
                                 <Image
-                                    src={currentUser.avatar}
+                                    src={currentUser.avatar ?? ''}
                                     alt={currentUser.nickname}
                                     className={cx('user-avatar')}
                                     referrerPolicy={'no-referrer'}
