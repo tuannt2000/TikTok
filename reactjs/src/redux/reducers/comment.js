@@ -12,10 +12,10 @@ export const commentReducer = (state = initState, action) => {
                 listComment: action.payload
             };
         case types.SET_LIST_COMMENT_DELETED:
-            const new_list_comment = state.listComment.filter(item => item.id !== action.payload.id);
+            const new_list_comment_deleted = state.listComment.filter(item => item.id !== action.payload.id);
             return {
                 ...state,
-                listComment: new_list_comment
+                listComment: new_list_comment_deleted
             };
         default:
             return state;

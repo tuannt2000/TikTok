@@ -56,7 +56,10 @@ function Main({ profile }) {
 
     useEffect(() => {
         setActive(0);
-        dispatch(myVideo(profile.id));
+        
+        if (profile.id) {
+            dispatch(myVideo(profile.id));
+        }
 
         if (currentUser.id !== profile.id) {
             setNavbar(ANOTHER_TAB)

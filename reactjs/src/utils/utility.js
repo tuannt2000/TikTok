@@ -42,6 +42,9 @@ export const formatTextMessage = (room) => {
 
     if (room.text) {
         room.text_user_id === room.room_user_id ? new_text = room.text : new_text = 'Bạn: ' + room.text;
+    } else if (room.video_id && room.video_id !== 0) {
+        const message = "Đã chia sẻ một video";
+        room.text_user_id === room.room_user_id ? new_text = message : new_text = 'Bạn: ' + message;
     }
 
     return new_text;

@@ -19,8 +19,9 @@ class VideoController extends Controller
         $this->videoService = $videoService;
     }
 
-    public function index() {
-        $result = $this->videoService->index();
+    public function index(Request $request) {
+        $offset = $request->offset ?? 0;
+        $result = $this->videoService->index($offset);
 
         return response()->json($result, 200);
     }
@@ -37,8 +38,9 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
-    public function following() {
-        $result = $this->videoService->following();
+    public function following(Request $request) {
+        $offset = $request->offset ?? 0;
+        $result = $this->videoService->following($offset);
 
         return response()->json($result, 200);
     }
@@ -87,8 +89,14 @@ class VideoController extends Controller
             $folder_name = pathinfo($file_name, PATHINFO_FILENAME);
             $link = Auth::user()->id . '/' . date('Y_m_d_H_i_s_', strtotime(Carbon::now())) . $folder_name;
             $request['path_directory'] = $link;
-            $request['url'] = $this->__createUrlFile($link . '/' . $file_name, $request->video_file);
-            $request['cover_image'] = $this->__createUrlFile($link . '/' . $folder_name . ".png", $request->cover_image_file);
+            $request['url'] = $this->__createUrlFile($link . '/' . $file_name, $video);
+            if (is_null($request['url'])) {
+                throw new \Exception('Upload failed');
+            }
+            $request['cover_image'] = $this->__createUrlFile($link . '/' . $folder_name . ".png", $cover_image);
+            if (is_null($request['cover_image'])) {
+                throw new \Exception('Upload failed');
+            }
             $result = $this->videoService->uploadVideo($request->all());
 
             return response()->json($result, 200);
@@ -145,14 +153,18 @@ class VideoController extends Controller
     /**
       * create path url
       * @param string $link
-      * @param string $file
+      * @param file $file
       *
       * @return string $url
      */
     private function __createUrlFile($link, $file) {
-        Storage::disk('google')->put($link, file_get_contents($file));
-        $url = Storage::disk('google')->url($link);
+        try {
+            $file->storeAs('', $link, 'google');
+            return $link;
+        } catch (\Exception $e) {
+            Log::error($e);
+        }
 
-        return $url;
+        return null;
     }
 }

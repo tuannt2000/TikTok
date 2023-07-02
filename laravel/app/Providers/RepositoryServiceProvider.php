@@ -8,6 +8,7 @@ use App\Contracts\Repositories\LanguageRepositoryInterface;
 use App\Contracts\Repositories\LikeRepositoryInterface;
 use App\Contracts\Repositories\MessageRepositoryInterface;
 use App\Contracts\Repositories\MusicRepositoryInterface;
+use App\Contracts\Repositories\NotificationRepositoryInterface;
 use App\Contracts\Repositories\RoomRepositoryInterface;
 use App\Contracts\Repositories\ShareRepositoryInterface;
 use App\Contracts\Repositories\TagRepositoryInterface;
@@ -19,6 +20,7 @@ use App\Repositories\LanguageRepository;
 use App\Repositories\LikeRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\MusicRepository;
+use App\Repositories\NotificationRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\ShareRepository;
 use App\Repositories\TagRepository;
@@ -72,6 +74,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'share' => [
             ShareRepositoryInterface::class,
             ShareRepository::class,
+        ],
+        'notification' => [
+            NotificationRepositoryInterface::class,
+            NotificationRepository::class,
         ],
     ];
 

@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatNumber } from '~/utils/utility';
 import { useDispatch } from "react-redux";
 import { postFollow } from '~/redux/actions/user';
-import { useEffect, useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -19,14 +18,10 @@ const AccountOffer = (
     children,
     data,
     home = false,
-    className
+    className,
+    following = false
 }) => {
-    const [follow, setFollow] = useState(data.following);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        setFollow(data.following);
-    }, [data.following])
 
     const handClick = () => {
         dispatch(postFollow({
@@ -39,9 +34,9 @@ const AccountOffer = (
             <PopperWrapper className={cx('menu-popper')}>
                 <div className={cx('header')}>
                     <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank"  className={cx('avatar')}>
-                        <Image referrerPolicy={'no-referrer'} src={data.avatar} alt={data.avatar} />
+                        <Image referrerPolicy={'no-referrer'} src={data.avatar ?? ''} alt={data.avatar} />
                     </a>
-                    <Button onClick={handClick} primary>{ follow ? 'Đang follow' : 'Follow' }</Button>
+                    <Button onClick={handClick} primary>{ following ? 'Đang follow' : 'Follow' }</Button>
                 </div>
                 <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank" className={cx('nickname')}>
                     <span>{data.nickname}</span>

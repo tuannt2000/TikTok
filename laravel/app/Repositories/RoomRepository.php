@@ -32,19 +32,31 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->select(
                 'm1.user_id as text_user_id',
                 'rooms.user_id as room_user_id',
-                'nickname',
                 'rooms.room_id as room_id',
-                'avatar',
-                'text',
+                'users.nickname',
+                'users.avatar',
+                'users.social_provider',
+                'm1.text',
+                'm1.video_id',
+                'notifications.id as notification_id',
                 DB::raw('(CASE 
                         WHEN m1.date_send is NULL THEN rooms.created_at
                         ELSE m1.date_send
-                        END) AS created_at')
+                        END) AS created_at'),
+                DB::raw('(CASE 
+                        WHEN notifications.id is NULL THEN 1
+                        ELSE 0
+                        END) AS readed')
             )
             ->leftJoin('users', 'users.id', '=', 'rooms.user_id')
             ->leftJoin('messages as m1', function ($query) use ($user_id) {
                 $query->on('m1.room_id', '=', 'rooms.room_id');
                 $query->whereRaw('m1.date_send = (select max(m2.date_send) from messages as m2 where m2.room_id = m1.room_id and rooms.user_id !=' . $user_id . ')');
+            })
+            ->leftJoin('notifications', function ($query) use ($user_id) {
+                $query->on('notifications.table_id', '=', 'm1.id');
+                $query->where('notifications.table_name', 'messages')
+                    ->where('notifications.user_id', '!=', $user_id);
             })
             ->whereIn('rooms.room_id', $rooms_id)
             ->where('rooms.user_id', '!=', $user_id)

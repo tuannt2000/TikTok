@@ -8,7 +8,6 @@ import { useRef, useState } from "react";
 import Picker from 'emoji-picker-react';
 import { createComment } from '~/redux/actions/comment';
 import { useDispatch } from "react-redux";
-import { getListComment } from "~/redux/actions/comment";
 
 const cx = classNames.bind(styles);
 const MAX_LENGTH_MESSAGE = 150;
@@ -46,7 +45,6 @@ function BottomComment({ video }) {
         inputRef.current.innerText = ''
         setShowPlaceholder(true);
         setTextCount(0)
-        dispatch(getListComment(video.id))
     }
 
     const onEmojiClick = (event, emojiObject) => {

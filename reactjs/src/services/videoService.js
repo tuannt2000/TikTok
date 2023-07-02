@@ -1,8 +1,10 @@
 import { api, apiPostFile, apiWithoutHeader } from './api';
 
-export const getListVideo = async () => {
+export const getListVideo = async (data) => {
     const url = localStorage.getItem("token") ? '/video' : '/video/not-login';
-    return localStorage.getItem("token") ? api.get(url) : apiWithoutHeader.get(url);
+    return localStorage.getItem("token") ? api.get(url, {
+        params: data
+    }) : apiWithoutHeader.get(url);
 };
 
 export const getVideoById = async ($id) => {
@@ -10,9 +12,11 @@ export const getVideoById = async ($id) => {
     return api.get(url);
 };
 
-export const getListVideoFollowing = async () => {
+export const getListVideoFollowing = async (data) => {
     const url ='/video/following';
-    return api.get(url);
+    return api.get(url, {
+        params: data
+    });
 };
 
 export const getMyVideo = async (id) => {

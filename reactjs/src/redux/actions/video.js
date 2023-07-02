@@ -1,7 +1,8 @@
 import * as types from '../constants/video';
 
-export const listVideo = () => ({
-    type: types.GET_LIST_VIDEO
+export const listVideo = (data = {}) => ({
+    type: types.GET_LIST_VIDEO,
+    payload: data
 });
 
 export const setListVideo = ( data ) => ({
@@ -14,8 +15,9 @@ export const getVideoById = ( id ) => ({
     payload: id
 });
 
-export const listVideoFollowing = () => ({
-    type: types.GET_LIST_VIDEO_FOLLOWING
+export const listVideoFollowing = ( data ) => ({
+    type: types.GET_LIST_VIDEO_FOLLOWING,
+    payload: data
 });
 
 export const setListVideoFollowing = ( data ) => ({
@@ -108,5 +110,15 @@ export const reportVideo = ( data = false ) => ({
 
 export const shareVideo = ( data = {} ) => ({
     type: types.SHARE_VIDEO,
+    payload: data
+});
+
+export const setLoadMore = ( data = true ) => ({
+    type: types.SET_LOAD_MORE,
+    payload: data
+});
+
+export const setExistDataListVideo = ( data = true ) => ({
+    type: types.SET_EXIST_DATA_LIST_VIDEO,
     payload: data
 });
