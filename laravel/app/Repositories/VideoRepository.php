@@ -25,7 +25,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         parent::__construct($video);
     }
 
-    public function index($users_friend, $users_following) {
+    public function index($users_friend, $users_following, $offset) {
         $query = $this->__getQueryListVideo();
         if (!empty($users_following)) {
             $select_following = implode(', ', $users_following);
@@ -44,7 +44,8 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             })
             ->where('user_id', '<>', Auth::user()->id)
             ->orderByDesc('created_at')
-            ->take(10)
+            ->skip($offset)
+            ->take(5)
             ->get();
 
         return $video;
@@ -89,7 +90,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
         return $videos;
     }
 
-    public function videoFollowing($users_friend, $users_following) {
+    public function videoFollowing($users_friend, $users_following, $offset) {
         $query = $this->__getQueryListVideo();
         if (!empty($users_following)) {
             $select_following = implode(', ', $users_following);
@@ -108,6 +109,9 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
                         ->where('status', 0);
                 });
             })
+            ->orderByDesc('created_at')
+            ->skip($offset)
+            ->take(5)
             ->get();
 
         return $video;

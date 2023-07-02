@@ -19,8 +19,9 @@ class VideoController extends Controller
         $this->videoService = $videoService;
     }
 
-    public function index() {
-        $result = $this->videoService->index();
+    public function index(Request $request) {
+        $offset = $request->offset ?? 0;
+        $result = $this->videoService->index($offset);
 
         return response()->json($result, 200);
     }
@@ -37,8 +38,9 @@ class VideoController extends Controller
         return response()->json($result, 200);
     }
 
-    public function following() {
-        $result = $this->videoService->following();
+    public function following(Request $request) {
+        $offset = $request->offset ?? 0;
+        $result = $this->videoService->following($offset);
 
         return response()->json($result, 200);
     }

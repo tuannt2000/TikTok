@@ -26,9 +26,11 @@ import {
     GET_VIDEO_BY_ID
 } from "../constants/video";
 import {
+    setExistDataListVideo,
     setListVideo,
     setListVideoDetail,
     setListVideoFollowing,
+    setLoadMore,
     setMyVideo,
     setMyVideoLike,
     setVideoDetailWhenDelete,
@@ -38,14 +40,19 @@ import {
     setAlertMessage
 } from "../actions/user";
 
-function* sagaListVideo() {
+function* sagaListVideo(action) {
     try {
-        const res = yield call(getListVideo);
+        const res = yield call(getListVideo, action.payload);
         const { data } = res;
         yield put(setListVideo(data.data));
+        if (data.data.length === 0) {
+            yield put(setExistDataListVideo(false));
+        }
     } catch (error) {
         console.log(error);
     }
+
+    yield put(setLoadMore(false));
 }
 
 function* sagaGetVideoById(action) {
@@ -61,14 +68,19 @@ function* sagaGetVideoById(action) {
     }
 }
 
-function* sagaListVideoFollowing() {
+function* sagaListVideoFollowing(action) {
     try {
-        const res = yield call(getListVideoFollowing);
+        const res = yield call(getListVideoFollowing, action.payload);
         const { data } = res;
         yield put(setListVideoFollowing(data.data));
+        if (data.data.length === 0) {
+            yield put(setExistDataListVideo(false));
+        }
     } catch (error) {
         console.log(error);
     }
+
+    yield put(setLoadMore(false));
 }
 
 function* sagaMyVideo(action) {

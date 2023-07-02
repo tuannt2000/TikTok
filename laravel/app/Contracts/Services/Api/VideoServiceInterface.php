@@ -4,10 +4,10 @@ namespace App\Contracts\Services\Api;
 
 interface VideoServiceInterface
 {
-    public function index();
+    public function index($offset);
     public function getVideoById($id);
     public function getVideoNotLogin();
-    public function following();
+    public function following($offset);
     public function getMyVideo($user_id);
     public function getMyVideoLike();
     public function delete($id);
