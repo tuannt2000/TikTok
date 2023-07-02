@@ -87,7 +87,6 @@ function* sagaMyVideo(action) {
     try {
         const res = yield call(getMyVideo, action.payload);
         const { data } = res;
-        console.log(data);
         const new_data = data.data.map(obj => ({ ...obj, user: {...obj.user, following: obj.following.length ? true : false} }))
         yield put(setMyVideo(new_data));
     } catch (error) {
