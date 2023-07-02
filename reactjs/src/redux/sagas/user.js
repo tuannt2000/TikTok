@@ -108,7 +108,6 @@ function* followUser() {
     yield takeLatest(GET_USER_OFFER, sagaUserAccountOffer);
     yield takeLatest(GET_INFO_USER, sagaUserInfo);
     yield takeLatest(GET_PROFILE_USER, sagaProfileUser);
-    yield takeLatest(GET_PROFILE_USER, sagaProfileUser);
     yield takeLatest(FOLLOW, sagaFollow);
     yield takeLatest(GET_USER_FRIEND, sagaUserFriend);
 }
