@@ -11,7 +11,9 @@ const initState = {
     report: {
         video_id: null,
         check: false
-    }
+    },
+    load_more: false,
+    exist_data_list_video: true
 };
 
 export const videoReducer = (state = initState, action) => {
@@ -19,12 +21,14 @@ export const videoReducer = (state = initState, action) => {
         case types.SET_LIST_VIDEO:
             return {
                 ...state,
-                list_video: [...action.payload]
+                list_video: [...state.list_video, ...action.payload],
+                list_video_following: []
             }
         case types.SET_LIST_VIDEO_FOLLOWING:
             return {
                 ...state,
-                list_video_following: [...action.payload]
+                list_video_following: [...state.list_video_following, ...action.payload],
+                list_video: []
             }
         case types.SET_MY_VIDEO:
             return {
@@ -125,6 +129,16 @@ export const videoReducer = (state = initState, action) => {
             return {
                 ...state,
                 report: action.payload
+            }
+        case types.SET_LOAD_MORE:
+            return {
+                ...state,
+                load_more: action.payload
+            }
+        case types.SET_EXIST_DATA_LIST_VIDEO:
+            return {
+                ...state,
+                exist_data_list_video: action.payload
             }
         default:
             return state;

@@ -106,7 +106,7 @@
     padding-top: 4px;
     font-size: 1.4rem;
     line-height: 20px;
-    color: rgba(22, 24, 35, 0.75);
+    color: #000;
 }
 
 .item-extract {
@@ -120,6 +120,10 @@
     flex-shrink: 0;
     line-height: 20px;
     min-height: 20px;
-    color: rgba(22, 24, 35, 0.5);
+    color: #000;
     padding-left: 4px;
+}
+
+.readed > div {
+    color: #65676B !important;
 }

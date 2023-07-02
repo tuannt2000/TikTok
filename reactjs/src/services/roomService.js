@@ -22,3 +22,8 @@ export const sendMessage = async ({room_id, user_id, message}) => {
         text: message
     });
 };
+
+export const removeNotification = async (data) => {
+    const url = 'notification';
+    return api.post(url, data);
+};

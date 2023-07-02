@@ -16,3 +16,17 @@ export const setLoading = ( data = false ) => ({
     type: types.SET_LOADING,
     payload: data
 })
+
+export const loginNormal = (data, onSuccess, onError) => ({
+    type: types.LOGIN_NORMAL,
+    payload: data,
+    onSuccess,
+    onError
+});
+
+export const register = (data, onSuccess, onError) => ({
+    type: types.REGISTER,
+    payload: data,
+    onSuccess,
+    onError
+});

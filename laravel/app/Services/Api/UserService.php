@@ -159,7 +159,6 @@ class UserService extends AbstractService implements UserServiceInterface
     {
         try {
             $data = Auth::user();
-            $data['full_name'] = $data->first_name . ' ' . $data->last_name;
 
             return [
                 'code' => 200,

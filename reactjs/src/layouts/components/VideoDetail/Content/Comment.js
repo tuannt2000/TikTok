@@ -15,7 +15,7 @@ function Comment({ video }) {
     useEffect(() => {
         dispatch(getListComment(video.id))
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [video])
+    }, [video]);
 
     return (
         <div className={cx('comment-list-container')}>

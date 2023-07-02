@@ -44,7 +44,6 @@ function Login({ handleSetMenu, data }) {
 
     const onError = (message) => {
         console.log(message);
-        // handleSetMenu(data);
     };
 
     const { signIn } = useGoogleLogin({
@@ -60,7 +59,7 @@ function Login({ handleSetMenu, data }) {
     return (
         <>
             <LoginItem to='/login/qrcode' Icon={<QrIcon />} title='Sử dụng mã QR' />
-            <LoginItem to='/login/phone-or-email/phone' Icon={<UserIcon />} title='Số điện thoại / Email / TikTok ID' />
+            <LoginItem onClick={(e) => handleSetMenu(e, data)} Icon={<UserIcon />} title='Số điện thoại / Email / TikTok ID' />
             <LoginItem Icon={<ShareFaceBookIcon height='2rem' width='2rem' />} title='Tiếp tục với Facebook' />
             <LoginItem onClick={() => setClick(true)} Icon={<GoogleIcon />} title='Tiếp tục với Google' />
             <LoginItem Icon={<ShareTwitterIcon height='2rem' width='2rem' />} title='Tiếp tục với Twitter' />

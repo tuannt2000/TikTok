@@ -8,7 +8,6 @@ import Signup from "./Signup";
 import Login from "./Login";
 import { useGoogleLogout } from 'react-google-login';
 import { CloseIcon, ArrowLeftIcon } from '~/components/Icons';
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { setModalLogin } from '~/redux/actions/modal';
 import Loading from '../Loading';
@@ -29,6 +28,7 @@ const MODAL_MENU = [
 ];
 
 function Modal() {
+    const [register, setRegister] = useState(false);
     const [history, setHistory] = useState([{ data: MODAL_MENU }]);
     const modalLogin = useSelector(state => state.modal.modalLogin);
     const loading = useSelector(state => state.login.loading)
@@ -59,7 +59,9 @@ function Modal() {
         dispatch(setModalLogin());
     };
 
-    const handleSetMenu = (data) => {
+    const handleSetMenu = (e, data, register = false) => {
+        e.preventDefault();
+        setRegister(register);
         const isParent = !!data.children;
         if (isParent) {
             setHistory(prev => [...prev, data.children])
@@ -75,6 +77,7 @@ function Modal() {
                     key={index}
                     handleSetMenu={handleSetMenu}
                     data={item}
+                    registerState={register}
                 />
             )
         });
@@ -95,26 +98,29 @@ function Modal() {
                             <div className={cx('modal-container')}>
                                 <div className={cx('div-modal-container')}>
                                     <DialogTitle className={cx('title')}>
-                                        {history.length > 1 ? "Đăng ký" : "Đăng nhập vào TikTok"}
+                                        {register ? "Đăng ký" : "Đăng nhập vào TikTok"}
                                     </DialogTitle>
                                     {renderItems()}
                                 </div>
                                 {loading && <Loading />}
                             </div>
                             <div className={cx('footer')}>
-                                {history.length > 1 ? (
+                                {register ? (
                                     <div className={cx('footer')}>
                                         <div>Bạn đã có tài khoản?</div>
-                                        <Link to='login' className={cx('signup')}>
+                                        <a href="/login" onClick={e => {
+                                            e.preventDefault();
+                                            setHistory(prev => prev.slice(0, 1));
+                                        }} to='login' className={cx('signup')}>
                                             <span>Đăng nhập</span>
-                                        </Link>
+                                        </a>
                                     </div>
                                 ) : (
                                     <div className={cx('footer')}>
                                         <div>Bạn không có tài khoản?</div>
-                                        <Link to='signup' className={cx('signup')}>
+                                        <a href="/signup" onClick={e => handleSetMenu(e, currentMenu.data[0], true) } className={cx('signup')}>
                                             <span>Đăng ký</span>
-                                        </Link>
+                                        </a>
                                     </div>
                                 )}
                             </div>

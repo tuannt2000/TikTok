@@ -29,3 +29,8 @@ export const setAllMessagesAfterSend = ( data ) => ({
     type: types.SET_ALL_MESSAGES_AFTER_SEND,
     payload: data
 });
+
+export const removeNotification = ( data ) => ({
+    type: types.REMOVE_NOTIFICATION,
+    payload: data
+});
