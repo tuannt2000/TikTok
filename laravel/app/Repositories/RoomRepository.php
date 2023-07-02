@@ -32,10 +32,12 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->select(
                 'm1.user_id as text_user_id',
                 'rooms.user_id as room_user_id',
-                'nickname',
                 'rooms.room_id as room_id',
-                'avatar',
-                'text',
+                'users.nickname',
+                'users.avatar',
+                'users.social_provider',
+                'm1.text',
+                'm1.video_id',
                 'notifications.id as notification_id',
                 DB::raw('(CASE 
                         WHEN m1.date_send is NULL THEN rooms.created_at

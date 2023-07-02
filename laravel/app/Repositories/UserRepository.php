@@ -46,6 +46,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model
             ->withCount(['likes', 'followers'])
             ->whereNotIn('users.id', $followerIds)
+            ->orderBy('likes_count', 'desc')
+            ->take(6)
             ->get();
     }
 

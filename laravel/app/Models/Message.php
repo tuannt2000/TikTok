@@ -25,6 +25,8 @@ class Message extends Model
         'date_send'
     ];
 
+    protected $appends = ['avatar', 'social_provider'];
+
     public static function booted()
     {
         static::created(function($message){
@@ -43,5 +45,19 @@ class Message extends Model
     public function video()
     {
         return $this->belongsTo(Video::class);
+    }
+
+    public function getSocialProviderAttribute()
+    {
+        return $this->attributes['social_provider'];
+    }
+
+    public function getAvatarAttribute()
+    {
+        if ($this->attributes['social_provider'] === 'normal' && !is_null($this->attributes['avatar'])) {
+            return env('APP_URL') . $this->attributes['avatar'];
+        }
+        
+        return $this->attributes['avatar'];
     }
 }

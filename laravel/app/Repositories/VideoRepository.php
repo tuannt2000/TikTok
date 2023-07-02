@@ -44,7 +44,7 @@ class VideoRepository extends BaseRepository implements VideoRepositoryInterface
             })
             ->where('user_id', '<>', Auth::user()->id)
             ->orderByDesc('created_at')
-            ->take(15)
+            ->take(10)
             ->get();
 
         return $video;

@@ -14,7 +14,7 @@ function Profile() {
 
     useEffect(() => {
         const nickname = window.location.pathname.substring(2);
-        dispatch(getProfileUser(nickname));
+        dispatch(getProfileUser(decodeURIComponent(nickname)));
 
         return () => {
             dispatch(setProfileUser({}));
