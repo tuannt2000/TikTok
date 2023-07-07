@@ -72,6 +72,21 @@
     background-color: var(--primary);
 }
 
+.badge-message {
+    position: absolute;
+    top: -3px;
+    right: -5px;
+    padding: 0px 6px;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    font-family: 'ProximaNova', sans-serif;
+    background-color: var(--primary);
+}
+
 .user-avatar {
     width: 32px;
     height: 32px;

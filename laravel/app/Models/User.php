@@ -25,6 +25,7 @@ class User extends Authenticatable
         'nickname',
         'birthday',
         'avatar',
+        'role'
     ];
 
     /**
@@ -70,5 +71,14 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getAvatarAttribute()
+    {
+        if ($this->attributes['social_provider'] === 'normal' && !is_null($this->attributes['avatar'])) {
+            return env('APP_URL') . $this->attributes['avatar'];
+        }
+        
+        return $this->attributes['avatar'];
     }
 }

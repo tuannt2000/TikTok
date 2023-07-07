@@ -22,6 +22,14 @@ function* sagaCreateComment(action) {
         console.log(error);
         yield put(setAlertMessage("Người sở hữu video đã đóng tính năng comment"));
     }
+
+    try {
+        const res_get_list_comment = yield call(getListComment, action.payload.video_id);
+        const { data } = res_get_list_comment;
+        yield put(setListComment(data.data));
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function* sagaDeleteComment(action) {

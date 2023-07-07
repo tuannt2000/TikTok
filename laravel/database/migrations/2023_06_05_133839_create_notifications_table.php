@@ -17,10 +17,9 @@ class CreateNotificationsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('recipient_id');  // 通知を受け取る人のid
-            $table->json('body');
+            $table->integer('table_id');
+            $table->string('table_name');
             $table->boolean('checked')->default(0);
-            $table->boolean('readed')->default(0);
-            $table->date('received_date');
             $table->timestamps();
         });
     }

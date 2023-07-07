@@ -3,7 +3,8 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="container">
+    @include('elements.helpers.notification')
+    <div class="container mt-5">
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
@@ -17,33 +18,30 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Admin!</h1>
                                     </div>
-                                    <form class="user">
-                                        <div class="form-group">
+                                    <form class="user" action="{{ route('postLogin') }}" method="POST">
+                                        @csrf
+                                        <div class="form-group {{ $errors->has('email') ? 'invalid' : '' }}">
                                             <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                id="exampleInputEmail" aria-describedby="emailHelp" name="email"
+                                                placeholder="Enter Email Address..." value="{{ old('email') }}">
+                                            @if ($errors->has('email'))
+                                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                            @endif
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group {{ $errors->has('password') ? 'invalid' : '' }}">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="exampleInputPassword" placeholder="Password" name="password">
+                                            @if ($errors->has('password'))
+                                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                                            @endif
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
+                                        </button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="{{ route('forgot-password') }}">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

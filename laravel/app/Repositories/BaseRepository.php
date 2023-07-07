@@ -27,6 +27,13 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $result;
     }
 
+    public function findOrFail($id)
+    {
+        $result = $this->model->findOrFail($id);
+
+        return $result;
+    }
+
     public function create($attributes = [])
     {
         return $this->model->create($attributes);

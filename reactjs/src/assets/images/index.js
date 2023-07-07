@@ -1,5 +1,5 @@
 const images = {
-    logo: require('~/assets/images/logo.svg').default,
+    logo: require('~/assets/images/logo.png'),
     noImage: require('~/assets/images/no-image.png'),
     upload: require('~/assets/images/upload.svg').default,
     app: require('~/assets/images/tiktok-app.png'),

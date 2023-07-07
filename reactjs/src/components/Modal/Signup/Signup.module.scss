@@ -26,3 +26,87 @@
     width: 100%;
     margin-top: 16px;
 }
+
+.div-description {
+    color: rgb(22, 24, 35);
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.div-email-container {
+    margin-bottom: 9px;
+    position: relative;
+}
+
+.div-input-container {
+    position: relative;
+    margin-bottom: 9px;
+}
+
+.input-container {
+    border-radius: 2px;
+    background-color: rgba(22, 24, 35, 0.06);
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    padding-inline-start: 12px;
+    color: rgb(22, 24, 35);
+    line-height: 100%;
+    outline: none;
+    font-size: 16px;
+    height: 44px;
+    caret-color: rgb(254, 44, 85);
+    width: 100%;
+    padding-inline-end: unset;
+}
+
+.input-container.invalid {
+    color: rgb(255, 76, 58);
+    border: 1px solid rgb(255, 76, 58);
+}
+
+.div-icon-container {
+    right: 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    height: 44px;
+    padding-inline-end: 16px;
+}
+
+.div-container {
+    margin-bottom: 9px;
+}
+
+.p-description-title-container {
+    color: rgb(22, 24, 35);
+    font-weight: 600;
+    margin: 4px 0px;
+}
+
+.div-text-container {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 4px 0px;
+    color: rgba(22, 24, 35, 0.5);
+    display: flex;
+
+    > svg {
+        margin-inline-end: 4px;
+    }
+}
+
+.div-text-container.invalid {
+    color: rgb(255, 76, 58);
+}
+
+.password-icon {
+    line-height: 0;
+    margin-inline-start: 16px;
+    cursor: pointer;
+    font-size: 20px;
+}

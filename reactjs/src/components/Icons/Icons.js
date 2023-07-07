@@ -1444,3 +1444,63 @@ export const CheckboxIcon = ({ width = '1.6rem', height = '1.6rem', className })
         ></path>
     </svg>
 )
+
+export const ErrorIcon = ({ width = '1.4rem', height = '1.4rem', className }) => (
+    <svg 
+        className={className}
+        width={width}
+        height={height}
+        viewBox="0 0 48 48" 
+        fill="rgba(254, 44, 85, 1.0)" 
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path 
+            fillRule="evenodd" 
+            clipRule="evenodd" 
+            d="M20.5522 6.91656C22.0988 4.28733 25.9011 4.28734 27.4477 6.91656L43.9509 34.9719C45.5194 37.6385 43.5968 41 40.5031 41H7.49679C4.40313 41 2.48051 37.6385 4.04906 34.9719L20.5522 6.91656ZM24 8.94464L7.49679 37H40.5031L24 8.94464ZM22 18C22 17.4477 22.4477 17 23 17H25C25.5522 17 26 17.4477 26 18V27C26 27.5523 25.5522 28 25 28H23C22.4477 28 22 27.5523 22 27V18ZM24 35C25.3807 35 26.5 33.8807 26.5 32.5C26.5 31.1193 25.3807 30 24 30C22.6192 30 21.5 31.1193 21.5 32.5C21.5 33.8807 22.6192 35 24 35Z"
+        ></path>
+    </svg>
+)
+
+export const PassIcon = ({ width = '1.2rem', height = '1.2rem', className, fill }) => (
+    <svg 
+        className={className}
+        width={width}
+        height={height}
+        viewBox="0 0 48 48" 
+        fill={fill}
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path 
+            fillRule="evenodd" 
+            clipRule="evenodd" 
+            d="M42.6925 12.7217C43.0748 13.1203 43.0616 13.7533 42.663 14.1356L18.8847 36.9434C18.0993 37.6967 16.8556 37.6838 16.086 36.9142L5.29314 26.1213C4.90261 25.7308 4.90261 25.0976 5.29314 24.7071L6.70735 23.2929C7.09788 22.9024 7.73104 22.9024 8.12156 23.2929L17.5294 32.7007L39.8941 11.2489C40.2927 10.8666 40.9257 10.8798 41.308 11.2783L42.6925 12.7217Z"
+        ></path>
+    </svg>
+)
+
+export const HidePasswordIcon = ({ width = '2rem', height = '2rem', className }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        className={className}
+        width={width}
+        height={height}
+        fill="currentColor" 
+        stroke="currentColor"
+    >
+        <path d="M2.8 7.8c2.1 1 4.5 1.6 7 1.6s4.9-.6 7-1.6m-7 2v3M5.1 9.2l-1.5 2.6m11-2.6 1.5 2.6" opacity=".5"></path>
+    </svg>
+)
+
+export const ShowPasswordIcon = ({ width = '2rem', height = '2rem', className }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        className={className}
+        width={width}
+        height={height}
+        fill="currentColor" 
+        stroke="currentColor"
+    >
+        <g strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" opacity=".5"><path d="M9.8 4.8c3 0 5.3 1.7 7 5-1.7 3.3-4 5-7 5s-5.3-1.7-7-5c1.6-3.4 4-5 7-5Z"></path><path d="M9.8 11.8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path></g>
+    </svg>
+)

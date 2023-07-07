@@ -20,6 +20,13 @@ interface BaseRepositoryInterface
     public function find($id);
 
     /**
+     * Get one
+     * @param $id
+     * @return mixed
+     */
+    public function findOrFail($id);
+
+    /**
      * Create
      * @param array $attributes
      * @return mixed
