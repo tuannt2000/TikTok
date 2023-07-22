@@ -6,22 +6,28 @@ import {
     VideoLikedIcon, ReportVideoIcon 
 } from '~/components/Icons';
 import { Share } from '~/components/Popper';
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { likeVideo, setReportVideo } from '~/redux/actions/video';
 
 const cx = classNames.bind(styles);
 
-function Video({ data, onClick }) {
+function Video({ data, onClick, index, playVideoIndex }) {
     const userLogin = useSelector(state => state.user.currentUser)
     const [like, setLike] = useState(false);
     const [countLike, setCountLike] = useState(0);
     const dispatch = useDispatch();
+    const videoRef = useRef();
 
     useEffect(() => {
         setLike(data.likes.length ? true : false);
         setCountLike(data.likes_count);
     }, [data])
+
+    useEffect(() => {
+        index === playVideoIndex ? videoRef.current.play() : videoRef.current.pause();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [playVideoIndex])
 
     const handleClick = () => {
         dispatch(likeVideo({video_id: data.id}));
@@ -43,7 +49,7 @@ function Video({ data, onClick }) {
                         <img src={data.cover_image} className={cx('img-poster')} alt=""/>
                         <div className={cx('div-basic-player-wrapper')}>
                             <div className={cx('video-playing')}>
-                                <video loop src={data.url}></video>
+                                <video ref={videoRef} autoPlay loop src={data.url} muted></video>
                             </div>
                         </div>
                     </div>

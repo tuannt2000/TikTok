@@ -2,11 +2,13 @@ import classNames from "classnames/bind";
 import styles from './ChatBox.module.scss';
 import { SendMessageIcon, EmojiIcon } from '~/components/Icons';
 import Tippy from '@tippyjs/react/headless';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Picker from 'emoji-picker-react';
 import { sendMessage } from '~/redux/actions/room';
 import { useDispatch } from 'react-redux';
 import { setAlertMessage } from "~/redux/actions/user";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import images from '~/assets/images'
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +16,20 @@ function ChatBottom({ room_id, user_id}) {
     const [message, setMessage] = useState('');
     const [focus, setFocus] = useState(false);
     const dispatch = useDispatch();
+
+    const {
+        transcript,
+        listening,
+        resetTranscript
+    } = useSpeechRecognition();
+    
+    useEffect(() => {
+        if (!listening && transcript) {
+            setMessage(prevState => prevState ? prevState + ' ' + transcript : transcript);
+            resetTranscript();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [listening, transcript]);
 
     const handleSendMessage = () => {
         const trim_message = message.trim();
@@ -41,7 +57,7 @@ function ChatBottom({ room_id, user_id}) {
         <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
             <Picker onEmojiClick={onEmojiClick} />
         </div>
-    )
+    );
 
     return (
         <div className={cx('chat-bottom')}>
@@ -74,6 +90,12 @@ function ChatBottom({ room_id, user_id}) {
                 </div>
             </div>
             {message.trim() && <div className={cx('message-send')} onClick={handleSendMessage}><SendMessageIcon /></div>}
+            <div 
+                className={cx('message-send')}
+                onClick={SpeechRecognition.startListening}
+            >
+                <img src={listening ? images.micFillIcon : images.micIcon} alt='' />
+            </div>
         </div>
     );
 }

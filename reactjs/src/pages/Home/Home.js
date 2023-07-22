@@ -16,6 +16,7 @@ import Loading from "~/components/Loading";
 const cx = classNames.bind(styles);
 
 function Home() {
+    const [playVideoIndex, setPlayVideoIndex] = useState(0);
     const video = useSelector(state => state.video);
     const modelShare = useSelector(state => state.modal.modelShare);
     const location = useLocation();
@@ -23,6 +24,7 @@ function Home() {
     const loadMore = useSelector(state => state.video.load_more);
     const existData = useSelector(state => state.video.exist_data_list_video);
     const videoRef = useRef();
+    const videoItemRef = useRef([])
     const dispatch = useDispatch();
 
     const following = location.pathname === '/following';
@@ -60,6 +62,9 @@ function Home() {
                     dispatch(setLoadMore());
                 }
             }
+
+            const playIndex = Math.floor(window.scrollY/videoItemRef.current[0].offsetHeight)
+            setPlayVideoIndex(playIndex);
         }
 
         // list has auto height  
@@ -94,7 +99,7 @@ function Home() {
     return (
         <div className={cx('home-container')} ref={videoRef}>
             {listVideoState.map((result, index) => (
-                <div key={index} className={cx('list-item')}>
+                <div ref={elem => videoItemRef.current[index] = elem}  key={index} className={cx('list-item')}>
                     <AccountOffer home data={result.user} following={result.is_user_following}>
                         <Avatar
                             data={result.user}
@@ -103,7 +108,7 @@ function Home() {
                     </AccountOffer>
                     <div className={cx('main-container')}>
                         <Header onClick={hanldeSumitFollow} following={following} data={result} />
-                        <Video onClick={handleVideoDetail} data={result} />
+                        <Video index={index} playVideoIndex={playVideoIndex} onClick={handleVideoDetail} data={result} />
                     </div>
                 </div>
             ))}

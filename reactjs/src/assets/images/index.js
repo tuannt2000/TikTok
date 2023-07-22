@@ -16,6 +16,8 @@ const images = {
     atIcon: require('~/assets/images/at.svg').default,
     hashtagIcon: require('~/assets/images/hashtag.svg').default,
     checkIcon: require('~/assets/images/check_icon.svg').default,
+    micIcon: require('~/assets/images/mic.svg').default,
+    micFillIcon: require('~/assets/images/mic-fill.svg').default,
 };
 
 export default images;
