@@ -28,7 +28,7 @@ function* postMessage(action) {
     try {
         yield call(sendMessage, action.payload);
     } catch (e) {
-        action.onError(e.message);
+        console.log(e)
     }
 }
 
@@ -37,7 +37,7 @@ function* sagaRemoveNotification(action) {
         yield call(removeNotification, action.payload);
         yield put(filterNotification(action.payload));
     } catch (e) {
-        action.onError(e.message);
+        console.log(e);
     }
 }
 
