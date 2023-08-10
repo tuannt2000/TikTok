@@ -140,6 +140,12 @@ export const videoReducer = (state = initState, action) => {
                 ...state,
                 exist_data_list_video: action.payload
             }
+        case types.CLEAR_LIST_VIDEO:
+            return {
+                ...state,
+                list_video: [],
+                list_video_following: []
+            }
         default:
             return state;
     }

@@ -122,3 +122,7 @@ export const setExistDataListVideo = ( data = true ) => ({
     type: types.SET_EXIST_DATA_LIST_VIDEO,
     payload: data
 });
+
+export const clearListVideo = () => ({
+    type: types.CLEAR_LIST_VIDEO
+});

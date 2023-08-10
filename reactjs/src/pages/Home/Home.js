@@ -6,7 +6,7 @@ import Video from "./Video";
 import { useEffect, useRef, useState } from 'react';
 import { AccountOffer } from '~/components/Popper';
 import { useSelector, useDispatch } from "react-redux";
-import { listVideo, listVideoFollowing, setExistDataListVideo, setListVideoDetail, setLoadMore } from '~/redux/actions/video';
+import { clearListVideo, listVideo, listVideoFollowing, setExistDataListVideo, setListVideoDetail, setLoadMore } from '~/redux/actions/video';
 import { useLocation } from "react-router-dom";
 import { postFollow } from "~/redux/actions/user";
 import Share from "~/components/Modal/Share";
@@ -39,6 +39,12 @@ function Home() {
         setListVideoState([]);
         dispatch(setLoadMore());
         dispatch(setExistDataListVideo());
+        dispatch(clearListVideo());
+
+        return () => {
+            dispatch(setLoadMore(false));
+            dispatch(setExistDataListVideo());
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
@@ -63,8 +69,10 @@ function Home() {
                 }
             }
 
-            const playIndex = Math.floor(window.scrollY/videoItemRef.current[0].offsetHeight)
-            setPlayVideoIndex(playIndex);
+            if (videoItemRef.current[0]) {
+                const playIndex = Math.floor(window.scrollY/videoItemRef.current[0].offsetHeight)
+                setPlayVideoIndex(playIndex);
+            }
         }
 
         // list has auto height  
