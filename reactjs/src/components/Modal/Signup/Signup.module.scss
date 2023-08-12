@@ -122,3 +122,17 @@
 .ps-1 {
     padding-left: 5px;
 }
+
+.forget-password {
+    font-size: 13px;
+    color: var(--primary);
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.forget-password-text {
+    font-size: 13px;
+}

@@ -1,6 +1,6 @@
-import { loginGoogle, loginNormal, register } from "~/services/loginService";
+import { forgetPassword, loginGoogle, loginNormal, register } from "~/services/loginService";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { LOGIN_NORMAL, POST_EMAIL_GOOGLE, REGISTER } from "../constants/login";
+import { FORGET_PASSWORD, LOGIN_NORMAL, POST_EMAIL_GOOGLE, REGISTER } from "../constants/login";
 import { setAlertMessage } from "../actions/user";
 import { setAccessToken, setLoading } from "../actions/login";
 
@@ -58,10 +58,23 @@ function* sagaRegister(action) {
     }
 }
 
+function* sagaForgetPassword(action) {
+    try {
+        const response = yield call(forgetPassword, action.payload);
+        const { data } = response;
+        action.onSuccessForgetPassword(data.data.message);
+        yield put(setAlertMessage("Chúng tôi đã gửi mật khẩu mới đến email của bạn, hãy kiểm tra email"));
+    } catch (e) {
+        action.onErrorForgetPassword(e.message);
+        yield put(setAlertMessage("Không tìm thấy email"));
+    }
+}
+
 function* followLogin() {
     yield takeLatest(POST_EMAIL_GOOGLE, postEmailGoogle);
     yield takeLatest(LOGIN_NORMAL, sagaLoginNormal);
     yield takeLatest(REGISTER, sagaRegister);
+    yield takeLatest(FORGET_PASSWORD, sagaForgetPassword);
 }
 
 export default followLogin;

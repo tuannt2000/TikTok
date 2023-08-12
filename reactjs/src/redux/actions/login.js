@@ -30,3 +30,10 @@ export const register = (data, onSuccess, onError) => ({
     onSuccess,
     onError
 });
+
+export const forgetPassword = (data, onSuccessForgetPassword, onErrorForgetPassword) => ({
+    type: types.FORGET_PASSWORD,
+    payload: data,
+    onSuccessForgetPassword,
+    onErrorForgetPassword
+});

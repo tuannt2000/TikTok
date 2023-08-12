@@ -14,3 +14,8 @@ export const register = (data) => {
     const url ='/register';
     return api.post(url, data);
 };
+
+export const forgetPassword = (data) => {
+    const url ='/forget-password';
+    return api.post(url, data);
+};

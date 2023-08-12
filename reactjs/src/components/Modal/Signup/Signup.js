@@ -3,7 +3,7 @@ import styles from './Signup.module.scss';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { loginNormal, register } from '~/redux/actions/login';
+import { forgetPassword, loginNormal, register } from '~/redux/actions/login';
 import { ErrorIcon, HidePasswordIcon, ShowPasswordIcon } from '~/components/Icons';
 import { useState } from 'react';
 
@@ -85,6 +85,15 @@ function Signup({ registerState }) {
         registerState ? formik.setErrors({email:"Email đã tồn tại"}) : formik.setErrors({email:"Email không chính xác"})
     };
 
+    const onSuccessForgetPassword = (message) => {
+        console.log(message);
+    };
+
+    const onErrorForgetPassword = (message) => {
+        console.log(message);
+        formik.setErrors({email: "Email không tồn tại"})
+    };
+
     return (
         <form onSubmit={formik.handleSubmit}>
             {registerState && (
@@ -145,19 +154,19 @@ function Signup({ registerState }) {
                         placeholder="Địa chỉ email" 
                         autoComplete="email" 
                         name="email" 
-                        className={cx('input-container', {'invalid': !focusEmail && formik.errors.email && formik.touched.email})} 
+                        className={cx('input-container', {'invalid': !focusEmail && formik.errors.email})} 
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onFocus={() => setFocusEmail(true) }
                         onBlur={() => setFocusEmail(false) }
                     />
                     <div className={cx('div-icon-container')}>
-                        {!focusEmail && formik.errors.email && formik.touched.email && (
+                        {!focusEmail && formik.errors.email && (
                             <ErrorIcon />
                         )}
                     </div>
                 </div>
-                {!focusEmail && formik.errors.email && formik.touched.email && (
+                {!focusEmail && formik.errors.email && (
                     <div className={cx('div-text-container', {'invalid': true})}>
                         <span>{formik.errors.email}</span>
                     </div>
@@ -195,6 +204,19 @@ function Signup({ registerState }) {
                     </div>
                 )}
             </div>
+            {!registerState && (
+                <div>
+                    <span 
+                        className={cx('forget-password', {'pe-1': true})}
+                        onClick={() => dispatch(forgetPassword(
+                            {email: formik.values.email},
+                            (message) => onSuccessForgetPassword(message),
+                            (message) => onErrorForgetPassword(message)
+                        ))}
+                    >Quên mật khẩu</span>
+                    <span className={cx('forget-password-text', {'ps-1': true})}>(Hãy nhập chính xác email)</span>
+                </div>
+            )}
             <button className={cx('btn')} disabled={!formik.values.email || !formik.values.password} type="submit">{ registerState ? 'Đăng ký' : 'Đăng nhập'}</button>
         </form>
     );
