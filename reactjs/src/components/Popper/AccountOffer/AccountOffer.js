@@ -19,7 +19,8 @@ const AccountOffer = (
     data,
     home = false,
     className,
-    following = false
+    following = false,
+    sidebar = false
 }) => {
     const dispatch = useDispatch();
 
@@ -45,6 +46,12 @@ const AccountOffer = (
                 <a href={`/@${data.nickname}`} rel="noreferrer" target="_blank" className={cx('fullname')}>
                     <span>{data.full_name}</span>
                 </a>
+                {sidebar && (
+                    <p className={cx('info')}>
+                        <span className={cx('follow-count')}>{formatNumber(data.mutual_friend_count ?? 0)}</span>
+                        <span className={cx('follow')}>Bạn chung</span>
+                    </p>
+                )}
                 <p className={cx('info')}>
                     <span className={cx('follow-count')}>{formatNumber(data.followers_count)}</span>
                     <span className={cx('follow')}>Follower</span>

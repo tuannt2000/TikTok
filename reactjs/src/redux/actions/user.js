@@ -20,9 +20,8 @@ export const setUserFollowing = ( data ) => ({
     payload: data
 });
 
-export const getUserOffer = ( data ) => ({
-    type: types.GET_USER_OFFER,
-    payload: data
+export const getUserOffer = () => ({
+    type: types.GET_USER_OFFER
 });
 
 export const setUserOffer = ( data ) => ({

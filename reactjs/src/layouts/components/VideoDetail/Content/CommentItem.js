@@ -8,6 +8,7 @@ import { ChevronDownIcon, MoreIcon, TrashIcon } from "~/components/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import Tippy from '@tippyjs/react/headless';
 import { deleteComment } from "~/redux/actions/comment";
+import { formatTimeComment } from "~/utils/utility";
 
 const cx = classNames.bind(styles);
 
@@ -67,7 +68,7 @@ function CommentItem({ result, video }) {
                         <span>{ result.text }</span>
                     </p>
                     <p className={cx('comment-sub-content')}>
-                        <span className={cx('comment-time')}>1ngày trước</span>
+                        <span className={cx('comment-time')}>{formatTimeComment(result.created_at)}</span>
                         <span className={cx('comment-reply')}>Trả lời</span>
                     </p>
                 </div>
@@ -87,14 +88,14 @@ function CommentItem({ result, video }) {
                     </div>
                 )}
             </div>
-            <div className={cx('reply-container')}>
+            {/* <div className={cx('reply-container')}>
                 <div className={cx('reply-action-container')}>
                     <div className={cx('reply-action-text')}>
                         Xem thêm câu trả lời khác (5)
                         <ChevronDownIcon className={cx('reply-chevron-down-icon')} />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

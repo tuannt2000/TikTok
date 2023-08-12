@@ -20,7 +20,7 @@ function Account({ offer = false, follow = false, title, showMore }) {
 
     useEffect(() => {
         if (user.currentUser.id) {
-            offer ? dispatch(getUserOffer(user.currentUser.id)) : dispatch(getUserFollowing(user.currentUser.id));
+            offer ? dispatch(getUserOffer()) : dispatch(getUserFollowing(user.currentUser.id));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.currentUser.id]);
@@ -33,7 +33,7 @@ function Account({ offer = false, follow = false, title, showMore }) {
                 let Comp;
                 if (offer) {
                     Comp =
-                        <AccountOffer key={index} data={result} following={result.following}>
+                        <AccountOffer key={index} data={result} sidebar following={result.following}>
                             <AccountItem className="sidebar" data={result} />
                         </AccountOffer>
                 } else if (follow) {

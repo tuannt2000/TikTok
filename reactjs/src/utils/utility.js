@@ -63,3 +63,9 @@ export const formatFilename = (filename) => {
 
     return filename;
 }
+
+export const formatTimeComment = (time) => {
+    time = Date.parse(time)
+    time = moment(time).format('YYYY-MM-DD')
+    return moment(time, "YYYYMMDD").fromNow();
+}

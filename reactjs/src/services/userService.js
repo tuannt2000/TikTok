@@ -10,9 +10,9 @@ export const getListFollowing = async ( id ) => {
     return apiWithoutHeader.post(url, { id });
 };
 
-export const getListAccountOffer = async ( id ) => {
+export const getListAccountOffer = async () => {
     const url = 'users/account-offer';
-    return apiWithoutHeader.post(url, { id });
+    return api.post(url);
 };
 
 export const getInfoUser = async () => {

@@ -50,9 +50,9 @@ function* sagaUserFollowing(action) {
     }
 }
 
-function* sagaUserAccountOffer(action) {
+function* sagaUserAccountOffer() {
     try {
-        const res = yield call(getListAccountOffer, action.payload);
+        const res = yield call(getListAccountOffer);
         const { data } = res;
         const new_data = data.data.map(obj => ({ ...obj, following: false }))
         yield put(setUserOffer(new_data));
