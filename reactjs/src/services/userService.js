@@ -21,10 +21,18 @@ export const getInfoUser = async () => {
 };
 
 export const getProfileUser = async ( nickname ) => {
-    const url ='/users/profile';
-    return apiWithoutHeader.get(url, {
-        params: { nickname }
-    });
+    const token = localStorage.getItem("token");
+    const url = token ? '/users/profile/logined' : '/users/profile';
+
+    if (token) {
+        return api.get(url, {
+            params: { nickname }
+        });
+    } else {
+        return apiWithoutHeader.get(url, {
+            params: { nickname }
+        });
+    }
 };
 
 export const follow = (data) => {

@@ -64,6 +64,11 @@ export const userReducer = (state = initState, action) => {
                 ...state,
                 userOffer: new_list_user_offer
             };
+        case types.SET_PROFILE:
+            return {
+                ...state,
+                profile: {...state.profile, is_user_following: state.profile.is_user_following ? 0 : 1}
+            };
         default:
             return state;
     }

@@ -64,6 +64,11 @@ export const setUserFollow = ( data ) => ({
     payload: data
 });
 
+export const setProFile = ( data ) => ({
+    type: types.SET_PROFILE,
+    payload: data
+});
+
 export const getUserFriend = () => ({
     type: types.GET_USER_FRIEND
 });

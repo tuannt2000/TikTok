@@ -3,6 +3,7 @@ import styles from './Avatar.module.scss';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { forwardRef } from "react";
+import images from '~/assets/images';
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +35,7 @@ const Avatar = forwardRef(({ data, size, to = true, href = false, album = false,
                     }
                 >
                     {album && (<div className={cx('album-border')}></div>)}
-                    <img referrerPolicy={'no-referrer'} src={data.avatar} alt={data.nickname} />
+                    <img referrerPolicy={'no-referrer'} src={data.avatar || images.noImage} alt={data.nickname} />
                 </span>
                 { info && (
                     <p className={cx('unique-id')}>{data.nickname}</p>

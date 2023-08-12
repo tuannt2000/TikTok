@@ -1,21 +1,21 @@
-import { api } from './api';
+import { apiWithoutHeader } from './api';
 
 export const loginGoogle = (data) => {
     const url ='/redirectGoogle';
-    return api.post(url, data);
+    return apiWithoutHeader.post(url, data);
 };
 
 export const loginNormal = (data) => {
     const url ='/login';
-    return api.post(url, data);
+    return apiWithoutHeader.post(url, data);
 };
 
 export const register = (data) => {
     const url ='/register';
-    return api.post(url, data);
+    return apiWithoutHeader.post(url, data);
 };
 
 export const forgetPassword = (data) => {
     const url ='/forget-password';
-    return api.post(url, data);
+    return apiWithoutHeader.post(url, data);
 };
