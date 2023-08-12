@@ -9,6 +9,44 @@ import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
+const registerFormik = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+}
+
+const loginFormik = {
+    email: "",
+    password: "",
+}
+
+const registerValidate = {
+    first_name: Yup
+        .string()
+        .required('Trường bắt buộc'),
+    last_name: Yup
+        .string()
+        .required('Trường bắt buộc'),
+    email: Yup
+        .string()
+        .email('Nhập địa chỉ email hợp lệ'),
+    password: Yup
+        .string()
+        .min(8, "Password tối thiểu 8 ký tự")
+        .max(20, "Password tối đa 20 ký tự"),
+}
+
+const loginValidate = {
+    email: Yup
+        .string()
+        .email('Nhập địa chỉ email hợp lệ'),
+    password: Yup
+        .string()
+        .min(8, "Password tối thiểu 8 ký tự")
+        .max(20, "Password tối đa 20 ký tự"),
+}
+
 function Signup({ registerState }) {
     const [focusEmail, setFocusEmail] = useState(false);
     const [focusPassword, setFocusPassword] = useState(false);
@@ -16,23 +54,12 @@ function Signup({ registerState }) {
     const dispatch = useDispatch();
 
     const formik = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-        },
-        validationSchema: Yup.object({
-            email: Yup
-                .string()
-                .email('Nhập địa chỉ email hợp lệ'),
-            password: Yup
-                .string()
-                .min(8, "Password tối thiểu 8 ký tự")
-                .max(20, "Password tối đa 20 ký tự"),
-        }),
+        initialValues: registerState ? registerFormik : loginFormik,
+        validationSchema: Yup.object(registerState ? registerValidate : loginValidate),
         onSubmit: values => {
             if (registerState) {
                 dispatch(register(
-                    {email: values.email, password: values.password},
+                    {email: values.email, password: values.password, first_name: values.first_name, last_name: values.last_name},
                     (message) => onSuccess(message),
                     (message) => onError(message)
                 ));  
@@ -55,10 +82,61 @@ function Signup({ registerState }) {
 
     const onError = (message) => {
         console.log(message);
+        registerState ? formik.setErrors({email:"Email đã tồn tại"}) : formik.setErrors({email:"Email không chính xác"})
     };
 
     return (
         <form onSubmit={formik.handleSubmit}>
+            {registerState && (
+                <div className={cx('d-flex')}>
+                    <div className={cx('div-email-container', {'pe-1': true})}>
+                        <div className={cx('div-description')}>First name</div>
+                        <div className={cx('div-input-container')}>
+                            <input 
+                                type="text" 
+                                placeholder="First name"
+                                name="first_name" 
+                                className={cx('input-container', {'invalid': formik.errors.first_name && formik.touched.first_name})} 
+                                value={formik.values.first_name}
+                                onChange={formik.handleChange}
+                            />
+                            <div className={cx('div-icon-container')}>
+                                {formik.errors.first_name && formik.touched.first_name && (
+                                    <ErrorIcon />
+                                )}
+                            </div>
+                        </div>
+                        {formik.errors.first_name && formik.touched.first_name && (
+                            <div className={cx('div-text-container', {'invalid': true})}>
+                                <span>{formik.errors.first_name}</span>
+                            </div>
+                        )}
+                    </div>
+                    <div className={cx('div-email-container', {'ps-1': true})}>
+                        <div className={cx('div-description')}>Last name</div>
+                        <div className={cx('div-input-container')}>
+                            <input 
+                                type="text" 
+                                placeholder="Last name"
+                                name="last_name" 
+                                className={cx('input-container', {'invalid': formik.errors.last_name && formik.touched.last_name})} 
+                                value={formik.values.last_name}
+                                onChange={formik.handleChange}
+                            />
+                            <div className={cx('div-icon-container')}>
+                                {formik.errors.last_name && formik.touched.last_name && (
+                                    <ErrorIcon />
+                                )}
+                            </div>
+                        </div>
+                        {formik.errors.last_name && formik.touched.last_name && (
+                            <div className={cx('div-text-container', {'invalid': true})}>
+                                <span>{formik.errors.last_name}</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
             <div className={cx('div-description')}>Email</div>
             <div className={cx('div-email-container')}>
                 <div className={cx('div-input-container')}>
@@ -85,6 +163,7 @@ function Signup({ registerState }) {
                     </div>
                 )}
             </div>
+            <div className={cx('div-description')}>Password</div>
             <div className={cx('div-container')}>
                 <div className={cx('div-input-container')}>
                     <input 
