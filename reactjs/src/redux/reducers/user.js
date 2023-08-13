@@ -10,6 +10,7 @@ const initState = {
     profile: {},
     alertMessage: '',
     userFriend: [],
+    notifications: []
 };
 
 export const userReducer = (state = initState, action) => {
@@ -68,6 +69,42 @@ export const userReducer = (state = initState, action) => {
             return {
                 ...state,
                 profile: {...state.profile, is_user_following: state.profile.is_user_following ? 0 : 1}
+            };
+        case types.SET_NOTIFICATIONS:
+            return {
+                ...state,
+                notifications: action.payload
+            };
+        case types.SET_NOTIFICATIONS_AFTER_UPDATE:
+            const new_notifications = state.notifications.map(notification => {
+                notification.checked = 1;
+                return notification;
+            })
+            return {
+                ...state,
+                notifications: new_notifications
+            };
+        case types.SET_NOTIFICATION:
+            const notification_filter = state.notifications.filter(notification => {
+                return notification.user_id !== action.payload.user_id || notification.recipient_id !== action.payload.recipient_id
+                    || notification.table_name !== action.payload.table_name;
+            })
+
+            return {
+                ...state,
+                notifications: [action.payload, ...notification_filter]
+            };
+        case types.SET_NOTIFICATIONS_FOLLOW:
+            const new_notifications_follow = state.notifications.map(notification => {
+                if (notification.user.id === action.payload) {
+                    notification.user.is_user_following = !notification.user.is_user_following;
+                }
+                return notification;
+            })
+
+            return {
+                ...state,
+                notifications: new_notifications_follow
             };
         default:
             return state;

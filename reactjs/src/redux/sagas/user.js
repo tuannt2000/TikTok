@@ -5,7 +5,9 @@ import {
     getInfoUser,
     getProfileUser,
     follow,
-    getListFriend
+    getListFriend,
+    getNotifications,
+    updateNotifications
 } from "~/services/userService";
 import { call, put, takeLatest } from "redux-saga/effects";
 import {
@@ -15,7 +17,9 @@ import {
     GET_INFO_USER,
     GET_PROFILE_USER,
     FOLLOW,
-    GET_USER_FRIEND
+    GET_USER_FRIEND,
+    GET_NOTIFICATIONS,
+    UPDATE_NOTIFICATIONS
 } from "../constants/user";
 import {
     setAllUser,
@@ -25,7 +29,10 @@ import {
     setProfileUser,
     setUserFollow,
     setUserFriend,
-    setProFile
+    setProFile,
+    setNotifications,
+    setNotificationsAfterUpdate,
+    setNotificationFollow
 } from "../actions/user";
 import { setMyVideoFollow, setVideoUserFollow } from "../actions/video";
 
@@ -88,6 +95,7 @@ function* sagaFollow(action) {
         yield put(setVideoUserFollow(action.payload.user_follower_id));
         yield put(setMyVideoFollow(action.payload.user_follower_id));
         yield put(setProFile(action.payload.user_follower_id));
+        yield put(setNotificationFollow(action.payload.user_follower_id));
         yield call(follow, action.payload);
     } catch (error) {
         console.log(error);
@@ -104,6 +112,27 @@ function* sagaUserFriend() {
     }
 }
 
+function* sagaNotifications() {
+    try {
+        const res = yield call(getNotifications);
+        const { data } = res;
+        yield put(setNotifications(data.data));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function* sagaUpdateNotifications() {
+    try {
+        const res = yield call(updateNotifications);
+        const { data } = res;
+        console.log(data.message);
+        yield put(setNotificationsAfterUpdate());
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function* followUser() {
     yield takeLatest(GET_ALL_USER, sagaAllUser);
     yield takeLatest(GET_USER_FOLLOWING, sagaUserFollowing);
@@ -112,6 +141,8 @@ function* followUser() {
     yield takeLatest(GET_PROFILE_USER, sagaProfileUser);
     yield takeLatest(FOLLOW, sagaFollow);
     yield takeLatest(GET_USER_FRIEND, sagaUserFriend);
+    yield takeLatest(GET_NOTIFICATIONS, sagaNotifications);
+    yield takeLatest(UPDATE_NOTIFICATIONS, sagaUpdateNotifications);
 }
 
 export default followUser;

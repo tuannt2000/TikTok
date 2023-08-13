@@ -76,3 +76,30 @@ export const setUserFriend = ( data ) => ({
     type: types.SET_USER_FRIEND,
     payload: data
 });
+
+export const getNotifications = () => ({
+    type: types.GET_NOTIFICATIONS
+});
+
+export const setNotifications = ( data ) => ({
+    type: types.SET_NOTIFICATIONS,
+    payload: data
+});
+
+export const updateNotifications = ( ) => ({
+    type: types.UPDATE_NOTIFICATIONS,
+});
+
+export const setNotificationsAfterUpdate = () => ({
+    type: types.SET_NOTIFICATIONS_AFTER_UPDATE,
+});
+
+export const setNotification = ( data ) => ({
+    type: types.SET_NOTIFICATION,
+    payload: data
+});
+
+export const setNotificationFollow = (data) => ({
+    type: types.SET_NOTIFICATIONS_FOLLOW,
+    payload: data
+});

@@ -69,3 +69,8 @@ export const formatTimeComment = (time) => {
     time = moment(time).format('YYYY-MM-DD')
     return moment(time, "YYYYMMDD").fromNow();
 }
+
+export const getNotificationNotRead = (notifications) => {
+    const result = notifications.filter((notification) => !notification.checked);
+    return result.length;
+}

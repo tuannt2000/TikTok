@@ -44,3 +44,13 @@ export const getListFriend = () => {
     const url ='users/friend';
     return api.get(url);
 };
+
+export const getNotifications = () => {
+    const url ='users/notifications';
+    return api.get(url);
+};
+
+export const updateNotifications = () => {
+    const url ='users/notifications/update';
+    return api.post(url);
+};
