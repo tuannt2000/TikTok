@@ -34,3 +34,13 @@ export const removeNotification = ( data ) => ({
     type: types.REMOVE_NOTIFICATION,
     payload: data
 });
+
+export const deleteMessage = ( data ) => ({
+    type: types.DELETE_MESSAGE,
+    payload: data
+});
+
+export const setMessagesAfterDelete = ( data ) => ({
+    type: types.SET_MESSAGES_AFTER_DELETE,
+    payload: data
+});

@@ -1,3 +1,4 @@
+import moment from 'moment/moment';
 import * as types from '../constants/room';
 
 const initState = {
@@ -22,6 +23,12 @@ export const roomReducer = (state = initState, action) => {
                 ...state,
                 listMessages: [action.payload, ...state.listMessages]
             };
+        case types.SET_MESSAGES_AFTER_DELETE:
+            const index_message = state.listMessages.findIndex(message => message.id === action.payload.id);
+            if (index_message !== -1) {
+                state.listMessages[index_message].deleted_at = moment().format('YYYY-MM-DD HH:mm:ss')
+            }
+            return state;
         default:
             return state;
     }

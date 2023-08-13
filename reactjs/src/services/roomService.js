@@ -27,3 +27,8 @@ export const removeNotification = async (data) => {
     const url = 'notification';
     return api.post(url, data);
 };
+
+export const deleteMessage = async (data) => {
+    const url = '/message/delete';
+    return api.post(url, data);
+};

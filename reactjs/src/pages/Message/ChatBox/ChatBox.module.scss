@@ -243,3 +243,12 @@
     overflow: hidden;
     white-space: nowrap;
 }
+
+.menu-item {
+    color: #fff;
+    cursor: pointer;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}

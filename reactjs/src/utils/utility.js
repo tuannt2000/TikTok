@@ -1,4 +1,5 @@
 import moment from 'moment/moment';
+import 'moment/locale/vi';
 import { DiscoverStyleTagIcon, DiscoverStyleMusicIcon } from '~/components/Icons';
 
 export const formatNumber = ($number) => {
@@ -66,8 +67,9 @@ export const formatFilename = (filename) => {
 
 export const formatTimeComment = (time) => {
     time = Date.parse(time)
-    time = moment(time).format('YYYY-MM-DD')
-    return moment(time, "YYYYMMDD").fromNow();
+    time = moment(time).format('YYYY-MM-DD HH:mm:ss');
+    moment.locale('vi');
+    return moment(time, "YYYY-MM-DD HH:mm:ss").fromNow();
 }
 
 export const getNotificationNotRead = (notifications) => {
