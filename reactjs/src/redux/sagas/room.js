@@ -1,8 +1,7 @@
-import { getListRooms, getListMessages, sendMessage, removeNotification, deleteMessage } from "~/services/roomService";
+import { getListRooms, getListMessages, sendMessage, deleteMessage } from "~/services/roomService";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { GET_ALL_ROOM, GET_ALL_MESSAGES, SEND_MESSAGE, REMOVE_NOTIFICATION, DELETE_MESSAGE } from "../constants/room";
+import { GET_ALL_ROOM, GET_ALL_MESSAGES, SEND_MESSAGE, DELETE_MESSAGE } from "../constants/room";
 import { setAllRooms, setAllMessages, setMessagesAfterDelete } from "../actions/room";
-import { filterNotification } from "../actions/notification";
 
 function* getAllRooms(action) {
     try {
@@ -32,15 +31,6 @@ function* postMessage(action) {
     }
 }
 
-function* sagaRemoveNotification(action) {
-    try {
-        yield call(removeNotification, action.payload);
-        yield put(filterNotification(action.payload));
-    } catch (e) {
-        console.log(e);
-    }
-}
-
 function* sagaDeleteMessage(action) {
     try {
         yield call(deleteMessage, action.payload);
@@ -54,7 +44,6 @@ function* followRoom() {
     yield takeLatest(GET_ALL_ROOM, getAllRooms);
     yield takeLatest(GET_ALL_MESSAGES, getAllMessages);
     yield takeLatest(SEND_MESSAGE, postMessage);
-    yield takeLatest(REMOVE_NOTIFICATION, sagaRemoveNotification);
     yield takeLatest(DELETE_MESSAGE, sagaDeleteMessage);
 }
 

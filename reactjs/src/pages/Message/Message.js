@@ -7,8 +7,9 @@ import Pusher from 'pusher-js';
 import ListConversation from './ListConversation';
 import ChatBox from './ChatBox';
 import { useDispatch } from "react-redux";
-import { getAllMessages, removeNotification, setAllMessages, setAllMessagesAfterSend } from '~/redux/actions/room';
+import { getAllMessages, setAllMessages, setAllMessagesAfterSend } from '~/redux/actions/room';
 import Echo from "laravel-echo";
+import { updateNotificationsMessage } from "~/redux/actions/user";
 
 const cx = classNames.bind(styles);
 
@@ -36,18 +37,20 @@ function Message() {
         echo
             .channel(`room.${idRoom}`)
             .listen('.message.new', (data) => {
+                dispatch(updateNotificationsMessage({id: room.notification_id}));
                 dispatch(setAllMessagesAfterSend(data));
             });
 
         return () => {
             echo.leave(`room.${idRoom}`)
         }
-    }, [dispatch, idRoom]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch, idRoom, room]);
 
     const handleClick = (currentRoom) => {
         if (!currentRoom.readed) {
             currentRoom.readed = 1;
-            dispatch(removeNotification({notification_id: currentRoom.notification_id}));
+            dispatch(updateNotificationsMessage({id: currentRoom.notification_id}));
         }
 
         const room_id = currentRoom.room_id;

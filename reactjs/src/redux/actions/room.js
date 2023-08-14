@@ -30,11 +30,6 @@ export const setAllMessagesAfterSend = ( data ) => ({
     payload: data
 });
 
-export const removeNotification = ( data ) => ({
-    type: types.REMOVE_NOTIFICATION,
-    payload: data
-});
-
 export const deleteMessage = ( data ) => ({
     type: types.DELETE_MESSAGE,
     payload: data

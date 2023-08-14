@@ -54,3 +54,13 @@ export const updateNotifications = () => {
     const url ='users/notifications/update';
     return api.post(url);
 };
+
+export const getNotificationsMessages = () => {
+    const url ='users/notifications/messages';
+    return api.get(url);
+};
+
+export const updateNotificationsMessage = (data) => {
+    const url ='users/notifications/messages/update';
+    return api.post(url, data);
+};

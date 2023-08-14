@@ -103,3 +103,27 @@ export const setNotificationFollow = (data) => ({
     type: types.SET_NOTIFICATIONS_FOLLOW,
     payload: data
 });
+
+export const getNotificationsMessages = () => ({
+    type: types.GET_NOTIFICATIONS_MESSAGES
+});
+
+export const setNotificationsMessages = ( data ) => ({
+    type: types.SET_NOTIFICATIONS_MESSAGES,
+    payload: data
+});
+
+export const updateNotificationsMessage = ( data ) => ({
+    type: types.UPDATE_NOTIFICATIONS_MESSAGE,
+    payload: data
+});
+
+export const setNotificationsMessageAfterUpdate = ( data ) => ({
+    type: types.SET_NOTIFICATIONS_MESSAGE_AFTER_UPDATE,
+    payload: data
+});
+
+export const setNotificationMessage = ( data ) => ({
+    type: types.SET_NOTIFICATION_MESSAGE,
+    payload: data
+});

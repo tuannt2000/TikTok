@@ -20,10 +20,9 @@ import {
     MESSAGE, INBOX
 } from '~/constants/Header';
 import { useSelector, useDispatch } from "react-redux";
-import { getNotifications, getProfileUser, setNotification, updateNotifications } from '~/redux/actions/user';
+import { getNotifications, getNotificationsMessages, getProfileUser, setNotification, setNotificationMessage, updateNotifications } from '~/redux/actions/user';
 import PropTypes from 'prop-types';
 import Echo from "laravel-echo";
-import { setCountNotification } from '~/redux/actions/notification';
 import { getNotificationNotRead } from '~/utils/utility';
 import { useState } from 'react';
 import { useRef } from 'react';
@@ -33,6 +32,7 @@ const cx = classNames.bind(styles);
 function Header({ max_width = false }) {
     const language = useSelector(state => state.language);
     const notifications = useSelector(state => state.user.notifications);
+    const notificationsMessages = useSelector(state => state.user.notificationsMessages);
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser);
     const [clickNotification, setClickNotification] = useState(false);
@@ -63,8 +63,16 @@ function Header({ max_width = false }) {
                 }
             });
 
+        echo
+            .channel(`notification_message.${currentUser.id}`)
+            .listen('.notification_message.new', (data) => {
+                if (Object.keys(data).length > 0) {
+                    dispatch(setNotificationMessage(data));
+                }
+            });
         return () => {
-            echo.leave(`notification.${currentUser.id}`)
+            echo.leave(`notification.${currentUser.id}`);
+            echo.leave(`notification_message.${currentUser.id}`);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUser.id]);
@@ -90,6 +98,7 @@ function Header({ max_width = false }) {
     useEffect(() => {
         if (Object.keys(currentUser).length) {
             dispatch(getNotifications());
+            dispatch(getNotificationsMessages());
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUser]);
@@ -130,7 +139,7 @@ function Header({ max_width = false }) {
                                     <button className={cx('action-btn')}>
                                         <Link to={config.routes.messages}>
                                             <MessageIcon />
-                                            {/* {notifications.length > 0 && <span className={cx('badge-message')}>{notifications.length}</span>} */}
+                                            {getNotificationNotRead(notificationsMessages) > 0 && <span className={cx('badge-message')}>{getNotificationNotRead(notificationsMessages)}</span>}
                                         </Link>
                                     </button>
                                 </Tippy>

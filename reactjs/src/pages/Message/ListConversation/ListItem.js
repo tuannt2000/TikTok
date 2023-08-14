@@ -13,6 +13,10 @@ function ListItem({ idRoom, room, handleClick }) {
     const [newRoom, setNewRoom] = useState(room);
 
     useEffect(() => {
+        setNewRoom(room);
+    }, [room])
+
+    useEffect(() => {
         const echo = new Echo({
             broadcaster: 'pusher',
             key: process.env.REACT_APP_MIX_ABLY_PUBLIC_KEY,
