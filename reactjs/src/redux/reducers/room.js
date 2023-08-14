@@ -29,6 +29,18 @@ export const roomReducer = (state = initState, action) => {
                 state.listMessages[index_message].deleted_at = moment().format('YYYY-MM-DD HH:mm:ss')
             }
             return state;
+        case types.UPDATE_ROOM:
+            const new_room = state.data.map(room => {
+                if (room.room_id ===  action.payload.id) {
+                    room.readed = 1;
+                }
+                return room;
+            });
+
+            return {
+                ...state,
+                data: new_room
+            };
         default:
             return state;
     }

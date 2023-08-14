@@ -39,3 +39,8 @@ export const setMessagesAfterDelete = ( data ) => ({
     type: types.SET_MESSAGES_AFTER_DELETE,
     payload: data
 });
+
+export const updateRoom = ( data ) => ({
+    type: types.UPDATE_ROOM,
+    payload: data
+});
