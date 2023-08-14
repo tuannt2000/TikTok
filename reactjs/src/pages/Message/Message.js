@@ -48,9 +48,9 @@ function Message() {
     }, [dispatch, idRoom, room]);
 
     const handleClick = (currentRoom) => {
+        dispatch(updateNotificationsMessage({id: currentRoom.notification_id}));
         if (!currentRoom.readed) {
             currentRoom.readed = 1;
-            dispatch(updateNotificationsMessage({id: currentRoom.notification_id}));
         }
 
         const room_id = currentRoom.room_id;
