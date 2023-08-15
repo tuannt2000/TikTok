@@ -56,7 +56,13 @@ export const videoReducer = (state = initState, action) => {
             const list_video_detail_new = state.list_video_detail.filter(video => video.id !== action.payload.id);
             let video_detail_new;
             if (list_video_detail_new.length > 0) {
-                video_detail_new = list_video_detail_new.length === 1 ? list_video_detail_new[0] : list_video_detail_new[current_index_video_detail];
+                if (list_video_detail_new.length === 1) {
+                    video_detail_new = list_video_detail_new[0];
+                } else if (list_video_detail_new.length === current_index_video_detail) {
+                    video_detail_new = list_video_detail_new[current_index_video_detail - 1];
+                } else {
+                    video_detail_new = list_video_detail_new[current_index_video_detail];
+                }
             } else {
                 video_detail_new = {};
             }
